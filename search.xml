@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>这是一个测试目录</title>
+      <link href="/2023/11/08/%E8%BF%99%E6%98%AF%E4%B8%80%E4%B8%AA%E6%B5%8B%E8%AF%95%E7%9B%AE%E5%BD%95/"/>
+      <url>/2023/11/08/%E8%BF%99%E6%98%AF%E4%B8%80%E4%B8%AA%E6%B5%8B%E8%AF%95%E7%9B%AE%E5%BD%95/</url>
+      
+        <content type="html"><![CDATA[<p><font color=#00b2c2 size=5 face=宋体><strong>这是一个测试配置是否成功的文件</strong></font></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Java </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Java </tag>
+            
+            <tag> 笔记 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>aiohttp.ClientSession() 使用 multipart/form-data 上传文件和字符集</title>
       <link href="/2023/10/25/aiohttp-ClientSession-%E4%BD%BF%E7%94%A8-multipart-form-data-%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6%E5%92%8C%E5%AD%97%E7%AC%A6%E9%9B%86/"/>
       <url>/2023/10/25/aiohttp-ClientSession-%E4%BD%BF%E7%94%A8-multipart-form-data-%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6%E5%92%8C%E5%AD%97%E7%AC%A6%E9%9B%86/</url>
@@ -6135,11 +6162,11 @@
     
     
     <entry>
-      <title>categories</title>
-      <link href="/categories/index.html"/>
-      <url>/categories/index.html</url>
+      <title>collect</title>
+      <link href="/collect/index.html"/>
+      <url>/collect/index.html</url>
       
-        <content type="html"><![CDATA[]]></content>
+        <content type="html"><![CDATA[<p><font color=#b0171f size=4 face=宋体><strong>Markdown 语法：</strong></font><font color=#00b2c2 size=4 face=宋体><strong><a href="https://keatonlao.gitee.io/a-study-note-for-markdown/syntax/">传送门</a></strong></font></p><p><font color=#b0171f size=4 face=宋体><strong>必备工具：</strong></font><font color=#00b2c2 size=4 face=宋体><strong><a href="https://blog.teadan.com/2023/07/11/%E5%BF%85%E5%A4%87%E5%B7%A5%E5%85%B7/">传送门</a></strong></font></p><p><font color=#b0171f size=4 face=宋体><strong>图片压缩：</strong></font><font color=#00b2c2 size=4 face=宋体><strong><a href="https://tinypng.com/">传送门</a></strong></font></p><p><font color=#b0171f size=4 face=宋体><strong>百度问题文字提取：</strong></font><font color=#00b2c2 size=4 face=宋体><strong><a href="http://www.html22.com/zh/">传送门</a></strong></font></p><p><font color=#b0171f size=4 face=宋体><strong>音频视频格式转换：</strong></font><font color=#00b2c2 size=4 face=宋体><strong><a href="https://app.xunjieshipin.com/audio-converter">传送门</a></strong></font></p><p><font color=#b0171f size=4 face=宋体><strong>PDF转换：</strong></font><font color=#00b2c2 size=4 face=宋体><strong><a href="https://app.xunjiepdf.com/pdf2txt/">传送门</a></strong></font></p><p><font color=#b0171f size=4 face=宋体><strong>PDF自建转换：</strong></font><font color=#00b2c2 size=4 face=宋体><strong><a href="http://tools.teadan.com/pdf">公共传送门</a></strong></font>、<font color=#00b2c2 size=4 face=宋体><strong><a href="http://192.168.200.200:8399/pdf">私有传送门</a></strong></font></p><p><font color=#b0171f size=4 face=宋体><strong>熊猫无损音乐：</strong></font><font color=#00b2c2 size=4 face=宋体><strong><a href="https://www.xmwav.com/">传送门</a></strong></font></p>]]></content>
       
     </entry>
     
@@ -6157,28 +6184,6 @@
     
     
     <entry>
-      <title>categories</title>
-      <link href="/categories/index-1.html"/>
-      <url>/categories/index-1.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>collect</title>
-      <link href="/collect/index.html"/>
-      <url>/collect/index.html</url>
-      
-        <content type="html"><![CDATA[<p><font color=#b0171f size=4 face=宋体><strong>Markdown 语法：</strong></font><font color=#00b2c2 size=4 face=宋体><strong><a href="https://keatonlao.gitee.io/a-study-note-for-markdown/syntax/">传送门</a></strong></font></p><p><font color=#b0171f size=4 face=宋体><strong>必备工具：</strong></font><font color=#00b2c2 size=4 face=宋体><strong><a href="https://blog.teadan.com/2023/07/11/%E5%BF%85%E5%A4%87%E5%B7%A5%E5%85%B7/">传送门</a></strong></font></p><p><font color=#b0171f size=4 face=宋体><strong>图片压缩：</strong></font><font color=#00b2c2 size=4 face=宋体><strong><a href="https://tinypng.com/">传送门</a></strong></font></p><p><font color=#b0171f size=4 face=宋体><strong>百度问题文字提取：</strong></font><font color=#00b2c2 size=4 face=宋体><strong><a href="http://www.html22.com/zh/">传送门</a></strong></font></p><p><font color=#b0171f size=4 face=宋体><strong>音频视频格式转换：</strong></font><font color=#00b2c2 size=4 face=宋体><strong><a href="https://app.xunjieshipin.com/audio-converter">传送门</a></strong></font></p><p><font color=#b0171f size=4 face=宋体><strong>PDF转换：</strong></font><font color=#00b2c2 size=4 face=宋体><strong><a href="https://app.xunjiepdf.com/pdf2txt/">传送门</a></strong></font></p><p><font color=#b0171f size=4 face=宋体><strong>PDF自建转换：</strong></font><font color=#00b2c2 size=4 face=宋体><strong><a href="http://tools.teadan.com/pdf">公共传送门</a></strong></font>、<font color=#00b2c2 size=4 face=宋体><strong><a href="http://192.168.200.200:8399/pdf">私有传送门</a></strong></font></p><p><font color=#b0171f size=4 face=宋体><strong>熊猫无损音乐：</strong></font><font color=#00b2c2 size=4 face=宋体><strong><a href="https://www.xmwav.com/">传送门</a></strong></font></p>]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>gallery</title>
       <link href="/gallery/index.html"/>
       <url>/gallery/index.html</url>
@@ -6190,9 +6195,31 @@
     
     
     <entry>
-      <title>tagcloud</title>
-      <link href="/tagcloud/index.html"/>
-      <url>/tagcloud/index.html</url>
+      <title>categories</title>
+      <link href="/categories/index-1.html"/>
+      <url>/categories/index-1.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>categories</title>
+      <link href="/categories/index.html"/>
+      <url>/categories/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>timeline</title>
+      <link href="/timeline/index.html"/>
+      <url>/timeline/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
@@ -6212,9 +6239,9 @@
     
     
     <entry>
-      <title>timeline</title>
-      <link href="/timeline/index.html"/>
-      <url>/timeline/index.html</url>
+      <title>tagcloud</title>
+      <link href="/tagcloud/index.html"/>
+      <url>/tagcloud/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
