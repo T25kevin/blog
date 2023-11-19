@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>使用Cloud Scraper捅穿Cloudflare的5秒盾</title>
+      <link href="/2023/11/19/%E4%BD%BF%E7%94%A8Cloud%20Scraper%E6%8D%85%E7%A9%BFCloudflare%E7%9A%845%E7%A7%92%E7%9B%BE/"/>
+      <url>/2023/11/19/%E4%BD%BF%E7%94%A8Cloud%20Scraper%E6%8D%85%E7%A9%BFCloudflare%E7%9A%845%E7%A7%92%E7%9B%BE/</url>
+      
+        <content type="html"><![CDATA[<h1 id="使用Cloud-Scraper捅穿Cloudflare的5秒盾"><a href="#使用Cloud-Scraper捅穿Cloudflare的5秒盾" class="headerlink" title="使用Cloud Scraper捅穿Cloudflare的5秒盾"></a><font color=#00b2c2 size=5 face=宋体><strong><a href="https://www.cnblogs.com/yoyo1216/p/17356845.html">使用Cloud Scraper捅穿Cloudflare的5秒盾</a></strong></font></h1><h3 id="1-免费版的五秒盾"><a href="#1-免费版的五秒盾" class="headerlink" title="1.免费版的五秒盾"></a><font color=#f26522 size=4 face=宋体><strong>1.免费版的五秒盾</strong></font></h3><p><font color=#b0171f size=2 face=宋体><strong>要绕过这个5秒盾非常简单，只需要使用一个第三方库，叫做<code>cloudscraper</code>。我们可以使用<code>pip</code>来安装：</strong></font></p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip3 install cloudscraper</span><br></pre></td></tr></table></figure><p><font color=#b0171f size=2 face=宋体><strong>安装完成以后，只需要使用3行代码就能绕过 Cloud Flare 的5秒盾：</strong></font></p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> cloudscraper</span><br><span class="line">scraper = cloudscraper.create_scraper()</span><br><span class="line">resp = scraper.get(<span class="string">&#x27;目标网站&#x27;</span>).text</span><br></pre></td></tr></table></figure><p><font color=#b0171f size=2 face=宋体><strong>我们还是以上面的网站为例：</strong></font></p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> cloudscraper</span><br><span class="line"><span class="keyword">from</span> lxml.html <span class="keyword">import</span> fromstring</span><br><span class="line"> </span><br><span class="line">scraper = cloudscraper.create_scraper()</span><br><span class="line">resp = scraper.get(<span class="string">&#x27;https://mv-voice.com/news/2021/05/04/mountain-view-whisman-students-sent-home-after-children-test-positive-for-covid-19&#x27;</span>).text</span><br><span class="line">selector = fromstring(resp)</span><br><span class="line">title = selector.xpath(<span class="string">&#x27;//h1/text()&#x27;</span>)[<span class="number">0</span>]</span><br><span class="line"><span class="built_in">print</span>(title)</span><br></pre></td></tr></table></figure><p><font color=red size=3 face=宋体><strong>运行效果如下图所示：</strong></font></p><p><img src="https://s2.loli.net/2023/11/19/lOm87puUTzvji6L.png" alt="img"></p><p><font color=red size=3 face=宋体><strong>破盾成功。</strong></font></p><p><font color=#b0171f size=2 face=宋体><strong>CloudScraper<code>[2]</code> 非常强大，它可以突破 Cloud Flare 免费版各个版本的五秒盾。而且它的接口和 requests 保持一致。原来用 requests 怎么写代码，现在只需要把<code>requests.xxx</code>改成<code>scraper.xxx</code>就可以了</strong></font></p><h3 id="2-付费版的CloudFlare五秒盾"><a href="#2-付费版的CloudFlare五秒盾" class="headerlink" title="2.付费版的CloudFlare五秒盾"></a><font color=#00b2c2 size=5 face=宋体><strong>2.付费版的CloudFlare五秒盾</strong></font></h3><p><font color=#f26522 size=4 face=宋体><strong>付费版的CloudFlare五秒盾，有没有什么办法绕过呢？其实方法非常简单。只需要使用Docker运行一个容器就可以了。启动命令为：</strong></font></p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">docker run -d \</span><br><span class="line">  --name=flaresolverr \</span><br><span class="line">  -p 8191:8191 \</span><br><span class="line">  -e LOG_LEVEL=info \</span><br><span class="line">  --restart unless-stopped \</span><br><span class="line">  ghcr.io/flaresolverr/flaresolverr:latest</span><br></pre></td></tr></table></figure><p><font color=#f26522 size=4 face=宋体><strong>这个容器启动以后，会开启8191端口。我们通过往这个端口发送http请求，让他转发请求给目标网站，就可以绕过五秒盾。</strong></font></p><p><font color=#b0171f size=2 face=宋体><strong>具体使用示例：</strong></font></p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"> </span><br><span class="line">url = <span class="string">&quot;http://localhost:8191/v1&quot;</span></span><br><span class="line"> </span><br><span class="line">payload = json.dumps(&#123;</span><br><span class="line">  <span class="string">&quot;cmd&quot;</span>: <span class="string">&quot;request.get&quot;</span>,</span><br><span class="line">  <span class="string">&quot;url&quot;</span>: <span class="string">&quot;https://www.coinbase.com/ventures/content&quot;</span>,</span><br><span class="line">  <span class="string">&quot;maxTimeout&quot;</span>: <span class="number">60000</span></span><br><span class="line">&#125;)</span><br><span class="line">headers = &#123;</span><br><span class="line">  <span class="string">&#x27;Content-Type&#x27;</span>: <span class="string">&#x27;application/json&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">response = requests.post(url, headers=headers, data=payload)</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 这个Docker镜像启动的接口，返回的数据是JOSN，网页源代码在其中的.solution.response中</span></span><br><span class="line"><span class="built_in">print</span>(response.json()[<span class="string">&#x27;solution&#x27;</span>][<span class="string">&#x27;response&#x27;</span>])</span><br></pre></td></tr></table></figure><p><font color=red size=3 face=宋体><strong>我们启动的这个容器，为什么可以绕过CloudFlare的五秒盾呢，关键原因就在这个项目中：FlareSolverr[2]。大家可以阅读他的源代码，看看他是怎么绕过的。</strong></font></p><p>[1] Codebase: <em><a href="https://www.coinbase.com/ventures/content">https://www.coinbase.com/ventures/content</a></em></p><p>[2] FlareSolverr: <em><a href="https://github.com/FlareSolverr/FlareSolverr">https://github.com/FlareSolverr/FlareSolverr</a></em></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 逆向_反爬 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 逆向 </tag>
+            
+            <tag> Cloudflare </tag>
+            
+            <tag> 记录 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>这是一个测试目录</title>
       <link href="/2023/11/08/%E8%BF%99%E6%98%AF%E4%B8%80%E4%B8%AA%E6%B5%8B%E8%AF%95%E7%9B%AE%E5%BD%95/"/>
       <url>/2023/11/08/%E8%BF%99%E6%98%AF%E4%B8%80%E4%B8%AA%E6%B5%8B%E8%AF%95%E7%9B%AE%E5%BD%95/</url>
@@ -1102,6 +1131,8 @@
             
             <tag> 逆向 </tag>
             
+            <tag> Cloudflare </tag>
+            
             <tag> 记录 </tag>
             
         </tags>
@@ -1196,9 +1227,9 @@
       
         <tags>
             
-            <tag> 数据库 </tag>
-            
             <tag> 工具 </tag>
+            
+            <tag> 数据库 </tag>
             
             <tag> navicat </tag>
             
@@ -6162,17 +6193,6 @@
     
     
     <entry>
-      <title>collect</title>
-      <link href="/collect/index.html"/>
-      <url>/collect/index.html</url>
-      
-        <content type="html"><![CDATA[<p><font color=#b0171f size=4 face=宋体><strong>Markdown 语法：</strong></font><font color=#00b2c2 size=4 face=宋体><strong><a href="https://keatonlao.gitee.io/a-study-note-for-markdown/syntax/">传送门</a></strong></font></p><p><font color=#b0171f size=4 face=宋体><strong>必备工具：</strong></font><font color=#00b2c2 size=4 face=宋体><strong><a href="https://blog.teadan.com/2023/07/11/%E5%BF%85%E5%A4%87%E5%B7%A5%E5%85%B7/">传送门</a></strong></font></p><p><font color=#b0171f size=4 face=宋体><strong>图片压缩：</strong></font><font color=#00b2c2 size=4 face=宋体><strong><a href="https://tinypng.com/">传送门</a></strong></font></p><p><font color=#b0171f size=4 face=宋体><strong>百度问题文字提取：</strong></font><font color=#00b2c2 size=4 face=宋体><strong><a href="http://www.html22.com/zh/">传送门</a></strong></font></p><p><font color=#b0171f size=4 face=宋体><strong>音频视频格式转换：</strong></font><font color=#00b2c2 size=4 face=宋体><strong><a href="https://app.xunjieshipin.com/audio-converter">传送门</a></strong></font></p><p><font color=#b0171f size=4 face=宋体><strong>PDF转换：</strong></font><font color=#00b2c2 size=4 face=宋体><strong><a href="https://app.xunjiepdf.com/pdf2txt/">传送门</a></strong></font></p><p><font color=#b0171f size=4 face=宋体><strong>PDF自建转换：</strong></font><font color=#00b2c2 size=4 face=宋体><strong><a href="http://tools.teadan.com/pdf">公共传送门</a></strong></font>、<font color=#00b2c2 size=4 face=宋体><strong><a href="http://192.168.200.200:8399/pdf">私有传送门</a></strong></font></p><p><font color=#b0171f size=4 face=宋体><strong>熊猫无损音乐：</strong></font><font color=#00b2c2 size=4 face=宋体><strong><a href="https://www.xmwav.com/">传送门</a></strong></font></p>]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>about</title>
       <link href="/about/index.html"/>
       <url>/about/index.html</url>
@@ -6184,11 +6204,44 @@
     
     
     <entry>
+      <title>collect</title>
+      <link href="/collect/index.html"/>
+      <url>/collect/index.html</url>
+      
+        <content type="html"><![CDATA[<p><font color=#b0171f size=4 face=宋体><strong>Markdown 语法：</strong></font><font color=#00b2c2 size=4 face=宋体><strong><a href="https://keatonlao.gitee.io/a-study-note-for-markdown/syntax/">传送门</a></strong></font></p><p><font color=#b0171f size=4 face=宋体><strong>必备工具：</strong></font><font color=#00b2c2 size=4 face=宋体><strong><a href="https://blog.teadan.com/2023/07/11/%E5%BF%85%E5%A4%87%E5%B7%A5%E5%85%B7/">传送门</a></strong></font></p><p><font color=#b0171f size=4 face=宋体><strong>图片压缩：</strong></font><font color=#00b2c2 size=4 face=宋体><strong><a href="https://tinypng.com/">传送门</a></strong></font></p><p><font color=#b0171f size=4 face=宋体><strong>百度问题文字提取：</strong></font><font color=#00b2c2 size=4 face=宋体><strong><a href="http://www.html22.com/zh/">传送门</a></strong></font></p><p><font color=#b0171f size=4 face=宋体><strong>音频视频格式转换：</strong></font><font color=#00b2c2 size=4 face=宋体><strong><a href="https://app.xunjieshipin.com/audio-converter">传送门</a></strong></font></p><p><font color=#b0171f size=4 face=宋体><strong>PDF转换：</strong></font><font color=#00b2c2 size=4 face=宋体><strong><a href="https://app.xunjiepdf.com/pdf2txt/">传送门</a></strong></font></p><p><font color=#b0171f size=4 face=宋体><strong>PDF自建转换：</strong></font><font color=#00b2c2 size=4 face=宋体><strong><a href="http://tools.teadan.com/pdf">公共传送门</a></strong></font>、<font color=#00b2c2 size=4 face=宋体><strong><a href="http://192.168.200.200:8399/pdf">私有传送门</a></strong></font></p><p><font color=#b0171f size=4 face=宋体><strong>熊猫无损音乐：</strong></font><font color=#00b2c2 size=4 face=宋体><strong><a href="https://www.xmwav.com/">传送门</a></strong></font></p>]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>gallery</title>
       <link href="/gallery/index.html"/>
       <url>/gallery/index.html</url>
       
         <content type="html"><![CDATA[<ul><li><p>消愁 - 毛不易</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m804.music.126.net/20230715030040/3058f9a32c1a7c2ab4893a0c10bded60/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/28481677347/474c/85c2/535b/b2f2e46a8854595f90c56bf9a5db2ce2.mp3"></audio></p></li><li><p>像我这样的人 - 毛不易</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m804.music.126.net/20230715030000/c3bd7ebc6b90df3b09570c7047c5ac57/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/28481670328/e30c/18ad/2d86/5b9d878b11940b81e5efcdd1f5771d79.mp3?_authSecret=0000018955af504b086e0aaba3bf1b9a"></audio></p></li><li><p>不染 - 毛不易</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m8.music.126.net/20230715030021/9b8fb29ff25dd716673887bc6a85d183/ymusic/y7RHah68jgZBoxjkl7ieBw==/509951162915395763"></audio></p></li><li><p>Take My Hand - Simple Plan</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://other-web-ra01-sycdn.kuwo.cn/7d16061069e12b3c9e7f27f477d66b0d/64b19743/resource/n3/320/93/52/2280351848.mp3?from$unkown&plat$wapi"></audio></p></li><li><p>It’s My Life - Bon Jovi</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m10.music.126.net/20230715031049/9b363379164ade7cef7b779f50147f6c/ymusic/obj/w5zDlMODwrDDiGjCn8Ky/3066286606/07fe/758c/6f26/5fdcc90d2122f5eb933c39419e656119.mp3"></audio></p></li><li><p>挚爱 - 陈勋奇</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://other-web-ri01-sycdn.kuwo.cn/a47b6dffd701eeb7463410c9d519bf25/64b19842/resource/n2/60/27/3030200018.mp3"></audio></p></li></ul>]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>tagcloud</title>
+      <link href="/tagcloud/index.html"/>
+      <url>/tagcloud/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>tags</title>
+      <link href="/tags/index.html"/>
+      <url>/tags/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
       
     </entry>
     
@@ -6220,28 +6273,6 @@
       <title>timeline</title>
       <link href="/timeline/index.html"/>
       <url>/timeline/index.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>tags</title>
-      <link href="/tags/index.html"/>
-      <url>/tags/index.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>tagcloud</title>
-      <link href="/tagcloud/index.html"/>
-      <url>/tagcloud/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
