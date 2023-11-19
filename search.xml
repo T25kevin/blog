@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>centos7安装python3.11完整教程</title>
+      <link href="/2023/11/19/centos7%E5%AE%89%E8%A3%85python3-11%E5%AE%8C%E6%95%B4%E6%95%99%E7%A8%8B/"/>
+      <url>/2023/11/19/centos7%E5%AE%89%E8%A3%85python3-11%E5%AE%8C%E6%95%B4%E6%95%99%E7%A8%8B/</url>
+      
+        <content type="html"><![CDATA[<h1 id="centos7安装python3-11完整教程："><a href="#centos7安装python3-11完整教程：" class="headerlink" title="centos7安装python3.11完整教程："></a><font color=#00b2c2 size=5 face=宋体><strong><a href="https://zskcloud.xyz/1809.html">centos7安装python3.11完整教程：</a></strong></font></h1><h2 id="安装环境："><a href="#安装环境：" class="headerlink" title="安装环境："></a><font color=#f26522 size=4 face=宋体><strong>安装环境：</strong></font></h2><ul><li><font color=#b0171f size=2 face=宋体><strong>Linux系统：centos7</strong></font></li><li><font color=#b0171f size=2 face=宋体><strong>python版本：3.11</strong></font></li></ul><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">cd /root</span><br><span class="line"><span class="comment">#只是将python3.11的安装包下载到 /root目录下</span></span><br><span class="line">wget https://www.python.org/ftp/python/<span class="number">3.11</span><span class="number">.0</span>/Python-<span class="number">3.11</span><span class="number">.0</span>.tgz</span><br><span class="line"><span class="comment">#下载最新的软件安装包</span></span><br><span class="line">tar -xzf Python-<span class="number">3.11</span><span class="number">.0</span>.tgz</span><br><span class="line"><span class="comment">#解压缩安装包</span></span><br><span class="line">yum -y install gcc zlib zlib-devel libffi libffi-devel</span><br><span class="line"><span class="comment">#安装源码编译需要的编译环境</span></span><br><span class="line">yum install readline-devel</span><br><span class="line"><span class="comment">#可以解决后期出现的方向键、删除键乱码问题，这里提前避免。</span></span><br><span class="line">yum install openssl-devel openssl11 openssl11-devel</span><br><span class="line"><span class="comment">#安装openssl11，后期的pip3安装网络相关模块需要用到ssl模块。</span></span><br><span class="line">export CFLAGS=$(pkg-config --cflags openssl11)</span><br><span class="line">export LDFLAGS=$(pkg-config --libs openssl11)</span><br><span class="line"><span class="comment">#设置编译FLAG，以便使用最新的openssl库</span></span><br><span class="line">cd /root/Python-<span class="number">3.11</span><span class="number">.0</span></span><br><span class="line"><span class="comment">#进入刚解压缩的目录</span></span><br><span class="line">./configure --prefix=/usr/python --<span class="keyword">with</span>-ssl</span><br><span class="line"><span class="comment">#指定python3的安装目录为 /usr/python 并使用ssl模块，指定目录好处是</span></span><br><span class="line"><span class="comment">#后期删除此文件夹就可以完全删除软件了。</span></span><br><span class="line">make</span><br><span class="line">make install</span><br><span class="line"><span class="comment">#就是源码编译并安装了，时间会持续几分钟。</span></span><br><span class="line">ln -s /usr/python/<span class="built_in">bin</span>/python3 /usr/<span class="built_in">bin</span>/python3</span><br><span class="line">ln -s /usr/python/<span class="built_in">bin</span>/pip3 /usr/<span class="built_in">bin</span>/pip3</span><br><span class="line"><span class="comment">#指定链接，此后我们系统的任何地方输入python3就是我们安装的</span></span><br><span class="line"><span class="comment">#这个最新版python3了</span></span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> python </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> python </tag>
+            
+            <tag> linux </tag>
+            
+            <tag> 安装 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>python+undetected_chromedriver+chrome绕过五秒盾（cloudflare）</title>
       <link href="/2023/11/19/python-undetected-chromedriver-chrome%E7%BB%95%E8%BF%87%E4%BA%94%E7%A7%92%E7%9B%BE%EF%BC%88cloudflare%EF%BC%89/"/>
       <url>/2023/11/19/python-undetected-chromedriver-chrome%E7%BB%95%E8%BF%87%E4%BA%94%E7%A7%92%E7%9B%BE%EF%BC%88cloudflare%EF%BC%89/</url>
@@ -1395,9 +1424,9 @@
       
         <tags>
             
-            <tag> django </tag>
-            
             <tag> python </tag>
+            
+            <tag> django </tag>
             
         </tags>
       
@@ -2969,9 +2998,9 @@
       
         <tags>
             
-            <tag> django </tag>
-            
             <tag> python </tag>
+            
+            <tag> django </tag>
             
         </tags>
       
@@ -3025,9 +3054,9 @@
             
             <tag> 错误 </tag>
             
-            <tag> django </tag>
-            
             <tag> python </tag>
+            
+            <tag> django </tag>
             
         </tags>
       
@@ -3052,9 +3081,9 @@
       
         <tags>
             
-            <tag> django </tag>
-            
             <tag> python </tag>
+            
+            <tag> django </tag>
             
         </tags>
       
@@ -3079,9 +3108,9 @@
       
         <tags>
             
-            <tag> django </tag>
-            
             <tag> python </tag>
+            
+            <tag> django </tag>
             
             <tag> mongodb </tag>
             
@@ -4467,9 +4496,9 @@
       
         <tags>
             
-            <tag> django </tag>
-            
             <tag> python </tag>
+            
+            <tag> django </tag>
             
         </tags>
       
@@ -4521,11 +4550,11 @@
       
         <tags>
             
-            <tag> django </tag>
-            
             <tag> python </tag>
             
             <tag> 模板 </tag>
+            
+            <tag> django </tag>
             
         </tags>
       
@@ -5579,9 +5608,9 @@
       
         <tags>
             
-            <tag> django </tag>
-            
             <tag> python </tag>
+            
+            <tag> django </tag>
             
             <tag> 数据库 </tag>
             
@@ -5639,9 +5668,9 @@
             
             <tag> 错误 </tag>
             
-            <tag> django </tag>
-            
             <tag> python </tag>
+            
+            <tag> django </tag>
             
         </tags>
       
@@ -6019,9 +6048,9 @@
             
             <tag> python </tag>
             
-            <tag> selenium </tag>
-            
             <tag> cloudflare 5秒盾 </tag>
+            
+            <tag> selenium </tag>
             
         </tags>
       
@@ -6222,28 +6251,6 @@
     
     
     <entry>
-      <title>about</title>
-      <link href="/about/index.html"/>
-      <url>/about/index.html</url>
-      
-        <content type="html"><![CDATA[<p><font color=#00b2c2 size=6 face=宋体><strong><strong>站点说明:</strong></strong></font></p><p><font color=#f26522 size=4 face=宋体><strong><strong>1、本站属于个人记录网站，不支持交流</strong></strong></font></p><p><font color=#f26522 size=4 face=宋体><strong><strong>2、转载请指明来源，谢谢！</strong></strong></font></p><p><font color=#f26522 size=4 face=宋体><strong><strong>3、本站模板采用自 &#x3D;&gt; <a href="https://www.niemingzhao.top/">聂明照的博客</a>  Github地址 &#x3D;&gt; <a href="https://github.com/niemingzhao/niemingzhao.github.io/tree/theme">点击进入</a></strong></strong></font></p><p><font color=#f26522 size=4 face=宋体><strong><strong>4、关于搜索配置的问题</strong></strong></font></p><ul><li><font color=#b0171f size=3 face=宋体><strong>除了安装插件以外，还需要配置路径，根据原作者的设置，这里有个坑</strong></font></li><li><font color=#b0171f size=3 face=宋体><strong>坑：use  不是  false、true     而是 false  和plugin 这两个选项，  其中 false &#x3D;&gt; 关闭搜索， plugin &#x3D;&gt; 开启选项</strong></font></li><li><font color=#b0171f size=3 face=宋体><strong>安装插件 &#x3D;&gt; npm install hexo-generator-search –save</strong></font></li></ul><p><img src="https://s2.loli.net/2023/03/20/7PLrKys2ubemoM5.png" alt="image-20230320034837859"></p>]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>gallery</title>
-      <link href="/gallery/index.html"/>
-      <url>/gallery/index.html</url>
-      
-        <content type="html"><![CDATA[<ul><li><p>消愁 - 毛不易</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m804.music.126.net/20230715030040/3058f9a32c1a7c2ab4893a0c10bded60/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/28481677347/474c/85c2/535b/b2f2e46a8854595f90c56bf9a5db2ce2.mp3"></audio></p></li><li><p>像我这样的人 - 毛不易</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m804.music.126.net/20230715030000/c3bd7ebc6b90df3b09570c7047c5ac57/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/28481670328/e30c/18ad/2d86/5b9d878b11940b81e5efcdd1f5771d79.mp3?_authSecret=0000018955af504b086e0aaba3bf1b9a"></audio></p></li><li><p>不染 - 毛不易</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m8.music.126.net/20230715030021/9b8fb29ff25dd716673887bc6a85d183/ymusic/y7RHah68jgZBoxjkl7ieBw==/509951162915395763"></audio></p></li><li><p>Take My Hand - Simple Plan</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://other-web-ra01-sycdn.kuwo.cn/7d16061069e12b3c9e7f27f477d66b0d/64b19743/resource/n3/320/93/52/2280351848.mp3?from$unkown&plat$wapi"></audio></p></li><li><p>It’s My Life - Bon Jovi</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m10.music.126.net/20230715031049/9b363379164ade7cef7b779f50147f6c/ymusic/obj/w5zDlMODwrDDiGjCn8Ky/3066286606/07fe/758c/6f26/5fdcc90d2122f5eb933c39419e656119.mp3"></audio></p></li><li><p>挚爱 - 陈勋奇</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://other-web-ri01-sycdn.kuwo.cn/a47b6dffd701eeb7463410c9d519bf25/64b19842/resource/n2/60/27/3030200018.mp3"></audio></p></li></ul>]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>collect</title>
       <link href="/collect/index.html"/>
       <url>/collect/index.html</url>
@@ -6255,20 +6262,9 @@
     
     
     <entry>
-      <title>tags</title>
-      <link href="/tags/index.html"/>
-      <url>/tags/index.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>tagcloud</title>
-      <link href="/tagcloud/index.html"/>
-      <url>/tagcloud/index.html</url>
+      <title>categories</title>
+      <link href="/categories/index.html"/>
+      <url>/categories/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
@@ -6288,9 +6284,42 @@
     
     
     <entry>
-      <title>categories</title>
-      <link href="/categories/index.html"/>
-      <url>/categories/index.html</url>
+      <title>tagcloud</title>
+      <link href="/tagcloud/index.html"/>
+      <url>/tagcloud/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>gallery</title>
+      <link href="/gallery/index.html"/>
+      <url>/gallery/index.html</url>
+      
+        <content type="html"><![CDATA[<ul><li><p>消愁 - 毛不易</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m804.music.126.net/20230715030040/3058f9a32c1a7c2ab4893a0c10bded60/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/28481677347/474c/85c2/535b/b2f2e46a8854595f90c56bf9a5db2ce2.mp3"></audio></p></li><li><p>像我这样的人 - 毛不易</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m804.music.126.net/20230715030000/c3bd7ebc6b90df3b09570c7047c5ac57/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/28481670328/e30c/18ad/2d86/5b9d878b11940b81e5efcdd1f5771d79.mp3?_authSecret=0000018955af504b086e0aaba3bf1b9a"></audio></p></li><li><p>不染 - 毛不易</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m8.music.126.net/20230715030021/9b8fb29ff25dd716673887bc6a85d183/ymusic/y7RHah68jgZBoxjkl7ieBw==/509951162915395763"></audio></p></li><li><p>Take My Hand - Simple Plan</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://other-web-ra01-sycdn.kuwo.cn/7d16061069e12b3c9e7f27f477d66b0d/64b19743/resource/n3/320/93/52/2280351848.mp3?from$unkown&plat$wapi"></audio></p></li><li><p>It’s My Life - Bon Jovi</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m10.music.126.net/20230715031049/9b363379164ade7cef7b779f50147f6c/ymusic/obj/w5zDlMODwrDDiGjCn8Ky/3066286606/07fe/758c/6f26/5fdcc90d2122f5eb933c39419e656119.mp3"></audio></p></li><li><p>挚爱 - 陈勋奇</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://other-web-ri01-sycdn.kuwo.cn/a47b6dffd701eeb7463410c9d519bf25/64b19842/resource/n2/60/27/3030200018.mp3"></audio></p></li></ul>]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>about</title>
+      <link href="/about/index.html"/>
+      <url>/about/index.html</url>
+      
+        <content type="html"><![CDATA[<p><font color=#00b2c2 size=6 face=宋体><strong><strong>站点说明:</strong></strong></font></p><p><font color=#f26522 size=4 face=宋体><strong><strong>1、本站属于个人记录网站，不支持交流</strong></strong></font></p><p><font color=#f26522 size=4 face=宋体><strong><strong>2、转载请指明来源，谢谢！</strong></strong></font></p><p><font color=#f26522 size=4 face=宋体><strong><strong>3、本站模板采用自 &#x3D;&gt; <a href="https://www.niemingzhao.top/">聂明照的博客</a>  Github地址 &#x3D;&gt; <a href="https://github.com/niemingzhao/niemingzhao.github.io/tree/theme">点击进入</a></strong></strong></font></p><p><font color=#f26522 size=4 face=宋体><strong><strong>4、关于搜索配置的问题</strong></strong></font></p><ul><li><font color=#b0171f size=3 face=宋体><strong>除了安装插件以外，还需要配置路径，根据原作者的设置，这里有个坑</strong></font></li><li><font color=#b0171f size=3 face=宋体><strong>坑：use  不是  false、true     而是 false  和plugin 这两个选项，  其中 false &#x3D;&gt; 关闭搜索， plugin &#x3D;&gt; 开启选项</strong></font></li><li><font color=#b0171f size=3 face=宋体><strong>安装插件 &#x3D;&gt; npm install hexo-generator-search –save</strong></font></li></ul><p><img src="https://s2.loli.net/2023/03/20/7PLrKys2ubemoM5.png" alt="image-20230320034837859"></p>]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>tags</title>
+      <link href="/tags/index.html"/>
+      <url>/tags/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
