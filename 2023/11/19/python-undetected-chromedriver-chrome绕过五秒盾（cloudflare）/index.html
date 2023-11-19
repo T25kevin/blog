@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+  <meta name="renderer" content="webkit">
+
+  
+  <title>python+undetected_chromedriver+chrome绕过五秒盾（cloudflare） | 蛋君日记 Kanoc</title>
+
+  <link rel="shortcut icon" href="/images/favicon.png">
+  <link rel="alternate" href="/atom.xml" title="蛋君日记 Kanoc" type="application/atom+xml">
+  <meta name="description" content="python+undetected_chromedriver+chrome绕过五秒盾（cloudflare）：本文转载自：csdn &gt;&gt;&gt; python+undetected_chromedriver+chrome绕过五秒盾（cloudflare）_莫霄霆的博客-CSDN博客 公司是做外贸的，所以需要爬取一些外国网站的商品竞品数据，但是在爬取某个网站的时候，遇到了五秒盾的阻拦。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python+undetected_chromedriver+chrome绕过五秒盾（cloudflare）">
+<meta property="og:url" content="https://kanoc.gitee.io/2023/11/19/python-undetected-chromedriver-chrome%E7%BB%95%E8%BF%87%E4%BA%94%E7%A7%92%E7%9B%BE%EF%BC%88cloudflare%EF%BC%89/index.html">
+<meta property="og:site_name" content="蛋君日记 Kanoc">
+<meta property="og:description" content="python+undetected_chromedriver+chrome绕过五秒盾（cloudflare）：本文转载自：csdn &gt;&gt;&gt; python+undetected_chromedriver+chrome绕过五秒盾（cloudflare）_莫霄霆的博客-CSDN博客 公司是做外贸的，所以需要爬取一些外国网站的商品竞品数据，但是在爬取某个网站的时候，遇到了五秒盾的阻拦。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2023/11/19/hFnToNrCXadyquv.png">
+<meta property="og:image" content="https://s2.loli.net/2023/11/19/uipWBbZYjPmglKT.jpg">
+<meta property="og:image" content="https://s2.loli.net/2023/11/19/67RanV8Obt1JYLh.png">
+<meta property="og:image" content="https://s2.loli.net/2023/11/19/xM32SFdt1EqWsaC.png">
+<meta property="og:image" content="https://s2.loli.net/2023/11/19/say1iZwpYtuOjAc.jpg">
+<meta property="og:image" content="https://s2.loli.net/2023/11/19/PeQHzmj1qnywocJ.jpg">
+<meta property="og:image" content="https://s2.loli.net/2023/11/19/N37yuqblKOST28P.png">
+<meta property="og:image" content="https://s2.loli.net/2023/11/19/jRYoQ7wzGd2XPDO.jpg">
+<meta property="article:published_time" content="2023-11-19T05:03:28.000Z">
+<meta property="article:modified_time" content="2023-11-19T05:21:34.149Z">
+<meta property="article:author" content="Kanoc Ge">
+<meta property="article:tag" content="逆向">
+<meta property="article:tag" content="Cloudflare">
+<meta property="article:tag" content="记录">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2023/11/19/hFnToNrCXadyquv.png">
+
+  <meta name="keywords" content=",逆向,Cloudflare,记录">
+  <meta name="format-detection" content="telephone=no,email=no">
+  <meta name="theme-color" content="#9C27B0">
+
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="蛋君日记 Kanoc">
+  <meta name="msapplication-starturl" content="https://kanoc.gitee.io/2023/11/19/python-undetected-chromedriver-chrome%E7%BB%95%E8%BF%87%E4%BA%94%E7%A7%92%E7%9B%BE%EF%BC%88cloudflare%EF%BC%89/">
+  <meta name="msapplication-navbutton-color" content="#9C27B0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="蛋君日记 Kanoc">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <link rel="apple-touch-icon" href="/images/favicon.png">
+
+  
+    <link rel="canonical" href="https://kanoc.gitee.io/2023/11/19/python-undetected-chromedriver-chrome%E7%BB%95%E8%BF%87%E4%BA%94%E7%A7%92%E7%9B%BE%EF%BC%88cloudflare%EF%BC%89/">
+  
+
+  
+  
+
+  
+  
+  
+
+  
+<link rel="stylesheet" href="/css/mdui.css">
+<link rel="stylesheet" href="/css/style.css">
+
+  
+<link rel="stylesheet" href="/custom.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="mdui-appbar-with-toolbar mdui-theme-primary-indigo mdui-theme-accent-pink">
+  <script>var a=localStorage.getItem("mdui-theme-layout-dark");if(a){document.getElementsByTagName("body")[0].className+=" mdui-theme-layout-dark"};</script>
+  <script>if(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches){document.getElementsByTagName("body")[0].className+=" mdui-theme-layout-dark"};</script>
+  <script>var a=localStorage.getItem("mdui-drawer-close");if(!a){document.getElementsByTagName("body")[0].className+=" mdui-drawer-body-left"};</script>
+  <header id="header" class="mdui-appbar mdui-appbar-fixed mdui-appbar-scroll-hide mdui-appbar-inset">
+  <div class="mdui-toolbar mdui-color-theme">
+    <a href="javascript:;" class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="mdui-icon material-icons">menu</i></a>
+    <a href="/" class="mdui-typo-headline">蛋君日记 Kanoc</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <a href="javascript:;" class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: '搜索'}"><i class="mdui-icon material-icons">search</i></a>
+    <a href="/atom.xml" class="mdui-btn mdui-btn-icon" mdui-tooltip="{content: 'RSS'}"><i class="mdui-icon material-icons">rss_feed</i></a>
+  </div>
+</header>
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer mdui-drawer-full-height">
+  <script>var a=localStorage.getItem("mdui-drawer-close");if(a){document.getElementById("sidebar").className+=" mdui-drawer-close"};</script>
+  <div class="mdui-grid-tile">
+    <img src="/images/banner.png" style="height: 160px;">
+    <img src="/images/avatar.png" class="avatar-animation" style="position: absolute; top: 10%; left: 24px; width: 64px; height: 64px; border: 2px solid #fff; border-radius: 50%;">
+    <div class="mdui-grid-tile-actions">
+      <div class="mdui-grid-tile-text">
+        <div class="mdui-grid-tile-title">Kanoc Ge</div>
+        <div class="mdui-grid-tile-subtitle"><i class="mdui-icon material-icons">art_track</i></div>
+      </div>
+      
+    </div>
+  </div>
+
+  <div class="mdui-list" mdui-collapse="{accordion: true}">
+    <a href="/" class="mdui-list-item mdui-ripple">
+      <i class="mdui-list-item-icon mdui-icon material-icons mdui-text-color-blue">home</i>
+      <div class="mdui-list-item-content">主页</div>
+    </a>
+    <div class="mdui-collapse-item">
+      <script>var a=localStorage.getItem("mdui-collapse-item-0");if(a){document.getElementsByClassName("mdui-collapse-item")[0].className+=" mdui-collapse-item-open"};</script>
+      <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+        <i class="mdui-list-item-icon mdui-icon material-icons mdui-text-color-deep-orange">archive</i>
+        <div class="mdui-list-item-content">归档</div>
+        <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
+      </div>
+      <div class="mdui-collapse-item-body mdui-list mdui-list-dense">
+        
+        <a class="mdui-ripple sidebar_archives-link" href="/archives/2023/11/">十一月 2023<span class="mdui-ripple sidebar_archives-count">3</span></a><a class="mdui-ripple sidebar_archives-link" href="/archives/2023/10/">十月 2023<span class="mdui-ripple sidebar_archives-count">9</span></a><a class="mdui-ripple sidebar_archives-link" href="/archives/2023/09/">九月 2023<span class="mdui-ripple sidebar_archives-count">10</span></a><a class="mdui-ripple sidebar_archives-link" href="/archives/2023/08/">八月 2023<span class="mdui-ripple sidebar_archives-count">10</span></a><a class="mdui-ripple sidebar_archives-link" href="/archives/2023/07/">七月 2023<span class="mdui-ripple sidebar_archives-count">23</span></a><a class="mdui-ripple sidebar_archives-link" href="/archives/2023/06/">六月 2023<span class="mdui-ripple sidebar_archives-count">9</span></a><a class="mdui-ripple sidebar_archives-link" href="/archives/2023/05/">五月 2023<span class="mdui-ripple sidebar_archives-count">100</span></a><a class="mdui-ripple sidebar_archives-link" href="/archives/2023/03/">三月 2023<span class="mdui-ripple sidebar_archives-count">65</span></a>
+        
+      </div>
+    </div>
+    <div class="mdui-collapse-item">
+      <script>var a=localStorage.getItem("mdui-collapse-item-1");if(a){document.getElementsByClassName("mdui-collapse-item")[1].className+=" mdui-collapse-item-open"};</script>
+      <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+        <i class="mdui-list-item-icon mdui-icon material-icons mdui-text-color-green">class</i>
+        <div class="mdui-list-item-content">分类</div>
+        <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
+      </div>
+      <div class="mdui-collapse-item-body mdui-list mdui-list-dense">
+        
+        <a class="mdui-ripple sidebar_archives-link" href="/categories/Java/">Java<span class="mdui-ripple sidebar_archives-count">6</span></a><a class="mdui-ripple sidebar_archives-link" href="/categories/c%E8%AF%AD%E8%A8%80/">c语言<span class="mdui-ripple sidebar_archives-count">2</span></a><a class="mdui-ripple sidebar_archives-link" href="/categories/django/">django<span class="mdui-ripple sidebar_archives-count">10</span></a><a class="mdui-ripple sidebar_archives-link" href="/categories/git/">git<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/categories/go/">go<span class="mdui-ripple sidebar_archives-count">12</span></a><a class="mdui-ripple sidebar_archives-link" href="/categories/linux/">linux<span class="mdui-ripple sidebar_archives-count">29</span></a><a class="mdui-ripple sidebar_archives-link" href="/categories/nodejs/">nodejs<span class="mdui-ripple sidebar_archives-count">3</span></a><a class="mdui-ripple sidebar_archives-link" href="/categories/python/">python<span class="mdui-ripple sidebar_archives-count">29</span></a><a class="mdui-ripple sidebar_archives-link" href="/categories/python-PyQt5/">python_PyQt5<span class="mdui-ripple sidebar_archives-count">8</span></a><a class="mdui-ripple sidebar_archives-link" href="/categories/python-flask/">python_flask<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/categories/python-%E5%BC%82%E6%AD%A5/">python_异步<span class="mdui-ripple sidebar_archives-count">7</span></a><a class="mdui-ripple sidebar_archives-link" href="/categories/python-%E5%BC%82%E6%AD%A5-%E6%95%B0%E6%8D%AE%E5%BA%93/">python_异步-数据库<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/categories/scrapy/">scrapy<span class="mdui-ripple sidebar_archives-count">2</span></a><a class="mdui-ripple sidebar_archives-link" href="/categories/%E5%85%8D%E8%B4%B9%E9%A1%B9%E7%9B%AE/">免费项目<span class="mdui-ripple sidebar_archives-count">4</span></a><a class="mdui-ripple sidebar_archives-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端<span class="mdui-ripple sidebar_archives-count">21</span></a><a class="mdui-ripple sidebar_archives-link" href="/categories/%E5%8D%9A%E5%AE%A2/">博客<span class="mdui-ripple sidebar_archives-count">5</span></a><a class="mdui-ripple sidebar_archives-link" href="/categories/%E5%AE%89%E5%8D%93%E5%BC%80%E5%8F%91/">安卓开发<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/categories/%E5%B7%A5%E5%85%B7/">工具<span class="mdui-ripple sidebar_archives-count">23</span></a><a class="mdui-ripple sidebar_archives-link" href="/categories/%E6%8A%98%E8%85%BE/">折腾<span class="mdui-ripple sidebar_archives-count">3</span></a><a class="mdui-ripple sidebar_archives-link" href="/categories/%E6%8E%A5%E5%8D%95%E9%A1%B9%E7%9B%AE/">接单项目<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库<span class="mdui-ripple sidebar_archives-count">20</span></a><a class="mdui-ripple sidebar_archives-link" href="/categories/%E7%BC%96%E7%A0%81%E3%80%81%E8%A7%A3%E7%A0%81/">编码、解码<span class="mdui-ripple sidebar_archives-count">3</span></a><a class="mdui-ripple sidebar_archives-link" href="/categories/%E8%A7%86%E9%A2%91%E7%BC%96%E8%BE%91/">视频编辑<span class="mdui-ripple sidebar_archives-count">19</span></a><a class="mdui-ripple sidebar_archives-link" href="/categories/%E8%BF%90%E7%BB%B4/">运维<span class="mdui-ripple sidebar_archives-count">2</span></a><a class="mdui-ripple sidebar_archives-link" href="/categories/%E9%80%86%E5%90%91-APP/">逆向_APP<span class="mdui-ripple sidebar_archives-count">4</span></a><a class="mdui-ripple sidebar_archives-link" href="/categories/%E9%80%86%E5%90%91-%E5%8F%8D%E7%88%AC/">逆向_反爬<span class="mdui-ripple sidebar_archives-count">6</span></a><a class="mdui-ripple sidebar_archives-link" href="/categories/%E9%95%9C%E5%83%8F/">镜像<span class="mdui-ripple sidebar_archives-count">3</span></a>
+        
+      </div>
+    </div>
+    <div class="mdui-collapse-item">
+      <script>var a=localStorage.getItem("mdui-collapse-item-2");if(a){document.getElementsByClassName("mdui-collapse-item")[2].className+=" mdui-collapse-item-open"};</script>
+      <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+        <i class="mdui-list-item-icon mdui-icon material-icons mdui-text-color-brown">bookmark</i>
+        <div class="mdui-list-item-content">标签</div>
+        <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
+      </div>
+      <div class="mdui-collapse-item-body mdui-list mdui-list-dense">
+        
+        <a class="mdui-ripple sidebar_archives-link" href="/tags/BBR%E5%8A%A0%E9%80%9F/" rel="tag">BBR加速<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/Cloudflare/" rel="tag">Cloudflare<span class="mdui-ripple sidebar_archives-count">5</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/DIY/" rel="tag">DIY<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/GitHub/" rel="tag">GitHub<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/Github%E5%8A%A0%E9%80%9F/" rel="tag">Github加速<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/Hexo/" rel="tag">Hexo<span class="mdui-ripple sidebar_archives-count">2</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/Hook/" rel="tag">Hook<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/IDEA/" rel="tag">IDEA<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/JAVA/" rel="tag">JAVA<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/Java/" rel="tag">Java<span class="mdui-ripple sidebar_archives-count">6</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/Mac/" rel="tag">Mac<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/Mako/" rel="tag">Mako<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/Markdown/" rel="tag">Markdown<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/PDF/" rel="tag">PDF<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/PyQt5/" rel="tag">PyQt5<span class="mdui-ripple sidebar_archives-count">8</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/Pycharm/" rel="tag">Pycharm<span class="mdui-ripple sidebar_archives-count">2</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/adb/" rel="tag">adb<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/base64/" rel="tag">base64<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/blog/" rel="tag">blog<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/centos/" rel="tag">centos<span class="mdui-ripple sidebar_archives-count">2</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/centos7/" rel="tag">centos7<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/chrome-os/" rel="tag">chrome-os<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/cloudflare-5%E7%A7%92%E7%9B%BE/" rel="tag">cloudflare 5秒盾<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/css/" rel="tag">css<span class="mdui-ripple sidebar_archives-count">3</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/c%E8%AF%AD%E8%A8%80/" rel="tag">c语言<span class="mdui-ripple sidebar_archives-count">2</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/django/" rel="tag">django<span class="mdui-ripple sidebar_archives-count">9</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/ffmpeg/" rel="tag">ffmpeg<span class="mdui-ripple sidebar_archives-count">19</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/flask/" rel="tag">flask<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/ftp/" rel="tag">ftp<span class="mdui-ripple sidebar_archives-count">3</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/git/" rel="tag">git<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/go/" rel="tag">go<span class="mdui-ripple sidebar_archives-count">11</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/go%E9%80%86%E5%90%91/" rel="tag">go逆向<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/hexo/" rel="tag">hexo<span class="mdui-ripple sidebar_archives-count">3</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/html/" rel="tag">html<span class="mdui-ripple sidebar_archives-count">6</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/javascript/" rel="tag">javascript<span class="mdui-ripple sidebar_archives-count">17</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/jinja2/" rel="tag">jinja2<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/kali/" rel="tag">kali<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/linux/" rel="tag">linux<span class="mdui-ripple sidebar_archives-count">22</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/m3u8/" rel="tag">m3u8<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/mongodb/" rel="tag">mongodb<span class="mdui-ripple sidebar_archives-count">12</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/mysql/" rel="tag">mysql<span class="mdui-ripple sidebar_archives-count">7</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/navicat/" rel="tag">navicat<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/nginx/" rel="tag">nginx<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/nodejs/" rel="tag">nodejs<span class="mdui-ripple sidebar_archives-count">2</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/nodejs%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/" rel="tag">nodejs安装教程<span class="mdui-ripple sidebar_archives-count">2</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/opencv/" rel="tag">opencv<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/pycharm/" rel="tag">pycharm<span class="mdui-ripple sidebar_archives-count">2</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/python/" rel="tag">python<span class="mdui-ripple sidebar_archives-count">57</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/python3/" rel="tag">python3<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/requests/" rel="tag">requests<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/scrapy/" rel="tag">scrapy<span class="mdui-ripple sidebar_archives-count">2</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/selenium/" rel="tag">selenium<span class="mdui-ripple sidebar_archives-count">3</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/sqlite3/" rel="tag">sqlite3<span class="mdui-ripple sidebar_archives-count">2</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/tls-ja3/" rel="tag">tls/ja3<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/ubuntu/" rel="tag">ubuntu<span class="mdui-ripple sidebar_archives-count">2</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/unicode/" rel="tag">unicode<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/windos11/" rel="tag">windos11<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3/" rel="tag">中文文档<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E4%BA%91/" rel="tag">云<span class="mdui-ripple sidebar_archives-count">4</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E4%BB%A3%E7%90%86/" rel="tag">代理<span class="mdui-ripple sidebar_archives-count">5</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E5%85%8D%E8%B4%B9%E9%A1%B9%E7%9B%AE/" rel="tag">免费项目<span class="mdui-ripple sidebar_archives-count">4</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E5%85%B1%E4%BA%AB/" rel="tag">共享<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/" rel="tag">内网穿透<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E5%88%87%E7%89%87/" rel="tag">切片<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E5%8E%8B%E7%BC%A9/" rel="tag">压缩<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E5%91%BD%E4%BB%A4/" rel="tag">命令<span class="mdui-ripple sidebar_archives-count">10</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E5%91%BD%E4%BB%A4%E8%A1%8C/" rel="tag">命令行<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E5%9B%BE%E5%BA%8A/" rel="tag">图床<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E5%9B%BE%E7%89%87/" rel="tag">图片<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E5%9B%BE%E7%89%87%E8%BD%AC%E7%A0%81/" rel="tag">图片转码<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E5%9F%BA%E7%A1%80/" rel="tag">基础<span class="mdui-ripple sidebar_archives-count">23</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E5%A4%9A%E5%B1%82m3u8/" rel="tag">多层m3u8<span class="mdui-ripple sidebar_archives-count">2</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E5%A4%9A%E7%89%88%E6%9C%AC%E5%85%B1%E5%AD%98/" rel="tag">多版本共存<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E5%A5%87%E6%B7%AB%E6%8A%80%E5%B7%A7/" rel="tag">奇淫技巧<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/" rel="tag">字符串<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E5%AE%89%E5%8D%93/" rel="tag">安卓<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E5%AE%89%E8%A3%85/" rel="tag">安装<span class="mdui-ripple sidebar_archives-count">2</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E5%AE%9D%E5%A1%94/" rel="tag">宝塔<span class="mdui-ripple sidebar_archives-count">2</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E5%B7%A5%E5%85%B7/" rel="tag">工具<span class="mdui-ripple sidebar_archives-count">5</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E5%BA%93/" rel="tag">库<span class="mdui-ripple sidebar_archives-count">3</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/" rel="tag">开发环境<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E5%BC%82%E6%AD%A5%E3%80%81%E5%8D%8F%E7%A8%8B/" rel="tag">异步、协程<span class="mdui-ripple sidebar_archives-count">6</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E5%BF%85%E5%A4%87%E5%B7%A5%E5%85%B7/" rel="tag">必备工具<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E6%8B%BC%E6%8E%A5%E8%A7%86%E9%A2%91/" rel="tag">拼接视频<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E6%8C%82%E8%BD%BD/" rel="tag">挂载<span class="mdui-ripple sidebar_archives-count">4</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E6%8E%A5%E5%8D%95%E9%A1%B9%E7%9B%AE/" rel="tag">接单项目<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E6%95%99%E7%A8%8B/" rel="tag">教程<span class="mdui-ripple sidebar_archives-count">4</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库<span class="mdui-ripple sidebar_archives-count">22</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E6%96%87%E6%A1%A3/" rel="tag">文档<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E6%97%B6%E9%97%B4/" rel="tag">时间<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E6%A2%AF%E5%AD%90/" rel="tag">梯子<span class="mdui-ripple sidebar_archives-count">3</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E6%A8%A1%E6%9D%BF/" rel="tag">模板<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E6%AD%A3%E5%88%99/" rel="tag">正则<span class="mdui-ripple sidebar_archives-count">2</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E6%B0%B4%E5%8D%B0/" rel="tag">水印<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E6%B5%8B%E8%AF%95/" rel="tag">测试<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" rel="tag">浏览器<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E6%BA%90%E7%A0%81/" rel="tag">源码<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E7%88%AC%E8%99%AB/" rel="tag">爬虫<span class="mdui-ripple sidebar_archives-count">2</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" rel="tag">环境搭建<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E7%A0%B4%E8%A7%A3/" rel="tag">破解<span class="mdui-ripple sidebar_archives-count">8</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E7%A4%BC%E7%89%A9/" rel="tag">礼物<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag">笔记<span class="mdui-ripple sidebar_archives-count">4</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E7%B3%BB%E7%BB%9F/" rel="tag">系统<span class="mdui-ripple sidebar_archives-count">27</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E7%BC%96%E7%A0%81%E3%80%81%E8%A7%A3%E7%A0%81/" rel="tag">编码、解码<span class="mdui-ripple sidebar_archives-count">2</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E7%BC%96%E8%AF%91/" rel="tag">编译<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E7%BC%96%E8%AF%91%E5%99%A8/" rel="tag">编译器<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/" rel="tag">虚拟机<span class="mdui-ripple sidebar_archives-count">3</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E8%AE%B0%E5%BD%95/" rel="tag">记录<span class="mdui-ripple sidebar_archives-count">6</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E8%B7%A8%E5%9F%9F/" rel="tag">跨域<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E8%B7%B3%E8%BD%AC/" rel="tag">跳转<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E8%BD%AC%E6%8D%A2/" rel="tag">转换<span class="mdui-ripple sidebar_archives-count">2</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E8%BD%AC%E7%A0%81/" rel="tag">转码<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E8%BD%AF%E4%BB%B6/" rel="tag">软件<span class="mdui-ripple sidebar_archives-count">5</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E8%BF%90%E7%BB%B4/" rel="tag">运维<span class="mdui-ripple sidebar_archives-count">21</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E9%80%86%E5%90%91/" rel="tag">逆向<span class="mdui-ripple sidebar_archives-count">10</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E9%85%8D%E7%BD%AE/" rel="tag">配置<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E9%94%99%E8%AF%AF/" rel="tag">错误<span class="mdui-ripple sidebar_archives-count">19</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E9%95%9C%E5%83%8F/" rel="tag">镜像<span class="mdui-ripple sidebar_archives-count">3</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E9%98%B2%E7%81%AB%E5%A2%99/" rel="tag">防火墙<span class="mdui-ripple sidebar_archives-count">1</span></a>
+        
+      </div>
+    </div>
+    <a href="/about" class="mdui-list-item mdui-ripple">
+      <i class="mdui-list-item-icon mdui-icon material-icons mdui-text-color-purple">person</i>
+      <div class="mdui-list-item-content">关于</div>
+    </a>
+  </div>
+
+  <div class="mdui-divider"></div>
+
+  <div class="mdui-list" mdui-collapse="{accordion: true}">
+    
+      <a href="/timeline" class="mdui-list-item mdui-ripple">时间轴</a>
+    
+      <a href="/tagcloud" class="mdui-list-item mdui-ripple">标签云</a>
+    
+      <a href="/collect" class="mdui-list-item mdui-ripple">收藏</a>
+    
+      <a href="/gallery" class="mdui-list-item mdui-ripple">音乐表</a>
+    
+    <div class="mdui-collapse-item">
+      <script>var a=localStorage.getItem("mdui-collapse-item-3");if(a){document.getElementsByClassName("mdui-collapse-item")[3].className+=" mdui-collapse-item-open"};</script>
+      <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+        <div class="mdui-list-item-content">友情链接</div>
+        <i class="mdui-list-item-icon mdui-icon material-icons">link</i>
+      </div>
+      <div class="mdui-collapse-item-body mdui-list mdui-list-dense">
+        
+        
+          <a href="javascript:;" class="mdui-list-item mdui-p-l-2 mdui-text-color-theme mdui-ripple" style="justify-content: center;">链接为空</a>
+        
+      </div>
+    </div>
+  </div>
+</aside>
+
+  <main id="main" class="mdui-m-t-5 fadeIn animated">
+  
+<link rel="stylesheet" href="//cdn.bootcdn.net/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  <style>#main article .mdui-card-content .center-block{display:block!important;margin-right:auto!important;margin-left:auto!important}</style>
+  <style>#main article .mdui-card-content .text-center{text-align:center!important}</style>
+  <article class="mdui-card mdui-m-b-5">
+    <header class="mdui-card-media">
+      <img src="/images/random/material-18.png" style="max-height: 240px;">
+      <div class="mdui-card-media-covered">
+        <div class="mdui-card-primary">
+          <div class="mdui-card-primary-title">python+undetected_chromedriver+chrome绕过五秒盾（cloudflare）</div>
+          <div class="mdui-card-primary-subtitle"><i class="iconfont">&#xe697;</i> 2023-11-19 / <i class="iconfont">&#xe601;</i> Kanoc Ge</div>
+        </div>
+      </div>
+      <div class="mdui-card-menu">
+        
+        
+          <button class="mdui-btn mdui-btn-icon mdui-text-color-white" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="mdui-icon material-icons">share</i></button>
+          <ul class="mdui-menu" id="share_menu">
+            <li class="mdui-menu-item">
+              <a href="https://service.weibo.com/share/share.php?appkey=&title=python+undetected_chromedriver+chrome绕过五秒盾（cloudflare）&url=https://kanoc.gitee.io/2023/11/19/python-undetected-chromedriver-chrome%E7%BB%95%E8%BF%87%E4%BA%94%E7%A7%92%E7%9B%BE%EF%BC%88cloudflare%EF%BC%89/&pic=https://kanoc.gitee.io/images/favicon.png&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+            </li>
+            <li class="mdui-menu-item">
+              <a href="https://twitter.com/intent/tweet?text=python+undetected_chromedriver+chrome绕过五秒盾（cloudflare）&url=https://kanoc.gitee.io/2023/11/19/python-undetected-chromedriver-chrome%E7%BB%95%E8%BF%87%E4%BA%94%E7%A7%92%E7%9B%BE%EF%BC%88cloudflare%EF%BC%89/&via=Kanoc Ge" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+            </li>
+            <li class="mdui-menu-item">
+              <a href="https://www.facebook.com/sharer/sharer.php?u=https://kanoc.gitee.io/2023/11/19/python-undetected-chromedriver-chrome%E7%BB%95%E8%BF%87%E4%BA%94%E7%A7%92%E7%9B%BE%EF%BC%88cloudflare%EF%BC%89/" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+            </li>
+            <li class="mdui-menu-item">
+              <a href="https://plus.google.com/share?url=https://kanoc.gitee.io/2023/11/19/python-undetected-chromedriver-chrome%E7%BB%95%E8%BF%87%E4%BA%94%E7%A7%92%E7%9B%BE%EF%BC%88cloudflare%EF%BC%89/" target="_blank" class="mdui-ripple">分享到 Google+</a>
+            </li>
+            <li class="mdui-menu-item">
+              <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://kanoc.gitee.io/2023/11/19/python-undetected-chromedriver-chrome%E7%BB%95%E8%BF%87%E4%BA%94%E7%A7%92%E7%9B%BE%EF%BC%88cloudflare%EF%BC%89/&title=python+undetected_chromedriver+chrome绕过五秒盾（cloudflare）" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+            </li>
+            <li class="mdui-menu-item">
+              <a href="https://connect.qq.com/widget/shareqq/index.html?site=蛋君日记 Kanoc&title=python+undetected_chromedriver+chrome绕过五秒盾（cloudflare）&pics=https://kanoc.gitee.io/images/favicon.png&url=https://kanoc.gitee.io/2023/11/19/python-undetected-chromedriver-chrome%E7%BB%95%E8%BF%87%E4%BA%94%E7%A7%92%E7%9B%BE%EF%BC%88cloudflare%EF%BC%89/" target="_blank" class="mdui-ripple">分享到 QQ</a>
+            </li>
+            <li class="mdui-menu-item">
+              <a href="https://telegram.me/share/url?url=https://kanoc.gitee.io/2023/11/19/python-undetected-chromedriver-chrome%E7%BB%95%E8%BF%87%E4%BA%94%E7%A7%92%E7%9B%BE%EF%BC%88cloudflare%EF%BC%89/&text=python+undetected_chromedriver+chrome绕过五秒盾（cloudflare）" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+            </li>
+          </ul>
+        
+      </div>
+    </header>
+    <div class="mdui-card-content mdui-typo">
+      <h1 id="python-undetected-chromedriver-chrome绕过五秒盾（cloudflare）："><a href="#python-undetected-chromedriver-chrome绕过五秒盾（cloudflare）：" class="headerlink" title="python+undetected_chromedriver+chrome绕过五秒盾（cloudflare）："></a><font color=#00b2c2 size=5 face=宋体><strong>python+undetected_chromedriver+chrome绕过五秒盾（cloudflare）：</strong></font></h1><p>本文转载自：csdn &gt;&gt;&gt; <a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_60570576/article/details/121429251">python+undetected_chromedriver+chrome绕过五秒盾（cloudflare）_莫霄霆的博客-CSDN博客</a></p>
+<p><font color=#b0171f size=2 face=宋体><strong>公司是做外贸的，所以需要爬取一些外国网站的商品竞品数据，但是在爬取某个网站的时候，遇到了五秒盾的阻拦。</strong></font></p>
+<p><font color=#b0171f size=2 face=宋体><strong>说实话，一开始自己并不了解五秒盾，毕竟在之前爬国内网站的时候，并没有遇到过这种防护措施，但是在爬取这个外国邮件网站的时候，返回的文本中，总是有如下的信息：</strong></font></p>
+<p><img src="https://s2.loli.net/2023/11/19/hFnToNrCXadyquv.png" alt="img"></p>
+<p><font color=#b0171f size=2 face=宋体><strong>一直让 “Just a moment…”，一开始自己以为是加载缓慢，但是每次都有，这就不得不引起警觉。</strong></font> </p>
+<p><font color=#b0171f size=3 face=宋体><strong>在<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=vscode&spm=1001.2101.3001.7020">vscode</a>中显示了一下html代码，并在浏览器上看了一下界面，发现是这样的</strong></font></p>
+<p><img src="https://s2.loli.net/2023/11/19/uipWBbZYjPmglKT.jpg" alt="img"></p>
+<p><font color=red size=3 face=宋体><strong>这个.   “DDoS protection by Cloudflare” 是个啥子鬼？</strong></font> </p>
+<p><font color=#b0171f size=2 face=宋体><strong>但是看到DDoS protection by这种字样，感觉应该是防止DDoS攻击的，但是这个“Cloudflare”又是个啥？</strong></font></p>
+<p><font color=#b0171f size=2 face=宋体><strong>在网上查询了一下，原来是所谓“五秒盾”的东东，而且网上有针对这小盾盾现成的python模块，也就是cloudscraper模块，使用requests和scrapy都可以.</strong></font></p>
+<p><font color=#b0171f size=3 face=宋体><strong>网上针对requests使用cloudscraper的比较多，但是本人使用scrapy，所以参考AroayCloudScraper(<a target="_blank" rel="noopener" href="https://githubmemory.com/repo/hwpchn/AroayCloudScraper)%E6%A8%A1%E5%9D%97%E9%87%8D%E6%96%B0%E4%BF%AE%E6%94%B9%E4%BA%86%E4%B8%80%E4%B8%8B,%E8%BF%9B%E8%A1%8C%E7%88%AC%E5%8F%96%E7%9A%84%E6%97%B6%E5%80%99%EF%BC%8C%E6%AF%AB%E4%B8%8D%E8%B4%B9%E5%8A%9B%E7%9A%84%E5%B0%B1%E9%A5%B6%E8%BF%87%E4%BA%86%E5%AF%B9%E6%96%B9%E8%AE%BE%E7%BD%AE%E4%BA%94%E7%A7%92%E7%9B%BE%E7%9A%84%E7%BD%91%E7%AB%99%EF%BC%8C%E7%AE%80%E7%9B%B4%E4%B8%8D%E8%A6%81%E5%A4%AA%E8%BF%87%E5%AE%8C%E7%BE%8E%EF%BC%81">https://githubmemory.com/repo/hwpchn/AroayCloudScraper)模块重新修改了一下,进行爬取的时候，毫不费力的就饶过了对方设置五秒盾的网站，简直不要太过完美！</a></strong></font></p>
+<p><font color=#b0171f size=2 face=宋体><strong>事情原本到这步已经告一段落,毕竟其他的事情就是用scrapy的xpath获取数据就可以了，但是……..</strong></font></p>
+<p><font color=#b0171f size=2 face=宋体><strong>两周后，当领导要求再次爬取得这个网站的时候，我发现，原来的代码竟然不管用了！</strong></font></p>
+<p><font color=#b0171f size=2 face=宋体><font color=#f26522 size=4 face=宋体><strong>原因是代码返回了这个错误：</strong></font></font></p>
+<p><img src="https://s2.loli.net/2023/11/19/67RanV8Obt1JYLh.png" alt="img"></p>
+<p><font color=#b0171f size=2 face=宋体><strong>what? 要钱了？！</strong></font></p>
+<p><font color=#b0171f size=2 face=宋体><strong>本着能白嫖绝不付费的原则，我找了一下该模块的git，但是上面显示并没有付费内容，而且提示了貌似一年才更新一次…..</strong></font></p>
+<p><font color=#b0171f size=2 face=宋体><strong>但是这个模块还能否继续使用呢？我决定在google先查为妙，查询结果中，有一个是在scrapy中设置:     ‘COOKIES_ENABLED’: True, 即可使用，但是我试了一下，并没有神马卵用……</strong></font></p>
+<p><font color=#b0171f size=2 face=宋体><strong>事到如今，看来这种方法应该是行不通了，还有其他办法，当然有！</strong></font></p>
+<p><font color=#b0171f size=2 face=宋体><strong>首先想到的就是用selenium+chrome模拟浏览器去将数据采集下来，这种方法虽然有些繁琐，且一直为高级爬虫工程师所不齿，但是我大中华某位伟人曾经说过：“不管黑猫白猫，只要抓住耗子的就是好cat”。</strong></font></p>
+<p><font color=#b0171f size=2 face=宋体><strong>说干就干！</strong></font></p>
+<p><font color=#b0171f size=2 face=宋体><strong>立马在电脑上开始安装selenium,chromedriver,至于chrome，因为公司配的都是苹果电脑（不要问为啥，就是这么豪横！），但是我的是M1芯片的，所以要使用ARM架构的chrome。</strong></font></p>
+<p><font color=#b0171f size=2 face=宋体><strong>安装步骤，以及对应版本的chromedriver就不展示了，总之万事皆备，只欠代码了！</strong></font></p>
+<p><font color=#b0171f size=2 face=宋体><font color=#f26522 size=4 face=宋体><strong>忙不迭的将原来写过测试某宝的代码贴上测试一波，其中覆盖window.navitor.webdirver的值都已经妥妥的安排明白了，但是，竟然不行！</strong></font></font></p>
+<p><img src="https://s2.loli.net/2023/11/19/xM32SFdt1EqWsaC.png" alt="img"></p>
+<p><font color=#b0171f size=2 face=宋体><strong>打开的浏览器界面，依然停留在五秒盾，我与对面的数据依旧还有一盾之隔！</strong></font></p>
+<p><font color=#b0171f size=2 face=宋体><strong>怎么办？！怎么办？！领导限定的日期已经到了，再不出数据，就要被用键盘打死了😭 😭 😭</strong></font></p>
+<p><font color=#b0171f size=2 face=宋体><strong>但是越是到这个时候，越不能慌张，毕竟写bug咱在行，找解决方法尤甚啊！</strong></font></p>
+<p><font color=#b0171f size=2 face=宋体><strong>于是乎，我开启了疯狂搜索模式，功夫不负有心人，众里寻她千百度，方法就在隔壁拐角处！</strong></font></p>
+<p><font color=#b0171f size=2 face=宋体><strong>我找到了一个webdirver的驱动模块，但是并不是selenium，而是undetected_chromedriver (<a target="_blank" rel="noopener" href="https://github.com/ultrafunkamsterdam/undetected-chromedriver">GitHub - ultrafunkamsterdam&#x2F;undetected-chromedriver: Custom Selenium Chromedriver | Zero-Config | Passes ALL bot mitigation systems (like Distil &#x2F; Imperva&#x2F; Datadadome &#x2F; CloudFlare IUAM)</a>)</strong></font></p>
+<p><font color=#b0171f size=2 face=宋体><strong>这个模块可以完美的模拟chrome浏览器，并且不用设置js默认值，也就是无需自己再添加瞒天过海的设置，只要简单的几行代码就可以。</strong></font></p>
+<p><img src="https://s2.loli.net/2023/11/19/say1iZwpYtuOjAc.jpg" alt="img"></p>
+<p><font color=#b0171f size=2 face=宋体><strong>测试了一下，报错，说是我chrome的版本不匹配，而且undetected_chromedriver只支持chrome96及以上的版本！但是我的mac下载的就是最新的ARM架构的chrome，最多就是95。</strong></font></p>
+<p><font color=#f26522 size=4 face=宋体><strong>为山九仞，可不能功亏一篑，我急忙查看该模块的git说明，幸好，有解释：</strong></font></p>
+<p><img src="https://s2.loli.net/2023/11/19/PeQHzmj1qnywocJ.jpg" alt="img"></p>
+<p><font color=#b0171f size=2 face=宋体><strong>也就是说该模块支持自定义chrome版本！</strong></font></p>
+<p><font color=#b0171f size=2 face=宋体><strong>可以可以，这个结果很让我满意，忙不迭的测试一波，原本的数据页面在等待了五秒验证之后，真的出现了！果然很好很强大！</strong></font></p>
+<p><img src="https://s2.loli.net/2023/11/19/N37yuqblKOST28P.png" alt="img"></p>
+<p><font color=#f26522 size=4 face=宋体><strong> 但是在之前代码中，我使用递归函数的方式，但是需要每翻一页就要打开安装一次chrome，本着提(能)高(懒)效(即)率(懒)的方式，修改了下代码，换成了循环遍历的方式：</strong></font></p>
+<p><img src="https://s2.loli.net/2023/11/19/jRYoQ7wzGd2XPDO.jpg" alt="img"></p>
+<p><font color=#b0171f size=2 face=宋体><strong>好了，本次使用python+undetected_chromedriver+chrome绕过五秒盾的方法分享就到这，下次再见！😜 😜 😜</strong></font></p>
+
+      
+      <blockquote>
+        
+        <strong>本文链接：</strong><br><a href="https://kanoc.gitee.io/2023/11/19/python-undetected-chromedriver-chrome%E7%BB%95%E8%BF%87%E4%BA%94%E7%A7%92%E7%9B%BE%EF%BC%88cloudflare%EF%BC%89/">https://kanoc.gitee.io/2023/11/19/python-undetected-chromedriver-chrome绕过五秒盾（cloudflare）/</a>
+      </blockquote>
+    </div>
+    <footer class="mdui-card-actions">
+      
+        <a class="mdui-ripple article_categories-link" href="/categories/%E9%80%86%E5%90%91-%E5%8F%8D%E7%88%AC/">逆向_反爬</a>
+      
+      
+        <a class="mdui-ripple article_tags-link" href="/tags/Cloudflare/" rel="tag">Cloudflare</a><a class="mdui-ripple article_tags-link" href="/tags/%E8%AE%B0%E5%BD%95/" rel="tag">记录</a><a class="mdui-ripple article_tags-link" href="/tags/%E9%80%86%E5%90%91/" rel="tag">逆向</a>
+      
+    </footer>
+    
+  </article>
+  
+<script src="//cdn.bootcdn.net/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="//cdn.bootcdn.net/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+  <script>$("#main article .mdui-card-content img.fancybox").on("click",function(e){$.fancybox.open({src:$(this).attr("src")});});</script>
+
+
+  <nav id="paginator">
+    
+    <div class="spacer"></div>
+    
+      <a rel="next" class="extend next" href="/2023/11/19/%E4%BD%BF%E7%94%A8Cloud%20Scraper%E6%8D%85%E7%A9%BFCloudflare%E7%9A%845%E7%A7%92%E7%9B%BE/">
+        <span class="mdui-p-x-3" mdui-tooltip="{content: '使用Cloud Scraper捅穿Cloudflare的5秒盾'}">下一篇</span>
+        <button aria-label="next" class="mdui-btn mdui-btn-raised mdui-btn-icon mdui-color-theme-accent mdui-ripple"><i class="mdui-icon material-icons">arrow_forward</i></button>
+      </a>
+    
+  </nav>
+
+
+
+
+
+</main>
+  <footer id="footer" class="mdui-m-t-5 mdui-p-y-3 mdui-color-theme">
+  <div class="mdui-p-y-0 mdui-text-center">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  </div>
+  <div class="mdui-p-y-1 mdui-text-center">
+    Copyright &copy; 2023 Kanoc Ge<br>
+    Powered by <a href="https://hexo.io/" target="_blank" class="mdui-text-color-theme-accent">Hexo</a>
+    
+  </div>
+</footer>
+
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-color-theme-accent mdui-ripple"><i class="mdui-icon material-icons">arrow_upward</i></button>
+  
+  
+<script src="/js/mdui.js"></script>
+<script src="/js/script.js"></script>
+
+  
+<script src="/custom.js"></script>
+
+</body>
+</html>
