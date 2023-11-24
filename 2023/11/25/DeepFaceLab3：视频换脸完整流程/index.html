@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+  <meta name="renderer" content="webkit">
+
+  
+  <title>DeepFaceLab3：视频换脸完整流程 | 蛋君日记 Kanoc</title>
+
+  <link rel="shortcut icon" href="/images/favicon.png">
+  <link rel="alternate" href="/atom.xml" title="蛋君日记 Kanoc" type="application/atom+xml">
+  <meta name="description" content="DeepFaceLab3：视频换脸完整流程本文搬运自：DeepFaceLab3：视频换脸完整流程 – DeepFake中文网 (deepfaker.xyz) 对于刚入门的朋友来说，你给他直接上心法肯定没啥有，最直接的还是教招式。实操，才有感觉嘛！DeepFaceLab虽然版本一直在升级，但是整体步骤和执行逻辑并没有太大变化。所以老教程现在一样能用了。但是为了教程的完整性，我就全部重写一遍，稍作改进">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DeepFaceLab3：视频换脸完整流程">
+<meta property="og:url" content="https://kanoc.gitee.io/2023/11/25/DeepFaceLab3%EF%BC%9A%E8%A7%86%E9%A2%91%E6%8D%A2%E8%84%B8%E5%AE%8C%E6%95%B4%E6%B5%81%E7%A8%8B/index.html">
+<meta property="og:site_name" content="蛋君日记 Kanoc">
+<meta property="og:description" content="DeepFaceLab3：视频换脸完整流程本文搬运自：DeepFaceLab3：视频换脸完整流程 – DeepFake中文网 (deepfaker.xyz) 对于刚入门的朋友来说，你给他直接上心法肯定没啥有，最直接的还是教招式。实操，才有感觉嘛！DeepFaceLab虽然版本一直在升级，但是整体步骤和执行逻辑并没有太大变化。所以老教程现在一样能用了。但是为了教程的完整性，我就全部重写一遍，稍作改进">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426155730.jpg@!full">
+<meta property="og:image" content="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426155742.jpg@!full">
+<meta property="og:image" content="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426155754.jpg@!full">
+<meta property="og:image" content="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426155755.jpg@!full">
+<meta property="og:image" content="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426160224.jpg@!full">
+<meta property="og:image" content="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426160233.jpg@!full">
+<meta property="og:image" content="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426160244-1.jpg@!full">
+<meta property="og:image" content="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426160254.jpg@!full">
+<meta property="og:image" content="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426160310.jpg@!full">
+<meta property="og:image" content="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426160320.jpg@!full">
+<meta property="og:image" content="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426160335.jpg@!full">
+<meta property="og:image" content="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426160320-1.jpg@!full">
+<meta property="og:image" content="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426160344.jpg@!full">
+<meta property="og:image" content="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426160939.jpg@!full">
+<meta property="og:image" content="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426161011.jpg@!full">
+<meta property="og:image" content="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426161024.jpg@!full">
+<meta property="og:image" content="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426161034.jpg@!full">
+<meta property="og:image" content="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426161101.jpg@!full">
+<meta property="og:image" content="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426161116.jpg@!full">
+<meta property="og:image" content="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426161246.jpg@!full">
+<meta property="og:image" content="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426161315.jpg@!full">
+<meta property="og:image" content="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426161316.jpg@!full">
+<meta property="og:image" content="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426161413.jpg@!full">
+<meta property="og:image" content="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426161414.jpg@!full">
+<meta property="og:image" content="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426161515.jpg@!full">
+<meta property="og:image" content="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426161525.jpg@!full">
+<meta property="og:image" content="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426161536.jpg@!full">
+<meta property="og:image" content="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426161537.jpg@!full">
+<meta property="og:image" content="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426161538.jpg@!full">
+<meta property="og:image" content="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426161708.jpg@!full">
+<meta property="og:image" content="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426161719.jpg@!full">
+<meta property="article:published_time" content="2023-11-24T18:17:56.000Z">
+<meta property="article:modified_time" content="2023-11-24T18:20:30.459Z">
+<meta property="article:author" content="Kanoc Ge">
+<meta property="article:tag" content="AI">
+<meta property="article:tag" content="换脸">
+<meta property="article:tag" content="教程">
+<meta property="article:tag" content="windows10">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426155730.jpg@!full">
+
+  <meta name="keywords" content=",AI,换脸,教程,windows10">
+  <meta name="format-detection" content="telephone=no,email=no">
+  <meta name="theme-color" content="#9C27B0">
+
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="蛋君日记 Kanoc">
+  <meta name="msapplication-starturl" content="https://kanoc.gitee.io/2023/11/25/DeepFaceLab3%EF%BC%9A%E8%A7%86%E9%A2%91%E6%8D%A2%E8%84%B8%E5%AE%8C%E6%95%B4%E6%B5%81%E7%A8%8B/">
+  <meta name="msapplication-navbutton-color" content="#9C27B0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="蛋君日记 Kanoc">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <link rel="apple-touch-icon" href="/images/favicon.png">
+
+  
+    <link rel="canonical" href="https://kanoc.gitee.io/2023/11/25/DeepFaceLab3%EF%BC%9A%E8%A7%86%E9%A2%91%E6%8D%A2%E8%84%B8%E5%AE%8C%E6%95%B4%E6%B5%81%E7%A8%8B/">
+  
+
+  
+  
+
+  
+  
+  
+
+  
+<link rel="stylesheet" href="/css/mdui.css">
+<link rel="stylesheet" href="/css/style.css">
+
+  
+<link rel="stylesheet" href="/custom.css">
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="mdui-appbar-with-toolbar mdui-theme-primary-indigo mdui-theme-accent-pink">
+  <script>var a=localStorage.getItem("mdui-theme-layout-dark");if(a){document.getElementsByTagName("body")[0].className+=" mdui-theme-layout-dark"};</script>
+  <script>if(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches){document.getElementsByTagName("body")[0].className+=" mdui-theme-layout-dark"};</script>
+  <script>var a=localStorage.getItem("mdui-drawer-close");if(!a){document.getElementsByTagName("body")[0].className+=" mdui-drawer-body-left"};</script>
+  <header id="header" class="mdui-appbar mdui-appbar-fixed mdui-appbar-scroll-hide mdui-appbar-inset">
+  <div class="mdui-toolbar mdui-color-theme">
+    <a href="javascript:;" class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="mdui-icon material-icons">menu</i></a>
+    <a href="/" class="mdui-typo-headline">蛋君日记 Kanoc</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <a href="javascript:;" class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: '搜索'}"><i class="mdui-icon material-icons">search</i></a>
+    <a href="/atom.xml" class="mdui-btn mdui-btn-icon" mdui-tooltip="{content: 'RSS'}"><i class="mdui-icon material-icons">rss_feed</i></a>
+  </div>
+</header>
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer mdui-drawer-full-height">
+  <script>var a=localStorage.getItem("mdui-drawer-close");if(a){document.getElementById("sidebar").className+=" mdui-drawer-close"};</script>
+  <div class="mdui-grid-tile">
+    <img src="/images/banner.png" style="height: 160px;">
+    <img src="/images/avatar.png" class="avatar-animation" style="position: absolute; top: 10%; left: 24px; width: 64px; height: 64px; border: 2px solid #fff; border-radius: 50%;">
+    <div class="mdui-grid-tile-actions">
+      <div class="mdui-grid-tile-text">
+        <div class="mdui-grid-tile-title">Kanoc Ge</div>
+        <div class="mdui-grid-tile-subtitle"><i class="mdui-icon material-icons">art_track</i></div>
+      </div>
+      
+    </div>
+  </div>
+
+  <div class="mdui-list" mdui-collapse="{accordion: true}">
+    <a href="/" class="mdui-list-item mdui-ripple">
+      <i class="mdui-list-item-icon mdui-icon material-icons mdui-text-color-blue">home</i>
+      <div class="mdui-list-item-content">主页</div>
+    </a>
+    <div class="mdui-collapse-item">
+      <script>var a=localStorage.getItem("mdui-collapse-item-0");if(a){document.getElementsByClassName("mdui-collapse-item")[0].className+=" mdui-collapse-item-open"};</script>
+      <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+        <i class="mdui-list-item-icon mdui-icon material-icons mdui-text-color-deep-orange">archive</i>
+        <div class="mdui-list-item-content">归档</div>
+        <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
+      </div>
+      <div class="mdui-collapse-item-body mdui-list mdui-list-dense">
+        
+        <a class="mdui-ripple sidebar_archives-link" href="/archives/2023/11/">十一月 2023<span class="mdui-ripple sidebar_archives-count">9</span></a><a class="mdui-ripple sidebar_archives-link" href="/archives/2023/10/">十月 2023<span class="mdui-ripple sidebar_archives-count">9</span></a><a class="mdui-ripple sidebar_archives-link" href="/archives/2023/09/">九月 2023<span class="mdui-ripple sidebar_archives-count">10</span></a><a class="mdui-ripple sidebar_archives-link" href="/archives/2023/08/">八月 2023<span class="mdui-ripple sidebar_archives-count">10</span></a><a class="mdui-ripple sidebar_archives-link" href="/archives/2023/07/">七月 2023<span class="mdui-ripple sidebar_archives-count">23</span></a><a class="mdui-ripple sidebar_archives-link" href="/archives/2023/06/">六月 2023<span class="mdui-ripple sidebar_archives-count">9</span></a><a class="mdui-ripple sidebar_archives-link" href="/archives/2023/05/">五月 2023<span class="mdui-ripple sidebar_archives-count">100</span></a><a class="mdui-ripple sidebar_archives-link" href="/archives/2023/03/">三月 2023<span class="mdui-ripple sidebar_archives-count">65</span></a>
+        
+      </div>
+    </div>
+    <div class="mdui-collapse-item">
+      <script>var a=localStorage.getItem("mdui-collapse-item-1");if(a){document.getElementsByClassName("mdui-collapse-item")[1].className+=" mdui-collapse-item-open"};</script>
+      <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+        <i class="mdui-list-item-icon mdui-icon material-icons mdui-text-color-green">class</i>
+        <div class="mdui-list-item-content">分类</div>
+        <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
+      </div>
+      <div class="mdui-collapse-item-body mdui-list mdui-list-dense">
+        
+        <a class="mdui-ripple sidebar_archives-link" href="/categories/AI/">AI<span class="mdui-ripple sidebar_archives-count">2</span></a><a class="mdui-ripple sidebar_archives-link" href="/categories/Java/">Java<span class="mdui-ripple sidebar_archives-count">6</span></a><a class="mdui-ripple sidebar_archives-link" href="/categories/c%E8%AF%AD%E8%A8%80/">c语言<span class="mdui-ripple sidebar_archives-count">2</span></a><a class="mdui-ripple sidebar_archives-link" href="/categories/django/">django<span class="mdui-ripple sidebar_archives-count">10</span></a><a class="mdui-ripple sidebar_archives-link" href="/categories/git/">git<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/categories/go/">go<span class="mdui-ripple sidebar_archives-count">12</span></a><a class="mdui-ripple sidebar_archives-link" href="/categories/linux/">linux<span class="mdui-ripple sidebar_archives-count">29</span></a><a class="mdui-ripple sidebar_archives-link" href="/categories/nodejs/">nodejs<span class="mdui-ripple sidebar_archives-count">3</span></a><a class="mdui-ripple sidebar_archives-link" href="/categories/python/">python<span class="mdui-ripple sidebar_archives-count">27</span></a><a class="mdui-ripple sidebar_archives-link" href="/categories/python-PyQt5/">python_PyQt5<span class="mdui-ripple sidebar_archives-count">8</span></a><a class="mdui-ripple sidebar_archives-link" href="/categories/python-flask/">python_flask<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/categories/python-%E5%BC%82%E6%AD%A5/">python_异步<span class="mdui-ripple sidebar_archives-count">7</span></a><a class="mdui-ripple sidebar_archives-link" href="/categories/python-%E5%BC%82%E6%AD%A5-%E6%95%B0%E6%8D%AE%E5%BA%93/">python_异步-数据库<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/categories/scrapy/">scrapy<span class="mdui-ripple sidebar_archives-count">2</span></a><a class="mdui-ripple sidebar_archives-link" href="/categories/%E5%85%8D%E8%B4%B9%E9%A1%B9%E7%9B%AE/">免费项目<span class="mdui-ripple sidebar_archives-count">4</span></a><a class="mdui-ripple sidebar_archives-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端<span class="mdui-ripple sidebar_archives-count">21</span></a><a class="mdui-ripple sidebar_archives-link" href="/categories/%E5%8D%9A%E5%AE%A2/">博客<span class="mdui-ripple sidebar_archives-count">5</span></a><a class="mdui-ripple sidebar_archives-link" href="/categories/%E5%AE%89%E5%8D%93%E5%BC%80%E5%8F%91/">安卓开发<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/categories/%E5%B7%A5%E5%85%B7/">工具<span class="mdui-ripple sidebar_archives-count">24</span></a><a class="mdui-ripple sidebar_archives-link" href="/categories/%E6%8A%98%E8%85%BE/">折腾<span class="mdui-ripple sidebar_archives-count">3</span></a><a class="mdui-ripple sidebar_archives-link" href="/categories/%E6%8E%A5%E5%8D%95%E9%A1%B9%E7%9B%AE/">接单项目<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库<span class="mdui-ripple sidebar_archives-count">20</span></a><a class="mdui-ripple sidebar_archives-link" href="/categories/%E6%B8%97%E9%80%8F/">渗透<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/categories/%E7%BC%96%E7%A0%81%E3%80%81%E8%A7%A3%E7%A0%81/">编码、解码<span class="mdui-ripple sidebar_archives-count">3</span></a><a class="mdui-ripple sidebar_archives-link" href="/categories/%E8%A7%86%E9%A2%91%E7%BC%96%E8%BE%91/">视频编辑<span class="mdui-ripple sidebar_archives-count">19</span></a><a class="mdui-ripple sidebar_archives-link" href="/categories/%E8%BF%90%E7%BB%B4/">运维<span class="mdui-ripple sidebar_archives-count">2</span></a><a class="mdui-ripple sidebar_archives-link" href="/categories/%E9%80%86%E5%90%91-APP/">逆向_APP<span class="mdui-ripple sidebar_archives-count">4</span></a><a class="mdui-ripple sidebar_archives-link" href="/categories/%E9%80%86%E5%90%91-%E5%8F%8D%E7%88%AC/">逆向_反爬<span class="mdui-ripple sidebar_archives-count">10</span></a><a class="mdui-ripple sidebar_archives-link" href="/categories/%E9%95%9C%E5%83%8F/">镜像<span class="mdui-ripple sidebar_archives-count">3</span></a>
+        
+      </div>
+    </div>
+    <div class="mdui-collapse-item">
+      <script>var a=localStorage.getItem("mdui-collapse-item-2");if(a){document.getElementsByClassName("mdui-collapse-item")[2].className+=" mdui-collapse-item-open"};</script>
+      <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+        <i class="mdui-list-item-icon mdui-icon material-icons mdui-text-color-brown">bookmark</i>
+        <div class="mdui-list-item-content">标签</div>
+        <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
+      </div>
+      <div class="mdui-collapse-item-body mdui-list mdui-list-dense">
+        
+        <a class="mdui-ripple sidebar_archives-link" href="/tags/AI/" rel="tag">AI<span class="mdui-ripple sidebar_archives-count">2</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/BBR%E5%8A%A0%E9%80%9F/" rel="tag">BBR加速<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/Cloudflare/" rel="tag">Cloudflare<span class="mdui-ripple sidebar_archives-count">6</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/DIY/" rel="tag">DIY<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/GitHub/" rel="tag">GitHub<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/Github%E5%8A%A0%E9%80%9F/" rel="tag">Github加速<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/Hexo/" rel="tag">Hexo<span class="mdui-ripple sidebar_archives-count">2</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/Hook/" rel="tag">Hook<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/IDEA/" rel="tag">IDEA<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/JAVA/" rel="tag">JAVA<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/Java/" rel="tag">Java<span class="mdui-ripple sidebar_archives-count">6</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/Mac/" rel="tag">Mac<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/Mako/" rel="tag">Mako<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/Markdown/" rel="tag">Markdown<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/PDF/" rel="tag">PDF<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/PyQt5/" rel="tag">PyQt5<span class="mdui-ripple sidebar_archives-count">8</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/Pycharm/" rel="tag">Pycharm<span class="mdui-ripple sidebar_archives-count">2</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/adb/" rel="tag">adb<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/base64/" rel="tag">base64<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/blog/" rel="tag">blog<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/centos/" rel="tag">centos<span class="mdui-ripple sidebar_archives-count">2</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/centos7/" rel="tag">centos7<span class="mdui-ripple sidebar_archives-count">2</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/chrome-os/" rel="tag">chrome-os<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/cloudflare-5%E7%A7%92%E7%9B%BE/" rel="tag">cloudflare 5秒盾<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/css/" rel="tag">css<span class="mdui-ripple sidebar_archives-count">3</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/c%E8%AF%AD%E8%A8%80/" rel="tag">c语言<span class="mdui-ripple sidebar_archives-count">2</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/django/" rel="tag">django<span class="mdui-ripple sidebar_archives-count">9</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/ffmpeg/" rel="tag">ffmpeg<span class="mdui-ripple sidebar_archives-count">19</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/flask/" rel="tag">flask<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/ftp/" rel="tag">ftp<span class="mdui-ripple sidebar_archives-count">3</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/git/" rel="tag">git<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/go/" rel="tag">go<span class="mdui-ripple sidebar_archives-count">11</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/go%E9%80%86%E5%90%91/" rel="tag">go逆向<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/hack/" rel="tag">hack<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/hexo/" rel="tag">hexo<span class="mdui-ripple sidebar_archives-count">3</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/html/" rel="tag">html<span class="mdui-ripple sidebar_archives-count">6</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/javascript/" rel="tag">javascript<span class="mdui-ripple sidebar_archives-count">17</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/jinja2/" rel="tag">jinja2<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/kali/" rel="tag">kali<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/linux/" rel="tag">linux<span class="mdui-ripple sidebar_archives-count">23</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/m3u8/" rel="tag">m3u8<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/mongodb/" rel="tag">mongodb<span class="mdui-ripple sidebar_archives-count">12</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/mysql/" rel="tag">mysql<span class="mdui-ripple sidebar_archives-count">7</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/navicat/" rel="tag">navicat<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/nginx/" rel="tag">nginx<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/nodejs/" rel="tag">nodejs<span class="mdui-ripple sidebar_archives-count">2</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/nodejs%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/" rel="tag">nodejs安装教程<span class="mdui-ripple sidebar_archives-count">2</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/opencv/" rel="tag">opencv<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/pycharm/" rel="tag">pycharm<span class="mdui-ripple sidebar_archives-count">2</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/python/" rel="tag">python<span class="mdui-ripple sidebar_archives-count">58</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/python3/" rel="tag">python3<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/requests/" rel="tag">requests<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/scrapy/" rel="tag">scrapy<span class="mdui-ripple sidebar_archives-count">2</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/selenium/" rel="tag">selenium<span class="mdui-ripple sidebar_archives-count">3</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/sqlite3/" rel="tag">sqlite3<span class="mdui-ripple sidebar_archives-count">2</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/tls-ja3/" rel="tag">tls/ja3<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/ubuntu/" rel="tag">ubuntu<span class="mdui-ripple sidebar_archives-count">2</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/unicode/" rel="tag">unicode<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/windos11/" rel="tag">windos11<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/windows10/" rel="tag">windows10<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3/" rel="tag">中文文档<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E4%BA%91/" rel="tag">云<span class="mdui-ripple sidebar_archives-count">4</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E4%BB%A3%E7%90%86/" rel="tag">代理<span class="mdui-ripple sidebar_archives-count">5</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E4%BC%A0%E8%BE%93/" rel="tag">传输<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E5%85%8D%E8%B4%B9%E9%A1%B9%E7%9B%AE/" rel="tag">免费项目<span class="mdui-ripple sidebar_archives-count">4</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E5%85%B1%E4%BA%AB/" rel="tag">共享<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/" rel="tag">内网穿透<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E5%88%87%E7%89%87/" rel="tag">切片<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E5%8E%8B%E7%BC%A9/" rel="tag">压缩<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E5%91%BD%E4%BB%A4/" rel="tag">命令<span class="mdui-ripple sidebar_archives-count">10</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E5%91%BD%E4%BB%A4%E8%A1%8C/" rel="tag">命令行<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E5%9B%BE%E5%BA%8A/" rel="tag">图床<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E5%9B%BE%E7%89%87/" rel="tag">图片<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E5%9B%BE%E7%89%87%E8%BD%AC%E7%A0%81/" rel="tag">图片转码<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E5%9F%BA%E7%A1%80/" rel="tag">基础<span class="mdui-ripple sidebar_archives-count">23</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E5%A4%9A%E5%B1%82m3u8/" rel="tag">多层m3u8<span class="mdui-ripple sidebar_archives-count">2</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E5%A4%9A%E7%89%88%E6%9C%AC%E5%85%B1%E5%AD%98/" rel="tag">多版本共存<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E5%A5%87%E6%B7%AB%E6%8A%80%E5%B7%A7/" rel="tag">奇淫技巧<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/" rel="tag">字符串<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E5%AE%89%E5%8D%93/" rel="tag">安卓<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E5%AE%89%E8%A3%85/" rel="tag">安装<span class="mdui-ripple sidebar_archives-count">3</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E5%AE%9D%E5%A1%94/" rel="tag">宝塔<span class="mdui-ripple sidebar_archives-count">2</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E5%B7%A5%E5%85%B7/" rel="tag">工具<span class="mdui-ripple sidebar_archives-count">6</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E5%BA%93/" rel="tag">库<span class="mdui-ripple sidebar_archives-count">3</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/" rel="tag">开发环境<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E5%BC%82%E6%AD%A5%E3%80%81%E5%8D%8F%E7%A8%8B/" rel="tag">异步、协程<span class="mdui-ripple sidebar_archives-count">6</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E5%BF%85%E5%A4%87%E5%B7%A5%E5%85%B7/" rel="tag">必备工具<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E6%8B%BC%E6%8E%A5%E8%A7%86%E9%A2%91/" rel="tag">拼接视频<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E6%8C%82%E8%BD%BD/" rel="tag">挂载<span class="mdui-ripple sidebar_archives-count">4</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E6%8D%A2%E8%84%B8/" rel="tag">换脸<span class="mdui-ripple sidebar_archives-count">2</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E6%8E%A5%E5%8D%95%E9%A1%B9%E7%9B%AE/" rel="tag">接单项目<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E6%95%99%E7%A8%8B/" rel="tag">教程<span class="mdui-ripple sidebar_archives-count">6</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库<span class="mdui-ripple sidebar_archives-count">22</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E6%96%87%E6%A1%A3/" rel="tag">文档<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E6%97%B6%E9%97%B4/" rel="tag">时间<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E6%A2%AF%E5%AD%90/" rel="tag">梯子<span class="mdui-ripple sidebar_archives-count">3</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E6%A8%A1%E6%9D%BF/" rel="tag">模板<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E6%AD%A3%E5%88%99/" rel="tag">正则<span class="mdui-ripple sidebar_archives-count">2</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E6%B0%B4%E5%8D%B0/" rel="tag">水印<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E6%B5%8B%E8%AF%95/" rel="tag">测试<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" rel="tag">浏览器<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E6%B8%97%E9%80%8F/" rel="tag">渗透<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E6%BA%90%E7%A0%81/" rel="tag">源码<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E7%88%AC%E8%99%AB/" rel="tag">爬虫<span class="mdui-ripple sidebar_archives-count">2</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" rel="tag">环境搭建<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E7%A0%B4%E8%A7%A3/" rel="tag">破解<span class="mdui-ripple sidebar_archives-count">8</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E7%A4%BC%E7%89%A9/" rel="tag">礼物<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag">笔记<span class="mdui-ripple sidebar_archives-count">4</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E7%B3%BB%E7%BB%9F/" rel="tag">系统<span class="mdui-ripple sidebar_archives-count">27</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E7%BC%96%E7%A0%81%E3%80%81%E8%A7%A3%E7%A0%81/" rel="tag">编码、解码<span class="mdui-ripple sidebar_archives-count">2</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E7%BC%96%E8%AF%91/" rel="tag">编译<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E7%BC%96%E8%AF%91%E5%99%A8/" rel="tag">编译器<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E7%BD%91%E7%9B%98/" rel="tag">网盘<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/" rel="tag">虚拟机<span class="mdui-ripple sidebar_archives-count">3</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E8%AE%B0%E5%BD%95/" rel="tag">记录<span class="mdui-ripple sidebar_archives-count">7</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E8%B0%B7%E6%AD%8C%E6%90%9C%E7%B4%A2%E5%B7%A5%E5%85%B7/" rel="tag">谷歌搜索工具<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E8%B7%A8%E5%9F%9F/" rel="tag">跨域<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E8%B7%B3%E8%BD%AC/" rel="tag">跳转<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E8%BD%AC%E6%8D%A2/" rel="tag">转换<span class="mdui-ripple sidebar_archives-count">2</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E8%BD%AC%E7%A0%81/" rel="tag">转码<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E8%BD%AF%E4%BB%B6/" rel="tag">软件<span class="mdui-ripple sidebar_archives-count">5</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E8%BF%90%E7%BB%B4/" rel="tag">运维<span class="mdui-ripple sidebar_archives-count">21</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E9%80%86%E5%90%91/" rel="tag">逆向<span class="mdui-ripple sidebar_archives-count">11</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E9%85%8D%E7%BD%AE/" rel="tag">配置<span class="mdui-ripple sidebar_archives-count">1</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E9%94%99%E8%AF%AF/" rel="tag">错误<span class="mdui-ripple sidebar_archives-count">19</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E9%95%9C%E5%83%8F/" rel="tag">镜像<span class="mdui-ripple sidebar_archives-count">3</span></a><a class="mdui-ripple sidebar_archives-link" href="/tags/%E9%98%B2%E7%81%AB%E5%A2%99/" rel="tag">防火墙<span class="mdui-ripple sidebar_archives-count">1</span></a>
+        
+      </div>
+    </div>
+    <a href="/about" class="mdui-list-item mdui-ripple">
+      <i class="mdui-list-item-icon mdui-icon material-icons mdui-text-color-purple">person</i>
+      <div class="mdui-list-item-content">关于</div>
+    </a>
+  </div>
+
+  <div class="mdui-divider"></div>
+
+  <div class="mdui-list" mdui-collapse="{accordion: true}">
+    
+      <a href="/timeline" class="mdui-list-item mdui-ripple">时间轴</a>
+    
+      <a href="/tagcloud" class="mdui-list-item mdui-ripple">标签云</a>
+    
+      <a href="/collect" class="mdui-list-item mdui-ripple">收藏</a>
+    
+      <a href="/gallery" class="mdui-list-item mdui-ripple">音乐表</a>
+    
+    <div class="mdui-collapse-item">
+      <script>var a=localStorage.getItem("mdui-collapse-item-3");if(a){document.getElementsByClassName("mdui-collapse-item")[3].className+=" mdui-collapse-item-open"};</script>
+      <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+        <div class="mdui-list-item-content">友情链接</div>
+        <i class="mdui-list-item-icon mdui-icon material-icons">link</i>
+      </div>
+      <div class="mdui-collapse-item-body mdui-list mdui-list-dense">
+        
+        
+          <a href="javascript:;" class="mdui-list-item mdui-p-l-2 mdui-text-color-theme mdui-ripple" style="justify-content: center;">链接为空</a>
+        
+      </div>
+    </div>
+  </div>
+</aside>
+
+  <main id="main" class="mdui-m-t-5 fadeIn animated">
+  
+<link rel="stylesheet" href="//cdn.bootcdn.net/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  <style>#main article .mdui-card-content .center-block{display:block!important;margin-right:auto!important;margin-left:auto!important}</style>
+  <style>#main article .mdui-card-content .text-center{text-align:center!important}</style>
+  <article class="mdui-card mdui-m-b-5">
+    <header class="mdui-card-media">
+      <img src="/images/random/material-12.png" style="max-height: 240px;">
+      <div class="mdui-card-media-covered">
+        <div class="mdui-card-primary">
+          <div class="mdui-card-primary-title">DeepFaceLab3：视频换脸完整流程</div>
+          <div class="mdui-card-primary-subtitle"><i class="iconfont">&#xe697;</i> 2023-11-25 / <i class="iconfont">&#xe601;</i> Kanoc Ge</div>
+        </div>
+      </div>
+      <div class="mdui-card-menu">
+        
+        
+          <button class="mdui-btn mdui-btn-icon mdui-text-color-white" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="mdui-icon material-icons">share</i></button>
+          <ul class="mdui-menu" id="share_menu">
+            <li class="mdui-menu-item">
+              <a href="https://service.weibo.com/share/share.php?appkey=&title=DeepFaceLab3：视频换脸完整流程&url=https://kanoc.gitee.io/2023/11/25/DeepFaceLab3%EF%BC%9A%E8%A7%86%E9%A2%91%E6%8D%A2%E8%84%B8%E5%AE%8C%E6%95%B4%E6%B5%81%E7%A8%8B/&pic=https://kanoc.gitee.io/images/favicon.png&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+            </li>
+            <li class="mdui-menu-item">
+              <a href="https://twitter.com/intent/tweet?text=DeepFaceLab3：视频换脸完整流程&url=https://kanoc.gitee.io/2023/11/25/DeepFaceLab3%EF%BC%9A%E8%A7%86%E9%A2%91%E6%8D%A2%E8%84%B8%E5%AE%8C%E6%95%B4%E6%B5%81%E7%A8%8B/&via=Kanoc Ge" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+            </li>
+            <li class="mdui-menu-item">
+              <a href="https://www.facebook.com/sharer/sharer.php?u=https://kanoc.gitee.io/2023/11/25/DeepFaceLab3%EF%BC%9A%E8%A7%86%E9%A2%91%E6%8D%A2%E8%84%B8%E5%AE%8C%E6%95%B4%E6%B5%81%E7%A8%8B/" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+            </li>
+            <li class="mdui-menu-item">
+              <a href="https://plus.google.com/share?url=https://kanoc.gitee.io/2023/11/25/DeepFaceLab3%EF%BC%9A%E8%A7%86%E9%A2%91%E6%8D%A2%E8%84%B8%E5%AE%8C%E6%95%B4%E6%B5%81%E7%A8%8B/" target="_blank" class="mdui-ripple">分享到 Google+</a>
+            </li>
+            <li class="mdui-menu-item">
+              <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://kanoc.gitee.io/2023/11/25/DeepFaceLab3%EF%BC%9A%E8%A7%86%E9%A2%91%E6%8D%A2%E8%84%B8%E5%AE%8C%E6%95%B4%E6%B5%81%E7%A8%8B/&title=DeepFaceLab3：视频换脸完整流程" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+            </li>
+            <li class="mdui-menu-item">
+              <a href="https://connect.qq.com/widget/shareqq/index.html?site=蛋君日记 Kanoc&title=DeepFaceLab3：视频换脸完整流程&pics=https://kanoc.gitee.io/images/favicon.png&url=https://kanoc.gitee.io/2023/11/25/DeepFaceLab3%EF%BC%9A%E8%A7%86%E9%A2%91%E6%8D%A2%E8%84%B8%E5%AE%8C%E6%95%B4%E6%B5%81%E7%A8%8B/" target="_blank" class="mdui-ripple">分享到 QQ</a>
+            </li>
+            <li class="mdui-menu-item">
+              <a href="https://telegram.me/share/url?url=https://kanoc.gitee.io/2023/11/25/DeepFaceLab3%EF%BC%9A%E8%A7%86%E9%A2%91%E6%8D%A2%E8%84%B8%E5%AE%8C%E6%95%B4%E6%B5%81%E7%A8%8B/&text=DeepFaceLab3：视频换脸完整流程" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+            </li>
+          </ul>
+        
+      </div>
+    </header>
+    <div class="mdui-card-content mdui-typo">
+      <h1 id="DeepFaceLab3：视频换脸完整流程"><a href="#DeepFaceLab3：视频换脸完整流程" class="headerlink" title="DeepFaceLab3：视频换脸完整流程"></a>DeepFaceLab3：视频换脸完整流程</h1><p>本文搬运自：<a target="_blank" rel="noopener" href="https://www.deepfaker.xyz/?p=2272">DeepFaceLab3：视频换脸完整流程 – DeepFake中文网 (deepfaker.xyz)</a></p>
+<p>对于刚入门的朋友来说，你给他直接上心法肯定没啥有，最直接的还是教招式。实操，才有感觉嘛！DeepFaceLab虽然版本一直在升级，但是整体步骤和执行逻辑并没有太大变化。所以老教程现在一样能用了。但是为了教程的完整性，我就全部重写一遍，稍作改进。</p>
+<h2 id="安装软件"><a href="#安装软件" class="headerlink" title="安装软件"></a>安装软件</h2><p>安装过程其实非常简单。一般发布的软件包都是.exe结尾，本质上其实就是一个用7z压缩的压缩包而已。所以安装只要双击就好了，大家都会的！</p>
+<p>安装的时候需要注意几个点。</p>
+<p><strong>第一：</strong>杀毒软件可能会有木马警报，添加信任就好。杀毒软件可能会无警报删文件，导致执行的时候出现未知错误。这种情况可以先退杀毒软件，安装完了就不受影响。</p>
+<p><strong>第二</strong>：安装的时候记得选好路径</p>
+<p><img src="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426155730.jpg@!full" alt="img"></p>
+<p>路径并没有硬性要求，默认是解压到安装包所在路径。有不少人对路径并不是很敏感。比如通过QQ群文件下载的，就直接解压在路径超深的QQ缓存目录中，这样可能会出问题，而且不好找。最好是放在C盘外的其他盘的根目录。文件路径不强制英文，但是依旧不推荐中文。文件名不要用特殊字符，降低出错概率。</p>
+<p><strong>第三：</strong></p>
+<p>输入密码</p>
+<p><img src="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426155742.jpg@!full" alt="img"></p>
+<p>我发布的文件如果有密码，就都是deepfaker.xyz。不管哪个版本直接输入就好了。当然，你任性，也可以不输入。</p>
+<p><img src="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426155754.jpg@!full" alt="img"></p>
+<p>不输入就是上面这种结果。然后你点1，2，3，4每个步骤都点不动。因为不看英文或者大意，犯这个错误的也不少。</p>
+<p><img src="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426155755.jpg@!full" alt="img"></p>
+<p>正确的打开方式是这样的。里面会有_internal和workplace文件夹。前者放的是源代码和软件相关的内容，后者是工作目录，上一篇有讲过。除此之外还有一堆.bat结尾的文件。可以把这些称为脚本或者批处理文件。里面是一行行的DOS命令。</p>
+<p>批处理文件打开方式和EXE一模一样，Double kill ~~Double click  双击打开！每一个批处理文件都干一件事情，我们要做的就是按一定的顺序点击这些文件，就能完成换脸。是不是挺简单？</p>
+<h2 id="执行步骤"><a href="#执行步骤" class="headerlink" title="执行步骤"></a><strong>执行步骤</strong></h2><p>DFL换脸的思路是，想将视频转换成图，从图片中提取人脸，从人脸中学习特征。然后应用模型，先对图片进行换脸，然后把图片合成视频，同时带上原视频的音轨。</p>
+<p>具体来说可以分为如下几步：</p>
+<ul>
+<li>源视频转图片</li>
+<li>目标视频转图片</li>
+<li>提取源头像</li>
+<li>提取目标头像</li>
+<li>训练模型</li>
+<li>应用模型</li>
+<li>合成视频</li>
+</ul>
+<p>批处理文件步骤如下：</p>
+<ul>
+<li>源视频转图片 extract images from video data_src.bat</li>
+<li>目标视频转图片 extract images from video data_dst FULL FPS.bat</li>
+<li>提取源头像 data_src faceset extract.bat</li>
+<li>目标头像提取 data_dst faceset extract.bat</li>
+<li>训练轻量级模型 train Quick96.bat&#x2F;SAE&#x2F;AMP</li>
+<li>应用轻量级模型 merge Quick96.bat &#x2F;SAE&#x2F;AMP</li>
+<li>合成 MP4 视频 merged to mp4.bat</li>
+</ul>
+<p>杂七杂八交代清楚了就可以开始操作，本文会将每一个步骤截图说明。但是为了控制文章的体型，以操作为主。一些常见错误或者参数详解，会在后续文章中完成。关于操作，这里做一个重点提示：遇事不决按回车！</p>
+<h3 id="Step1：源视频转图片"><a href="#Step1：源视频转图片" class="headerlink" title="Step1：源视频转图片"></a>Step1：源视频转图片</h3><p>双击批处理文件源视频转图片 extract images from video data_src.bat</p>
+<p><img src="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426160224.jpg@!full" alt="img"></p>
+<p>跳出黑色窗口，输入10回车，然后输入jpg回车，就会自动开始将视频分解为图片。</p>
+<p>FPS：视频有一个指标叫帧率，常见有24，30，60等，代表一秒钟有几张。第一个参数输入10指的是一秒钟只取10张；不输入直接回车，默认帧率是30就取30张。因为很多影视剧画面相对固定，没必要全部取，否则后面会浪费大量提取时间，而且模型训练压力也会加大。</p>
+<p>Format:  图片格式，主要是jpg和png。png是无损格式，但是JPG能在保证画质的情况下减少巨量的空间。所以如果不是要求特别变态，一般都用jpg。这样可以减少空间，节省时间</p>
+<p><img src="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426160233.jpg@!full" alt="img"></p>
+<p>正常情况下，这个步骤执行非常快，出现“搞定&#x2F;done” 的字样就是执行完成了。完成后，workplace&#x2F;data_src下面就会出现很多图片，这就是从视频里分解出来的图片。文件名一般为0000x.jpg，其实这里面命名可以随意，没有强制要求。这里还有一个aligned的文件夹，是为后面步骤准备的。</p>
+<h3 id="Step2：目标视频转图片"><a href="#Step2：目标视频转图片" class="headerlink" title="Step2：目标视频转图片"></a>Step2：目标视频转图片</h3><p>双击批处理文件目标视频转图片 extract images from video data_dst FULL FPS.bat</p>
+<p><img src="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426160244-1.jpg@!full" alt="img"></p>
+<p>和上面的步骤类似，这次处理的是dst视频。因为dst必须一帧不落，所以没有FPS选项，只有图片格式这一个选项。</p>
+<p><img src="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426160254.jpg@!full" alt="img"></p>
+<p>处理完后的图片保存在workspace&#x2F;data_dst里面。</p>
+<h3 id="Step3：提取源头像"><a href="#Step3：提取源头像" class="headerlink" title="Step3：提取源头像"></a>Step3：提取源头像</h3><p>双击批处理文件提取源头像 data_src faceset extract.bat</p>
+<p><img src="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426160310.jpg@!full" alt="img"></p>
+<p>这一步的作用是提取源素材图片中的人脸。这里有六个参数，一般只需一路回车即可。第一次使用需要缓存GPU内核，需要稍微等一等。开始提取后底部有显示进度，当进度到100%，会显示图片数量和提取到的人脸数量，并出现“搞定！！！” 就证明已经出来成功并且处理完成。</p>
+<p><img src="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426160320.jpg@!full" alt="img"></p>
+<p>处理完成后，头像保存在data_src&#x2F;aligned下面。</p>
+<p>不少人在这个环节会遇到问题。</p>
+<p>常见问题是：</p>
+<ul>
+<li>驱动不够新，去官网下载更新到最新版本即可。</li>
+<li>软件不够新，deepfaker.xyz 上获取新版</li>
+<li>显卡软件不匹配， A卡用Directx12，不要用rtx3000版。</li>
+</ul>
+<p>提取完之后，如果src素材比较复杂，就需要做一些筛选。这个筛选可以写一篇很长的文章。这里简要说一下。主要是把一些不需要的素材删除：</p>
+<ul>
+<li>很模糊的可以直接删除</li>
+<li>不是目标人物的可以直接删除</li>
+<li>图片残缺的删除</li>
+<li>脸部有遮挡的删除</li>
+<li>脸部光照差异特别大的删除</li>
+<li>…..</li>
+</ul>
+<h3 id="Step4：提取目标头像"><a href="#Step4：提取目标头像" class="headerlink" title="Step4：提取目标头像"></a>Step4：提取目标头像</h3><p>双击批处理文件目标头像提取 data_dst faceset extract.bat</p>
+<p><img src="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426160335.jpg@!full" alt="img"></p>
+<p>这一步的作用是提取目标素材图片中的人脸。和上一步非常类似，这里就是少了一个“保存调试图片”的参数。其实也不是少了，而是默认就执行了。</p>
+<p><img src="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426160320-1.jpg@!full" alt="img"></p>
+<p>提取的头像保存在data_dst&#x2F;aligned的文件夹里。</p>
+<p>提取完之后也要对素材进行一个筛选。</p>
+<p>把不是目标人物的素材删掉，把头像旋转的图片删掉。一般来说文件名后缀_1的都可以删掉。dst的删除核心原则是要换的人脸留下，不要换的统统删掉。</p>
+<p><img src="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426160344.jpg@!full" alt="img"></p>
+<p>这些图标保存在aligned_debug里面</p>
+<p><img src="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426160939.jpg@!full" alt="img"></p>
+<p>大概其中一张图片，可以看到人脸上有三种颜色的线框。</p>
+<p><img src="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426161011.jpg@!full" alt="img"></p>
+<p>红色就是头像截取的区域，蓝色是面部区域，绿色是人脸轮廓，以及五官定位的点。其实就是人脸的landmark。通过debug你可以直观的看到人脸识别算法识别了哪些区域，有没有识别正确。</p>
+<h3 id="Step5：训练模型"><a href="#Step5：训练模型" class="headerlink" title="Step5：训练模型"></a>Step5：训练模型</h3><p>双击批处理文件 训练轻量级模型 train Quick96.bat</p>
+<p><img src="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426161024.jpg@!full" alt="img"></p>
+<p>这一步是训练模型，所有步骤中最重要，最难，也是最耗时间的部分。目前新版本中主要包含三类模型，分别是Quick96,SAEHD,AMP 。</p>
+<p>我把Quick96翻译为轻量级模型，优点是所需配置低，显存低，速度快，操作简单。缺点是不能自定义，像素比较低，合成效果差一些。</p>
+<p>这个模型很简单，所以也非常适合拿来入门。所以本文就用这个来举例。SAEHD和AMP模型和模型训练的知识会另起一篇文章来介绍。</p>
+<p><img src="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426161034.jpg@!full" alt="img"></p>
+<p>Quick96使用非常简单，双击批处理文件后，选择执行设备即可，这里一般都是选显卡，直接回车即可。设备选择完成之后，程序就会自动加载素材，并显示模型的参数，底部会有跳动的数字，然后会跳出一个预览窗口。</p>
+<p>先来说说底部的数字，总共五列，分别代表：模型保存时间，迭代次数，单次迭代时间，源损失，目标损失。迭代次数是越多越好，损失是越低越好，零就是无损了嘛~不过，不可能达到！</p>
+<p>下面来说说预览窗口</p>
+<p><img src="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426161101.jpg@!full" alt="img"></p>
+<p>预览窗口包含操作提示、loss曲线，人脸区域。人脸区域总共五列。第一列是src，第三列是dst。第二，四，五列为算法生成列，刚开始是纯色，啥头像都没有。随着训练的进行，会慢慢出现轮廓，鼻子，眼睛，然后慢慢变清晰。</p>
+<p>训练的过程就是等待这几列变清晰的过程，最后一列就是换脸后的效果。</p>
+<p>这一个步骤并不会自动结束，需要自己判断，然后手动结束。可以通过损失值和预览图来进行判断。一般来说损失值（loss）值到了0.1x就差不多了。但是素材质量和数量不一样，会影响这个指标的变化速度。比如素材特别少，这个值降的特别快，特别低。图片不是很清晰，这个值也降的特别快，特别低。反过来，图片质量高，数量多，这个就很难降低。但是这样情况下训练出来的模型更好。</p>
+<p><img src="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426161116.jpg@!full" alt="img"></p>
+<p>相比数字而已，通过预览图来判断就更加直观了。只要观察第二列是否无限接近第一列，第四列是否无限接近第三列。第五列的表情是否无限接近第四列。所有列的图片是否都足够清晰。如果答案是“Yes” ，那么按回车或者直接关闭窗口，进入下一步。</p>
+<p><img src="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426161246.jpg@!full" alt="img"></p>
+<p>正常情况下模型会过几十分钟保存一次，也可以手动按S直接保存。关闭后，可以重新点击批处理文件继续训练，不用担心丢失进度。当然，要防止意外关机和重启，可能会损坏模型。</p>
+<h3 id="Step6：应用模型"><a href="#Step6：应用模型" class="headerlink" title="Step6：应用模型"></a>Step6：应用模型</h3><p>双击批处理文件 应用轻量级模型 merge Quick96.bat</p>
+<p><img src="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426161315.jpg@!full" alt="img"></p>
+<p>这个步骤要做的是将图片进行换脸。应用Quick96模型也很简单。启动直接按回车选中或者输入对应的数字选中上一步已经训练好的模型。然后软件就会加载模型并显示模型参数。</p>
+<p>然后需要配置两个参数：</p>
+<p>一个是是否启用交互模式，直接回车，默认启用。</p>
+<p>一个是线程数量，输入小于等于8的数字，回车。注意，如果你核心特别多，默认回车会报错的！</p>
+<p>稍等一会儿会弹出帮助界面。</p>
+<p><img src="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426161316.jpg@!full" alt="img"></p>
+<p>这个界面并没有任何功能上的用处，只是显示了这个环节可以使用的快捷键。每个快捷键旁边都有中文注释，可以看个大概，具体的参数含义我会在后面的文章中做一个详细的介绍。</p>
+<p>点击这个界面，确保输入法为英文，按下键盘上的Tab，就可以进入合成预览界面</p>
+<p><img src="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426161413.jpg@!full" alt="img"></p>
+<p>进来后，默认情况下都会有人皮面具的感觉，这是正常现象。因为我们参数还没有调整！就这个素材来说，只要调整W&#x2F;S，E&#x2F;D 快捷键即可。调整后的效果如下：</p>
+<p><img src="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426161414.jpg@!full" alt="img"></p>
+<p>确认效果OK之后，按下快捷键shift+？（向后应用到所有帧） 然后再按下shift+&gt;（自动合成） 就开始自动合成了。也可以通过键盘上的&lt; 和 &gt;进行手动切换，查看前后帧的合成效果。</p>
+<p><img src="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426161515.jpg@!full" alt="img"></p>
+<p>黑色窗口会显示所有的合成参数，并且显示进度条，等100%完成之后，手动关闭窗口即可。</p>
+<p><img src="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426161525.jpg@!full" alt="img"></p>
+<p>此时，在data_dst下面已经多了两个文件，一个是merged，一个是merged_mask</p>
+<p><img src="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426161536.jpg@!full" alt="img"></p>
+<p>进入merged可以看到很多图，这些图片中的人脸已经完全换脸。</p>
+<p><img src="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426161537.jpg@!full" alt="img"></p>
+<p>进入merged_mask可以看到一些黑色的图片，中间有一个白色的区域。这些文件是为了方便后期制作。我们单纯使用DFL的不用太关心。</p>
+<h3 id="Step7：合成视频"><a href="#Step7：合成视频" class="headerlink" title="Step7：合成视频"></a>Step7：合成视频</h3><p>双击批处理文件 合成 MP4 视频 merged to mp4.bat</p>
+<p><img src="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426161538.jpg@!full" alt="img"></p>
+<p>这个步骤是将已经换好脸的图片转换成视频，并且会自动读取源视频的配置信息，包括帧率，音轨这些。这个环节只有一个输出码率的参数，常规来说3就够了。</p>
+<p>除了合成mp4之外，还可以合成无损视频，AVI ，MOV等格式，便于后期处理。</p>
+<p><img src="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426161708.jpg@!full" alt="img"></p>
+<p>执行完成后，workspace下面多了两个文件，分别是result.mp4 和 result_mask.mp4 。前者就是我们需要的最终视频，后者是遮罩视频，供后期使用。</p>
+<p><img src="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426161719.jpg@!full" alt="img"></p>
+<p>双击打开视频，就可以看到最终效果啦。</p>
+<p>步骤其实不难，细节很多。有些是可以直接照搬别人经验的。有些需要自己不断摸索。这并不是什么傻瓜软件，要做出好的效果肯定是要花时间研究。就像即便送你PS，PR，你没有一定的学习积累不可能做出酷炫的效果。但是我可以保证，市面上几乎所有神乎其技的换脸视频都是基于DFL，有些可能专门准备了道具场景并使用了后期制作。</p>
+<p>DeepFaceLab3系列</p>
+<p><a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzIzODA3NDAxMg==&mid=2247485262&idx=1&sn=c9a68694d262259524014b2ea840ab6f&chksm=e93fa6bdde482fabd2b2bfac280cdc5ca83bc142a6be25e1368bb14dd837d58be22d9ca4c800&scene=21#wechat_redirect">DeepFaceLab3：软硬件以及系统要求</a></p>
+<p><a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzIzODA3NDAxMg==&mid=2247485268&idx=1&sn=78e823524647646f5999c3cebad9f6ee&chksm=e93fa6a7de482fb14162f919875c84c769f7473594c5ccd62328b12e2517e72801d372164af2&scene=21#wechat_redirect">DeepFaceLab3：工作目录和基本概念</a></p>
+<p><a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzIzODA3NDAxMg==&mid=2247485305&idx=1&sn=3df780a1f454f00044564fc22c148851&chksm=e93fa68ade482f9ca80ac3f70830f87bfd2b7df8dc8ef5be22eae00a8aadbbfb851ff11aec4c&scene=21#wechat_redirect">DeepFaceLab3：视频换脸完整流程详解！</a></p>
+<p><a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzIzODA3NDAxMg==&mid=2247485354&idx=1&sn=7dc90561bae425f879a19423de5603e8&chksm=e93fa659de482f4f4cdb96fd4c02d7ab68cc1a6330ea770a48c463e0f890b6245cfe54d08ec2&scene=21#wechat_redirect">DeepFaceLab3：模型的异同，选择，基础操作！</a></p>
+<p><strong><strong><strong><strong><strong><strong><strong><strong><strong>小尾巴</strong></strong></strong></strong></strong></strong></strong></strong></strong>***</p>
+<p><strong>申明：图文均由deepfakes 中文网原创，转发请注明出处，谢谢！本站仅分享技术，切勿用于非法用途</strong><br><strong>微信公众号：托尼不是塔克（TonyNoStark），学习各种AI黑科技！</strong></p>
+<p> 软件下载：<a target="_blank" rel="noopener" href="https://www.deepfaker.xyz/?page_id=24">点击进入</a><br> 入门教程：<a target="_blank" rel="noopener" href="https://www.deepfaker.xyz/?page_id=513">点击进入</a><br> 深入学习：<a target="_blank" rel="noopener" href="https://www.deepfaker.xyz/?p=2050">知识星球</a><br> 专业服务：<a target="_blank" rel="noopener" href="https://www.deepfaker.xyz/?page_id=1661">脸魔 F M</a> </p>
+
+      
+      <blockquote>
+        
+        <strong>本文链接：</strong><br><a href="https://kanoc.gitee.io/2023/11/25/DeepFaceLab3%EF%BC%9A%E8%A7%86%E9%A2%91%E6%8D%A2%E8%84%B8%E5%AE%8C%E6%95%B4%E6%B5%81%E7%A8%8B/">https://kanoc.gitee.io/2023/11/25/DeepFaceLab3：视频换脸完整流程/</a>
+      </blockquote>
+    </div>
+    <footer class="mdui-card-actions">
+      
+        <a class="mdui-ripple article_categories-link" href="/categories/AI/">AI</a>
+      
+      
+        <a class="mdui-ripple article_tags-link" href="/tags/AI/" rel="tag">AI</a><a class="mdui-ripple article_tags-link" href="/tags/windows10/" rel="tag">windows10</a><a class="mdui-ripple article_tags-link" href="/tags/%E6%8D%A2%E8%84%B8/" rel="tag">换脸</a><a class="mdui-ripple article_tags-link" href="/tags/%E6%95%99%E7%A8%8B/" rel="tag">教程</a>
+      
+    </footer>
+    
+  </article>
+  
+<script src="//cdn.bootcdn.net/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="//cdn.bootcdn.net/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+  <script>$("#main article .mdui-card-content img.fancybox").on("click",function(e){$.fancybox.open({src:$(this).attr("src")});});</script>
+
+
+  <nav id="paginator">
+    
+    <div class="spacer"></div>
+    
+      <a rel="next" class="extend next" href="/2023/11/21/8%E4%B8%AA%E5%85%8D%E8%B4%B9%E9%AB%98%E9%80%9F%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93%E5%B7%A5%E5%85%B7%EF%BC%8C%E8%AE%A9%E4%BD%A0%E5%BD%BB%E5%BA%95%E5%91%8A%E5%88%AB%E7%BD%91%E7%9B%98%E5%92%8C%E6%95%B0%E6%8D%AE%E7%BA%BF/">
+        <span class="mdui-p-x-3" mdui-tooltip="{content: '8个免费高速文件传输工具，让你彻底告别网盘和数据线'}">下一篇</span>
+        <button aria-label="next" class="mdui-btn mdui-btn-raised mdui-btn-icon mdui-color-theme-accent mdui-ripple"><i class="mdui-icon material-icons">arrow_forward</i></button>
+      </a>
+    
+  </nav>
+
+
+
+
+
+</main>
+  <footer id="footer" class="mdui-m-t-5 mdui-p-y-3 mdui-color-theme">
+  <div class="mdui-p-y-0 mdui-text-center">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  </div>
+  <div class="mdui-p-y-1 mdui-text-center">
+    Copyright &copy; 2023 Kanoc Ge<br>
+    Powered by <a href="https://hexo.io/" target="_blank" class="mdui-text-color-theme-accent">Hexo</a>
+    
+  </div>
+</footer>
+
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-color-theme-accent mdui-ripple"><i class="mdui-icon material-icons">arrow_upward</i></button>
+  
+  
+<script src="/js/mdui.js"></script>
+<script src="/js/script.js"></script>
+
+  
+<script src="/custom.js"></script>
+
+</body>
+</html>
