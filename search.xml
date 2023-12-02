@@ -4,6 +4,37 @@
   
     
     <entry>
+      <title>Faceswap：AI视频换脸教程, 换脸软件使用教程 Faceswap for windows</title>
+      <link href="/2023/12/02/Faceswap%EF%BC%9AAI%E8%A7%86%E9%A2%91%E6%8D%A2%E8%84%B8%E6%95%99%E7%A8%8B-%E6%8D%A2%E8%84%B8%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B-Faceswap-for-windows/"/>
+      <url>/2023/12/02/Faceswap%EF%BC%9AAI%E8%A7%86%E9%A2%91%E6%8D%A2%E8%84%B8%E6%95%99%E7%A8%8B-%E6%8D%A2%E8%84%B8%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B-Faceswap-for-windows/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Faceswap：AI视频换脸教程-换脸软件使用教程-Faceswap-for-windows："><a href="#Faceswap：AI视频换脸教程-换脸软件使用教程-Faceswap-for-windows：" class="headerlink" title="Faceswap：AI视频换脸教程, 换脸软件使用教程 Faceswap for windows："></a><font color=#00b2c2 size=6 face=宋体><strong>Faceswap：AI视频换脸教程, 换脸软件使用教程 Faceswap for windows：</strong></font></h1><p>本文搬运自：By <a href="https://justcode.ikeepstudying.com/author/gideon/">Gideon</a> <a href="https://justcode.ikeepstudying.com/category/ai-machine-learning/">AI 机器学习</a> <a href="https://justcode.ikeepstudying.com/2020/10/faceswap%EF%BC%9Aai%E8%A7%86%E9%A2%91%E6%8D%A2%E8%84%B8%E6%95%99%E7%A8%8B-%E6%8D%A2%E8%84%B8%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B-faceswap-for-windows/#disqus_thread">0 Comments</a></p><hr><hr><h3 id="最终效果演示："><a href="#最终效果演示：" class="headerlink" title="最终效果演示："></a><font color=#00b2c2 size=5 face=宋体><strong>最终效果演示：</strong></font></h3><p><font color=#b0171f size=2 face=宋体><strong>此视频是原视频和换脸后的视频拼接后的结果：</strong></font> <a href="https://objrecong.oss-cn-shanghai.aliyuncs.com/output.mp4">https://objrecong.oss-cn-shanghai.aliyuncs.com/output.mp4</a></p><h3 id="1、安装："><a href="#1、安装：" class="headerlink" title="1、安装："></a><font color=#f26522 size=4 face=宋体><strong>1、安装：</strong></font></h3><p><font color=#b0171f size=2 face=宋体><strong>官方下载地址：</strong></font><a href="https://github.com/deepfakes/faceswap/releases">https://github.com/deepfakes/faceswap/releases</a></p><p><img src="https://s2.loli.net/2023/12/02/KJSUOoRgtmac5XQ.png" alt="Faceswap：AI视频换脸教程, 换脸软件使用教程 Faceswap for windows"></p><p><font color=#b0171f size=2 face=宋体><strong>下载后双击exe安装，如果没有独显，就选 Setup for CPU</strong></font></p><p><font color=#b0171f size=2 face=宋体><strong>有英伟达显卡，就选 Setup for NVIDIA GPU</strong></font></p><p><font color=#b0171f size=2 face=宋体><strong>有AMD显卡，就选 Setup for AMD GPU</strong></font></p><hr><p><font color=#b0171f size=2 face=宋体><strong>最好选择用GPU计算，因为CPU计算起来超级慢，就算是i9, 也不如一个普通GPU的计算能力</strong></font></p><p><font color=#b0171f size=2 face=宋体><strong>一个普通的短视频，就算是强如RTX-2070，可能都要不间断计算一个星期</strong></font></p><p><img src="https://s2.loli.net/2023/12/02/F1gZUlkdjCPx76s.png" alt="Faceswap：AI视频换脸教程, 换脸软件使用教程 Faceswap for windows"></p><h3 id="2-获取视频序列帧："><a href="#2-获取视频序列帧：" class="headerlink" title="2.获取视频序列帧："></a><font color=#f26522 size=4 face=宋体><strong>2.获取视频序列帧：</strong></font></h3><p><font color=#b0171f size=2 face=宋体><strong>准备两段包含人脸的视频，最好是正脸</strong></font></p><p><img src="https://s2.loli.net/2023/12/02/bGZnKwHqJRYS9Nd.png" alt="Faceswap：AI视频换脸教程, 换脸软件使用教程 Faceswap for windows"></p><p><font color=#b0171f size=2 face=宋体><strong>然后我们需要把视频转化为序列帧，随便用什么方法、什么软件都行，在此，我们使用opencv-python去处理</strong></font></p><p><font color=#b0171f size=2 face=宋体><strong>新建两个文件夹p1_Input和p2_Input （命名随意） p1_Input用来存第一个视频的序列帧，</strong></font></p><p><font color=#b0171f size=2 face=宋体><strong>p2_Input用来存第二个视频的序列帧，然后运行python脚本</strong></font></p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 事先 pip install opencv-python</span></span><br><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"></span><br><span class="line">cap=cv2.VideoCapture(<span class="string">r&#x27;E:\PyCharmProjects\FaceswapFiles\燃向热血高校_小栗旬帅炸.mp4&#x27;</span>)</span><br><span class="line">index=<span class="number">0</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    _,frame=cap.read()</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> _:</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    cv2.imshow(<span class="string">&#x27;frame&#x27;</span>,frame)</span><br><span class="line">    cv2.imwrite(<span class="string">r&#x27;E:\PyCharmProjects\FaceswapFiles\p1_Input\\&#x27;</span>+<span class="string">&#x27;p&#x27;</span>+<span class="built_in">str</span>(index)+<span class="string">&#x27;.jpg&#x27;</span>,frame)</span><br><span class="line">    index += <span class="number">1</span></span><br><span class="line">    c=cv2.waitKey(<span class="number">30</span>)</span><br><span class="line">    <span class="keyword">if</span> c==<span class="number">27</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br></pre></td></tr></table></figure><p><font color=#b0171f size=2 face=宋体><strong>另一个视频同理，改下路径即可</strong></font> </p><p><font color=#b0171f size=2 face=宋体><strong>处理完后，对应的序列帧会存在对应的文件夹下</strong></font> </p><p><img src="https://s2.loli.net/2023/12/02/V65I9CrfBjsUoeS.png" alt="Faceswap：AI视频换脸教程, 换脸软件使用教程 Faceswap for windows"></p><h3 id="3-提取序列帧中的人脸："><a href="#3-提取序列帧中的人脸：" class="headerlink" title="3.提取序列帧中的人脸："></a><font color=#f26522 size=4 face=宋体><strong>3.提取序列帧中的人脸：</strong></font></h3><p><font color=#b0171f size=2 face=宋体><strong>首先新建两个空文件夹，用来存放提取的人脸图，例如p1_Output和p2_Output</strong></font> </p><p><img src="https://s2.loli.net/2023/12/02/Jw5akuy1bAx7pZX.png" alt="Faceswap：AI视频换脸教程, 换脸软件使用教程 Faceswap for windows"></p><p><font color=#b0171f size=2 face=宋体><strong>然后打开faceswap软件</strong></font> </p><p><font color=#b0171f size=2 face=宋体><strong>选中Extract</strong></font> </p><p><font color=#b0171f size=2 face=宋体><strong>Input Dir 选为上文的p1_Input文件夹</strong></font> </p><p><font color=#b0171f size=2 face=宋体><strong>Output Dir 选为上文的p1_Output文件夹</strong></font> </p><p><font color=#b0171f size=2 face=宋体><strong>点击下方的Extract开始提取人脸</strong></font> </p><p><font color=#b0171f size=2 face=宋体><strong>如果是第一次运行，点击Extract后会安装各种库，会比较慢</strong></font> </p><p><img src="https://s2.loli.net/2023/12/02/TvywV3knZ8HhlM1.png" alt="Faceswap：AI视频换脸教程, 换脸软件使用教程 Faceswap for windows"></p><p><font color=#b0171f size=2 face=宋体><strong>执行完后，</strong></font> </p><p><font color=#b0171f size=2 face=宋体><strong>会在p1_Output文件夹下生成人脸图，然后检查一下，类似p0044_0.jpg和p0045_0.jpg这种有问题的图片，手动删掉</strong></font> </p><p><img src="https://justcode.ikeepstudying.com/wp-content/uploads/2020/10/6dc8ef60e12f4eb88a14c658761ed77b.jpg" alt="Faceswap：AI视频换脸教程, 换脸软件使用教程 Faceswap for windows"></p><p> <font color=#b0171f size=2 face=宋体><strong>然后另一个视频同理</strong></font> </p><p><font color=#b0171f size=2 face=宋体><strong>更改一下路径，输入和输出路径分别改为p2_Input和p2_Output ，重复上述操作</strong></font> </p><p> <font color=#00b2c2 size=5 face=宋体><strong>4.训练：</strong></font></p><p><font color=#b0171f size=2 face=宋体><strong>新建一个空文件夹，取名models，用来存放训练后的模型</strong></font> </p><p><font color=#b0171f size=2 face=宋体><strong>此时选择Train一栏</strong></font> </p><p><font color=#b0171f size=2 face=宋体><strong> Input A 选择 p1_Output</strong></font></p><p><font color=#b0171f size=2 face=宋体><strong> Input B 选择 p2_Output</strong></font></p><p><font color=#b0171f size=2 face=宋体><strong> Model Dir 选择 刚才新建的models文件夹</strong></font></p><p><font color=#b0171f size=2 face=宋体><strong>然后点击下方的Train按钮开始训练</strong></font> </p><p><img src="https://s2.loli.net/2023/12/03/7ZRES23MQ4j1TXU.png" alt="274a2a0d9a0f4e289a430b88e363123e"></p><p><font color=#b0171f size=2 face=宋体><strong>训练是个漫长的过程，根据处理的内容的复杂度，官方提示需要24小时至一个星期或者更长，要有耐心</strong></font> </p><p><img src="https://s2.loli.net/2023/12/03/SFa2UvxMizmcwIW.png" alt="10ee056811764bce8f1a71f0de63fe81"></p><p><font color=#b0171f size=2 face=宋体><strong>根据电脑的性能，每隔一段时间，下方控制台会刷新一下损失函数的值，训练可以根据需求随时中断，官方建议，当值小于0.02效果会比较理想</strong></font> </p><p><img src="https://s2.loli.net/2023/12/03/dfQDTe6aUg4SCsm.png" alt="Faceswap：AI视频换脸教程, 换脸软件使用教程 Faceswap for windows"></p><p><font color=#b0171f size=2 face=宋体><strong>随时可中断训练，此时模型的精度，就是你中断时控制台上显示的损失函数的值，中断后，训练的模型会存在上文新建的models文件夹下</strong></font> </p><p><img src="https://s2.loli.net/2023/12/03/mx6cqk4OfKzej8H.png" alt="Faceswap：AI视频换脸教程, 换脸软件使用教程 Faceswap for windows"></p><h3 id="5-换脸："><a href="#5-换脸：" class="headerlink" title="5.换脸："></a><font color=#00b2c2 size=5 face=宋体><strong>5.换脸：</strong></font></h3><p><font color=#b0171f size=2 face=宋体><strong>新建个空文件夹，取名Final_Output，用来存放换脸后的最终的序列帧</strong></font> </p><p><font color=#b0171f size=2 face=宋体><strong>选择Convert一栏</strong></font> </p><p><font color=#b0171f size=2 face=宋体><strong>假如想把赵四的脸换到换到泷谷源治上</strong></font> </p><p><font color=#f26522 size=4 face=宋体><strong>则：</strong></font></p><p><font color=#b0171f size=2 face=宋体><strong> Input Dir 需要选择 p1_Input路径，即视频1的原始序列帧</strong></font></p><p><font color=#b0171f size=2 face=宋体><strong>Output Dir 选择刚才创建的Final_Output文件夹路径</strong></font> </p><p><font color=#b0171f size=2 face=宋体><strong>Model Dir 选择第4步保存模型的models文件夹路径</strong></font> </p><p><font color=#b0171f size=2 face=宋体><strong>最后点击下方的Convert按钮开始换脸</strong></font> </p><p><img src="https://s2.loli.net/2023/12/03/UXdA7RtmwsZfQ3q.png" alt="Faceswap：AI视频换脸教程, 换脸软件使用教程 Faceswap for windows"></p><h3 id="6-序列帧转为视频："><a href="#6-序列帧转为视频：" class="headerlink" title="6.序列帧转为视频："></a><font color=#00b2c2 size=5 face=宋体><strong>6.序列帧转为视频：</strong></font></h3><p><font color=#b0171f size=2 face=宋体><strong>第5步执行完后，可在Final_Output文件夹中找到最终换脸后的序列帧</strong></font> </p><p><font color=#b0171f size=2 face=宋体><strong>此时我们再把序列帧转化为视频，用什么方式转换都行</strong></font> </p><p><font color=#b0171f size=2 face=宋体><strong>在此，我们同样用opencv-python去处理</strong></font> </p><p><img src="https://justcode.ikeepstudying.com/wp-content/uploads/2020/10/ef29626e818b499492a5e139c913fd7d.jpg" alt="Faceswap：AI视频换脸教程, 换脸软件使用教程 Faceswap for windows"></p><p> <font color=#00b2c2 size=5 face=宋体><strong>最终效果：</strong></font></p><p><a href="https://objrecong.oss-cn-shanghai.aliyuncs.com/output.mp4">https://objrecong.oss-cn-shanghai.aliyuncs.com/output.mp4</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> AI </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> AI </tag>
+            
+            <tag> 换脸 </tag>
+            
+            <tag> 教程 </tag>
+            
+            <tag> windows10 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>DeepFaceLab3：视频换脸完整流程</title>
       <link href="/2023/11/25/DeepFaceLab3%EF%BC%9A%E8%A7%86%E9%A2%91%E6%8D%A2%E8%84%B8%E5%AE%8C%E6%95%B4%E6%B5%81%E7%A8%8B/"/>
       <url>/2023/11/25/DeepFaceLab3%EF%BC%9A%E8%A7%86%E9%A2%91%E6%8D%A2%E8%84%B8%E5%AE%8C%E6%95%B4%E6%B5%81%E7%A8%8B/</url>
@@ -6411,22 +6442,11 @@
     
     
     <entry>
-      <title>categories</title>
-      <link href="/categories/index-1.html"/>
-      <url>/categories/index-1.html</url>
+      <title>gallery</title>
+      <link href="/gallery/index.html"/>
+      <url>/gallery/index.html</url>
       
-        <content type="html"><![CDATA[]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>categories</title>
-      <link href="/categories/index.html"/>
-      <url>/categories/index.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
+        <content type="html"><![CDATA[<ul><li><p>消愁 - 毛不易</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m804.music.126.net/20230715030040/3058f9a32c1a7c2ab4893a0c10bded60/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/28481677347/474c/85c2/535b/b2f2e46a8854595f90c56bf9a5db2ce2.mp3"></audio></p></li><li><p>像我这样的人 - 毛不易</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m804.music.126.net/20230715030000/c3bd7ebc6b90df3b09570c7047c5ac57/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/28481670328/e30c/18ad/2d86/5b9d878b11940b81e5efcdd1f5771d79.mp3?_authSecret=0000018955af504b086e0aaba3bf1b9a"></audio></p></li><li><p>不染 - 毛不易</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m8.music.126.net/20230715030021/9b8fb29ff25dd716673887bc6a85d183/ymusic/y7RHah68jgZBoxjkl7ieBw==/509951162915395763"></audio></p></li><li><p>Take My Hand - Simple Plan</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://other-web-ra01-sycdn.kuwo.cn/7d16061069e12b3c9e7f27f477d66b0d/64b19743/resource/n3/320/93/52/2280351848.mp3?from$unkown&plat$wapi"></audio></p></li><li><p>It’s My Life - Bon Jovi</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m10.music.126.net/20230715031049/9b363379164ade7cef7b779f50147f6c/ymusic/obj/w5zDlMODwrDDiGjCn8Ky/3066286606/07fe/758c/6f26/5fdcc90d2122f5eb933c39419e656119.mp3"></audio></p></li><li><p>挚爱 - 陈勋奇</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://other-web-ri01-sycdn.kuwo.cn/a47b6dffd701eeb7463410c9d519bf25/64b19842/resource/n2/60/27/3030200018.mp3"></audio></p></li></ul>]]></content>
       
     </entry>
     
@@ -6444,17 +6464,6 @@
     
     
     <entry>
-      <title>tagcloud</title>
-      <link href="/tagcloud/index.html"/>
-      <url>/tagcloud/index.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>timeline</title>
       <link href="/timeline/index.html"/>
       <url>/timeline/index.html</url>
@@ -6466,11 +6475,11 @@
     
     
     <entry>
-      <title>gallery</title>
-      <link href="/gallery/index.html"/>
-      <url>/gallery/index.html</url>
+      <title>tagcloud</title>
+      <link href="/tagcloud/index.html"/>
+      <url>/tagcloud/index.html</url>
       
-        <content type="html"><![CDATA[<ul><li><p>消愁 - 毛不易</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m804.music.126.net/20230715030040/3058f9a32c1a7c2ab4893a0c10bded60/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/28481677347/474c/85c2/535b/b2f2e46a8854595f90c56bf9a5db2ce2.mp3"></audio></p></li><li><p>像我这样的人 - 毛不易</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m804.music.126.net/20230715030000/c3bd7ebc6b90df3b09570c7047c5ac57/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/28481670328/e30c/18ad/2d86/5b9d878b11940b81e5efcdd1f5771d79.mp3?_authSecret=0000018955af504b086e0aaba3bf1b9a"></audio></p></li><li><p>不染 - 毛不易</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m8.music.126.net/20230715030021/9b8fb29ff25dd716673887bc6a85d183/ymusic/y7RHah68jgZBoxjkl7ieBw==/509951162915395763"></audio></p></li><li><p>Take My Hand - Simple Plan</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://other-web-ra01-sycdn.kuwo.cn/7d16061069e12b3c9e7f27f477d66b0d/64b19743/resource/n3/320/93/52/2280351848.mp3?from$unkown&plat$wapi"></audio></p></li><li><p>It’s My Life - Bon Jovi</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m10.music.126.net/20230715031049/9b363379164ade7cef7b779f50147f6c/ymusic/obj/w5zDlMODwrDDiGjCn8Ky/3066286606/07fe/758c/6f26/5fdcc90d2122f5eb933c39419e656119.mp3"></audio></p></li><li><p>挚爱 - 陈勋奇</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://other-web-ri01-sycdn.kuwo.cn/a47b6dffd701eeb7463410c9d519bf25/64b19842/resource/n2/60/27/3030200018.mp3"></audio></p></li></ul>]]></content>
+        <content type="html"><![CDATA[]]></content>
       
     </entry>
     
@@ -6480,6 +6489,28 @@
       <title>tags</title>
       <link href="/tags/index.html"/>
       <url>/tags/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>categories</title>
+      <link href="/categories/index-1.html"/>
+      <url>/categories/index-1.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>categories</title>
+      <link href="/categories/index.html"/>
+      <url>/categories/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
