@@ -2040,9 +2040,9 @@
       
         <tags>
             
-            <tag> 错误 </tag>
-            
             <tag> 工具 </tag>
+            
+            <tag> 错误 </tag>
             
             <tag> 编译器 </tag>
             
@@ -5902,9 +5902,9 @@
       
         <tags>
             
-            <tag> 系统 </tag>
-            
             <tag> 工具 </tag>
+            
+            <tag> 系统 </tag>
             
         </tags>
       
@@ -6133,7 +6133,7 @@
       <link href="/2023/03/20/%E5%AE%89%E8%A3%85chrome-%E4%BD%BF%E7%94%A8selenium/"/>
       <url>/2023/03/20/%E5%AE%89%E8%A3%85chrome-%E4%BD%BF%E7%94%A8selenium/</url>
       
-        <content type="html"><![CDATA[<h1 id="安装chrome-使用selenium"><a href="#安装chrome-使用selenium" class="headerlink" title="安装chrome_ 使用selenium"></a><font color=#00b2c2 size=5 face=宋体><strong><strong>安装chrome_ 使用selenium</strong></strong></font></h1><h1 id="1、查看-chrome-版本"><a href="#1、查看-chrome-版本" class="headerlink" title="1、查看 chrome 版本"></a><font color=#f26522 size=4 face=宋体><strong><strong>1、查看 chrome 版本</strong></strong></font></h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">google-chrome --version</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">centos7  selenium 版本更新</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">执行 wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm下载最新Linux的chrome</span></span><br><span class="line">wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">下载之后执行sudo yum localinstall google-chrome-stable_current_x86_64.rpm安装本地的rpm包则会替换之前版本的chrome</span></span><br><span class="line">sudo yum localinstall google-chrome-stable_current_x86_64.rpm</span><br></pre></td></tr></table></figure><hr><p><font color=#f26522 size=4 face=宋体><strong><strong>2、安装chrome</strong></strong></font></p><p><font color=#b0171f size=3 face=宋体><strong>首先安装google的epel源</strong></font></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/yum.repos.d/google.repo</span><br><span class="line">[google]</span><br><span class="line">name=Google-x86_64</span><br><span class="line">baseurl=http://dl.google.com/linux/rpm/stable/x86_64</span><br><span class="line">enabled=1</span><br><span class="line">gpgcheck=0</span><br><span class="line">gpgkey=https://dl-ssl.google.com/linux/linux_signing_key.pub </span><br><span class="line">yum update , 然后yum install google-chrome-stable</span><br></pre></td></tr></table></figure><hr><p><font color=#f26522 size=4 face=宋体><strong><strong>2、chromedriver下载</strong></strong></font></p><p><a href="https://npm.taobao.org/mirrors/chromedriver/">淘宝源 下载</a><br><a href="http://chromedriver.storage.googleapis.com/index.html">官方源 下载</a></p><p>找到chrome对应的chromedriver 版本，并下载</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://chromedriver.storage.googleapis.com/74.0.3729.6/chromedriver_linux64.zip</span><br></pre></td></tr></table></figure><p>将下载的chromedriver 放到脚本同级目录调用</p><hr><p><font color=#f26522 size=4 face=宋体><strong><strong>3 、为chromedriver授权</strong></strong></font></p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod 755 chromedriver</span><br></pre></td></tr></table></figure><hr><p><font color=#f26522 size=4 face=宋体><strong><strong>4、测试代码 ts.py</strong></strong></font></p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line"><span class="keyword">from</span> selenium.webdriver.chrome.options <span class="keyword">import</span> Options</span><br><span class="line"></span><br><span class="line">chrome_options = Options()</span><br><span class="line">chrome_options.add_argument(<span class="string">&quot;--headless&quot;</span>)</span><br><span class="line">chrome_options.add_argument(<span class="string">&#x27;--disable-gpu&#x27;</span>)</span><br><span class="line">chrome_options.add_argument(<span class="string">&#x27;--no-sandbox&#x27;</span>)    <span class="comment"># 禁止沙箱模式，否则肯能会报错遇到chrome异常</span></span><br><span class="line">url=<span class="string">&quot;https://www.west.cn/login.asp&quot;</span></span><br><span class="line">brower=webdriver.Chrome(executable_path=<span class="string">&quot;./chromedriver&quot;</span>, chrome_options=chrome_options)</span><br><span class="line">brower.get(url)</span><br><span class="line"><span class="built_in">print</span>(brower.current_url)</span><br><span class="line">brower.get(<span class="string">&quot;https://www.west.cn/Manager/&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(brower.current_url)</span><br><span class="line">brower.quit()</span><br></pre></td></tr></table></figure><hr><p><font color=#f26522 size=4 face=宋体><strong><strong>5、测试结果</strong></strong></font></p><p><img src="https://s2.loli.net/2022/10/23/gGApHus5ODlxSTi.png" alt="img"></p>]]></content>
+        <content type="html"><![CDATA[<h1 id="安装chrome-使用selenium"><a href="#安装chrome-使用selenium" class="headerlink" title="安装chrome_ 使用selenium"></a><font color=#00b2c2 size=5 face=宋体><strong><strong>安装chrome_ 使用selenium</strong></strong></font></h1><h1 id="1、查看-chrome-版本"><a href="#1、查看-chrome-版本" class="headerlink" title="1、查看 chrome 版本"></a><font color=#f26522 size=4 face=宋体><strong><strong>1、查看 chrome 版本</strong></strong></font></h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">google-chrome --version</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">centos7  selenium 版本更新</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">执行 wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm下载最新Linux的chrome</span></span><br><span class="line">wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">下载之后执行sudo yum localinstall google-chrome-stable_current_x86_64.rpm安装本地的rpm包则会替换之前版本的chrome</span></span><br><span class="line">sudo yum localinstall google-chrome-stable_current_x86_64.rpm</span><br></pre></td></tr></table></figure><hr><p><font color=#f26522 size=4 face=宋体><strong><strong>2、更新 || 禁止自动更新chrome</strong></strong></font></p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">禁止自动更新</span></span><br><span class="line">echo &#x27;exclude=google-chrome-stable&#x27; &gt;&gt; /etc/yum.conf</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">更新 chrome</span></span><br><span class="line">sudo yum update google-chrome-stable</span><br></pre></td></tr></table></figure><hr><p><font color=#f26522 size=4 face=宋体><strong><strong>3、安装chrome</strong></strong></font></p><p><font color=#b0171f size=3 face=宋体><strong>首先安装google的epel源</strong></font></p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/yum.repos.d/google.repo</span><br><span class="line"></span><br><span class="line">[google]</span><br><span class="line">name=Google-x86_64</span><br><span class="line">baseurl=http://dl.google.com/linux/rpm/stable/x86_64</span><br><span class="line">enabled=<span class="number">1</span></span><br><span class="line">gpgcheck=<span class="number">0</span></span><br><span class="line">gpgkey=https://dl-ssl.google.com/linux/linux_signing_key.pub </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">yum update  <span class="comment"># 更新</span></span><br><span class="line">yum install google-chrome-stable  <span class="comment"># 安装</span></span><br></pre></td></tr></table></figure><hr><p><font color=#f26522 size=4 face=宋体><strong><strong>4、chromedriver下载</strong></strong></font></p><p><a href="https://npm.taobao.org/mirrors/chromedriver/">淘宝源 下载</a><br><a href="http://chromedriver.storage.googleapis.com/index.html">官方源 下载</a></p><p>找到chrome对应的chromedriver 版本，并下载</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://chromedriver.storage.googleapis.com/74.0.3729.6/chromedriver_linux64.zip</span><br></pre></td></tr></table></figure><p>将下载的chromedriver 放到脚本同级目录调用</p><hr><p><font color=#f26522 size=4 face=宋体><strong><strong>5 、为chromedriver授权</strong></strong></font></p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod 755 chromedriver</span><br></pre></td></tr></table></figure><hr><p><font color=#f26522 size=4 face=宋体><strong><strong>6、测试代码 ts.py</strong></strong></font></p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line"><span class="keyword">from</span> selenium.webdriver.chrome.options <span class="keyword">import</span> Options</span><br><span class="line"></span><br><span class="line">chrome_options = Options()</span><br><span class="line">chrome_options.add_argument(<span class="string">&quot;--headless&quot;</span>)</span><br><span class="line">chrome_options.add_argument(<span class="string">&#x27;--disable-gpu&#x27;</span>)</span><br><span class="line">chrome_options.add_argument(<span class="string">&#x27;--no-sandbox&#x27;</span>)    <span class="comment"># 禁止沙箱模式，否则肯能会报错遇到chrome异常</span></span><br><span class="line">url=<span class="string">&quot;https://www.west.cn/login.asp&quot;</span></span><br><span class="line">brower=webdriver.Chrome(executable_path=<span class="string">&quot;./chromedriver&quot;</span>, chrome_options=chrome_options)</span><br><span class="line">brower.get(url)</span><br><span class="line"><span class="built_in">print</span>(brower.current_url)</span><br><span class="line">brower.get(<span class="string">&quot;https://www.west.cn/Manager/&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(brower.current_url)</span><br><span class="line">brower.quit()</span><br></pre></td></tr></table></figure><hr><p><font color=#f26522 size=4 face=宋体><strong><strong>7、测试结果</strong></strong></font></p><p><img src="https://s2.loli.net/2022/10/23/gGApHus5ODlxSTi.png" alt="img"></p>]]></content>
       
       
       <categories>
@@ -6431,22 +6431,11 @@
     
     
     <entry>
-      <title>categories</title>
-      <link href="/categories/index-1.html"/>
-      <url>/categories/index-1.html</url>
+      <title>about</title>
+      <link href="/about/index.html"/>
+      <url>/about/index.html</url>
       
-        <content type="html"><![CDATA[]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>categories</title>
-      <link href="/categories/index.html"/>
-      <url>/categories/index.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
+        <content type="html"><![CDATA[<p><font color=#00b2c2 size=6 face=宋体><strong><strong>站点说明:</strong></strong></font></p><p><font color=#f26522 size=4 face=宋体><strong><strong>1、本站属于个人记录网站，不支持交流</strong></strong></font></p><p><font color=#f26522 size=4 face=宋体><strong><strong>2、转载请指明来源，谢谢！</strong></strong></font></p><p><font color=#f26522 size=4 face=宋体><strong><strong>3、本站模板采用自 &#x3D;&gt; <a href="https://www.niemingzhao.top/">聂明照的博客</a>  Github地址 &#x3D;&gt; <a href="https://github.com/niemingzhao/niemingzhao.github.io/tree/theme">点击进入</a></strong></strong></font></p><p><font color=#f26522 size=4 face=宋体><strong><strong>4、关于搜索配置的问题</strong></strong></font></p><ul><li><font color=#b0171f size=3 face=宋体><strong>除了安装插件以外，还需要配置路径，根据原作者的设置，这里有个坑</strong></font></li><li><font color=#b0171f size=3 face=宋体><strong>坑：use  不是  false、true     而是 false  和plugin 这两个选项，  其中 false &#x3D;&gt; 关闭搜索， plugin &#x3D;&gt; 开启选项</strong></font></li><li><font color=#b0171f size=3 face=宋体><strong>安装插件 &#x3D;&gt; npm install hexo-generator-search –save</strong></font></li></ul><p><img src="https://s2.loli.net/2023/03/20/7PLrKys2ubemoM5.png" alt="image-20230320034837859"></p>]]></content>
       
     </entry>
     
@@ -6458,6 +6447,28 @@
       <url>/collect/index.html</url>
       
         <content type="html"><![CDATA[<p><font color=#b0171f size=4 face=宋体><strong>Markdown 语法：</strong></font><font color=#00b2c2 size=4 face=宋体><strong><a href="https://keatonlao.gitee.io/a-study-note-for-markdown/syntax/">传送门</a></strong></font></p><p><font color=#b0171f size=4 face=宋体><strong>必备工具：</strong></font><font color=#00b2c2 size=4 face=宋体><strong><a href="https://blog.teadan.com/2023/07/11/%E5%BF%85%E5%A4%87%E5%B7%A5%E5%85%B7/">传送门</a></strong></font></p><p><font color=#b0171f size=4 face=宋体><strong>图片压缩：</strong></font><font color=#00b2c2 size=4 face=宋体><strong><a href="https://tinypng.com/">传送门</a></strong></font></p><p><font color=#b0171f size=4 face=宋体><strong>百度问题文字提取：</strong></font><font color=#00b2c2 size=4 face=宋体><strong><a href="http://www.html22.com/zh/">传送门</a></strong></font></p><p><font color=#b0171f size=4 face=宋体><strong>音频视频格式转换：</strong></font><font color=#00b2c2 size=4 face=宋体><strong><a href="https://app.xunjieshipin.com/audio-converter">传送门</a></strong></font></p><p><font color=#b0171f size=4 face=宋体><strong>PDF转换：</strong></font><font color=#00b2c2 size=4 face=宋体><strong><a href="https://app.xunjiepdf.com/pdf2txt/">传送门</a></strong></font></p><p><font color=#b0171f size=4 face=宋体><strong>PDF自建转换：</strong></font><font color=#00b2c2 size=4 face=宋体><strong><a href="http://tools.teadan.com/pdf">公共传送门</a></strong></font>、<font color=#00b2c2 size=4 face=宋体><strong><a href="http://192.168.200.200:8399/pdf">私有传送门</a></strong></font></p><p><font color=#b0171f size=4 face=宋体><strong>熊猫无损音乐：</strong></font><font color=#00b2c2 size=4 face=宋体><strong><a href="https://www.xmwav.com/">传送门</a></strong></font></p><p><font color=#b0171f size=4 face=宋体><strong>在線視頻下載 - zh-TW3660 - VideoFk：</strong></font><font color=#00b2c2 size=4 face=宋体><strong><a href="https://www.videofk.com/zh-TW3660">传送门</a></strong></font></p><p><font color=#b0171f size=4 face=宋体><strong>前言 · Python 爬虫实战课程问题集 (gitbooks.io)：</strong></font><font color=#00b2c2 size=4 face=宋体><strong><a href="https://mugglecoding.gitbooks.io/qa/content/">传送门</a></strong></font></p>]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>gallery</title>
+      <link href="/gallery/index.html"/>
+      <url>/gallery/index.html</url>
+      
+        <content type="html"><![CDATA[<ul><li><p>消愁 - 毛不易</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m804.music.126.net/20230715030040/3058f9a32c1a7c2ab4893a0c10bded60/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/28481677347/474c/85c2/535b/b2f2e46a8854595f90c56bf9a5db2ce2.mp3"></audio></p></li><li><p>像我这样的人 - 毛不易</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m804.music.126.net/20230715030000/c3bd7ebc6b90df3b09570c7047c5ac57/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/28481670328/e30c/18ad/2d86/5b9d878b11940b81e5efcdd1f5771d79.mp3?_authSecret=0000018955af504b086e0aaba3bf1b9a"></audio></p></li><li><p>不染 - 毛不易</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m8.music.126.net/20230715030021/9b8fb29ff25dd716673887bc6a85d183/ymusic/y7RHah68jgZBoxjkl7ieBw==/509951162915395763"></audio></p></li><li><p>Take My Hand - Simple Plan</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://other-web-ra01-sycdn.kuwo.cn/7d16061069e12b3c9e7f27f477d66b0d/64b19743/resource/n3/320/93/52/2280351848.mp3?from$unkown&plat$wapi"></audio></p></li><li><p>It’s My Life - Bon Jovi</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m10.music.126.net/20230715031049/9b363379164ade7cef7b779f50147f6c/ymusic/obj/w5zDlMODwrDDiGjCn8Ky/3066286606/07fe/758c/6f26/5fdcc90d2122f5eb933c39419e656119.mp3"></audio></p></li><li><p>挚爱 - 陈勋奇</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://other-web-ri01-sycdn.kuwo.cn/a47b6dffd701eeb7463410c9d519bf25/64b19842/resource/n2/60/27/3030200018.mp3"></audio></p></li></ul>]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>tags</title>
+      <link href="/tags/index.html"/>
+      <url>/tags/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
       
     </entry>
     
@@ -6486,31 +6497,20 @@
     
     
     <entry>
-      <title>about</title>
-      <link href="/about/index.html"/>
-      <url>/about/index.html</url>
+      <title>categories</title>
+      <link href="/categories/index-1.html"/>
+      <url>/categories/index-1.html</url>
       
-        <content type="html"><![CDATA[<p><font color=#00b2c2 size=6 face=宋体><strong><strong>站点说明:</strong></strong></font></p><p><font color=#f26522 size=4 face=宋体><strong><strong>1、本站属于个人记录网站，不支持交流</strong></strong></font></p><p><font color=#f26522 size=4 face=宋体><strong><strong>2、转载请指明来源，谢谢！</strong></strong></font></p><p><font color=#f26522 size=4 face=宋体><strong><strong>3、本站模板采用自 &#x3D;&gt; <a href="https://www.niemingzhao.top/">聂明照的博客</a>  Github地址 &#x3D;&gt; <a href="https://github.com/niemingzhao/niemingzhao.github.io/tree/theme">点击进入</a></strong></strong></font></p><p><font color=#f26522 size=4 face=宋体><strong><strong>4、关于搜索配置的问题</strong></strong></font></p><ul><li><font color=#b0171f size=3 face=宋体><strong>除了安装插件以外，还需要配置路径，根据原作者的设置，这里有个坑</strong></font></li><li><font color=#b0171f size=3 face=宋体><strong>坑：use  不是  false、true     而是 false  和plugin 这两个选项，  其中 false &#x3D;&gt; 关闭搜索， plugin &#x3D;&gt; 开启选项</strong></font></li><li><font color=#b0171f size=3 face=宋体><strong>安装插件 &#x3D;&gt; npm install hexo-generator-search –save</strong></font></li></ul><p><img src="https://s2.loli.net/2023/03/20/7PLrKys2ubemoM5.png" alt="image-20230320034837859"></p>]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>gallery</title>
-      <link href="/gallery/index.html"/>
-      <url>/gallery/index.html</url>
-      
-        <content type="html"><![CDATA[<ul><li><p>消愁 - 毛不易</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m804.music.126.net/20230715030040/3058f9a32c1a7c2ab4893a0c10bded60/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/28481677347/474c/85c2/535b/b2f2e46a8854595f90c56bf9a5db2ce2.mp3"></audio></p></li><li><p>像我这样的人 - 毛不易</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m804.music.126.net/20230715030000/c3bd7ebc6b90df3b09570c7047c5ac57/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/28481670328/e30c/18ad/2d86/5b9d878b11940b81e5efcdd1f5771d79.mp3?_authSecret=0000018955af504b086e0aaba3bf1b9a"></audio></p></li><li><p>不染 - 毛不易</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m8.music.126.net/20230715030021/9b8fb29ff25dd716673887bc6a85d183/ymusic/y7RHah68jgZBoxjkl7ieBw==/509951162915395763"></audio></p></li><li><p>Take My Hand - Simple Plan</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://other-web-ra01-sycdn.kuwo.cn/7d16061069e12b3c9e7f27f477d66b0d/64b19743/resource/n3/320/93/52/2280351848.mp3?from$unkown&plat$wapi"></audio></p></li><li><p>It’s My Life - Bon Jovi</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m10.music.126.net/20230715031049/9b363379164ade7cef7b779f50147f6c/ymusic/obj/w5zDlMODwrDDiGjCn8Ky/3066286606/07fe/758c/6f26/5fdcc90d2122f5eb933c39419e656119.mp3"></audio></p></li><li><p>挚爱 - 陈勋奇</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://other-web-ri01-sycdn.kuwo.cn/a47b6dffd701eeb7463410c9d519bf25/64b19842/resource/n2/60/27/3030200018.mp3"></audio></p></li></ul>]]></content>
+        <content type="html"><![CDATA[]]></content>
       
     </entry>
     
     
     
     <entry>
-      <title>tags</title>
-      <link href="/tags/index.html"/>
-      <url>/tags/index.html</url>
+      <title>categories</title>
+      <link href="/categories/index.html"/>
+      <url>/categories/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
