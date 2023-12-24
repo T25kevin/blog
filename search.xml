@@ -5902,9 +5902,9 @@
       
         <tags>
             
-            <tag> 工具 </tag>
-            
             <tag> 系统 </tag>
+            
+            <tag> 工具 </tag>
             
         </tags>
       
@@ -6133,7 +6133,7 @@
       <link href="/2023/03/20/%E5%AE%89%E8%A3%85chrome-%E4%BD%BF%E7%94%A8selenium/"/>
       <url>/2023/03/20/%E5%AE%89%E8%A3%85chrome-%E4%BD%BF%E7%94%A8selenium/</url>
       
-        <content type="html"><![CDATA[<h1 id="安装chrome-使用selenium"><a href="#安装chrome-使用selenium" class="headerlink" title="安装chrome_ 使用selenium"></a><font color=#00b2c2 size=5 face=宋体><strong><strong>安装chrome_ 使用selenium</strong></strong></font></h1><h1 id="1、查看-chrome-版本"><a href="#1、查看-chrome-版本" class="headerlink" title="1、查看 chrome 版本"></a><font color=#f26522 size=4 face=宋体><strong><strong>1、查看 chrome 版本</strong></strong></font></h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">google-chrome --version</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">centos7  selenium 版本更新</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">执行 wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm下载最新Linux的chrome</span></span><br><span class="line">wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">下载之后执行sudo yum localinstall google-chrome-stable_current_x86_64.rpm安装本地的rpm包则会替换之前版本的chrome</span></span><br><span class="line">sudo yum localinstall google-chrome-stable_current_x86_64.rpm</span><br></pre></td></tr></table></figure><hr><p><font color=#f26522 size=4 face=宋体><strong><strong>2、更新 || 禁止自动更新chrome</strong></strong></font></p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">禁止自动更新</span></span><br><span class="line">echo &#x27;exclude=google-chrome-stable&#x27; &gt;&gt; /etc/yum.conf</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">更新 chrome</span></span><br><span class="line">sudo yum update google-chrome-stable</span><br></pre></td></tr></table></figure><hr><p><font color=#f26522 size=4 face=宋体><strong><strong>3、安装chrome</strong></strong></font></p><p><font color=#b0171f size=3 face=宋体><strong>首先安装google的epel源</strong></font></p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/yum.repos.d/google.repo</span><br><span class="line"></span><br><span class="line">[google]</span><br><span class="line">name=Google-x86_64</span><br><span class="line">baseurl=http://dl.google.com/linux/rpm/stable/x86_64</span><br><span class="line">enabled=<span class="number">1</span></span><br><span class="line">gpgcheck=<span class="number">0</span></span><br><span class="line">gpgkey=https://dl-ssl.google.com/linux/linux_signing_key.pub </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">yum update  <span class="comment"># 更新</span></span><br><span class="line">yum install google-chrome-stable  <span class="comment"># 安装</span></span><br></pre></td></tr></table></figure><hr><p><font color=#f26522 size=4 face=宋体><strong><strong>4、chromedriver下载</strong></strong></font></p><p><a href="https://npm.taobao.org/mirrors/chromedriver/">淘宝源 下载</a><br><a href="http://chromedriver.storage.googleapis.com/index.html">官方源 下载</a></p><p>找到chrome对应的chromedriver 版本，并下载</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://chromedriver.storage.googleapis.com/74.0.3729.6/chromedriver_linux64.zip</span><br></pre></td></tr></table></figure><p>将下载的chromedriver 放到脚本同级目录调用</p><hr><p><font color=#f26522 size=4 face=宋体><strong><strong>5 、为chromedriver授权</strong></strong></font></p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod 755 chromedriver</span><br></pre></td></tr></table></figure><hr><p><font color=#f26522 size=4 face=宋体><strong><strong>6、测试代码 ts.py</strong></strong></font></p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line"><span class="keyword">from</span> selenium.webdriver.chrome.options <span class="keyword">import</span> Options</span><br><span class="line"></span><br><span class="line">chrome_options = Options()</span><br><span class="line">chrome_options.add_argument(<span class="string">&quot;--headless&quot;</span>)</span><br><span class="line">chrome_options.add_argument(<span class="string">&#x27;--disable-gpu&#x27;</span>)</span><br><span class="line">chrome_options.add_argument(<span class="string">&#x27;--no-sandbox&#x27;</span>)    <span class="comment"># 禁止沙箱模式，否则肯能会报错遇到chrome异常</span></span><br><span class="line">url=<span class="string">&quot;https://www.west.cn/login.asp&quot;</span></span><br><span class="line">brower=webdriver.Chrome(executable_path=<span class="string">&quot;./chromedriver&quot;</span>, chrome_options=chrome_options)</span><br><span class="line">brower.get(url)</span><br><span class="line"><span class="built_in">print</span>(brower.current_url)</span><br><span class="line">brower.get(<span class="string">&quot;https://www.west.cn/Manager/&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(brower.current_url)</span><br><span class="line">brower.quit()</span><br></pre></td></tr></table></figure><hr><p><font color=#f26522 size=4 face=宋体><strong><strong>7、测试结果</strong></strong></font></p><p><img src="https://s2.loli.net/2022/10/23/gGApHus5ODlxSTi.png" alt="img"></p>]]></content>
+        <content type="html"><![CDATA[<h1 id="安装chrome-使用selenium"><a href="#安装chrome-使用selenium" class="headerlink" title="安装chrome_ 使用selenium"></a><font color=#00b2c2 size=5 face=宋体><strong><strong>安装chrome_ 使用selenium</strong></strong></font></h1><h1 id="1、查看-chrome-版本"><a href="#1、查看-chrome-版本" class="headerlink" title="1、查看 chrome 版本"></a><font color=#f26522 size=4 face=宋体><strong><strong>1、查看 chrome 版本</strong></strong></font></h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">google-chrome --version</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">centos7  selenium 版本更新</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">执行 wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm下载最新Linux的chrome</span></span><br><span class="line">wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">下载之后执行sudo yum localinstall google-chrome-stable_current_x86_64.rpm安装本地的rpm包则会替换之前版本的chrome</span></span><br><span class="line">sudo yum localinstall google-chrome-stable_current_x86_64.rpm</span><br></pre></td></tr></table></figure><hr><p><font color=#f26522 size=4 face=宋体><strong><strong>2、更新 || 禁止自动更新chrome</strong></strong></font></p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">禁止自动更新</span></span><br><span class="line">echo &#x27;exclude=google-chrome-stable&#x27; &gt;&gt; /etc/yum.conf</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">更新 chrome</span></span><br><span class="line">sudo yum update google-chrome-stable</span><br></pre></td></tr></table></figure><hr><p><font color=#f26522 size=4 face=宋体><strong><strong>3、安装chrome</strong></strong></font></p><p><font color=#b0171f size=3 face=宋体><strong>首先安装google的epel源</strong></font></p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/yum.repos.d/google.repo</span><br><span class="line"></span><br><span class="line">[google]</span><br><span class="line">name=Google-x86_64</span><br><span class="line">baseurl=http://dl.google.com/linux/rpm/stable/x86_64</span><br><span class="line">enabled=<span class="number">1</span></span><br><span class="line">gpgcheck=<span class="number">0</span></span><br><span class="line">gpgkey=https://dl-ssl.google.com/linux/linux_signing_key.pub </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">yum update  <span class="comment"># 更新</span></span><br><span class="line">yum install google-chrome-stable  <span class="comment"># 安装</span></span><br></pre></td></tr></table></figure><hr><p><font color=#f26522 size=4 face=宋体><strong><strong>4、chromedriver下载</strong></strong></font></p><p><a href="https://npm.taobao.org/mirrors/chromedriver/">淘宝源 下载</a><br><a href="http://chromedriver.storage.googleapis.com/index.html">官方源 下载</a></p><p><a href="https://googlechromelabs.github.io/chrome-for-testing/">chromedriver新版本(116+)</a></p><p>找到chrome对应的chromedriver 版本，并下载</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://chromedriver.storage.googleapis.com/74.0.3729.6/chromedriver_linux64.zip</span><br></pre></td></tr></table></figure><p>将下载的chromedriver 放到脚本同级目录调用</p><hr><p><font color=#f26522 size=4 face=宋体><strong><strong>5 、为chromedriver授权</strong></strong></font></p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod 755 chromedriver</span><br></pre></td></tr></table></figure><hr><p><font color=#f26522 size=4 face=宋体><strong><strong>6、测试代码 ts.py</strong></strong></font></p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line"><span class="keyword">from</span> selenium.webdriver.chrome.options <span class="keyword">import</span> Options</span><br><span class="line"></span><br><span class="line">chrome_options = Options()</span><br><span class="line">chrome_options.add_argument(<span class="string">&quot;--headless&quot;</span>)</span><br><span class="line">chrome_options.add_argument(<span class="string">&#x27;--disable-gpu&#x27;</span>)</span><br><span class="line">chrome_options.add_argument(<span class="string">&#x27;--no-sandbox&#x27;</span>)    <span class="comment"># 禁止沙箱模式，否则肯能会报错遇到chrome异常</span></span><br><span class="line">url=<span class="string">&quot;https://www.west.cn/login.asp&quot;</span></span><br><span class="line">brower=webdriver.Chrome(executable_path=<span class="string">&quot;./chromedriver&quot;</span>, chrome_options=chrome_options)</span><br><span class="line">brower.get(url)</span><br><span class="line"><span class="built_in">print</span>(brower.current_url)</span><br><span class="line">brower.get(<span class="string">&quot;https://www.west.cn/Manager/&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(brower.current_url)</span><br><span class="line">brower.quit()</span><br></pre></td></tr></table></figure><hr><p><font color=#f26522 size=4 face=宋体><strong><strong>7、测试结果</strong></strong></font></p><p><img src="https://s2.loli.net/2022/10/23/gGApHus5ODlxSTi.png" alt="img"></p>]]></content>
       
       
       <categories>
@@ -6431,6 +6431,17 @@
     
     
     <entry>
+      <title>tags</title>
+      <link href="/tags/index.html"/>
+      <url>/tags/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>about</title>
       <link href="/about/index.html"/>
       <url>/about/index.html</url>
@@ -6464,20 +6475,9 @@
     
     
     <entry>
-      <title>tags</title>
-      <link href="/tags/index.html"/>
-      <url>/tags/index.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>tagcloud</title>
-      <link href="/tagcloud/index.html"/>
-      <url>/tagcloud/index.html</url>
+      <title>categories</title>
+      <link href="/categories/index-1.html"/>
+      <url>/categories/index-1.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
@@ -6498,8 +6498,8 @@
     
     <entry>
       <title>categories</title>
-      <link href="/categories/index-1.html"/>
-      <url>/categories/index-1.html</url>
+      <link href="/categories/index.html"/>
+      <url>/categories/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
@@ -6508,9 +6508,9 @@
     
     
     <entry>
-      <title>categories</title>
-      <link href="/categories/index.html"/>
-      <url>/categories/index.html</url>
+      <title>tagcloud</title>
+      <link href="/tagcloud/index.html"/>
+      <url>/tagcloud/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
