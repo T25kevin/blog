@@ -6,7 +6,7 @@
   <link href="https://kanoc.gitee.io/atom.xml" rel="self"/>
   
   <link href="https://kanoc.gitee.io/"/>
-  <updated>2024-01-16T11:29:24.775Z</updated>
+  <updated>2024-01-17T06:59:11.453Z</updated>
   <id>https://kanoc.gitee.io/</id>
   
   <author>
@@ -21,9 +21,9 @@
     <link href="https://kanoc.gitee.io/2024/01/16/%E6%B8%85%E9%99%A4-%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF-Linux-ssh-%E7%99%BB%E9%99%86%E6%97%A5%E5%BF%97/"/>
     <id>https://kanoc.gitee.io/2024/01/16/%E6%B8%85%E9%99%A4-%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF-Linux-ssh-%E7%99%BB%E9%99%86%E6%97%A5%E5%BF%97/</id>
     <published>2024-01-16T11:21:22.000Z</published>
-    <updated>2024-01-16T11:29:24.775Z</updated>
+    <updated>2024-01-17T06:59:11.453Z</updated>
     
-    <content type="html"><![CDATA[<p><font color=#00b2c2 size=5 face=宋体><strong>清除 宝塔面板 + Linux ssh 登陆日志：</strong></font></p><p><font color=#f26522 size=4 face=宋体><strong><strong>1、登录宝塔面板，会在“面板操作日志”里，留下我们的登录信息</strong></strong></font></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/www/server/panel/data/default.db    # 用navicat打开清除</span><br></pre></td></tr></table></figure><p><font color=#f26522 size=4 face=宋体><strong><strong>2、清除 Linux SSH 登陆的 日志信息</strong></strong></font></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 下面的命令 直接执行即可</span><br><span class="line">cat /dev/null &gt; /var/log/wtmp</span><br><span class="line">cat /dev/null &gt; /var/log/btmp</span><br><span class="line">cat /dev/null &gt; /var/log/lastlog</span><br><span class="line">cat /dev/null &gt; /var/log/secure</span><br></pre></td></tr></table></figure>]]></content>
+    <content type="html"><![CDATA[<p><font color=#00b2c2 size=5 face=宋体><strong>清除 宝塔面板 + Linux ssh 登陆日志：</strong></font></p><p><font color=#f26522 size=4 face=宋体><strong><strong>1、登录宝塔面板，会在“面板操作日志”里，留下我们的登录信息</strong></strong></font></p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/www/server/panel/data/default.db    <span class="comment"># 用navicat打开清除</span></span><br></pre></td></tr></table></figure><p><font color=#f26522 size=4 face=宋体><strong><strong>2、清除 Linux SSH 登陆的 日志信息</strong></strong></font></p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 下面的命令 直接执行即可</span></span><br><span class="line">cat /dev/null &gt; /var/log/wtmp</span><br><span class="line">cat /dev/null &gt; /var/log/btmp</span><br><span class="line">cat /dev/null &gt; /var/log/lastlog</span><br><span class="line">cat /dev/null &gt; /var/log/secure</span><br></pre></td></tr></table></figure><p><font color=#f26522 size=4 face=宋体><strong><strong>3、Windows 清除远程桌面登陆</strong></strong></font></p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 步骤1. 按“Win + R”键，然后输入“CMD”打开命令提示符</span></span><br><span class="line"><span class="comment"># 步骤2. 然后依次输入以下命令，并在每个命令输入完成按下回车键</span></span><br><span class="line">reg delete “HKEY_CURRENT_USER\Software\Microsoft\Terminal Server Client\Default” /va /f</span><br><span class="line">reg delete “HKEY_CURRENT_USER\Software\Microsoft\Terminal Server Client\Servers” /f</span><br><span class="line">reg add “HKEY_CURRENT_USER\Software\Microsoft\Terminal Server Client\Servers”</span><br><span class="line"><span class="keyword">del</span> /ah %homepath%\documents\default.rdp</span><br></pre></td></tr></table></figure>]]></content>
     
     
       
@@ -92,9 +92,9 @@
     <category term="django" scheme="https://kanoc.gitee.io/categories/django/"/>
     
     
-    <category term="django" scheme="https://kanoc.gitee.io/tags/django/"/>
-    
     <category term="python" scheme="https://kanoc.gitee.io/tags/python/"/>
+    
+    <category term="django" scheme="https://kanoc.gitee.io/tags/django/"/>
     
     <category term="基础" scheme="https://kanoc.gitee.io/tags/%E5%9F%BA%E7%A1%80/"/>
     
