@@ -92,9 +92,9 @@
     <category term="django" scheme="https://kanoc.gitee.io/categories/django/"/>
     
     
-    <category term="python" scheme="https://kanoc.gitee.io/tags/python/"/>
-    
     <category term="django" scheme="https://kanoc.gitee.io/tags/django/"/>
+    
+    <category term="python" scheme="https://kanoc.gitee.io/tags/python/"/>
     
     <category term="基础" scheme="https://kanoc.gitee.io/tags/%E5%9F%BA%E7%A1%80/"/>
     
