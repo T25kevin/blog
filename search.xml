@@ -4968,9 +4968,9 @@
             
             <tag> python </tag>
             
-            <tag> django </tag>
-            
             <tag> 模板 </tag>
+            
+            <tag> django </tag>
             
         </tags>
       
@@ -6667,55 +6667,33 @@
     
     
     <entry>
+      <title>categories</title>
+      <link href="/categories/index-1.html"/>
+      <url>/categories/index-1.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>categories</title>
+      <link href="/categories/index.html"/>
+      <url>/categories/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>collect</title>
       <link href="/collect/index.html"/>
       <url>/collect/index.html</url>
       
         <content type="html"><![CDATA[<p><font color=#b0171f size=4 face=宋体><strong>Markdown 语法：</strong></font><font color=#00b2c2 size=4 face=宋体><strong><a href="https://keatonlao.gitee.io/a-study-note-for-markdown/syntax/">传送门</a></strong></font></p><p><font color=#b0171f size=4 face=宋体><strong>必备工具：</strong></font><font color=#00b2c2 size=4 face=宋体><strong><a href="https://blog.teadan.com/2023/07/11/%E5%BF%85%E5%A4%87%E5%B7%A5%E5%85%B7/">传送门</a></strong></font></p><p><font color=#b0171f size=4 face=宋体><strong>图片压缩：</strong></font><font color=#00b2c2 size=4 face=宋体><strong><a href="https://tinypng.com/">传送门</a></strong></font></p><p><font color=#b0171f size=4 face=宋体><strong>百度问题文字提取：</strong></font><font color=#00b2c2 size=4 face=宋体><strong><a href="http://www.html22.com/zh/">传送门</a></strong></font></p><p><font color=#b0171f size=4 face=宋体><strong>音频视频格式转换：</strong></font><font color=#00b2c2 size=4 face=宋体><strong><a href="https://app.xunjieshipin.com/audio-converter">传送门</a></strong></font></p><p><font color=#b0171f size=4 face=宋体><strong>PDF转换：</strong></font><font color=#00b2c2 size=4 face=宋体><strong><a href="https://app.xunjiepdf.com/pdf2txt/">传送门</a></strong></font></p><p><font color=#b0171f size=4 face=宋体><strong>PDF自建转换：</strong></font><font color=#00b2c2 size=4 face=宋体><strong><a href="http://tools.teadan.com/pdf">公共传送门</a></strong></font>、<font color=#00b2c2 size=4 face=宋体><strong><a href="http://192.168.200.200:8399/pdf">私有传送门</a></strong></font></p><p><font color=#b0171f size=4 face=宋体><strong>熊猫无损音乐：</strong></font><font color=#00b2c2 size=4 face=宋体><strong><a href="https://www.xmwav.com/">传送门</a></strong></font></p><p><font color=#b0171f size=4 face=宋体><strong>在線視頻下載 - zh-TW3660 - VideoFk：</strong></font><font color=#00b2c2 size=4 face=宋体><strong><a href="https://www.videofk.com/zh-TW3660">传送门</a></strong></font></p><p><font color=#b0171f size=4 face=宋体><strong>前言 · Python 爬虫实战课程问题集 (gitbooks.io)：</strong></font><font color=#00b2c2 size=4 face=宋体><strong><a href="https://mugglecoding.gitbooks.io/qa/content/">传送门</a></strong></font></p><hr><center><font color=#00b2c2 size=5 face=宋体><strong>华丽分割线</strong></font></center><hr><h1 id="ReverseTool"><a href="#ReverseTool" class="headerlink" title="ReverseTool"></a>ReverseTool</h1><p>逆向工具集合</p><ul><li><a href="https://github.com/Hack-with-Github/Awesome-Hacking">Awesome-Hacking</a></li></ul><h2 id="Java-amp-Jar-Android"><a href="#Java-amp-Jar-Android" class="headerlink" title="Java &amp; Jar (Android)"></a>Java &amp; Jar (Android)</h2><ul><li><p><a href="http://jd.benow.ca/">jd-gui</a>    jar包浏览工具,对应的IDE插件，JD-Eclipse&#x2F;JD-IntelliJ </p></li><li><p><a href="https://github.com/deathmarine/Luyten">Luyten</a> An Open Source Java Decompiler Gui for Procyon</p></li><li><p><a href="https://github.com/skylot/jadx">jadx-gui</a> 直接反编译apk</p></li><li><p><a href="https://ibotpeaches.github.io/Apktool/">Apktool</a> apk的反编译,编译工具(smali格式) </p></li><li><p><a href="https://github.com/pxb1988/dex2jar">dex2jar</a> dex转为jar工具</p></li><li><p><a href="https://www.nuget.org/packages/axmlprinter">AXMLPrinter</a>  XML浏览工具</p></li><li><p><a href="https://github.com/androguard/androguard">androguard</a> 使用DAD作为反编译器，可以分析恶意软件的可视化软件</p></li><li><p><a href="https://github.com/google/enjarify">Enjarify</a> Google官方逆向分析工具(Dalvik字节码 -&gt; Java),需python环境</p></li><li><p><a href="https://github.com/google/android-classyshark">ClassyShark</a> Google官方dex&#x2F;apk&#x2F;jar&#x2F;class&#x2F;aar浏览工具</p></li><li><p>APK Analyzer(AndroidStudio 2.2+) Google官方APK分析工具, <a href="https://medium.com/google-developers/making-the-most-of-the-apk-analyzer-c066cb871ea2">making-the-most-of-the-apk-analyzer</a> </p></li><li><p><a href="https://github.com/JesusFreke/smali/wiki/smalidea">Smali&#x2F;baksmali</a> APK文件编辑工具</p></li><li><p><a href="http://www.hensence.com/cn/smali2java">Smali2Java</a> APK图形化浏览工具</p></li><li><p><a href="https://blogs.uni-paderborn.de/sse/tools/codeinspect/">CodeInspect</a> </p></li><li><p><a href="https://bytecodeviewer.com/">bytecodeviewer</a></p></li><li><p><a href="http://www.xiaomiren.net/">APKIDE</a> 国人开发综合图形化工具</p></li><li><p><a href="https://bytecodeviewer.com/">bytecode-viewer</a> 集成了J-RET,JHexPane, Dex2Jar等多个反编译工具</p></li><li><p><a href="https://www.pnfsoftware.com/">JEB</a> 商业反编译软件,支持动态编辑</p></li><li><p><a href="https://github.com/radare/radare2">RADARE2</a>  可以反汇编、调试、分析和操作二进制文件</p></li><li><p><a href="https://github.com/CalebFenton/simplify">Simplify</a>  反混淆工具</p></li><li><p><a href="https://varaneckas.com/jad/">JAD</a>  Java反编译工具</p></li><li><p><a href="https://github.com/iSECPartners/Introspy-iOS">Introspy</a>  黑盒测试工具</p></li><li><p><a href="https://github.com/vaibhavpandeyvpz/apkstudio">ApkStudio</a>  跨平台逆向IDE</p></li><li><p><a href="http://apk-deguard.com/">APK DeGuard</a> 在线Android反编译工具</p></li></ul><blockquote><p>Hook Tools</p></blockquote><ul><li><p><a href="http://repo.xposed.info/">Xposed Framework</a>   运行时修改系统或应用程序方面和行为</p></li><li><p><a href="http://www.cydiasubstrate.com/">Cydia Substrate</a>  注入</p></li><li><p><a href="https://github.com/samsung/adbi">ADBI</a> &amp; <a href="https://github.com/crmulliner/ddi">DDI</a> 动态跟踪工具</p></li><li><p><a href="https://github.com/crmulliner/ddi">Frida</a> &amp; <a href="https://github.com/antojoseph/diff-gui">Diff-GUI</a> JavaScript 注入</p></li></ul><blockquote><p>Android 漏洞查询</p></blockquote><ul><li><p><a href="http://androidvulnerabilities.org/">Android Vulnerabilties</a></p></li><li><p><a href="http://www.cvedetails.com/vulnerability-list/vendor_id-1224/product_id-19997/Google-Android.html">Android CVE Details</a></p></li></ul><h2 id="C-amp-So-Android"><a href="#C-amp-So-Android" class="headerlink" title="C++ &amp; So (Android)"></a>C++ &amp; So (Android)</h2><ul><li><a href="https://www.hex-rays.com/products/ida/index.shtml">IDAPro</a>  最强大的静态逆向分析工具,没有之一   <a href="http://www.52pojie.cn/forum.php?mod=viewthread&tid=442702&extra=page=1&filter=typeid&typeid=123">IDA Pro 6.8 + All Decompilers Full Leak</a></li></ul><h2 id="C-amp-Dll-amp-EXE"><a href="#C-amp-Dll-amp-EXE" class="headerlink" title="C# &amp; Dll &amp; EXE"></a>C# &amp; Dll &amp; EXE</h2><ul><li><p><a href="http://ilspy.net/">ILSpy</a>(免费) 直接使用,dll查看工具</p></li><li><p><a href="http://www.red-gate.com/products/dotnet-development/reflector/">.Net Reflector</a> &amp; Reflexil RedGate开发的.Net逆向工具(反编译查看)<a href="https://github.com/sailro/reflexil">加上Reflexil插件</a>(开源)用于编辑,修改&#x2F;注入</p></li><li><p><a href="http://www.dependencywalker.com/">Dependency Walker</a></p></li><li><p><a href="https://www.jetbrains.com/decompiler/">dotPeek</a></p></li><li><p><a href="https://github.com/0xd4d/de4dot">De4Dot(开源) 脱壳&#x2F;反混淆工具</a><br>使用: de4dot.exe xx.dll -p un</p></li><li><p><a href="https://sourceforge.net/projects/dile/">DILE Dotnet IL Editor</a> 调试工具</p></li><li><p>ilasm &amp; ildasm(微软官方) 把IL文件重新生成DLL的功能,<a href="http://www.cnblogs.com/dudu/archive/2011/05/17/ildasm_ilasm_il.html">使用参考</a> </p></li><li><p><a href="http://www.telerik.com/products/decompiler.aspx">Just Decompile</a>  反编译工具</p></li><li><p><a href="https://www.preemptive.com/products/dotfuscator/overview">Dotfuscator</a>, Visual Studio自带 混淆工具, 目录为”**\Microsoft Visual Studio 14.0\PreEmptive Solutions\Dotfuscator and Analytics CommunityEdition\dotfuscator.exe “</p></li><li><p><a href="https://www.codeguard.com/">Codeguard</a> 混淆工具</p></li><li><p><a href="https://projectreactor.io/">Reactor</a> 混淆工具</p></li><li><p><a href="https://turbo.net/studio">xeoncode</a> 混淆工具 <a href="http://download.csdn.net/detail/sndntdkj/6521975">破解版</a>(64位不可用)</p></li><li><p><a href="https://yck1509.github.io/ConfuserEx/">ConfuserEx</a>(开源)混淆工具, <a href="https://github.com/yck1509/ConfuserEx/releases">下载地址</a> </p></li><li><p><a href="http://www.ollydbg.de/">OllyDbg</a></p></li></ul><h2 id="iOS"><a href="#iOS" class="headerlink" title="iOS"></a>iOS</h2><ul><li><p><a href="https://www.hex-rays.com/products/ida/index.shtml">IDA Pro</a>  反汇编工具 (Windows,Linux, Mac OS X) &amp; <a href="https://www.hopperapp.com/">Hopper</a> (Mac OS X)</p></li><li><p><a href="https://revealapp.com/">Reveal</a> &amp; <a href="https://github.com/square/PonyDebugger">PonyDebugger</a>   UI分析利器</p></li><li><p><a href="http://www.i-funbox.com/zh-cn_index.html">iFunbox</a> &amp; <a href="https://iexplorer.en.softonic.com/">iExplorer</a> &amp; <a href="http://www.itools.cn/">iTools</a> 文件查看工具</p></li><li><p><a href="https://www.charlesproxy.com/">Charles</a> 网络分析工具</p></li><li><p><a href="http://www.cycript.org/">Cycript</a> 调试器</p></li><li><p><a href="https://lldb.llvm.org/">LLDB</a></p></li><li><p><a href="https://code.google.com/archive/p/snoop-it/">snoop-it</a> 查看类信息，调试调用类的方法</p></li><li><p><a href="https://github.com/iSECPartners/Introspy-iOS">introspy</a></p></li><li><p><a href="http://stevenygard.com/projects/class-dump/">class-dump</a></p></li></ul><blockquote><p>Hook Tools</p></blockquote><ul><li><p><a href="http://iphonedevwiki.net/index.php/Theos/Setup">Theos</a> 越狱程序开发框架</p></li><li><p><a href="http://www.iosopendev.com/">iOSOpenDev</a></p></li></ul><h2 id="Others"><a href="#Others" class="headerlink" title="Others"></a>Others</h2><ul><li><a href="https://www.frida.re/">Frida</a> 动态二进制插桩(Dynamic Binary Instrumentation)框架, <a href="http://bbs.pediy.com/thread-216645.htm">使用Frida来hack安卓APP（一）</a></li></ul><h2 id="实用参考"><a href="#实用参考" class="headerlink" title="实用参考"></a>实用参考</h2><ul><li><p><a href="http://www.kanxue.com/">权威论坛-看雪</a></p></li><li><p><a href="http://bbs.pediy.com/thread-212685.htm">看雪iOS安全小组 置顶向导集合贴</a></p></li><li><p><a href="http://www.droidsec.cn/">Android安全中文站</a></p></li><li><p><a href="http://bbs.iosre.com/">&lt;&lt;iOS应用逆向工程&gt;&gt; 论坛</a></p></li><li><p><a href="https://www.gitbook.com/book/wizardforcel/ios-sec-wiki/details">iOS 安全 Wiki</a></p></li><li><p><a href="http://www.aneasystone.com/archives/2015/06/net-reverse-decompiling.html">关于 .Net 逆向的那些工具：反编译篇 </a>  </p></li><li><p><a href="http://www.52pojie.cn/thread-174802-1-1.html">破解NET的四大神器</a>    </p></li><li><p><a href="http://wzmlj.com/yiyan127/p/CSharp_CrackJava2CSharpConverter.html">破解Java to C# Converter</a></p></li></ul>]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>about</title>
-      <link href="/about/index.html"/>
-      <url>/about/index.html</url>
-      
-        <content type="html"><![CDATA[<p><font color=#00b2c2 size=6 face=宋体><strong><strong>站点说明:</strong></strong></font></p><p><font color=#f26522 size=4 face=宋体><strong><strong>1、本站属于个人记录网站，不支持交流</strong></strong></font></p><p><font color=#f26522 size=4 face=宋体><strong><strong>2、转载请指明来源，谢谢！</strong></strong></font></p><p><font color=#f26522 size=4 face=宋体><strong><strong>3、本站模板采用自 &#x3D;&gt; <a href="https://www.niemingzhao.top/">聂明照的博客</a>  Github地址 &#x3D;&gt; <a href="https://github.com/niemingzhao/niemingzhao.github.io/tree/theme">点击进入</a></strong></strong></font></p><p><font color=#f26522 size=4 face=宋体><strong><strong>4、关于搜索配置的问题</strong></strong></font></p><ul><li><font color=#b0171f size=3 face=宋体><strong>除了安装插件以外，还需要配置路径，根据原作者的设置，这里有个坑</strong></font></li><li><font color=#b0171f size=3 face=宋体><strong>坑：use  不是  false、true     而是 false  和plugin 这两个选项，  其中 false &#x3D;&gt; 关闭搜索， plugin &#x3D;&gt; 开启选项</strong></font></li><li><font color=#b0171f size=3 face=宋体><strong>安装插件 &#x3D;&gt; npm install hexo-generator-search –save</strong></font></li></ul><p><img src="https://s2.loli.net/2023/03/20/7PLrKys2ubemoM5.png" alt="image-20230320034837859"></p>]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>tags</title>
-      <link href="/tags/index.html"/>
-      <url>/tags/index.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>gallery</title>
-      <link href="/gallery/index.html"/>
-      <url>/gallery/index.html</url>
-      
-        <content type="html"><![CDATA[<ul><li><p>消愁 - 毛不易</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m804.music.126.net/20230715030040/3058f9a32c1a7c2ab4893a0c10bded60/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/28481677347/474c/85c2/535b/b2f2e46a8854595f90c56bf9a5db2ce2.mp3"></audio></p></li><li><p>像我这样的人 - 毛不易</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m804.music.126.net/20230715030000/c3bd7ebc6b90df3b09570c7047c5ac57/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/28481670328/e30c/18ad/2d86/5b9d878b11940b81e5efcdd1f5771d79.mp3?_authSecret=0000018955af504b086e0aaba3bf1b9a"></audio></p></li><li><p>不染 - 毛不易</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m8.music.126.net/20230715030021/9b8fb29ff25dd716673887bc6a85d183/ymusic/y7RHah68jgZBoxjkl7ieBw==/509951162915395763"></audio></p></li><li><p>Take My Hand - Simple Plan</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://other-web-ra01-sycdn.kuwo.cn/7d16061069e12b3c9e7f27f477d66b0d/64b19743/resource/n3/320/93/52/2280351848.mp3?from$unkown&plat$wapi"></audio></p></li><li><p>It’s My Life - Bon Jovi</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m10.music.126.net/20230715031049/9b363379164ade7cef7b779f50147f6c/ymusic/obj/w5zDlMODwrDDiGjCn8Ky/3066286606/07fe/758c/6f26/5fdcc90d2122f5eb933c39419e656119.mp3"></audio></p></li><li><p>挚爱 - 陈勋奇</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://other-web-ri01-sycdn.kuwo.cn/a47b6dffd701eeb7463410c9d519bf25/64b19842/resource/n2/60/27/3030200018.mp3"></audio></p></li></ul>]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>timeline</title>
-      <link href="/timeline/index.html"/>
-      <url>/timeline/index.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
       
     </entry>
     
@@ -6733,9 +6711,31 @@
     
     
     <entry>
-      <title>categories</title>
-      <link href="/categories/index-1.html"/>
-      <url>/categories/index-1.html</url>
+      <title>about</title>
+      <link href="/about/index.html"/>
+      <url>/about/index.html</url>
+      
+        <content type="html"><![CDATA[<p><font color=#00b2c2 size=6 face=宋体><strong><strong>站点说明:</strong></strong></font></p><p><font color=#f26522 size=4 face=宋体><strong><strong>1、本站属于个人记录网站，不支持交流</strong></strong></font></p><p><font color=#f26522 size=4 face=宋体><strong><strong>2、转载请指明来源，谢谢！</strong></strong></font></p><p><font color=#f26522 size=4 face=宋体><strong><strong>3、本站模板采用自 &#x3D;&gt; <a href="https://www.niemingzhao.top/">聂明照的博客</a>  Github地址 &#x3D;&gt; <a href="https://github.com/niemingzhao/niemingzhao.github.io/tree/theme">点击进入</a></strong></strong></font></p><p><font color=#f26522 size=4 face=宋体><strong><strong>4、关于搜索配置的问题</strong></strong></font></p><ul><li><font color=#b0171f size=3 face=宋体><strong>除了安装插件以外，还需要配置路径，根据原作者的设置，这里有个坑</strong></font></li><li><font color=#b0171f size=3 face=宋体><strong>坑：use  不是  false、true     而是 false  和plugin 这两个选项，  其中 false &#x3D;&gt; 关闭搜索， plugin &#x3D;&gt; 开启选项</strong></font></li><li><font color=#b0171f size=3 face=宋体><strong>安装插件 &#x3D;&gt; npm install hexo-generator-search –save</strong></font></li></ul><p><img src="https://s2.loli.net/2023/03/20/7PLrKys2ubemoM5.png" alt="image-20230320034837859"></p>]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>gallery</title>
+      <link href="/gallery/index.html"/>
+      <url>/gallery/index.html</url>
+      
+        <content type="html"><![CDATA[<ul><li><p>消愁 - 毛不易</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m804.music.126.net/20230715030040/3058f9a32c1a7c2ab4893a0c10bded60/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/28481677347/474c/85c2/535b/b2f2e46a8854595f90c56bf9a5db2ce2.mp3"></audio></p></li><li><p>像我这样的人 - 毛不易</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m804.music.126.net/20230715030000/c3bd7ebc6b90df3b09570c7047c5ac57/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/28481670328/e30c/18ad/2d86/5b9d878b11940b81e5efcdd1f5771d79.mp3?_authSecret=0000018955af504b086e0aaba3bf1b9a"></audio></p></li><li><p>不染 - 毛不易</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m8.music.126.net/20230715030021/9b8fb29ff25dd716673887bc6a85d183/ymusic/y7RHah68jgZBoxjkl7ieBw==/509951162915395763"></audio></p></li><li><p>Take My Hand - Simple Plan</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://other-web-ra01-sycdn.kuwo.cn/7d16061069e12b3c9e7f27f477d66b0d/64b19743/resource/n3/320/93/52/2280351848.mp3?from$unkown&plat$wapi"></audio></p></li><li><p>It’s My Life - Bon Jovi</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m10.music.126.net/20230715031049/9b363379164ade7cef7b779f50147f6c/ymusic/obj/w5zDlMODwrDDiGjCn8Ky/3066286606/07fe/758c/6f26/5fdcc90d2122f5eb933c39419e656119.mp3"></audio></p></li><li><p>挚爱 - 陈勋奇</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://other-web-ri01-sycdn.kuwo.cn/a47b6dffd701eeb7463410c9d519bf25/64b19842/resource/n2/60/27/3030200018.mp3"></audio></p></li></ul>]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>tags</title>
+      <link href="/tags/index.html"/>
+      <url>/tags/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
@@ -6744,9 +6744,9 @@
     
     
     <entry>
-      <title>categories</title>
-      <link href="/categories/index.html"/>
-      <url>/categories/index.html</url>
+      <title>timeline</title>
+      <link href="/timeline/index.html"/>
+      <url>/timeline/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
