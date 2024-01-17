@@ -6,7 +6,7 @@
   <link href="https://kanoc.gitee.io/atom.xml" rel="self"/>
   
   <link href="https://kanoc.gitee.io/"/>
-  <updated>2024-01-13T18:02:24.500Z</updated>
+  <updated>2024-01-16T11:29:24.775Z</updated>
   <id>https://kanoc.gitee.io/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>清除 宝塔面板 + Linux ssh 登陆日志</title>
+    <link href="https://kanoc.gitee.io/2024/01/16/%E6%B8%85%E9%99%A4-%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF-Linux-ssh-%E7%99%BB%E9%99%86%E6%97%A5%E5%BF%97/"/>
+    <id>https://kanoc.gitee.io/2024/01/16/%E6%B8%85%E9%99%A4-%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF-Linux-ssh-%E7%99%BB%E9%99%86%E6%97%A5%E5%BF%97/</id>
+    <published>2024-01-16T11:21:22.000Z</published>
+    <updated>2024-01-16T11:29:24.775Z</updated>
+    
+    <content type="html"><![CDATA[<p><font color=#00b2c2 size=5 face=宋体><strong>清除 宝塔面板 + Linux ssh 登陆日志：</strong></font></p><p><font color=#f26522 size=4 face=宋体><strong><strong>1、登录宝塔面板，会在“面板操作日志”里，留下我们的登录信息</strong></strong></font></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/www/server/panel/data/default.db    # 用navicat打开清除</span><br></pre></td></tr></table></figure><p><font color=#f26522 size=4 face=宋体><strong><strong>2、清除 Linux SSH 登陆的 日志信息</strong></strong></font></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 下面的命令 直接执行即可</span><br><span class="line">cat /dev/null &gt; /var/log/wtmp</span><br><span class="line">cat /dev/null &gt; /var/log/btmp</span><br><span class="line">cat /dev/null &gt; /var/log/lastlog</span><br><span class="line">cat /dev/null &gt; /var/log/secure</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;&lt;font color=#00b2c2 size=5 face=宋体&gt;&lt;strong&gt;清除 宝塔面板 + Linux ssh 登陆日志：&lt;/strong&gt;&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font color=#f26522 size=4 face=宋体&gt;&lt;strong&gt;&lt;s</summary>
+      
+    
+    
+    
+    <category term="linux" scheme="https://kanoc.gitee.io/categories/linux/"/>
+    
+    
+    <category term="系统" scheme="https://kanoc.gitee.io/tags/%E7%B3%BB%E7%BB%9F/"/>
+    
+    <category term="运维" scheme="https://kanoc.gitee.io/tags/%E8%BF%90%E7%BB%B4/"/>
+    
+    <category term="宝塔" scheme="https://kanoc.gitee.io/tags/%E5%AE%9D%E5%A1%94/"/>
+    
+  </entry>
   
   <entry>
     <title>字符串的操作</title>
@@ -571,28 +600,6 @@
     <category term="ftp" scheme="https://kanoc.gitee.io/tags/ftp/"/>
     
     <category term="挂载" scheme="https://kanoc.gitee.io/tags/%E6%8C%82%E8%BD%BD/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>折腾 DeepNude 去水印，去隐私算法</title>
-    <link href="https://kanoc.gitee.io/2023/10/14/%E6%8A%98%E8%85%BE-DeepNude-%E5%8E%BB%E6%B0%B4%E5%8D%B0%EF%BC%8C%E5%8E%BB%E9%9A%90%E7%A7%81%E7%AE%97%E6%B3%95/"/>
-    <id>https://kanoc.gitee.io/2023/10/14/%E6%8A%98%E8%85%BE-DeepNude-%E5%8E%BB%E6%B0%B4%E5%8D%B0%EF%BC%8C%E5%8E%BB%E9%9A%90%E7%A7%81%E7%AE%97%E6%B3%95/</id>
-    <published>2023-10-13T17:12:59.000Z</published>
-    <updated>2023-11-28T10:55:08.690Z</updated>
-    
-    <content type="html"><![CDATA[<p><font color=#00b2c2 size=5 face=宋体><strong></strong></font></p><p><font color=#f26522 size=4 face=宋体><strong></strong></font></p><p><font color=#b0171f size=2 face=宋体><strong></strong></font></p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;&lt;font color=#00b2c2 size=5 face=宋体&gt;&lt;strong&gt;&lt;/strong&gt;&lt;/font&gt;&lt;/p&gt;
-&lt;p&gt;&lt;font color=#f26522 size=4 face=宋体&gt;&lt;strong&gt;&lt;/strong&gt;&lt;/font&gt;&lt;/p&gt;
-&lt;p&gt;&lt;fo</summary>
-      
-    
-    
-    
     
   </entry>
   
