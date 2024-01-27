@@ -65,9 +65,9 @@
     <category term="Docker" scheme="https://kanoc.gitee.io/categories/Docker/"/>
     
     
-    <category term="centos7" scheme="https://kanoc.gitee.io/tags/centos7/"/>
-    
     <category term="工具" scheme="https://kanoc.gitee.io/tags/%E5%B7%A5%E5%85%B7/"/>
+    
+    <category term="centos7" scheme="https://kanoc.gitee.io/tags/centos7/"/>
     
     <category term="docker" scheme="https://kanoc.gitee.io/tags/docker/"/>
     
