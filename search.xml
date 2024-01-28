@@ -4,6 +4,19 @@
   
     
     <entry>
+      <title>Centos7下，使用docker部署docker-selenium,远程请求chrome_drive</title>
+      <link href="/2024/01/29/centos7%E4%B8%8B%EF%BC%8C%E4%BD%BF%E7%94%A8docker%E9%83%A8%E7%BD%B2docker-selenium-%E8%BF%9C%E7%A8%8B%E8%AF%B7%E6%B1%82chrome-drive/"/>
+      <url>/2024/01/29/centos7%E4%B8%8B%EF%BC%8C%E4%BD%BF%E7%94%A8docker%E9%83%A8%E7%BD%B2docker-selenium-%E8%BF%9C%E7%A8%8B%E8%AF%B7%E6%B1%82chrome-drive/</url>
+      
+        <content type="html"><![CDATA[<p><font color=#00b2c2 size=5 face=宋体><strong>Centos7下，使用docker部署docker-selenium,远程请求chrome_drive：</strong></font></p><ul><li><p><font color=#f26522 size=4 face=宋体><strong><a href="https://www.selenium.dev/zh-cn/documentation/webdriver/drivers/remote_webdriver/">远程WebDriver | Selenium</a></strong></font></p></li><li><p><font color=#f26522 size=4 face=宋体><strong>官方Github：</strong></font><a href="https://github.com/SeleniumHQ/docker-selenium">SeleniumHQ&#x2F;docker-selenium: Provides a simple way to run Selenium Grid with Chrome, Firefox, and Edge using Docker, making it easier to perform browser automation (github.com)</a></p></li><li><p><font color=#f26522 size=4 face=宋体><strong>VNC 密码：<code>secret</code></strong></font></p></li><li><p><font color=#f26522 size=4 face=宋体><strong>拉取镜像：</strong></font></p></li></ul><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull standalone-chrome</span><br></pre></td></tr></table></figure><ul><li><font color=#f26522 size=4 face=宋体><strong>部署docker_selenium：</strong></font></li><li><font color=#00b2c2 size=4 face=宋体><strong>参考：</strong></font><a href="https://juejin.cn/post/7087386683062108196">seleniumbase学习总结5 - docker-compose集成部署执行环境 - 掘金 (juejin.cn)</a></li></ul><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 3786:4444 -e SE_NODE_MAX_SESSIONS=100 -e NODE_MAX_INSTANCES=100 -e SE_NODE_OVERRIDE_MAX_SESSIONS=true -e E_SESSION_REQUEST_TIMEOUT=35 --name selenium-node-chrme1 -v /dev/shm:/dev/shm selenium/standalone-chrome</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">--restart</span>  </span><br><span class="line">参数会在容器异常时重启，比如hub被压挂了等，在搭建重要项目是都是加上该参数</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">--scale chrome=num</span></span><br><span class="line">docker-compose up -d --scale chrome=num //num是要启动节点的数量，chrome是docker-compose文件中节点的名称</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">若需多个node，可重复执行以上命令，修改--name即可。</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">--shm-size=<span class="string">&quot;2g&quot;</span></span></span><br><span class="line">来使用主机的共享内存，防止容器崩溃,这是避免浏览器在 docker 容器内崩溃的已知解决方法，这里是 Chrome和Firefox的记录问题。2gb 的 shm 大小是任意的，但已知效果很好，您的特定用例可能需要不同的值，建议根据您的需要调整此值。</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">VNC_NO_PASSWORD=1</span></span><br><span class="line">没有密码验证的情况下运行 VNC</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">VNC_VIEW_ONLY=1</span></span><br><span class="line">仅查看模式下运行 VNC</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-e SE_EVENT_BUS_HOST= &lt; event_bus_ip | event_bus_name &gt;</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-e SE_EVENT_BUS_PUBLISH_PORT=4442</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-e SE_EVENT_BUS_SUBSCRIBE_PORT=4443</span></span><br><span class="line">节点配置选项： 告诉节点事件总线在哪里，以便它可以注册自己。</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-e SE_NODE_MAX_SESSIONS=10</span></span><br><span class="line">增加每个容器的会话并发性</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-v /home/ubuntu/files:/home/seluser/files</span></span><br><span class="line">注意：mkdir /home/ubuntu/files</span><br><span class="line">chown 1200:1201 /home/ubuntu/files</span><br><span class="line">挂载数据卷前操作</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-e SE_OPTS= <span class="string">&quot;--log-level FINE&quot;</span></span></span><br><span class="line">可以通过将环境变量传递给容器来增加日志输出</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">docker logs -f &lt;容器 ID | 容器名称&gt;</span></span><br><span class="line">所有输出都发送到标准输出，因此可以通过运行检查</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-e JAVA_OPTS=-Xmx512m</span></span><br><span class="line">告诉节点事件总线在哪里，以便它可以注册自己。</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-e SE_EVENT_BUS_SUBSCRIBE_PORT=4443</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-e SCREEN_WIDTH=1366</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-e SCREEN_HEIGHT=768</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-e SCREEN_DEPTH=24</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-e SCREEN_DPI=74</span></span><br><span class="line">设置屏幕分辨率</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-e SE_NODE_SESSION_TIMEOUT</span></span><br><span class="line">网格 URL 和会话超时，默认300秒</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-e E_SESSION_REQUEST_TIMEOUT=500</span></span><br><span class="line">超时为 500 秒</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-e SE_SESSION_RETRY_INTERVAL=2</span></span><br><span class="line">重试间隔为 2 秒</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-e SE_NODE_OVERRIDE_MAX_SESSIONS <span class="literal">true</span></span></span><br><span class="line">启用视频录制</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-e START_XVFB=<span class="literal">false</span></span></span><br><span class="line">以无头模式运行,默认是true</span><br></pre></td></tr></table></figure><p><font color=#00b2c2 size=5 face=宋体><strong>UI面板地址：</strong></font></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://127.0.0.1:3786/ui#</span><br></pre></td></tr></table></figure><p><font color=#00b2c2 size=5 face=宋体><strong>python 运行事例：</strong></font></p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line"></span><br><span class="line">options = webdriver.ChromeOptions()</span><br><span class="line">driver = webdriver.Remote(command_executor=<span class="string">&quot;http://xxxxx:3786/wd/hub&quot;</span>, options=options)</span><br><span class="line">driver.get(<span class="string">&quot;https://www.baidu.com&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(driver.page_source)</span><br><span class="line">driver.close()</span><br><span class="line"></span><br></pre></td></tr></table></figure><p><font color=#00b2c2 size=5 face=宋体><strong>好处：</strong></font></p><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">那这样做的意义在哪里呢？</span><br><span class="line">我们都知道，selenium 通常是只需要下载一个驱动，然后就可以本地使用了</span><br><span class="line">- 特别需要注意的是，selenium下的驱动和浏览器的版本是对应的，如果版本不对应，那么是没办法请求的</span><br><span class="line"></span><br><span class="line">但是docker selenium 就不会有这种问题了，使用docker远程请求，会自动匹配</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>使用coder-server打造在线IDE</title>
       <link href="/2024/01/27/%E4%BD%BF%E7%94%A8coder-server%E6%89%93%E9%80%A0%E5%9C%A8%E7%BA%BFIDE/"/>
       <url>/2024/01/27/%E4%BD%BF%E7%94%A8coder-server%E6%89%93%E9%80%A0%E5%9C%A8%E7%BA%BFIDE/</url>
@@ -6549,9 +6562,9 @@
             
             <tag> python </tag>
             
-            <tag> selenium </tag>
-            
             <tag> cloudflare 5秒盾 </tag>
+            
+            <tag> selenium </tag>
             
         </tags>
       
@@ -6774,17 +6787,6 @@
     
     
     <entry>
-      <title>tagcloud</title>
-      <link href="/tagcloud/index.html"/>
-      <url>/tagcloud/index.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>about</title>
       <link href="/about/index.html"/>
       <url>/about/index.html</url>
@@ -6796,9 +6798,31 @@
     
     
     <entry>
+      <title>tagcloud</title>
+      <link href="/tagcloud/index.html"/>
+      <url>/tagcloud/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>tags</title>
       <link href="/tags/index.html"/>
       <url>/tags/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>timeline</title>
+      <link href="/timeline/index.html"/>
+      <url>/timeline/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
@@ -6821,17 +6845,6 @@
       <title>categories</title>
       <link href="/categories/index.html"/>
       <url>/categories/index.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>timeline</title>
-      <link href="/timeline/index.html"/>
-      <url>/timeline/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
