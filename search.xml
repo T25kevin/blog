@@ -4,6 +4,19 @@
   
     
     <entry>
+      <title>Centos7 开启远程SSH登录、开启网卡</title>
+      <link href="/2024/02/15/Centos7-%E5%BC%80%E5%90%AF%E8%BF%9C%E7%A8%8BSSH%E7%99%BB%E5%BD%95%E3%80%81%E5%BC%80%E5%90%AF%E7%BD%91%E5%8D%A1/"/>
+      <url>/2024/02/15/Centos7-%E5%BC%80%E5%90%AF%E8%BF%9C%E7%A8%8BSSH%E7%99%BB%E5%BD%95%E3%80%81%E5%BC%80%E5%90%AF%E7%BD%91%E5%8D%A1/</url>
+      
+        <content type="html"><![CDATA[<p><font color=#00b2c2 size=5 face=宋体><strong></strong></font></p><p><font color=#f26522 size=4 face=宋体><strong></strong></font></p><p><font color=#b0171f size=2 face=宋体><strong></strong></font></p><h3 id="CentOS7开启SSH远程登陆"><a href="#CentOS7开启SSH远程登陆" class="headerlink" title="CentOS7开启SSH远程登陆"></a><font color=#00b2c2 size=5 face=宋体><strong><a href="https://www.cnblogs.com/travis-li/p/12550370.html">CentOS7开启SSH远程登陆</a></strong></font></h3><p><font color=#b0171f size=2 face=宋体><strong>在虚拟机（<a href="https://so.csdn.net/so/search?q=Vmware&spm=1001.2101.3001.7020">Vmware</a> Workstation）下，安装了<code>CentOS7</code>，现在想通过SSH工具连接虚拟机中的CentOS7</strong></font></p><p>1、  首先，要确保<code>CentOS7</code>安装了  <code>openssh-server</code>，在终端中输入  <code>yum list installed | grep openssh-server</code></p><p> <img src="https://s2.loli.net/2024/02/15/BjxbiRzYFfLOHwP.png" alt="img"></p><p>此处显示已经安装了  <code>openssh-server</code>，如果又没任何输出显示表示没有安装  <code>openssh-server</code>，通过输入  <code>yum install openssh-server</code></p><p> <img src="https://s2.loli.net/2024/02/15/ascQCiwotzjdSrR.png" alt="img"></p><p>来进行安装openssh-server</p><p>2、  找到了 <code> /etc/ssh/</code>  目录下的sshd服务配置文件 <code>sshd_config</code>，用Vim编辑器打开</p><p>将文件中，关于监听端口、监听地址前的 # 号去除</p><p> <img src="https://s2.loli.net/2024/02/15/uX3tFzO5YbLJAZQ.png" alt="img"></p><p>然后开启允许远程登录</p><p> <img src="https://s2.loli.net/2024/02/15/89kQdlumbaErKPD.png" alt="img"></p><p>最后，开启使用用户名密码来作为连接验证</p><p> <img src="https://s2.loli.net/2024/02/15/312hzSq7sPUjEAr.png" alt="img"></p><p>保存文件，退出</p><p>3、  开启  sshd  服务，输入 <code>sudo service sshd start</code></p><p> <img src="https://s2.loli.net/2024/02/15/MdFH25S3zuRkYXL.png" alt="img"></p><p>检查  sshd  服务是否已经开启，输入<code>ps -e | grep sshd</code></p><p> <img src="https://s2.loli.net/2024/02/15/ERLSi5ntIubMsp2.png" alt="img"></p><p>或者输入<code>netstat -an | grep 22</code>  检查  22 号端口是否开启监听</p><p> <img src="https://s2.loli.net/2024/02/15/6bpkOMCdFqHzUls.png" alt="img"></p><p>4、为了免去每次开启 CentOS 时，都要手动开启  sshd 服务，可以将 sshd 服务添加至自启动列表中，输入</p><p> <img src="https://s2.loli.net/2024/02/15/dtIuKZGW4FbDx9A.png" alt="img"></p><p>可以通过输入<code>systemctl list-unit-files | grep sshd</code>，查看是否开启了sshd 服务自启动</p><p><img src="https://s2.loli.net/2024/02/15/Do46kFpKlIagPYf.png" alt="img"></p><hr><hr><p><font color=#00b2c2 size=5 face=宋体><strong> 如果Ifconfig 无法使用，又无法安装的情况下：</strong></font></p><h1 id="CentOS下查看本机ip地址方法"><a href="#CentOS下查看本机ip地址方法" class="headerlink" title="CentOS下查看本机ip地址方法"></a>CentOS下查看本机ip地址方法</h1><p>输入ifconfig（原来ifconfig已失效）</p><p> <img src="https://s2.loli.net/2024/02/15/cdQTvRO6SYkqVzI.png" alt="img"></p><p>我们可以输入<code>ip address</code>，命令是存在的,但是只能查看到本机ip 127.0.0.1</p><p><img src="https://s2.loli.net/2024/02/15/H8ALyPJpI2B4f5C.png" alt="img"></p><p> 若需要具体本机IP则按照下面进行操作</p><p>你需要打开网卡配置文件 <code>/etc/sysconfig/network-scripts/ifcfg-ens33</code> ，将<code>ONBOOT</code> 修改为<code>yes</code>，也就是启动网卡</p><p><img src="https://s2.loli.net/2024/02/15/vilmH9w7Wn8sbxg.png" alt="img"></p><p>然后重启网络服务</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service network restart</span><br></pre></td></tr></table></figure><p>再次输入 <code>ip address</code>就可以看到ip地址了</p><p><img src="https://s2.loli.net/2024/02/15/fVui2QdN7skrYhv.png" alt="img"></p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>centos7安装openVPN教程</title>
       <link href="/2024/02/14/centos7%E5%AE%89%E8%A3%85openVPN%E6%95%99%E7%A8%8B/"/>
       <url>/2024/02/14/centos7%E5%AE%89%E8%A3%85openVPN%E6%95%99%E7%A8%8B/</url>
@@ -6644,9 +6657,9 @@
             
             <tag> python </tag>
             
-            <tag> selenium </tag>
-            
             <tag> cloudflare 5秒盾 </tag>
+            
+            <tag> selenium </tag>
             
         </tags>
       
@@ -6847,17 +6860,6 @@
     
     
     <entry>
-      <title>about</title>
-      <link href="/about/index.html"/>
-      <url>/about/index.html</url>
-      
-        <content type="html"><![CDATA[<p><font color=#00b2c2 size=6 face=宋体><strong><strong>站点说明:</strong></strong></font></p><p><font color=#f26522 size=4 face=宋体><strong><strong>1、本站属于个人记录网站，不支持交流</strong></strong></font></p><p><font color=#f26522 size=4 face=宋体><strong><strong>2、转载请指明来源，谢谢！</strong></strong></font></p><p><font color=#f26522 size=4 face=宋体><strong><strong>3、本站模板采用自 &#x3D;&gt; <a href="https://www.niemingzhao.top/">聂明照的博客</a>  Github地址 &#x3D;&gt; <a href="https://github.com/niemingzhao/niemingzhao.github.io/tree/theme">点击进入</a></strong></strong></font></p><p><font color=#f26522 size=4 face=宋体><strong><strong>4、关于搜索配置的问题</strong></strong></font></p><ul><li><font color=#b0171f size=3 face=宋体><strong>除了安装插件以外，还需要配置路径，根据原作者的设置，这里有个坑</strong></font></li><li><font color=#b0171f size=3 face=宋体><strong>坑：use  不是  false、true     而是 false  和plugin 这两个选项，  其中 false &#x3D;&gt; 关闭搜索， plugin &#x3D;&gt; 开启选项</strong></font></li><li><font color=#b0171f size=3 face=宋体><strong>安装插件 &#x3D;&gt; npm install hexo-generator-search –save</strong></font></li></ul><p><img src="https://s2.loli.net/2023/03/20/7PLrKys2ubemoM5.png" alt="image-20230320034837859"></p>]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>categories</title>
       <link href="/categories/index-1.html"/>
       <url>/categories/index-1.html</url>
@@ -6891,22 +6893,22 @@
     
     
     <entry>
-      <title>gallery</title>
-      <link href="/gallery/index.html"/>
-      <url>/gallery/index.html</url>
+      <title>about</title>
+      <link href="/about/index.html"/>
+      <url>/about/index.html</url>
       
-        <content type="html"><![CDATA[<ul><li><p>消愁 - 毛不易</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m804.music.126.net/20230715030040/3058f9a32c1a7c2ab4893a0c10bded60/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/28481677347/474c/85c2/535b/b2f2e46a8854595f90c56bf9a5db2ce2.mp3"></audio></p></li><li><p>像我这样的人 - 毛不易</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m804.music.126.net/20230715030000/c3bd7ebc6b90df3b09570c7047c5ac57/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/28481670328/e30c/18ad/2d86/5b9d878b11940b81e5efcdd1f5771d79.mp3?_authSecret=0000018955af504b086e0aaba3bf1b9a"></audio></p></li><li><p>不染 - 毛不易</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m8.music.126.net/20230715030021/9b8fb29ff25dd716673887bc6a85d183/ymusic/y7RHah68jgZBoxjkl7ieBw==/509951162915395763"></audio></p></li><li><p>Take My Hand - Simple Plan</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://other-web-ra01-sycdn.kuwo.cn/7d16061069e12b3c9e7f27f477d66b0d/64b19743/resource/n3/320/93/52/2280351848.mp3?from$unkown&plat$wapi"></audio></p></li><li><p>It’s My Life - Bon Jovi</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m10.music.126.net/20230715031049/9b363379164ade7cef7b779f50147f6c/ymusic/obj/w5zDlMODwrDDiGjCn8Ky/3066286606/07fe/758c/6f26/5fdcc90d2122f5eb933c39419e656119.mp3"></audio></p></li><li><p>挚爱 - 陈勋奇</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://other-web-ri01-sycdn.kuwo.cn/a47b6dffd701eeb7463410c9d519bf25/64b19842/resource/n2/60/27/3030200018.mp3"></audio></p></li></ul>]]></content>
+        <content type="html"><![CDATA[<p><font color=#00b2c2 size=6 face=宋体><strong><strong>站点说明:</strong></strong></font></p><p><font color=#f26522 size=4 face=宋体><strong><strong>1、本站属于个人记录网站，不支持交流</strong></strong></font></p><p><font color=#f26522 size=4 face=宋体><strong><strong>2、转载请指明来源，谢谢！</strong></strong></font></p><p><font color=#f26522 size=4 face=宋体><strong><strong>3、本站模板采用自 &#x3D;&gt; <a href="https://www.niemingzhao.top/">聂明照的博客</a>  Github地址 &#x3D;&gt; <a href="https://github.com/niemingzhao/niemingzhao.github.io/tree/theme">点击进入</a></strong></strong></font></p><p><font color=#f26522 size=4 face=宋体><strong><strong>4、关于搜索配置的问题</strong></strong></font></p><ul><li><font color=#b0171f size=3 face=宋体><strong>除了安装插件以外，还需要配置路径，根据原作者的设置，这里有个坑</strong></font></li><li><font color=#b0171f size=3 face=宋体><strong>坑：use  不是  false、true     而是 false  和plugin 这两个选项，  其中 false &#x3D;&gt; 关闭搜索， plugin &#x3D;&gt; 开启选项</strong></font></li><li><font color=#b0171f size=3 face=宋体><strong>安装插件 &#x3D;&gt; npm install hexo-generator-search –save</strong></font></li></ul><p><img src="https://s2.loli.net/2023/03/20/7PLrKys2ubemoM5.png" alt="image-20230320034837859"></p>]]></content>
       
     </entry>
     
     
     
     <entry>
-      <title>timeline</title>
-      <link href="/timeline/index.html"/>
-      <url>/timeline/index.html</url>
+      <title>gallery</title>
+      <link href="/gallery/index.html"/>
+      <url>/gallery/index.html</url>
       
-        <content type="html"><![CDATA[]]></content>
+        <content type="html"><![CDATA[<ul><li><p>消愁 - 毛不易</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m804.music.126.net/20230715030040/3058f9a32c1a7c2ab4893a0c10bded60/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/28481677347/474c/85c2/535b/b2f2e46a8854595f90c56bf9a5db2ce2.mp3"></audio></p></li><li><p>像我这样的人 - 毛不易</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m804.music.126.net/20230715030000/c3bd7ebc6b90df3b09570c7047c5ac57/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/28481670328/e30c/18ad/2d86/5b9d878b11940b81e5efcdd1f5771d79.mp3?_authSecret=0000018955af504b086e0aaba3bf1b9a"></audio></p></li><li><p>不染 - 毛不易</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m8.music.126.net/20230715030021/9b8fb29ff25dd716673887bc6a85d183/ymusic/y7RHah68jgZBoxjkl7ieBw==/509951162915395763"></audio></p></li><li><p>Take My Hand - Simple Plan</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://other-web-ra01-sycdn.kuwo.cn/7d16061069e12b3c9e7f27f477d66b0d/64b19743/resource/n3/320/93/52/2280351848.mp3?from$unkown&plat$wapi"></audio></p></li><li><p>It’s My Life - Bon Jovi</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m10.music.126.net/20230715031049/9b363379164ade7cef7b779f50147f6c/ymusic/obj/w5zDlMODwrDDiGjCn8Ky/3066286606/07fe/758c/6f26/5fdcc90d2122f5eb933c39419e656119.mp3"></audio></p></li><li><p>挚爱 - 陈勋奇</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://other-web-ri01-sycdn.kuwo.cn/a47b6dffd701eeb7463410c9d519bf25/64b19842/resource/n2/60/27/3030200018.mp3"></audio></p></li></ul>]]></content>
       
     </entry>
     
@@ -6927,6 +6929,17 @@
       <title>tagcloud</title>
       <link href="/tagcloud/index.html"/>
       <url>/tagcloud/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>timeline</title>
+      <link href="/timeline/index.html"/>
+      <url>/timeline/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
