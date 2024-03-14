@@ -6,7 +6,7 @@
   <link href="https://kanoc.gitee.io/atom.xml" rel="self"/>
   
   <link href="https://kanoc.gitee.io/"/>
-  <updated>2024-02-22T02:32:51.717Z</updated>
+  <updated>2024-03-04T10:08:28.658Z</updated>
   <id>https://kanoc.gitee.io/</id>
   
   <author>
@@ -15,6 +15,37 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>LayUI 快速开发指南</title>
+    <link href="https://kanoc.gitee.io/2024/03/04/LayUI-%E5%BF%AB%E9%80%9F%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97/"/>
+    <id>https://kanoc.gitee.io/2024/03/04/LayUI-%E5%BF%AB%E9%80%9F%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97/</id>
+    <published>2024-03-04T09:03:55.000Z</published>
+    <updated>2024-03-04T10:08:28.658Z</updated>
+    
+    <content type="html"><![CDATA[<p><font color=#00b2c2 size=5 face=宋体><strong>LayUI 快速开发指南</strong></font></p><h4 id="布局元素"><a href="#布局元素" class="headerlink" title="布局元素"></a><font color=#f26522 size=4 face=宋体><strong>布局元素</strong></font></h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"># 布局元素</span><br><span class="line"># 固定宽度并且居中的容器</span><br><span class="line">&lt;div class=&quot;layui-container&quot;&gt;&lt;/div&gt; </span><br><span class="line"></span><br><span class="line"># 宽度不固定100%适应的容器</span><br><span class="line">&lt;div class=&quot;layui-fluid&quot;&gt;&lt;/div&gt; </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 行</span><br><span class="line">&lt;div class=&quot;layui-row&quot;&gt;&lt;/div&gt;</span><br><span class="line"></span><br><span class="line"># 列</span><br><span class="line"></span><br><span class="line">layui-col-lg*  #  --&gt; *代表当前占12列中的多少列的宽度  --&gt;  桌面≥1200px</span><br><span class="line">layui-col-md*  #  --&gt;  桌面≥992px</span><br><span class="line">layui-col-sm*  #  --&gt;  平板≥768px</span><br><span class="line">layui-col-xs*  #  --&gt;  手机&lt;768px</span><br><span class="line"></span><br><span class="line"># 列偏移</span><br><span class="line">layui-col-md-offset*  #  --&gt; * 代表当前列向右偏移多少列</span><br></pre></td></tr></table></figure><p><font color=#f26522 size=4 face=宋体><strong></strong></font></p><p><font color=#b0171f size=2 face=宋体><strong></strong></font></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;&lt;font color=#00b2c2 size=5 face=宋体&gt;&lt;strong&gt;LayUI 快速开发指南&lt;/strong&gt;&lt;/font&gt;&lt;/p&gt;
+&lt;h4 id=&quot;布局元素&quot;&gt;&lt;a href=&quot;#布局元素&quot; class=&quot;headerlink&quot; title=&quot;布局元素&quot;</summary>
+      
+    
+    
+    
+    <category term="LayUI" scheme="https://kanoc.gitee.io/categories/LayUI/"/>
+    
+    
+    <category term="前端" scheme="https://kanoc.gitee.io/tags/%E5%89%8D%E7%AB%AF/"/>
+    
+    <category term="LayUI" scheme="https://kanoc.gitee.io/tags/LayUI/"/>
+    
+    <category term="快速开发" scheme="https://kanoc.gitee.io/tags/%E5%BF%AB%E9%80%9F%E5%BC%80%E5%8F%91/"/>
+    
+    <category term="指南" scheme="https://kanoc.gitee.io/tags/%E6%8C%87%E5%8D%97/"/>
+    
+  </entry>
   
   <entry>
     <title>禹神 Vue3 前端笔记</title>
@@ -531,34 +562,6 @@
     <category term="教程" scheme="https://kanoc.gitee.io/tags/%E6%95%99%E7%A8%8B/"/>
     
     <category term="centos7" scheme="https://kanoc.gitee.io/tags/centos7/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Cloudflare逆向 参考站点记录</title>
-    <link href="https://kanoc.gitee.io/2023/12/25/Cloudflare%E9%80%86%E5%90%91-%E5%8F%82%E8%80%83%E7%AB%99%E7%82%B9%E8%AE%B0%E5%BD%95/"/>
-    <id>https://kanoc.gitee.io/2023/12/25/Cloudflare%E9%80%86%E5%90%91-%E5%8F%82%E8%80%83%E7%AB%99%E7%82%B9%E8%AE%B0%E5%BD%95/</id>
-    <published>2023-12-24T19:14:28.000Z</published>
-    <updated>2023-12-24T19:45:04.961Z</updated>
-    
-    <content type="html"><![CDATA[<h4 id="逆向-JS-参考非常具有指导性-：数据科学SourceResearch"><a href="#逆向-JS-参考非常具有指导性-：数据科学SourceResearch" class="headerlink" title="逆向 JS 参考非常具有指导性 ：数据科学SourceResearch"></a>逆向 JS 参考非常具有指导性 ：<a href="https://www.resourch.com/">数据科学SourceResearch</a></h4><h4 id="12-种方法来隐藏您的机器人自动化检测，如何使-Selenium-不可检测和隐身：https-www-itblogcn-com-article-2034-html"><a href="#12-种方法来隐藏您的机器人自动化检测，如何使-Selenium-不可检测和隐身：https-www-itblogcn-com-article-2034-html" class="headerlink" title="12 种方法来隐藏您的机器人自动化检测，如何使 Selenium 不可检测和隐身：https://www.itblogcn.com/article/2034.html"></a>12 种方法来隐藏您的机器人自动化检测，如何使 Selenium 不可检测和隐身：<a href="https://www.itblogcn.com/article/2034.html">https://www.itblogcn.com/article/2034.html</a></h4><h4 id="網絡爬蟲-cloudflare五秒等待驗證逆向破解：https-www-twblogs-net-a-5d8c8d4fbd9eee5327001af8"><a href="#網絡爬蟲-cloudflare五秒等待驗證逆向破解：https-www-twblogs-net-a-5d8c8d4fbd9eee5327001af8" class="headerlink" title="網絡爬蟲-cloudflare五秒等待驗證逆向破解：https://www.twblogs.net/a/5d8c8d4fbd9eee5327001af8"></a>網絡爬蟲-cloudflare五秒等待驗證逆向破解：<a href="https://www.twblogs.net/a/5d8c8d4fbd9eee5327001af8">https://www.twblogs.net/a/5d8c8d4fbd9eee5327001af8</a></h4><h5 id="逆向lin狗-大佬-https-developer-aliyun-com-profile-iaxsqtcumsgky-highScore-1-spm-a2c6h-24874632-expert-profile-5-27efd78f3t7PF1"><a href="#逆向lin狗-大佬-https-developer-aliyun-com-profile-iaxsqtcumsgky-highScore-1-spm-a2c6h-24874632-expert-profile-5-27efd78f3t7PF1" class="headerlink" title="逆向lin狗 大佬 &#x3D;&gt;https://developer.aliyun.com/profile/iaxsqtcumsgky/highScore_1?spm=a2c6h.24874632.expert-profile.5.27efd78f3t7PF1"></a>逆向lin狗 大佬 &#x3D;&gt;<a href="https://developer.aliyun.com/profile/iaxsqtcumsgky/highScore_1?spm=a2c6h.24874632.expert-profile.5.27efd78f3t7PF1">https://developer.aliyun.com/profile/iaxsqtcumsgky/highScore_1?spm=a2c6h.24874632.expert-profile.5.27efd78f3t7PF1</a></h5><h4 id="Cloudflare-小记：https-blog-csdn-net-weixin-58584029-article-details-128719446"><a href="#Cloudflare-小记：https-blog-csdn-net-weixin-58584029-article-details-128719446" class="headerlink" title="Cloudflare 小记：https://blog.csdn.net/weixin_58584029/article/details/128719446"></a><font color=#00b2c2 size=5 face=宋体><strong>Cloudflare 小记：</strong></font><a href="https://blog.csdn.net/weixin_58584029/article/details/128719446">https://blog.csdn.net/weixin_58584029/article/details/128719446</a></h4><h5 id="Selenium真正绕过webdriver检测-https-www-cnblogs-com-Wl55387370-p-16553574-html"><a href="#Selenium真正绕过webdriver检测-https-www-cnblogs-com-Wl55387370-p-16553574-html" class="headerlink" title="     Selenium真正绕过webdriver检测                      https://www.cnblogs.com/Wl55387370/p/16553574.html"></a><a href="https://www.cnblogs.com/Wl55387370/p/16553574.html">     Selenium真正绕过webdriver检测         </a>             <a href="https://www.cnblogs.com/Wl55387370/p/16553574.html">https://www.cnblogs.com/Wl55387370/p/16553574.html</a></h5><h6 id="关键词搜索：selenium绕过检测"><a href="#关键词搜索：selenium绕过检测" class="headerlink" title="关键词搜索：selenium绕过检测"></a>关键词搜索：selenium绕过检测</h6>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h4 id=&quot;逆向-JS-参考非常具有指导性-：数据科学SourceResearch&quot;&gt;&lt;a href=&quot;#逆向-JS-参考非常具有指导性-：数据科学SourceResearch&quot; class=&quot;headerlink&quot; title=&quot;逆向 JS 参考非常具有指导性 ：数据科学S</summary>
-      
-    
-    
-    
-    <category term="逆向_反爬" scheme="https://kanoc.gitee.io/categories/%E9%80%86%E5%90%91-%E5%8F%8D%E7%88%AC/"/>
-    
-    
-    <category term="逆向" scheme="https://kanoc.gitee.io/tags/%E9%80%86%E5%90%91/"/>
-    
-    <category term="记录" scheme="https://kanoc.gitee.io/tags/%E8%AE%B0%E5%BD%95/"/>
-    
-    <category term="Cloudflare" scheme="https://kanoc.gitee.io/tags/Cloudflare/"/>
     
   </entry>
   

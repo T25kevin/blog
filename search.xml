@@ -4,6 +4,37 @@
   
     
     <entry>
+      <title>LayUI 快速开发指南</title>
+      <link href="/2024/03/04/LayUI-%E5%BF%AB%E9%80%9F%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97/"/>
+      <url>/2024/03/04/LayUI-%E5%BF%AB%E9%80%9F%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97/</url>
+      
+        <content type="html"><![CDATA[<p><font color=#00b2c2 size=5 face=宋体><strong>LayUI 快速开发指南</strong></font></p><h4 id="布局元素"><a href="#布局元素" class="headerlink" title="布局元素"></a><font color=#f26522 size=4 face=宋体><strong>布局元素</strong></font></h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"># 布局元素</span><br><span class="line"># 固定宽度并且居中的容器</span><br><span class="line">&lt;div class=&quot;layui-container&quot;&gt;&lt;/div&gt; </span><br><span class="line"></span><br><span class="line"># 宽度不固定100%适应的容器</span><br><span class="line">&lt;div class=&quot;layui-fluid&quot;&gt;&lt;/div&gt; </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 行</span><br><span class="line">&lt;div class=&quot;layui-row&quot;&gt;&lt;/div&gt;</span><br><span class="line"></span><br><span class="line"># 列</span><br><span class="line"></span><br><span class="line">layui-col-lg*  #  --&gt; *代表当前占12列中的多少列的宽度  --&gt;  桌面≥1200px</span><br><span class="line">layui-col-md*  #  --&gt;  桌面≥992px</span><br><span class="line">layui-col-sm*  #  --&gt;  平板≥768px</span><br><span class="line">layui-col-xs*  #  --&gt;  手机&lt;768px</span><br><span class="line"></span><br><span class="line"># 列偏移</span><br><span class="line">layui-col-md-offset*  #  --&gt; * 代表当前列向右偏移多少列</span><br></pre></td></tr></table></figure><p><font color=#f26522 size=4 face=宋体><strong></strong></font></p><p><font color=#b0171f size=2 face=宋体><strong></strong></font></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> LayUI </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 前端 </tag>
+            
+            <tag> LayUI </tag>
+            
+            <tag> 快速开发 </tag>
+            
+            <tag> 指南 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>禹神 Vue3 前端笔记</title>
       <link href="/2024/02/22/%E7%A6%B9%E7%A5%9E-Vue3-%E5%89%8D%E7%AB%AF%E7%AC%94%E8%AE%B0/"/>
       <url>/2024/02/22/%E7%A6%B9%E7%A5%9E-Vue3-%E5%89%8D%E7%AB%AF%E7%AC%94%E8%AE%B0/</url>
@@ -6740,9 +6771,9 @@
             
             <tag> python </tag>
             
-            <tag> cloudflare 5秒盾 </tag>
-            
             <tag> selenium </tag>
+            
+            <tag> cloudflare 5秒盾 </tag>
             
         </tags>
       
@@ -6955,8 +6986,8 @@
     
     <entry>
       <title>categories</title>
-      <link href="/categories/index-1.html"/>
-      <url>/categories/index-1.html</url>
+      <link href="/categories/index.html"/>
+      <url>/categories/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
@@ -6966,8 +6997,8 @@
     
     <entry>
       <title>categories</title>
-      <link href="/categories/index.html"/>
-      <url>/categories/index.html</url>
+      <link href="/categories/index-1.html"/>
+      <url>/categories/index-1.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
@@ -6987,22 +7018,22 @@
     
     
     <entry>
-      <title>tags</title>
-      <link href="/tags/index.html"/>
-      <url>/tags/index.html</url>
+      <title>about</title>
+      <link href="/about/index.html"/>
+      <url>/about/index.html</url>
       
-        <content type="html"><![CDATA[]]></content>
+        <content type="html"><![CDATA[<p><font color=#00b2c2 size=6 face=宋体><strong><strong>站点说明:</strong></strong></font></p><p><font color=#f26522 size=4 face=宋体><strong><strong>1、本站属于个人记录网站，不支持交流</strong></strong></font></p><p><font color=#f26522 size=4 face=宋体><strong><strong>2、转载请指明来源，谢谢！</strong></strong></font></p><p><font color=#f26522 size=4 face=宋体><strong><strong>3、本站模板采用自 &#x3D;&gt; <a href="https://www.niemingzhao.top/">聂明照的博客</a>  Github地址 &#x3D;&gt; <a href="https://github.com/niemingzhao/niemingzhao.github.io/tree/theme">点击进入</a></strong></strong></font></p><p><font color=#f26522 size=4 face=宋体><strong><strong>4、关于搜索配置的问题</strong></strong></font></p><ul><li><font color=#b0171f size=3 face=宋体><strong>除了安装插件以外，还需要配置路径，根据原作者的设置，这里有个坑</strong></font></li><li><font color=#b0171f size=3 face=宋体><strong>坑：use  不是  false、true     而是 false  和plugin 这两个选项，  其中 false &#x3D;&gt; 关闭搜索， plugin &#x3D;&gt; 开启选项</strong></font></li><li><font color=#b0171f size=3 face=宋体><strong>安装插件 &#x3D;&gt; npm install hexo-generator-search –save</strong></font></li></ul><p><img src="https://s2.loli.net/2023/03/20/7PLrKys2ubemoM5.png" alt="image-20230320034837859"></p>]]></content>
       
     </entry>
     
     
     
     <entry>
-      <title>about</title>
-      <link href="/about/index.html"/>
-      <url>/about/index.html</url>
+      <title>tags</title>
+      <link href="/tags/index.html"/>
+      <url>/tags/index.html</url>
       
-        <content type="html"><![CDATA[<p><font color=#00b2c2 size=6 face=宋体><strong><strong>站点说明:</strong></strong></font></p><p><font color=#f26522 size=4 face=宋体><strong><strong>1、本站属于个人记录网站，不支持交流</strong></strong></font></p><p><font color=#f26522 size=4 face=宋体><strong><strong>2、转载请指明来源，谢谢！</strong></strong></font></p><p><font color=#f26522 size=4 face=宋体><strong><strong>3、本站模板采用自 &#x3D;&gt; <a href="https://www.niemingzhao.top/">聂明照的博客</a>  Github地址 &#x3D;&gt; <a href="https://github.com/niemingzhao/niemingzhao.github.io/tree/theme">点击进入</a></strong></strong></font></p><p><font color=#f26522 size=4 face=宋体><strong><strong>4、关于搜索配置的问题</strong></strong></font></p><ul><li><font color=#b0171f size=3 face=宋体><strong>除了安装插件以外，还需要配置路径，根据原作者的设置，这里有个坑</strong></font></li><li><font color=#b0171f size=3 face=宋体><strong>坑：use  不是  false、true     而是 false  和plugin 这两个选项，  其中 false &#x3D;&gt; 关闭搜索， plugin &#x3D;&gt; 开启选项</strong></font></li><li><font color=#b0171f size=3 face=宋体><strong>安装插件 &#x3D;&gt; npm install hexo-generator-search –save</strong></font></li></ul><p><img src="https://s2.loli.net/2023/03/20/7PLrKys2ubemoM5.png" alt="image-20230320034837859"></p>]]></content>
+        <content type="html"><![CDATA[]]></content>
       
     </entry>
     
