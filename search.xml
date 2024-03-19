@@ -4,6 +4,37 @@
   
     
     <entry>
+      <title>Layui-的下载｜配置与部署</title>
+      <link href="/2024/03/19/Layui-%E7%9A%84%E4%B8%8B%E8%BD%BD%EF%BD%9C%E9%85%8D%E7%BD%AE%E4%B8%8E%E9%83%A8%E7%BD%B2/"/>
+      <url>/2024/03/19/Layui-%E7%9A%84%E4%B8%8B%E8%BD%BD%EF%BD%9C%E9%85%8D%E7%BD%AE%E4%B8%8E%E9%83%A8%E7%BD%B2/</url>
+      
+        <content type="html"><![CDATA[<p><font color=#00b2c2 size=5 face=宋体><strong>Layui-的下载｜配置与部署：</strong></font></p><p><font color=#f26522 size=4 face=宋体><strong>Layui 2.9.7 下载：</strong></font></p><ul><li><p><a href="https://bd.bcebos.com/v1/xly-icafe/layui-v2.9.7-20240319133227-srprxq.zip">Layui 2.9.7 百度云直链下载</a></p></li><li><p><a href="https://gitee.com/layui/layui/attach_files/1685481/download">Layui 2.9.7 官方通道下载</a></p></li><li><p>第三方 CDN 方式引入</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 引入 layui.<span class="property">css</span> --&gt;</span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">link</span> <span class="attr">href</span>=<span class="string">&quot;//unpkg.com/layui@2.9.7/dist/css/layui.css&quot;</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span>&gt;</span></span></span><br></pre></td></tr></table></figure><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 引入 layui.<span class="property">js</span> --&gt;</span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;//unpkg.com/layui@2.9.7/dist/layui.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> LayUI </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 前端 </tag>
+            
+            <tag> LayUI </tag>
+            
+            <tag> 快速开发 </tag>
+            
+            <tag> 指南 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>LayUI 快速开发指南</title>
       <link href="/2024/03/04/LayUI-%E5%BF%AB%E9%80%9F%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97/"/>
       <url>/2024/03/04/LayUI-%E5%BF%AB%E9%80%9F%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97/</url>
@@ -187,11 +218,11 @@
       
         <tags>
             
-            <tag> linux </tag>
-            
             <tag> 系统 </tag>
             
             <tag> 运维 </tag>
+            
+            <tag> linux </tag>
             
         </tags>
       
@@ -271,9 +302,9 @@
       
         <tags>
             
-            <tag> 工具 </tag>
-            
             <tag> centos7 </tag>
+            
+            <tag> 工具 </tag>
             
             <tag> docker </tag>
             
@@ -814,33 +845,6 @@
     
     
     <entry>
-      <title>这是一个测试目录</title>
-      <link href="/2023/11/08/%E8%BF%99%E6%98%AF%E4%B8%80%E4%B8%AA%E6%B5%8B%E8%AF%95%E7%9B%AE%E5%BD%95/"/>
-      <url>/2023/11/08/%E8%BF%99%E6%98%AF%E4%B8%80%E4%B8%AA%E6%B5%8B%E8%AF%95%E7%9B%AE%E5%BD%95/</url>
-      
-        <content type="html"><![CDATA[<p><font color=#00b2c2 size=5 face=宋体><strong>这是一个测试配置是否成功的文件</strong></font></p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Java </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Java </tag>
-            
-            <tag> 笔记 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>aiohttp.ClientSession() 使用 multipart/form-data 上传文件和字符集</title>
       <link href="/2023/10/25/aiohttp-ClientSession-%E4%BD%BF%E7%94%A8-multipart-form-data-%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6%E5%92%8C%E5%AD%97%E7%AC%A6%E9%9B%86/"/>
       <url>/2023/10/25/aiohttp-ClientSession-%E4%BD%BF%E7%94%A8-multipart-form-data-%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6%E5%92%8C%E5%AD%97%E7%AC%A6%E9%9B%86/</url>
@@ -1327,11 +1331,11 @@
       
         <tags>
             
-            <tag> linux </tag>
-            
             <tag> 系统 </tag>
             
             <tag> 运维 </tag>
+            
+            <tag> linux </tag>
             
             <tag> 命令 </tag>
             
@@ -2131,6 +2135,35 @@
     
     
     <entry>
+      <title>python多版本共存</title>
+      <link href="/2023/07/11/python%E5%A4%9A%E7%89%88%E6%9C%AC%E5%85%B1%E5%AD%98/"/>
+      <url>/2023/07/11/python%E5%A4%9A%E7%89%88%E6%9C%AC%E5%85%B1%E5%AD%98/</url>
+      
+        <content type="html"><![CDATA[<h3 id="python多版本共存"><a href="#python多版本共存" class="headerlink" title="python多版本共存"></a>python多版本共存</h3><h4 id="1-Mac-Os-多版本共存："><a href="#1-Mac-Os-多版本共存：" class="headerlink" title="1. Mac Os 多版本共存："></a>1. Mac Os 多版本共存：</h4><h5 id="1-1-配置-brew-命令行-安装工具"><a href="#1-1-配置-brew-命令行-安装工具" class="headerlink" title="1.1 配置 brew 命令行 安装工具"></a>1.1 配置 brew 命令行 安装工具</h5><ul><li><p>我选的是中科大的国内源。</p><p>之后终端自动安装<code>brew</code>。安装好之后记得运行下面命令。</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">拉取脚本</span></span><br><span class="line">/bin/zsh -c &quot;$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh)&quot;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">立即生效配置</span></span><br><span class="line">source /Users/zhangchengcai/.zprofile</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">这里的 zhangchengcai   替换成  你自己的用户目录</span> </span><br></pre></td></tr></table></figure></li><li><p>查看是否安装完成</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew --version</span><br></pre></td></tr></table></figure></li><li><p>成功之后，可以安装一个火狐浏览器</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install --cask firefox</span><br></pre></td></tr></table></figure><p><img src="https://s2.loli.net/2023/07/11/RHsVhjdEpq4IMLS.png" alt="img"></p></li></ul><h5 id="1-2-安装多版本python"><a href="#1-2-安装多版本python" class="headerlink" title="1.2 安装多版本python"></a>1.2 安装多版本python</h5><ul><li><p>使用命令行 安装 多版本python</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">目前存在的 可用的 命令行安装版本 &gt;&gt;&gt;</span> </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">python@3.7  python@3.8  python@3.9  python@3.10  python@3.11</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">直接使用命令行安装即可</span></span><br><span class="line">brew install python@3.7</span><br></pre></td></tr></table></figure></li></ul><p><img src="https://s2.loli.net/2023/07/11/YIlmzPBRgCvL42X.png" alt="image-20230711123327438"></p><ul><li><p>添加环境变量</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">添加环境变量文件夹</span></span><br><span class="line">mkdir ~/bash_files</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">打开 .zshrc</span></span><br><span class="line">open ~/.zshrc</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">将下面的环境变量添加到末尾</span></span><br><span class="line">export PATH=$PATH:/Users/kate_01/bash_files:/usr/local/Cellar/ffmpeg/6.0:/bin:/usr/local/ffmpeg/bin</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">立即生效</span></span><br><span class="line">source ~/.zshrc</span><br><span class="line"></span><br></pre></td></tr></table></figure><p><img src="https://s2.loli.net/2023/07/11/uF2KDv5BymLqRaC.png" alt="添加环境变量到本地"></p></li><li><p><code>brew</code> 安装好的 python 主程序默认文件夹在 <code>/usr/local/Cellar</code> 中</p><p><img src="https://s2.loli.net/2023/07/11/i8sYOy973fvXAWj.png" alt="image-20230711131409016"></p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">默认到 pip 和 python 程序 在</span></span><br><span class="line">/usr/local/Cellar/python@3.9/3.9.17_1/bin</span><br></pre></td></tr></table></figure><p><img src="https://s2.loli.net/2023/07/11/mwvHc5NiCLgu42K.png" alt="image-20230711131818314"></p></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> python </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 教程 </tag>
+            
+            <tag> Mac </tag>
+            
+            <tag> 多版本共存 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>django_安装mysql5.7(Mac)</title>
       <link href="/2023/07/02/django-%E5%AE%89%E8%A3%85mysql5-7(Mac)/"/>
       <url>/2023/07/02/django-%E5%AE%89%E8%A3%85mysql5-7(Mac)/</url>
@@ -2668,11 +2701,11 @@
       
         <tags>
             
-            <tag> linux </tag>
-            
             <tag> 系统 </tag>
             
             <tag> 运维 </tag>
+            
+            <tag> linux </tag>
             
         </tags>
       
@@ -3636,11 +3669,11 @@
       
         <tags>
             
-            <tag> linux </tag>
-            
             <tag> 系统 </tag>
             
             <tag> 运维 </tag>
+            
+            <tag> linux </tag>
             
         </tags>
       
@@ -3692,11 +3725,11 @@
       
         <tags>
             
-            <tag> linux </tag>
-            
             <tag> 系统 </tag>
             
             <tag> 运维 </tag>
+            
+            <tag> linux </tag>
             
         </tags>
       
@@ -4126,9 +4159,9 @@
       
         <tags>
             
-            <tag> linux </tag>
-            
             <tag> 系统 </tag>
+            
+            <tag> linux </tag>
             
             <tag> 命令 </tag>
             
@@ -4155,9 +4188,9 @@
       
         <tags>
             
-            <tag> linux </tag>
-            
             <tag> 系统 </tag>
+            
+            <tag> linux </tag>
             
             <tag> 命令 </tag>
             
@@ -4184,9 +4217,9 @@
       
         <tags>
             
-            <tag> linux </tag>
-            
             <tag> 系统 </tag>
+            
+            <tag> linux </tag>
             
             <tag> 编译 </tag>
             
@@ -4213,9 +4246,9 @@
       
         <tags>
             
-            <tag> linux </tag>
-            
             <tag> 系统 </tag>
+            
+            <tag> linux </tag>
             
             <tag> 命令 </tag>
             
@@ -4242,9 +4275,9 @@
       
         <tags>
             
-            <tag> linux </tag>
-            
             <tag> 系统 </tag>
+            
+            <tag> linux </tag>
             
             <tag> 命令 </tag>
             
@@ -4271,9 +4304,9 @@
       
         <tags>
             
-            <tag> linux </tag>
-            
             <tag> 系统 </tag>
+            
+            <tag> linux </tag>
             
             <tag> 命令 </tag>
             
@@ -4300,11 +4333,11 @@
       
         <tags>
             
-            <tag> linux </tag>
-            
             <tag> 系统 </tag>
             
             <tag> 运维 </tag>
+            
+            <tag> linux </tag>
             
             <tag> 命令 </tag>
             
@@ -4331,11 +4364,11 @@
       
         <tags>
             
-            <tag> linux </tag>
-            
             <tag> 系统 </tag>
             
             <tag> 运维 </tag>
+            
+            <tag> linux </tag>
             
             <tag> 命令 </tag>
             
@@ -4362,11 +4395,11 @@
       
         <tags>
             
-            <tag> linux </tag>
-            
             <tag> 系统 </tag>
             
             <tag> 运维 </tag>
+            
+            <tag> linux </tag>
             
             <tag> 命令 </tag>
             
@@ -5134,9 +5167,9 @@
       
         <tags>
             
-            <tag> python </tag>
-            
             <tag> 运维 </tag>
+            
+            <tag> python </tag>
             
         </tags>
       
@@ -5701,9 +5734,9 @@
       
         <tags>
             
-            <tag> linux </tag>
-            
             <tag> 运维 </tag>
+            
+            <tag> linux </tag>
             
         </tags>
       
@@ -6219,9 +6252,9 @@
       
         <tags>
             
-            <tag> linux </tag>
-            
             <tag> 运维 </tag>
+            
+            <tag> linux </tag>
             
             <tag> nginx </tag>
             
@@ -6472,9 +6505,9 @@
       
         <tags>
             
-            <tag> linux </tag>
-            
             <tag> 系统 </tag>
+            
+            <tag> linux </tag>
             
             <tag> 命令 </tag>
             
@@ -6771,9 +6804,9 @@
             
             <tag> python </tag>
             
-            <tag> selenium </tag>
-            
             <tag> cloudflare 5秒盾 </tag>
+            
+            <tag> selenium </tag>
             
         </tags>
       
@@ -6986,17 +7019,6 @@
     
     <entry>
       <title>categories</title>
-      <link href="/categories/index-1.html"/>
-      <url>/categories/index-1.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>categories</title>
       <link href="/categories/index.html"/>
       <url>/categories/index.html</url>
       
@@ -7007,11 +7029,11 @@
     
     
     <entry>
-      <title>gallery</title>
-      <link href="/gallery/index.html"/>
-      <url>/gallery/index.html</url>
+      <title>categories</title>
+      <link href="/categories/index-1.html"/>
+      <url>/categories/index-1.html</url>
       
-        <content type="html"><![CDATA[<ul><li><p>消愁 - 毛不易</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m804.music.126.net/20230715030040/3058f9a32c1a7c2ab4893a0c10bded60/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/28481677347/474c/85c2/535b/b2f2e46a8854595f90c56bf9a5db2ce2.mp3"></audio></p></li><li><p>像我这样的人 - 毛不易</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m804.music.126.net/20230715030000/c3bd7ebc6b90df3b09570c7047c5ac57/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/28481670328/e30c/18ad/2d86/5b9d878b11940b81e5efcdd1f5771d79.mp3?_authSecret=0000018955af504b086e0aaba3bf1b9a"></audio></p></li><li><p>不染 - 毛不易</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m8.music.126.net/20230715030021/9b8fb29ff25dd716673887bc6a85d183/ymusic/y7RHah68jgZBoxjkl7ieBw==/509951162915395763"></audio></p></li><li><p>Take My Hand - Simple Plan</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://other-web-ra01-sycdn.kuwo.cn/7d16061069e12b3c9e7f27f477d66b0d/64b19743/resource/n3/320/93/52/2280351848.mp3?from$unkown&plat$wapi"></audio></p></li><li><p>It’s My Life - Bon Jovi</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m10.music.126.net/20230715031049/9b363379164ade7cef7b779f50147f6c/ymusic/obj/w5zDlMODwrDDiGjCn8Ky/3066286606/07fe/758c/6f26/5fdcc90d2122f5eb933c39419e656119.mp3"></audio></p></li><li><p>挚爱 - 陈勋奇</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://other-web-ri01-sycdn.kuwo.cn/a47b6dffd701eeb7463410c9d519bf25/64b19842/resource/n2/60/27/3030200018.mp3"></audio></p></li></ul>]]></content>
+        <content type="html"><![CDATA[]]></content>
       
     </entry>
     
@@ -7029,11 +7051,11 @@
     
     
     <entry>
-      <title>tags</title>
-      <link href="/tags/index.html"/>
-      <url>/tags/index.html</url>
+      <title>gallery</title>
+      <link href="/gallery/index.html"/>
+      <url>/gallery/index.html</url>
       
-        <content type="html"><![CDATA[]]></content>
+        <content type="html"><![CDATA[<ul><li><p>消愁 - 毛不易</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m804.music.126.net/20230715030040/3058f9a32c1a7c2ab4893a0c10bded60/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/28481677347/474c/85c2/535b/b2f2e46a8854595f90c56bf9a5db2ce2.mp3"></audio></p></li><li><p>像我这样的人 - 毛不易</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m804.music.126.net/20230715030000/c3bd7ebc6b90df3b09570c7047c5ac57/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/28481670328/e30c/18ad/2d86/5b9d878b11940b81e5efcdd1f5771d79.mp3?_authSecret=0000018955af504b086e0aaba3bf1b9a"></audio></p></li><li><p>不染 - 毛不易</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m8.music.126.net/20230715030021/9b8fb29ff25dd716673887bc6a85d183/ymusic/y7RHah68jgZBoxjkl7ieBw==/509951162915395763"></audio></p></li><li><p>Take My Hand - Simple Plan</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://other-web-ra01-sycdn.kuwo.cn/7d16061069e12b3c9e7f27f477d66b0d/64b19743/resource/n3/320/93/52/2280351848.mp3?from$unkown&plat$wapi"></audio></p></li><li><p>It’s My Life - Bon Jovi</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m10.music.126.net/20230715031049/9b363379164ade7cef7b779f50147f6c/ymusic/obj/w5zDlMODwrDDiGjCn8Ky/3066286606/07fe/758c/6f26/5fdcc90d2122f5eb933c39419e656119.mp3"></audio></p></li><li><p>挚爱 - 陈勋奇</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://other-web-ri01-sycdn.kuwo.cn/a47b6dffd701eeb7463410c9d519bf25/64b19842/resource/n2/60/27/3030200018.mp3"></audio></p></li></ul>]]></content>
       
     </entry>
     
@@ -7054,6 +7076,17 @@
       <title>timeline</title>
       <link href="/timeline/index.html"/>
       <url>/timeline/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>tags</title>
+      <link href="/tags/index.html"/>
+      <url>/tags/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
