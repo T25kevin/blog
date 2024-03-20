@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>django-跨域支持配置</title>
+      <link href="/2024/03/20/django-%E8%B7%A8%E5%9F%9F%E6%94%AF%E6%8C%81%E9%85%8D%E7%BD%AE/"/>
+      <url>/2024/03/20/django-%E8%B7%A8%E5%9F%9F%E6%94%AF%E6%8C%81%E9%85%8D%E7%BD%AE/</url>
+      
+        <content type="html"><![CDATA[<p><font color=#00b2c2 size=5 face=宋体><strong>django-跨域支持配置</strong></font></p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># books_demo/settings.py</span></span><br><span class="line">INSTALLED_APPS = [</span><br><span class="line">    ...</span><br><span class="line">    <span class="comment"># demo</span></span><br><span class="line">    <span class="string">&#x27;corsheaders&#x27;</span>,</span><br><span class="line">    ...</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">MIDDLEWARE = [</span><br><span class="line">    <span class="string">&#x27;corsheaders.middleware.CorsMiddleware&#x27;</span>, <span class="comment"># 需注意与其他中间件顺序，这里放在最前面即可</span></span><br><span class="line">    ...</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 支持跨域配置开始</span></span><br><span class="line">CORS_ORIGIN_ALLOW_ALL = <span class="literal">True</span></span><br><span class="line">CORS_ALLOW_CREDENTIALS = <span class="literal">True</span> </span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> django </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> python </tag>
+            
+            <tag> django </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>python-虚拟环境包(requirements.txt)的导出与安装</title>
       <link href="/2024/03/20/python-%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E5%8C%85(requirements.txt)%E7%9A%84%E5%AF%BC%E5%87%BA%E4%B8%8E%E5%AE%89%E8%A3%85/"/>
       <url>/2024/03/20/python-%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E5%8C%85(requirements.txt)%E7%9A%84%E5%AF%BC%E5%87%BA%E4%B8%8E%E5%AE%89%E8%A3%85/</url>
@@ -33,9 +60,9 @@
       
         <tags>
             
-            <tag> 前端 </tag>
-            
             <tag> LayUI </tag>
+            
+            <tag> 前端 </tag>
             
             <tag> 快速开发 </tag>
             
@@ -64,9 +91,9 @@
       
         <tags>
             
-            <tag> 前端 </tag>
-            
             <tag> LayUI </tag>
+            
+            <tag> 前端 </tag>
             
             <tag> 快速开发 </tag>
             
@@ -122,9 +149,9 @@
       
         <tags>
             
-            <tag> javascript </tag>
-            
             <tag> 前端 </tag>
+            
+            <tag> javascript </tag>
             
         </tags>
       
@@ -231,11 +258,11 @@
       
         <tags>
             
-            <tag> linux </tag>
-            
             <tag> 系统 </tag>
             
             <tag> 运维 </tag>
+            
+            <tag> linux </tag>
             
         </tags>
       
@@ -315,9 +342,9 @@
       
         <tags>
             
-            <tag> centos7 </tag>
-            
             <tag> 工具 </tag>
+            
+            <tag> centos7 </tag>
             
             <tag> docker </tag>
             
@@ -1344,11 +1371,11 @@
       
         <tags>
             
-            <tag> linux </tag>
-            
             <tag> 系统 </tag>
             
             <tag> 运维 </tag>
+            
+            <tag> linux </tag>
             
             <tag> 命令 </tag>
             
@@ -2714,11 +2741,11 @@
       
         <tags>
             
-            <tag> linux </tag>
-            
             <tag> 系统 </tag>
             
             <tag> 运维 </tag>
+            
+            <tag> linux </tag>
             
         </tags>
       
@@ -3682,11 +3709,11 @@
       
         <tags>
             
-            <tag> linux </tag>
-            
             <tag> 系统 </tag>
             
             <tag> 运维 </tag>
+            
+            <tag> linux </tag>
             
         </tags>
       
@@ -3738,11 +3765,11 @@
       
         <tags>
             
-            <tag> linux </tag>
-            
             <tag> 系统 </tag>
             
             <tag> 运维 </tag>
+            
+            <tag> linux </tag>
             
         </tags>
       
@@ -3821,9 +3848,9 @@
       
         <tags>
             
-            <tag> python </tag>
-            
             <tag> 错误 </tag>
+            
+            <tag> python </tag>
             
             <tag> django </tag>
             
@@ -4172,9 +4199,9 @@
       
         <tags>
             
-            <tag> linux </tag>
-            
             <tag> 系统 </tag>
+            
+            <tag> linux </tag>
             
             <tag> 命令 </tag>
             
@@ -4201,9 +4228,9 @@
       
         <tags>
             
-            <tag> linux </tag>
-            
             <tag> 系统 </tag>
+            
+            <tag> linux </tag>
             
             <tag> 命令 </tag>
             
@@ -4230,9 +4257,9 @@
       
         <tags>
             
-            <tag> linux </tag>
-            
             <tag> 系统 </tag>
+            
+            <tag> linux </tag>
             
             <tag> 编译 </tag>
             
@@ -4259,9 +4286,9 @@
       
         <tags>
             
-            <tag> linux </tag>
-            
             <tag> 系统 </tag>
+            
+            <tag> linux </tag>
             
             <tag> 命令 </tag>
             
@@ -4288,9 +4315,9 @@
       
         <tags>
             
-            <tag> linux </tag>
-            
             <tag> 系统 </tag>
+            
+            <tag> linux </tag>
             
             <tag> 命令 </tag>
             
@@ -4317,9 +4344,9 @@
       
         <tags>
             
-            <tag> linux </tag>
-            
             <tag> 系统 </tag>
+            
+            <tag> linux </tag>
             
             <tag> 命令 </tag>
             
@@ -4346,11 +4373,11 @@
       
         <tags>
             
-            <tag> linux </tag>
-            
             <tag> 系统 </tag>
             
             <tag> 运维 </tag>
+            
+            <tag> linux </tag>
             
             <tag> 命令 </tag>
             
@@ -4377,11 +4404,11 @@
       
         <tags>
             
-            <tag> linux </tag>
-            
             <tag> 系统 </tag>
             
             <tag> 运维 </tag>
+            
+            <tag> linux </tag>
             
             <tag> 命令 </tag>
             
@@ -4408,11 +4435,11 @@
       
         <tags>
             
-            <tag> linux </tag>
-            
             <tag> 系统 </tag>
             
             <tag> 运维 </tag>
+            
+            <tag> linux </tag>
             
             <tag> 命令 </tag>
             
@@ -5180,9 +5207,9 @@
       
         <tags>
             
-            <tag> python </tag>
-            
             <tag> 运维 </tag>
+            
+            <tag> python </tag>
             
         </tags>
       
@@ -5207,9 +5234,9 @@
       
         <tags>
             
-            <tag> python </tag>
-            
             <tag> 错误 </tag>
+            
+            <tag> python </tag>
             
             <tag> 库 </tag>
             
@@ -5747,9 +5774,9 @@
       
         <tags>
             
-            <tag> linux </tag>
-            
             <tag> 运维 </tag>
+            
+            <tag> linux </tag>
             
         </tags>
       
@@ -6265,9 +6292,9 @@
       
         <tags>
             
-            <tag> linux </tag>
-            
             <tag> 运维 </tag>
+            
+            <tag> linux </tag>
             
             <tag> nginx </tag>
             
@@ -6435,9 +6462,9 @@
       
         <tags>
             
-            <tag> python </tag>
-            
             <tag> 错误 </tag>
+            
+            <tag> python </tag>
             
             <tag> django </tag>
             
@@ -6518,9 +6545,9 @@
       
         <tags>
             
-            <tag> linux </tag>
-            
             <tag> 系统 </tag>
+            
+            <tag> linux </tag>
             
             <tag> 命令 </tag>
             
@@ -7020,11 +7047,11 @@
     
     
     <entry>
-      <title>about</title>
-      <link href="/about/index.html"/>
-      <url>/about/index.html</url>
+      <title>categories</title>
+      <link href="/categories/index-1.html"/>
+      <url>/categories/index-1.html</url>
       
-        <content type="html"><![CDATA[<p><font color=#00b2c2 size=6 face=宋体><strong><strong>站点说明:</strong></strong></font></p><p><font color=#f26522 size=4 face=宋体><strong><strong>1、本站属于个人记录网站，不支持交流</strong></strong></font></p><p><font color=#f26522 size=4 face=宋体><strong><strong>2、转载请指明来源，谢谢！</strong></strong></font></p><p><font color=#f26522 size=4 face=宋体><strong><strong>3、本站模板采用自 &#x3D;&gt; <a href="https://www.niemingzhao.top/">聂明照的博客</a>  Github地址 &#x3D;&gt; <a href="https://github.com/niemingzhao/niemingzhao.github.io/tree/theme">点击进入</a></strong></strong></font></p><p><font color=#f26522 size=4 face=宋体><strong><strong>4、关于搜索配置的问题</strong></strong></font></p><ul><li><font color=#b0171f size=3 face=宋体><strong>除了安装插件以外，还需要配置路径，根据原作者的设置，这里有个坑</strong></font></li><li><font color=#b0171f size=3 face=宋体><strong>坑：use  不是  false、true     而是 false  和plugin 这两个选项，  其中 false &#x3D;&gt; 关闭搜索， plugin &#x3D;&gt; 开启选项</strong></font></li><li><font color=#b0171f size=3 face=宋体><strong>安装插件 &#x3D;&gt; npm install hexo-generator-search –save</strong></font></li></ul><p><img src="https://s2.loli.net/2023/03/20/7PLrKys2ubemoM5.png" alt="image-20230320034837859"></p>]]></content>
+        <content type="html"><![CDATA[]]></content>
       
     </entry>
     
@@ -7042,6 +7069,28 @@
     
     
     <entry>
+      <title>about</title>
+      <link href="/about/index.html"/>
+      <url>/about/index.html</url>
+      
+        <content type="html"><![CDATA[<p><font color=#00b2c2 size=6 face=宋体><strong><strong>站点说明:</strong></strong></font></p><p><font color=#f26522 size=4 face=宋体><strong><strong>1、本站属于个人记录网站，不支持交流</strong></strong></font></p><p><font color=#f26522 size=4 face=宋体><strong><strong>2、转载请指明来源，谢谢！</strong></strong></font></p><p><font color=#f26522 size=4 face=宋体><strong><strong>3、本站模板采用自 &#x3D;&gt; <a href="https://www.niemingzhao.top/">聂明照的博客</a>  Github地址 &#x3D;&gt; <a href="https://github.com/niemingzhao/niemingzhao.github.io/tree/theme">点击进入</a></strong></strong></font></p><p><font color=#f26522 size=4 face=宋体><strong><strong>4、关于搜索配置的问题</strong></strong></font></p><ul><li><font color=#b0171f size=3 face=宋体><strong>除了安装插件以外，还需要配置路径，根据原作者的设置，这里有个坑</strong></font></li><li><font color=#b0171f size=3 face=宋体><strong>坑：use  不是  false、true     而是 false  和plugin 这两个选项，  其中 false &#x3D;&gt; 关闭搜索， plugin &#x3D;&gt; 开启选项</strong></font></li><li><font color=#b0171f size=3 face=宋体><strong>安装插件 &#x3D;&gt; npm install hexo-generator-search –save</strong></font></li></ul><p><img src="https://s2.loli.net/2023/03/20/7PLrKys2ubemoM5.png" alt="image-20230320034837859"></p>]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>categories</title>
+      <link href="/categories/index.html"/>
+      <url>/categories/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>gallery</title>
       <link href="/gallery/index.html"/>
       <url>/gallery/index.html</url>
@@ -7053,9 +7102,9 @@
     
     
     <entry>
-      <title>tags</title>
-      <link href="/tags/index.html"/>
-      <url>/tags/index.html</url>
+      <title>tagcloud</title>
+      <link href="/tagcloud/index.html"/>
+      <url>/tagcloud/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
@@ -7075,31 +7124,9 @@
     
     
     <entry>
-      <title>categories</title>
-      <link href="/categories/index-1.html"/>
-      <url>/categories/index-1.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>categories</title>
-      <link href="/categories/index.html"/>
-      <url>/categories/index.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>tagcloud</title>
-      <link href="/tagcloud/index.html"/>
-      <url>/tagcloud/index.html</url>
+      <title>tags</title>
+      <link href="/tags/index.html"/>
+      <url>/tags/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
