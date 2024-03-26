@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>go-安装并部署一个简单的-gin-web接口</title>
+      <link href="/2024/03/27/go-%E5%AE%89%E8%A3%85%E5%B9%B6%E9%83%A8%E7%BD%B2%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84-gin-web%E6%8E%A5%E5%8F%A3/"/>
+      <url>/2024/03/27/go-%E5%AE%89%E8%A3%85%E5%B9%B6%E9%83%A8%E7%BD%B2%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84-gin-web%E6%8E%A5%E5%8F%A3/</url>
+      
+        <content type="html"><![CDATA[<p><font color=#00b2c2 size=5 face=宋体><strong>go 安装并部署一个简单的 gin web接口:</strong></font></p><ul><li><p>1.下载并安装 gin：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go get -u github.com/gin-gonic/gin</span><br></pre></td></tr></table></figure></li><li><p>2.将 gin 引入到代码中</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&quot;github.com/gin-gonic/gin&quot;</span></span><br></pre></td></tr></table></figure></li><li><p>3.一个简单的gin_ web程序</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;github.com/gin-gonic/gin&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">router := gin.Default()</span><br><span class="line">router.GET(<span class="string">&quot;index&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">(context *gin.Context)</span></span> &#123;</span><br><span class="line">context.String(<span class="number">200</span>, <span class="string">&quot;Hello World!&quot;</span>)</span><br><span class="line">&#125;)</span><br><span class="line">router.Run(<span class="string">&quot;:8080&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li></ul><p><font color=#f26522 size=4 face=宋体><strong></strong></font></p><p><font color=#b0171f size=2 face=宋体><strong></strong></font></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> go_gin </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> go </tag>
+            
+            <tag> web </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>golang-项目中-web框架的对比</title>
       <link href="/2024/03/26/golang-%E9%A1%B9%E7%9B%AE%E4%B8%AD-web%E6%A1%86%E6%9E%B6%E7%9A%84%E5%AF%B9%E6%AF%94/"/>
       <url>/2024/03/26/golang-%E9%A1%B9%E7%9B%AE%E4%B8%AD-web%E6%A1%86%E6%9E%B6%E7%9A%84%E5%AF%B9%E6%AF%94/</url>
@@ -285,11 +312,11 @@
       
         <tags>
             
+            <tag> linux </tag>
+            
             <tag> 系统 </tag>
             
             <tag> 运维 </tag>
-            
-            <tag> linux </tag>
             
         </tags>
       
@@ -1398,11 +1425,11 @@
       
         <tags>
             
+            <tag> linux </tag>
+            
             <tag> 系统 </tag>
             
             <tag> 运维 </tag>
-            
-            <tag> linux </tag>
             
             <tag> 命令 </tag>
             
@@ -2768,11 +2795,11 @@
       
         <tags>
             
+            <tag> linux </tag>
+            
             <tag> 系统 </tag>
             
             <tag> 运维 </tag>
-            
-            <tag> linux </tag>
             
         </tags>
       
@@ -3736,11 +3763,11 @@
       
         <tags>
             
+            <tag> linux </tag>
+            
             <tag> 系统 </tag>
             
             <tag> 运维 </tag>
-            
-            <tag> linux </tag>
             
         </tags>
       
@@ -3792,11 +3819,11 @@
       
         <tags>
             
+            <tag> linux </tag>
+            
             <tag> 系统 </tag>
             
             <tag> 运维 </tag>
-            
-            <tag> linux </tag>
             
         </tags>
       
@@ -4226,9 +4253,9 @@
       
         <tags>
             
-            <tag> 系统 </tag>
-            
             <tag> linux </tag>
+            
+            <tag> 系统 </tag>
             
             <tag> 命令 </tag>
             
@@ -4255,9 +4282,9 @@
       
         <tags>
             
-            <tag> 系统 </tag>
-            
             <tag> linux </tag>
+            
+            <tag> 系统 </tag>
             
             <tag> 命令 </tag>
             
@@ -4284,9 +4311,9 @@
       
         <tags>
             
-            <tag> 系统 </tag>
-            
             <tag> linux </tag>
+            
+            <tag> 系统 </tag>
             
             <tag> 编译 </tag>
             
@@ -4313,9 +4340,9 @@
       
         <tags>
             
-            <tag> 系统 </tag>
-            
             <tag> linux </tag>
+            
+            <tag> 系统 </tag>
             
             <tag> 命令 </tag>
             
@@ -4342,9 +4369,9 @@
       
         <tags>
             
-            <tag> 系统 </tag>
-            
             <tag> linux </tag>
+            
+            <tag> 系统 </tag>
             
             <tag> 命令 </tag>
             
@@ -4371,9 +4398,9 @@
       
         <tags>
             
-            <tag> 系统 </tag>
-            
             <tag> linux </tag>
+            
+            <tag> 系统 </tag>
             
             <tag> 命令 </tag>
             
@@ -4400,11 +4427,11 @@
       
         <tags>
             
+            <tag> linux </tag>
+            
             <tag> 系统 </tag>
             
             <tag> 运维 </tag>
-            
-            <tag> linux </tag>
             
             <tag> 命令 </tag>
             
@@ -4431,11 +4458,11 @@
       
         <tags>
             
+            <tag> linux </tag>
+            
             <tag> 系统 </tag>
             
             <tag> 运维 </tag>
-            
-            <tag> linux </tag>
             
             <tag> 命令 </tag>
             
@@ -4462,11 +4489,11 @@
       
         <tags>
             
+            <tag> linux </tag>
+            
             <tag> 系统 </tag>
             
             <tag> 运维 </tag>
-            
-            <tag> linux </tag>
             
             <tag> 命令 </tag>
             
@@ -5234,9 +5261,9 @@
       
         <tags>
             
-            <tag> 运维 </tag>
-            
             <tag> python </tag>
+            
+            <tag> 运维 </tag>
             
         </tags>
       
@@ -5375,9 +5402,9 @@
             
             <tag> python </tag>
             
-            <tag> django </tag>
-            
             <tag> 模板 </tag>
+            
+            <tag> django </tag>
             
         </tags>
       
@@ -5801,9 +5828,9 @@
       
         <tags>
             
-            <tag> 运维 </tag>
-            
             <tag> linux </tag>
+            
+            <tag> 运维 </tag>
             
         </tags>
       
@@ -6319,9 +6346,9 @@
       
         <tags>
             
-            <tag> 运维 </tag>
-            
             <tag> linux </tag>
+            
+            <tag> 运维 </tag>
             
             <tag> nginx </tag>
             
@@ -6572,9 +6599,9 @@
       
         <tags>
             
-            <tag> 系统 </tag>
-            
             <tag> linux </tag>
+            
+            <tag> 系统 </tag>
             
             <tag> 命令 </tag>
             
@@ -6871,9 +6898,9 @@
             
             <tag> python </tag>
             
-            <tag> selenium </tag>
-            
             <tag> cloudflare 5秒盾 </tag>
+            
+            <tag> selenium </tag>
             
         </tags>
       
@@ -7074,6 +7101,17 @@
     
     
     <entry>
+      <title>about</title>
+      <link href="/about/index.html"/>
+      <url>/about/index.html</url>
+      
+        <content type="html"><![CDATA[<p><font color=#00b2c2 size=6 face=宋体><strong><strong>站点说明:</strong></strong></font></p><p><font color=#f26522 size=4 face=宋体><strong><strong>1、本站属于个人记录网站，不支持交流</strong></strong></font></p><p><font color=#f26522 size=4 face=宋体><strong><strong>2、转载请指明来源，谢谢！</strong></strong></font></p><p><font color=#f26522 size=4 face=宋体><strong><strong>3、本站模板采用自 &#x3D;&gt; <a href="https://www.niemingzhao.top/">聂明照的博客</a>  Github地址 &#x3D;&gt; <a href="https://github.com/niemingzhao/niemingzhao.github.io/tree/theme">点击进入</a></strong></strong></font></p><p><font color=#f26522 size=4 face=宋体><strong><strong>4、关于搜索配置的问题</strong></strong></font></p><ul><li><font color=#b0171f size=3 face=宋体><strong>除了安装插件以外，还需要配置路径，根据原作者的设置，这里有个坑</strong></font></li><li><font color=#b0171f size=3 face=宋体><strong>坑：use  不是  false、true     而是 false  和plugin 这两个选项，  其中 false &#x3D;&gt; 关闭搜索， plugin &#x3D;&gt; 开启选项</strong></font></li><li><font color=#b0171f size=3 face=宋体><strong>安装插件 &#x3D;&gt; npm install hexo-generator-search –save</strong></font></li></ul><p><img src="https://s2.loli.net/2023/03/20/7PLrKys2ubemoM5.png" alt="image-20230320034837859"></p>]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>categories</title>
       <link href="/categories/index-1.html"/>
       <url>/categories/index-1.html</url>
@@ -7112,17 +7150,6 @@
       <url>/tagcloud/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>about</title>
-      <link href="/about/index.html"/>
-      <url>/about/index.html</url>
-      
-        <content type="html"><![CDATA[<p><font color=#00b2c2 size=6 face=宋体><strong><strong>站点说明:</strong></strong></font></p><p><font color=#f26522 size=4 face=宋体><strong><strong>1、本站属于个人记录网站，不支持交流</strong></strong></font></p><p><font color=#f26522 size=4 face=宋体><strong><strong>2、转载请指明来源，谢谢！</strong></strong></font></p><p><font color=#f26522 size=4 face=宋体><strong><strong>3、本站模板采用自 &#x3D;&gt; <a href="https://www.niemingzhao.top/">聂明照的博客</a>  Github地址 &#x3D;&gt; <a href="https://github.com/niemingzhao/niemingzhao.github.io/tree/theme">点击进入</a></strong></strong></font></p><p><font color=#f26522 size=4 face=宋体><strong><strong>4、关于搜索配置的问题</strong></strong></font></p><ul><li><font color=#b0171f size=3 face=宋体><strong>除了安装插件以外，还需要配置路径，根据原作者的设置，这里有个坑</strong></font></li><li><font color=#b0171f size=3 face=宋体><strong>坑：use  不是  false、true     而是 false  和plugin 这两个选项，  其中 false &#x3D;&gt; 关闭搜索， plugin &#x3D;&gt; 开启选项</strong></font></li><li><font color=#b0171f size=3 face=宋体><strong>安装插件 &#x3D;&gt; npm install hexo-generator-search –save</strong></font></li></ul><p><img src="https://s2.loli.net/2023/03/20/7PLrKys2ubemoM5.png" alt="image-20230320034837859"></p>]]></content>
       
     </entry>
     

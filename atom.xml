@@ -6,7 +6,7 @@
   <link href="https://kanoc.gitee.io/atom.xml" rel="self"/>
   
   <link href="https://kanoc.gitee.io/"/>
-  <updated>2024-03-26T15:33:22.964Z</updated>
+  <updated>2024-03-26T16:05:45.579Z</updated>
   <id>https://kanoc.gitee.io/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>go-安装并部署一个简单的-gin-web接口</title>
+    <link href="https://kanoc.gitee.io/2024/03/27/go-%E5%AE%89%E8%A3%85%E5%B9%B6%E9%83%A8%E7%BD%B2%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84-gin-web%E6%8E%A5%E5%8F%A3/"/>
+    <id>https://kanoc.gitee.io/2024/03/27/go-%E5%AE%89%E8%A3%85%E5%B9%B6%E9%83%A8%E7%BD%B2%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84-gin-web%E6%8E%A5%E5%8F%A3/</id>
+    <published>2024-03-26T16:02:34.000Z</published>
+    <updated>2024-03-26T16:05:45.579Z</updated>
+    
+    <content type="html"><![CDATA[<p><font color=#00b2c2 size=5 face=宋体><strong>go 安装并部署一个简单的 gin web接口:</strong></font></p><ul><li><p>1.下载并安装 gin：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go get -u github.com/gin-gonic/gin</span><br></pre></td></tr></table></figure></li><li><p>2.将 gin 引入到代码中</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&quot;github.com/gin-gonic/gin&quot;</span></span><br></pre></td></tr></table></figure></li><li><p>3.一个简单的gin_ web程序</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;github.com/gin-gonic/gin&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">router := gin.Default()</span><br><span class="line">router.GET(<span class="string">&quot;index&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">(context *gin.Context)</span></span> &#123;</span><br><span class="line">context.String(<span class="number">200</span>, <span class="string">&quot;Hello World!&quot;</span>)</span><br><span class="line">&#125;)</span><br><span class="line">router.Run(<span class="string">&quot;:8080&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li></ul><p><font color=#f26522 size=4 face=宋体><strong></strong></font></p><p><font color=#b0171f size=2 face=宋体><strong></strong></font></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;&lt;font color=#00b2c2 size=5 face=宋体&gt;&lt;strong&gt;go 安装并部署一个简单的 gin web接口:&lt;/strong&gt;&lt;/font&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;1.下载并安装 gin：&lt;/p&gt;
+&lt;figure class=&quot;highl</summary>
+      
+    
+    
+    
+    <category term="go_gin" scheme="https://kanoc.gitee.io/categories/go-gin/"/>
+    
+    
+    <category term="go" scheme="https://kanoc.gitee.io/tags/go/"/>
+    
+    <category term="web" scheme="https://kanoc.gitee.io/tags/web/"/>
+    
+  </entry>
   
   <entry>
     <title>golang-项目中-web框架的对比</title>
@@ -330,11 +359,11 @@
     <category term="linux" scheme="https://kanoc.gitee.io/categories/linux/"/>
     
     
+    <category term="linux" scheme="https://kanoc.gitee.io/tags/linux/"/>
+    
     <category term="系统" scheme="https://kanoc.gitee.io/tags/%E7%B3%BB%E7%BB%9F/"/>
     
     <category term="运维" scheme="https://kanoc.gitee.io/tags/%E8%BF%90%E7%BB%B4/"/>
-    
-    <category term="linux" scheme="https://kanoc.gitee.io/tags/linux/"/>
     
   </entry>
   
@@ -516,35 +545,6 @@
     
     
     <category term="python" scheme="https://kanoc.gitee.io/tags/python/"/>
-    
-    <category term="基础" scheme="https://kanoc.gitee.io/tags/%E5%9F%BA%E7%A1%80/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>python socket模块的简单应用</title>
-    <link href="https://kanoc.gitee.io/2024/01/14/python-socket%E6%A8%A1%E5%9D%97%E7%9A%84%E7%AE%80%E5%8D%95%E5%BA%94%E7%94%A8/"/>
-    <id>https://kanoc.gitee.io/2024/01/14/python-socket%E6%A8%A1%E5%9D%97%E7%9A%84%E7%AE%80%E5%8D%95%E5%BA%94%E7%94%A8/</id>
-    <published>2024-01-13T17:55:09.000Z</published>
-    <updated>2024-03-14T08:38:10.065Z</updated>
-    
-    <content type="html"><![CDATA[<p><font color=#00b2c2 size=5 face=宋体><strong>python socket模块的简单应用：</strong></font></p><p><font color=#f26522 size=4 face=宋体><strong>server端：</strong></font></p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"></span><br><span class="line"><span class="comment"># 网络三要素： IP PORT 协议（TCP，UDP）</span></span><br><span class="line">sock = socket.socket()</span><br><span class="line">sock.bind((<span class="string">&quot;127.0.0.1&quot;</span>, <span class="number">8899</span>))</span><br><span class="line">sock.listen(<span class="number">5</span>)     <span class="comment"># 最大连接数</span></span><br><span class="line"></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    sock 是一个socket对象。</span></span><br><span class="line"><span class="string">    listen 是socket对象的一个方法，用于使socket对象开始监听进入的连接请求。</span></span><br><span class="line"><span class="string">    5 是listen方法的参数，表示在接受新的连接请求之前，该socket可以排队的最大连接数。</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#  等待客户端链接</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;server is waiting....&quot;</span>)</span><br><span class="line">conn, addr = sock.accept()    <span class="comment"># conn：连接  addr：端口</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;conn&quot;</span>, conn)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;addr&quot;</span>, addr)</span><br><span class="line"></span><br><span class="line">data = conn.recv(<span class="number">1024</span>)       <span class="comment"># 最大接收字节 1024</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;data&quot;</span>, data)</span><br><span class="line">conn.send(<span class="string">b&quot;message has received&quot;</span>)    <span class="comment"># 回消息</span></span><br><span class="line"></span><br></pre></td></tr></table></figure><p><font color=#f26522 size=4 face=宋体><strong>客户端：</strong></font></p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"></span><br><span class="line">sock = socket.socket()</span><br><span class="line"></span><br><span class="line">sock.connect((<span class="string">&quot;127.0.0.1&quot;</span>, <span class="number">8899</span>))</span><br><span class="line">sock.send(<span class="string">b&quot;hello world&quot;</span>)</span><br><span class="line"></span><br><span class="line">res = sock.recv(<span class="number">1024</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;服务端响应数据：&quot;</span>,res.decode())</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;&lt;font color=#00b2c2 size=5 face=宋体&gt;&lt;strong&gt;python socket模块的简单应用：&lt;/strong&gt;&lt;/font&gt;&lt;/p&gt;
-&lt;p&gt;&lt;font color=#f26522 size=4 face=宋体&gt;&lt;strong&gt;server</summary>
-      
-    
-    
-    
-    <category term="django" scheme="https://kanoc.gitee.io/categories/django/"/>
-    
-    
-    <category term="python" scheme="https://kanoc.gitee.io/tags/python/"/>
-    
-    <category term="django" scheme="https://kanoc.gitee.io/tags/django/"/>
     
     <category term="基础" scheme="https://kanoc.gitee.io/tags/%E5%9F%BA%E7%A1%80/"/>
     
