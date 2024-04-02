@@ -4,6 +4,168 @@
   
     
     <entry>
+      <title>Python、Go 打包运行代码</title>
+      <link href="/2024/04/02/Python%E3%80%81Go%20%E6%89%93%E5%8C%85%E8%BF%90%E8%A1%8C%E4%BB%A3%E7%A0%81/"/>
+      <url>/2024/04/02/Python%E3%80%81Go%20%E6%89%93%E5%8C%85%E8%BF%90%E8%A1%8C%E4%BB%A3%E7%A0%81/</url>
+      
+        <content type="html"><![CDATA[<p><font color=#00b2c2 size=5 face=宋体><strong>Go</strong></font></p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">go</span> build   <span class="comment">//这个命令会查找项目中的main包，并编译生成一个可执行文件</span></span><br><span class="line"><span class="keyword">go</span> build -o myapp  <span class="comment">//如果你想给生成的可执行文件指定一个不同的名称，可以使用-o参数</span></span><br></pre></td></tr></table></figure><p><font color=#00b2c2 size=5 face=宋体><strong>Python</strong></font></p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用PyInstaller</span></span><br><span class="line">pip install pyinstaller</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这个命令会生成一个单独的可执行文件（在Windows上是.exe，在Linux和Mac上是没有扩展名的文件）。--onefile选项告诉PyInstaller生成一个单独的文件，而不是一个包含许多依赖文件的目录。</span></span><br><span class="line">pyinstaller --onefile your_script.py</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 工具 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> python </tag>
+            
+            <tag> go </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>go-Post方式取参数</title>
+      <link href="/2024/03/29/go-Post%E6%96%B9%E5%BC%8F%E5%8F%96%E5%8F%82%E6%95%B0/"/>
+      <url>/2024/03/29/go-Post%E6%96%B9%E5%BC%8F%E5%8F%96%E5%8F%82%E6%95%B0/</url>
+      
+        <content type="html"><![CDATA[<p><font color=#00b2c2 size=5 face=宋体><strong>go Post方式取参数：</strong></font></p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line"><span class="string">&quot;fmt&quot;</span></span><br><span class="line"><span class="string">&quot;github.com/gin-gonic/gin&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> _<span class="title">form</span><span class="params">(context *gin.Context)</span></span> &#123;</span><br><span class="line">fmt.Println(context.PostForm(<span class="string">&quot;name&quot;</span>))                <span class="comment">// from 表单中只能接受一个相同 keys</span></span><br><span class="line">fmt.Println(context.PostFormArray(<span class="string">&quot;name&quot;</span>))           <span class="comment">// from 中 允许接受多个 相同 keys 一个from中存在两个 name</span></span><br><span class="line">fmt.Println(context.DefaultPostForm(<span class="string">&quot;addr&quot;</span>, <span class="string">&quot;四川&quot;</span>)) <span class="comment">//如果 keys ：addr 不存在，那么 addr默认值 ： 四川</span></span><br><span class="line">from, <span class="type">error</span> := context.MultipartForm()               <span class="comment">// 接受from中所有的参数，包括文件</span></span><br><span class="line">fmt.Println(from, <span class="type">error</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">router := gin.Default()</span><br><span class="line">router.POST(<span class="string">&quot;from&quot;</span>, _form)</span><br><span class="line">router.Run(<span class="string">&quot;:80&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> go_gin </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> go </tag>
+            
+            <tag> web </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>go-get_方式取参数-</title>
+      <link href="/2024/03/29/go-get-%E6%96%B9%E5%BC%8F%E5%8F%96%E5%8F%82%E6%95%B0/"/>
+      <url>/2024/03/29/go-get-%E6%96%B9%E5%BC%8F%E5%8F%96%E5%8F%82%E6%95%B0/</url>
+      
+        <content type="html"><![CDATA[<p><font color=#00b2c2 size=5 face=宋体><strong>go-get_方式取参数</strong></font></p><p><code>http://127.0.0.1/query?user=尼碟</code></p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line"><span class="string">&quot;fmt&quot;</span></span><br><span class="line"><span class="string">&quot;github.com/gin-gonic/gin&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> _<span class="title">query</span><span class="params">(context *gin.Context)</span></span> &#123;</span><br><span class="line">fmt.Println(context.Query(<span class="string">&quot;user&quot;</span>))         <span class="comment">//取单个</span></span><br><span class="line">fmt.Println(context.GetQuery(<span class="string">&quot;user&quot;</span>))      <span class="comment">//取单个</span></span><br><span class="line">fmt.Println(context.GetQueryArray(<span class="string">&quot;user&quot;</span>)) <span class="comment">// 如果参数下面存在多个 相同 keys 的话，可以用这种方式</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">router := gin.Default()</span><br><span class="line">router.GET(<span class="string">&quot;/query&quot;</span>, _query)</span><br><span class="line">router.Run(<span class="string">&quot;:80&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 访问url： http://127.0.0.1/query?user=尼碟</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 后台打印内容：</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 尼碟</span></span><br></pre></td></tr></table></figure><p><font color=#00b2c2 size=5 face=宋体><strong>param方式取参数</strong></font></p><p><code>http://127.0.0.1/param/136/47/狗蛋大兵</code></p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line"><span class="string">&quot;fmt&quot;</span></span><br><span class="line"><span class="string">&quot;github.com/gin-gonic/gin&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> _<span class="title">param</span><span class="params">(context *gin.Context)</span></span> &#123;</span><br><span class="line">   fmt.Println(<span class="string">&quot;这是 id：&quot;</span> + context.Param(<span class="string">&quot;id&quot;</span>))</span><br><span class="line">   fmt.Println(<span class="string">&quot;这是 pid：&quot;</span> + context.Param(<span class="string">&quot;pid&quot;</span>))</span><br><span class="line">   fmt.Println(<span class="string">&quot;这是 name：&quot;</span> + context.Param(<span class="string">&quot;name&quot;</span>))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">router := gin.Default()</span><br><span class="line">router.GET(<span class="string">&quot;/param/:id/:pid/:name&quot;</span>, _param) <span class="comment">// 可以取多个动态参数</span></span><br><span class="line">router.Run(<span class="string">&quot;:80&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//  访问url： http://127.0.0.1/param/136/47/狗蛋大兵</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 打印：</span></span><br><span class="line"><span class="comment">// 这是 id：136</span></span><br><span class="line"><span class="comment">// 这是 pid：47</span></span><br><span class="line"><span class="comment">// 这是 name：狗蛋大兵</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> go_gin </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> go </tag>
+            
+            <tag> web </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>go-关键字与保留字</title>
+      <link href="/2024/03/29/go-%E5%85%B3%E9%94%AE%E5%AD%97%E4%B8%8E%E4%BF%9D%E7%95%99%E5%AD%97/"/>
+      <url>/2024/03/29/go-%E5%85%B3%E9%94%AE%E5%AD%97%E4%B8%8E%E4%BF%9D%E7%95%99%E5%AD%97/</url>
+      
+        <content type="html"><![CDATA[<p><font color=#00b2c2 size=7 face=宋体><strong>go-关键字与保留字：</strong></font></p><p><font color=#00b2c2 size=5 face=宋体><strong>关键字：</strong></font></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">break        default      func         interface    select</span><br><span class="line">case         defer        go           map          struct</span><br><span class="line">chan         else         goto         package      switch</span><br><span class="line">const        fallthrough  if           range        type</span><br><span class="line">continue     for          import       return       var</span><br></pre></td></tr></table></figure><p><font color=#00b2c2 size=5 face=宋体><strong>保留字：</strong></font></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Constants:    true  false  iota  nil</span><br><span class="line"></span><br><span class="line">Types:    int  int8  int16  int32  int64  </span><br><span class="line">          uint  uint8  uint16  uint32  uint64  uintptr</span><br><span class="line">          float32  float64  complex128  complex64</span><br><span class="line">          bool  byte  rune  string  error</span><br><span class="line"></span><br><span class="line">Functions:   make  len  cap  new  append  copy  close  delete</span><br><span class="line">             complex  real  imag</span><br><span class="line">             panic  recover</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> go </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> go </tag>
+            
+            <tag> 基础 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>go-的依赖管理相关内容</title>
+      <link href="/2024/03/29/go-%E7%9A%84%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9/"/>
+      <url>/2024/03/29/go-%E7%9A%84%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9/</url>
+      
+        <content type="html"><![CDATA[<p><font color=#00b2c2 size=5 face=宋体><strong>配置环境：</strong></font></p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">set GO111MODULE=on</span><br><span class="line">SET GOPROXY=[https://goproxy.cn](https://goproxy.cn/)  # 这是win环境下的 </span><br><span class="line">export GOPROXY=[https://goproxy.cn](https://goproxy.cn/)   # 这是mac环境下的</span><br></pre></td></tr></table></figure><p><font color=#00b2c2 size=5 face=宋体><strong>go mod 相关命令：</strong></font></p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">go</span> mod init [包名] <span class="comment">// 初始化项目(如果你是初始化项目直接 `go mod init` 就好了)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">go</span> get   <span class="comment">// 下载依赖包，并且还可以指定下载的版本。</span></span><br><span class="line"><span class="keyword">go</span> get -u   <span class="comment">//升级到最新的次要版本或者修订版本(x.y.z, z是修订版本号， y是次要版本号)</span></span><br><span class="line"><span class="keyword">go</span> get -u=patch   <span class="comment">//升级到最新的修订版本</span></span><br><span class="line"><span class="keyword">go</span> get <span class="keyword">package</span>@version  <span class="comment">//升级到指定的版本号version </span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">go</span> mod download    <span class="comment">//下载依赖的module到本地cache（默认为$GOPATH/pkg/mod目录）</span></span><br><span class="line"><span class="keyword">go</span> mod edit        <span class="comment">//编辑go.mod文件</span></span><br><span class="line"><span class="keyword">go</span> mod graph       <span class="comment">//打印模块依赖图</span></span><br><span class="line"><span class="keyword">go</span> mod init        <span class="comment">//初始化当前文件夹, 创建go.mod文件</span></span><br><span class="line"><span class="keyword">go</span> mod tidy        <span class="comment">//增加缺少的module，删除无用的module</span></span><br><span class="line"><span class="keyword">go</span> mod vendor      <span class="comment">//将依赖复制到vendor下</span></span><br><span class="line"><span class="keyword">go</span> mod verify      <span class="comment">//校验依赖</span></span><br><span class="line"><span class="keyword">go</span> mod why         <span class="comment">//解释为什么需要依赖</span></span><br></pre></td></tr></table></figure><p><font color=#f26522 size=4 face=宋体><strong></strong></font></p><p><font color=#b0171f size=2 face=宋体><strong></strong></font></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> go </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> go </tag>
+            
+            <tag> 基础 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>gin-响应体的返回</title>
+      <link href="/2024/03/27/gin-%E5%93%8D%E5%BA%94%E4%BD%93%E7%9A%84%E8%BF%94%E5%9B%9E/"/>
+      <url>/2024/03/27/gin-%E5%93%8D%E5%BA%94%E4%BD%93%E7%9A%84%E8%BF%94%E5%9B%9E/</url>
+      
+        <content type="html"><![CDATA[<p><font color=#00b2c2 size=5 face=宋体><strong>gin-响应体的返回：</strong></font></p><ul><li><font color=#f26522 size=4 face=宋体><strong>响应字符串：</strong></font></li></ul><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> _<span class="title">string</span><span class="params">(context *gin.Context)</span></span> &#123;</span><br><span class="line">context.String(http.StatusOK, <span class="string">&quot;我是你爸爸&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">router.GET(<span class="string">&quot;/string&quot;</span>, _string)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><ul><li><font color=#f26522 size=4 face=宋体><strong>响应Json：</strong></font></li></ul><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> _<span class="title">json</span><span class="params">(context *gin.Context)</span></span> &#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 方式：一</span></span><br><span class="line"><span class="comment">// 创建结构体</span></span><br><span class="line"><span class="keyword">type</span> UserInfo <span class="keyword">struct</span> &#123;</span><br><span class="line">UserName <span class="type">string</span> <span class="string">`json:&quot;user_name&quot;`</span> <span class="comment">// 渲染json 为后面的小写 user_name</span></span><br><span class="line">Age      <span class="type">int</span>    <span class="string">`json:&quot;age&quot;`</span></span><br><span class="line">PassWord <span class="type">string</span> <span class="string">`json:&quot;-&quot;`</span> <span class="comment">// 在json 中 &quot;-&quot; 表示不渲染该项</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 在结构体中添加数据  =&gt; Json</span></span><br><span class="line"><span class="comment">//user := UserInfo&#123;&quot;李小屁&quot;, 25, &quot;123456&quot;&#125;</span></span><br><span class="line"><span class="comment">//context.JSON(200, user)</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 方式：二</span></span><br><span class="line"><span class="comment">// json 响应map</span></span><br><span class="line"><span class="comment">//userMap := map[string]string&#123;</span></span><br><span class="line"><span class="comment">//&quot;user_name&quot;: &quot;李小头&quot;,</span></span><br><span class="line"><span class="comment">//&quot;age&quot;: &quot;23&quot;,</span></span><br><span class="line"><span class="comment">//&#125;</span></span><br><span class="line"><span class="comment">//context.JSON(200, userMap)</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 方式：三</span></span><br><span class="line"><span class="comment">//直接响应 Json 数据</span></span><br><span class="line">context.JSON(<span class="number">200</span>, gin.H&#123;<span class="string">&quot;user_name&quot;</span>: <span class="string">&quot;李中头&quot;</span>, <span class="string">&quot;age&quot;</span>: <span class="number">28</span>&#125;)</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">router.GET(<span class="string">&quot;/json&quot;</span>, _json)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><ul><li><font color=#f26522 size=4 face=宋体><strong>响应 xml：</strong></font></li></ul><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 响应 xml</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> _<span class="title">xml</span><span class="params">(context *gin.Context)</span></span> &#123;</span><br><span class="line">context.XML(http.StatusOK, gin.H&#123;<span class="string">&quot;user&quot;</span>: <span class="string">&quot;hanru&quot;</span>, <span class="string">&quot;message&quot;</span>: <span class="string">&quot;hey&quot;</span>, <span class="string">&quot;status&quot;</span>: http.StatusOK, <span class="string">&quot;data&quot;</span>: gin.H&#123;<span class="string">&quot;user&quot;</span>: <span class="string">&quot;李大头&quot;</span>&#125;&#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">router.GET(<span class="string">&quot;/xml&quot;</span>, _xml)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><ul><li><font color=#f26522 size=4 face=宋体><strong>响应 yaml：</strong></font></li></ul><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 响应 xml</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> _<span class="title">yaml</span><span class="params">(context *gin.Context)</span></span> &#123;</span><br><span class="line">context.YAML(http.StatusOK, gin.H&#123;<span class="string">&quot;user&quot;</span>: <span class="string">&quot;hanru&quot;</span>, <span class="string">&quot;message&quot;</span>: <span class="string">&quot;hey&quot;</span>, <span class="string">&quot;status&quot;</span>: http.StatusOK, <span class="string">&quot;data&quot;</span>: gin.H&#123;<span class="string">&quot;user&quot;</span>: <span class="string">&quot;李大头&quot;</span>&#125;&#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">router.GET(<span class="string">&quot;/yaml&quot;</span>, _yaml)    <span class="comment">// 这里需要注意的是，返回yaml 文件 某些浏览器会自动下载</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><ul><li><font color=#f26522 size=4 face=宋体><strong>响应 html：</strong></font></li></ul><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> _<span class="title">html</span><span class="params">(context *gin.Context)</span></span> &#123;</span><br><span class="line"><span class="built_in">println</span>(_time())</span><br><span class="line">context.HTML(<span class="number">200</span>, <span class="string">&quot;index.html&quot;</span>, gin.H&#123;&#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 其中 加载静态文件 和 html模板文件</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">router.LoadHTMLGlob(<span class="string">&quot;templates/*&quot;</span>)</span><br><span class="line">router.Static(<span class="string">&quot;/static&quot;</span>, <span class="string">&quot;./static&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure><ul><li><font color=#f26522 size=4 face=宋体><strong>响应文件：</strong></font></li></ul><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">router.StaticFile(<span class="string">&quot;/static&quot;</span>, <span class="string">&quot;static/cc.png&quot;</span>)   <span class="comment">//没有对应的函数，直接返回</span></span><br></pre></td></tr></table></figure><p><img src="https://s2.loli.net/2024/03/29/GaivOTL8IQR9ZY2.png" alt="响应文件"></p><p><font color=#f26522 size=4 face=宋体><strong>重定向：</strong></font></p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 响应跳转 302</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> _<span class="title">redirect</span><span class="params">(context *gin.Context)</span></span> &#123;</span><br><span class="line">context.Redirect(<span class="number">302</span>, <span class="string">&quot;https://www.baidu.com&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">router.GET(<span class="string">&quot;/baidu&quot;</span>, _redirect) <span class="comment">// 301: 永久重定向，  302：临时重定向</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> go_gin </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> go </tag>
+            
+            <tag> web </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>go-安装并部署一个简单的-gin-web接口</title>
       <link href="/2024/03/27/go-%E5%AE%89%E8%A3%85%E5%B9%B6%E9%83%A8%E7%BD%B2%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84-gin-web%E6%8E%A5%E5%8F%A3/"/>
       <url>/2024/03/27/go-%E5%AE%89%E8%A3%85%E5%B9%B6%E9%83%A8%E7%BD%B2%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84-gin-web%E6%8E%A5%E5%8F%A3/</url>
@@ -312,11 +474,11 @@
       
         <tags>
             
-            <tag> linux </tag>
-            
             <tag> 系统 </tag>
             
             <tag> 运维 </tag>
+            
+            <tag> linux </tag>
             
         </tags>
       
@@ -1425,11 +1587,11 @@
       
         <tags>
             
-            <tag> linux </tag>
-            
             <tag> 系统 </tag>
             
             <tag> 运维 </tag>
+            
+            <tag> linux </tag>
             
             <tag> 命令 </tag>
             
@@ -2795,11 +2957,11 @@
       
         <tags>
             
-            <tag> linux </tag>
-            
             <tag> 系统 </tag>
             
             <tag> 运维 </tag>
+            
+            <tag> linux </tag>
             
         </tags>
       
@@ -3763,11 +3925,11 @@
       
         <tags>
             
-            <tag> linux </tag>
-            
             <tag> 系统 </tag>
             
             <tag> 运维 </tag>
+            
+            <tag> linux </tag>
             
         </tags>
       
@@ -3819,11 +3981,11 @@
       
         <tags>
             
-            <tag> linux </tag>
-            
             <tag> 系统 </tag>
             
             <tag> 运维 </tag>
+            
+            <tag> linux </tag>
             
         </tags>
       
@@ -4091,9 +4253,9 @@
       
         <tags>
             
-            <tag> 前端 </tag>
-            
             <tag> html </tag>
+            
+            <tag> 前端 </tag>
             
             <tag> css </tag>
             
@@ -4253,9 +4415,9 @@
       
         <tags>
             
-            <tag> linux </tag>
-            
             <tag> 系统 </tag>
+            
+            <tag> linux </tag>
             
             <tag> 命令 </tag>
             
@@ -4282,9 +4444,9 @@
       
         <tags>
             
-            <tag> linux </tag>
-            
             <tag> 系统 </tag>
+            
+            <tag> linux </tag>
             
             <tag> 命令 </tag>
             
@@ -4311,9 +4473,9 @@
       
         <tags>
             
-            <tag> linux </tag>
-            
             <tag> 系统 </tag>
+            
+            <tag> linux </tag>
             
             <tag> 编译 </tag>
             
@@ -4340,9 +4502,9 @@
       
         <tags>
             
-            <tag> linux </tag>
-            
             <tag> 系统 </tag>
+            
+            <tag> linux </tag>
             
             <tag> 命令 </tag>
             
@@ -4369,9 +4531,9 @@
       
         <tags>
             
-            <tag> linux </tag>
-            
             <tag> 系统 </tag>
+            
+            <tag> linux </tag>
             
             <tag> 命令 </tag>
             
@@ -4398,9 +4560,9 @@
       
         <tags>
             
-            <tag> linux </tag>
-            
             <tag> 系统 </tag>
+            
+            <tag> linux </tag>
             
             <tag> 命令 </tag>
             
@@ -4427,11 +4589,11 @@
       
         <tags>
             
-            <tag> linux </tag>
-            
             <tag> 系统 </tag>
             
             <tag> 运维 </tag>
+            
+            <tag> linux </tag>
             
             <tag> 命令 </tag>
             
@@ -4458,11 +4620,11 @@
       
         <tags>
             
-            <tag> linux </tag>
-            
             <tag> 系统 </tag>
             
             <tag> 运维 </tag>
+            
+            <tag> linux </tag>
             
             <tag> 命令 </tag>
             
@@ -4489,11 +4651,11 @@
       
         <tags>
             
-            <tag> linux </tag>
-            
             <tag> 系统 </tag>
             
             <tag> 运维 </tag>
+            
+            <tag> linux </tag>
             
             <tag> 命令 </tag>
             
@@ -5261,9 +5423,9 @@
       
         <tags>
             
-            <tag> python </tag>
-            
             <tag> 运维 </tag>
+            
+            <tag> python </tag>
             
         </tags>
       
@@ -5828,9 +5990,9 @@
       
         <tags>
             
-            <tag> linux </tag>
-            
             <tag> 运维 </tag>
+            
+            <tag> linux </tag>
             
         </tags>
       
@@ -6346,9 +6508,9 @@
       
         <tags>
             
-            <tag> linux </tag>
-            
             <tag> 运维 </tag>
+            
+            <tag> linux </tag>
             
             <tag> nginx </tag>
             
@@ -6599,9 +6761,9 @@
       
         <tags>
             
-            <tag> linux </tag>
-            
             <tag> 系统 </tag>
+            
+            <tag> linux </tag>
             
             <tag> 命令 </tag>
             
@@ -6898,9 +7060,9 @@
             
             <tag> python </tag>
             
-            <tag> cloudflare 5秒盾 </tag>
-            
             <tag> selenium </tag>
+            
+            <tag> cloudflare 5秒盾 </tag>
             
         </tags>
       
@@ -7101,50 +7263,6 @@
     
     
     <entry>
-      <title>about</title>
-      <link href="/about/index.html"/>
-      <url>/about/index.html</url>
-      
-        <content type="html"><![CDATA[<p><font color=#00b2c2 size=6 face=宋体><strong><strong>站点说明:</strong></strong></font></p><p><font color=#f26522 size=4 face=宋体><strong><strong>1、本站属于个人记录网站，不支持交流</strong></strong></font></p><p><font color=#f26522 size=4 face=宋体><strong><strong>2、转载请指明来源，谢谢！</strong></strong></font></p><p><font color=#f26522 size=4 face=宋体><strong><strong>3、本站模板采用自 &#x3D;&gt; <a href="https://www.niemingzhao.top/">聂明照的博客</a>  Github地址 &#x3D;&gt; <a href="https://github.com/niemingzhao/niemingzhao.github.io/tree/theme">点击进入</a></strong></strong></font></p><p><font color=#f26522 size=4 face=宋体><strong><strong>4、关于搜索配置的问题</strong></strong></font></p><ul><li><font color=#b0171f size=3 face=宋体><strong>除了安装插件以外，还需要配置路径，根据原作者的设置，这里有个坑</strong></font></li><li><font color=#b0171f size=3 face=宋体><strong>坑：use  不是  false、true     而是 false  和plugin 这两个选项，  其中 false &#x3D;&gt; 关闭搜索， plugin &#x3D;&gt; 开启选项</strong></font></li><li><font color=#b0171f size=3 face=宋体><strong>安装插件 &#x3D;&gt; npm install hexo-generator-search –save</strong></font></li></ul><p><img src="https://s2.loli.net/2023/03/20/7PLrKys2ubemoM5.png" alt="image-20230320034837859"></p>]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>collect</title>
-      <link href="/collect/index.html"/>
-      <url>/collect/index.html</url>
-      
-        <content type="html"><![CDATA[<p><font color=#b0171f size=4 face=宋体><strong>Markdown 语法：</strong></font><font color=#00b2c2 size=4 face=宋体><strong><a href="https://keatonlao.gitee.io/a-study-note-for-markdown/syntax/">传送门</a></strong></font></p><p><font color=#b0171f size=4 face=宋体><strong>必备工具：</strong></font><font color=#00b2c2 size=4 face=宋体><strong><a href="https://blog.teadan.com/2023/07/11/%E5%BF%85%E5%A4%87%E5%B7%A5%E5%85%B7/">传送门</a></strong></font></p><p><font color=#b0171f size=4 face=宋体><strong>图片压缩：</strong></font><font color=#00b2c2 size=4 face=宋体><strong><a href="https://tinypng.com/">传送门</a></strong></font></p><p><font color=#b0171f size=4 face=宋体><strong>百度问题文字提取：</strong></font><font color=#00b2c2 size=4 face=宋体><strong><a href="http://www.html22.com/zh/">传送门</a></strong></font></p><p><font color=#b0171f size=4 face=宋体><strong>音频视频格式转换：</strong></font><font color=#00b2c2 size=4 face=宋体><strong><a href="https://app.xunjieshipin.com/audio-converter">传送门</a></strong></font></p><p><font color=#b0171f size=4 face=宋体><strong>PDF转换：</strong></font><font color=#00b2c2 size=4 face=宋体><strong><a href="https://app.xunjiepdf.com/pdf2txt/">传送门</a></strong></font></p><p><font color=#b0171f size=4 face=宋体><strong>PDF自建转换：</strong></font><font color=#00b2c2 size=4 face=宋体><strong><a href="http://tools.teadan.com/pdf">公共传送门</a></strong></font>、<font color=#00b2c2 size=4 face=宋体><strong><a href="http://192.168.200.200:8399/pdf">私有传送门</a></strong></font></p><p><font color=#b0171f size=4 face=宋体><strong>熊猫无损音乐：</strong></font><font color=#00b2c2 size=4 face=宋体><strong><a href="https://www.xmwav.com/">传送门</a></strong></font></p><p><font color=#b0171f size=4 face=宋体><strong>在線視頻下載 - zh-TW3660 - VideoFk：</strong></font><font color=#00b2c2 size=4 face=宋体><strong><a href="https://www.videofk.com/zh-TW3660">传送门</a></strong></font></p><p><font color=#b0171f size=4 face=宋体><strong>前言 · Python 爬虫实战课程问题集 (gitbooks.io)：</strong></font><font color=#00b2c2 size=4 face=宋体><strong><a href="https://mugglecoding.gitbooks.io/qa/content/">传送门</a></strong></font></p><p><font color=#b0171f size=4 face=宋体><strong>文件在线传输，不受限制：</strong></font><font color=#00b2c2 size=4 face=宋体><strong><a href="https://send-anywhere.com/ja/">传送门</a></strong></font></p><p><font color=#b0171f size=4 face=宋体><strong>JAVA 学习，笔记：</strong></font><a href="https://www.yuque.com/mrcode.cn/note-combat/fc8qd4">传送门</a></p><p><font color=#b0171f size=4 face=宋体><strong>Linux 系统教程（笔记）：</strong></font><a href="https://zq99299.github.io/linux-tutorial/">传送门</a></p><p><a href="https://github.com/zq99299">zq99299 (mrcode) · GitHub</a></p><hr><center><font color=#00b2c2 size=5 face=宋体><strong>华丽分割线</strong></font></center><hr><h1 id="ReverseTool"><a href="#ReverseTool" class="headerlink" title="ReverseTool"></a>ReverseTool</h1><p>逆向工具集合</p><ul><li><a href="https://github.com/Hack-with-Github/Awesome-Hacking">Awesome-Hacking</a></li></ul><h2 id="Java-Jar-Android"><a href="#Java-Jar-Android" class="headerlink" title="Java &amp; Jar (Android)"></a>Java &amp; Jar (Android)</h2><ul><li><p><a href="http://jd.benow.ca/">jd-gui</a>    jar包浏览工具,对应的IDE插件，JD-Eclipse&#x2F;JD-IntelliJ </p></li><li><p><a href="https://github.com/deathmarine/Luyten">Luyten</a> An Open Source Java Decompiler Gui for Procyon</p></li><li><p><a href="https://github.com/skylot/jadx">jadx-gui</a> 直接反编译apk</p></li><li><p><a href="https://ibotpeaches.github.io/Apktool/">Apktool</a> apk的反编译,编译工具(smali格式) </p></li><li><p><a href="https://github.com/pxb1988/dex2jar">dex2jar</a> dex转为jar工具</p></li><li><p><a href="https://www.nuget.org/packages/axmlprinter">AXMLPrinter</a>  XML浏览工具</p></li><li><p><a href="https://github.com/androguard/androguard">androguard</a> 使用DAD作为反编译器，可以分析恶意软件的可视化软件</p></li><li><p><a href="https://github.com/google/enjarify">Enjarify</a> Google官方逆向分析工具(Dalvik字节码 -&gt; Java),需python环境</p></li><li><p><a href="https://github.com/google/android-classyshark">ClassyShark</a> Google官方dex&#x2F;apk&#x2F;jar&#x2F;class&#x2F;aar浏览工具</p></li><li><p>APK Analyzer(AndroidStudio 2.2+) Google官方APK分析工具, <a href="https://medium.com/google-developers/making-the-most-of-the-apk-analyzer-c066cb871ea2">making-the-most-of-the-apk-analyzer</a> </p></li><li><p><a href="https://github.com/JesusFreke/smali/wiki/smalidea">Smali&#x2F;baksmali</a> APK文件编辑工具</p></li><li><p><a href="http://www.hensence.com/cn/smali2java">Smali2Java</a> APK图形化浏览工具</p></li><li><p><a href="https://blogs.uni-paderborn.de/sse/tools/codeinspect/">CodeInspect</a> </p></li><li><p><a href="https://bytecodeviewer.com/">bytecodeviewer</a></p></li><li><p><a href="http://www.xiaomiren.net/">APKIDE</a> 国人开发综合图形化工具</p></li><li><p><a href="https://bytecodeviewer.com/">bytecode-viewer</a> 集成了J-RET,JHexPane, Dex2Jar等多个反编译工具</p></li><li><p><a href="https://www.pnfsoftware.com/">JEB</a> 商业反编译软件,支持动态编辑</p></li><li><p><a href="https://github.com/radare/radare2">RADARE2</a>  可以反汇编、调试、分析和操作二进制文件</p></li><li><p><a href="https://github.com/CalebFenton/simplify">Simplify</a>  反混淆工具</p></li><li><p><a href="https://varaneckas.com/jad/">JAD</a>  Java反编译工具</p></li><li><p><a href="https://github.com/iSECPartners/Introspy-iOS">Introspy</a>  黑盒测试工具</p></li><li><p><a href="https://github.com/vaibhavpandeyvpz/apkstudio">ApkStudio</a>  跨平台逆向IDE</p></li><li><p><a href="http://apk-deguard.com/">APK DeGuard</a> 在线Android反编译工具</p></li></ul><blockquote><p>Hook Tools</p></blockquote><ul><li><p><a href="http://repo.xposed.info/">Xposed Framework</a>   运行时修改系统或应用程序方面和行为</p></li><li><p><a href="http://www.cydiasubstrate.com/">Cydia Substrate</a>  注入</p></li><li><p><a href="https://github.com/samsung/adbi">ADBI</a> &amp; <a href="https://github.com/crmulliner/ddi">DDI</a> 动态跟踪工具</p></li><li><p><a href="https://github.com/crmulliner/ddi">Frida</a> &amp; <a href="https://github.com/antojoseph/diff-gui">Diff-GUI</a> JavaScript 注入</p></li></ul><blockquote><p>Android 漏洞查询</p></blockquote><ul><li><p><a href="http://androidvulnerabilities.org/">Android Vulnerabilties</a></p></li><li><p><a href="http://www.cvedetails.com/vulnerability-list/vendor_id-1224/product_id-19997/Google-Android.html">Android CVE Details</a></p></li></ul><h2 id="C-So-Android"><a href="#C-So-Android" class="headerlink" title="C++ &amp; So (Android)"></a>C++ &amp; So (Android)</h2><ul><li><a href="https://www.hex-rays.com/products/ida/index.shtml">IDAPro</a>  最强大的静态逆向分析工具,没有之一   <a href="http://www.52pojie.cn/forum.php?mod=viewthread&tid=442702&extra=page=1&filter=typeid&typeid=123">IDA Pro 6.8 + All Decompilers Full Leak</a></li></ul><h2 id="C-Dll-EXE"><a href="#C-Dll-EXE" class="headerlink" title="C# &amp; Dll &amp; EXE"></a>C# &amp; Dll &amp; EXE</h2><ul><li><p><a href="http://ilspy.net/">ILSpy</a>(免费) 直接使用,dll查看工具</p></li><li><p><a href="http://www.red-gate.com/products/dotnet-development/reflector/">.Net Reflector</a> &amp; Reflexil RedGate开发的.Net逆向工具(反编译查看)<a href="https://github.com/sailro/reflexil">加上Reflexil插件</a>(开源)用于编辑,修改&#x2F;注入</p></li><li><p><a href="http://www.dependencywalker.com/">Dependency Walker</a></p></li><li><p><a href="https://www.jetbrains.com/decompiler/">dotPeek</a></p></li><li><p><a href="https://github.com/0xd4d/de4dot">De4Dot(开源) 脱壳&#x2F;反混淆工具</a><br>使用: de4dot.exe xx.dll -p un</p></li><li><p><a href="https://sourceforge.net/projects/dile/">DILE Dotnet IL Editor</a> 调试工具</p></li><li><p>ilasm &amp; ildasm(微软官方) 把IL文件重新生成DLL的功能,<a href="http://www.cnblogs.com/dudu/archive/2011/05/17/ildasm_ilasm_il.html">使用参考</a> </p></li><li><p><a href="http://www.telerik.com/products/decompiler.aspx">Just Decompile</a>  反编译工具</p></li><li><p><a href="https://www.preemptive.com/products/dotfuscator/overview">Dotfuscator</a>, Visual Studio自带 混淆工具, 目录为”**\Microsoft Visual Studio 14.0\PreEmptive Solutions\Dotfuscator and Analytics CommunityEdition\dotfuscator.exe “</p></li><li><p><a href="https://www.codeguard.com/">Codeguard</a> 混淆工具</p></li><li><p><a href="https://projectreactor.io/">Reactor</a> 混淆工具</p></li><li><p><a href="https://turbo.net/studio">xeoncode</a> 混淆工具 <a href="http://download.csdn.net/detail/sndntdkj/6521975">破解版</a>(64位不可用)</p></li><li><p><a href="https://yck1509.github.io/ConfuserEx/">ConfuserEx</a>(开源)混淆工具, <a href="https://github.com/yck1509/ConfuserEx/releases">下载地址</a> </p></li><li><p><a href="http://www.ollydbg.de/">OllyDbg</a></p></li></ul><h2 id="iOS"><a href="#iOS" class="headerlink" title="iOS"></a>iOS</h2><ul><li><p><a href="https://www.hex-rays.com/products/ida/index.shtml">IDA Pro</a>  反汇编工具 (Windows,Linux, Mac OS X) &amp; <a href="https://www.hopperapp.com/">Hopper</a> (Mac OS X)</p></li><li><p><a href="https://revealapp.com/">Reveal</a> &amp; <a href="https://github.com/square/PonyDebugger">PonyDebugger</a>   UI分析利器</p></li><li><p><a href="http://www.i-funbox.com/zh-cn_index.html">iFunbox</a> &amp; <a href="https://iexplorer.en.softonic.com/">iExplorer</a> &amp; <a href="http://www.itools.cn/">iTools</a> 文件查看工具</p></li><li><p><a href="https://www.charlesproxy.com/">Charles</a> 网络分析工具</p></li><li><p><a href="http://www.cycript.org/">Cycript</a> 调试器</p></li><li><p><a href="https://lldb.llvm.org/">LLDB</a></p></li><li><p><a href="https://code.google.com/archive/p/snoop-it/">snoop-it</a> 查看类信息，调试调用类的方法</p></li><li><p><a href="https://github.com/iSECPartners/Introspy-iOS">introspy</a></p></li><li><p><a href="http://stevenygard.com/projects/class-dump/">class-dump</a></p></li></ul><blockquote><p>Hook Tools</p></blockquote><ul><li><p><a href="http://iphonedevwiki.net/index.php/Theos/Setup">Theos</a> 越狱程序开发框架</p></li><li><p><a href="http://www.iosopendev.com/">iOSOpenDev</a></p></li></ul><h2 id="Others"><a href="#Others" class="headerlink" title="Others"></a>Others</h2><ul><li><a href="https://www.frida.re/">Frida</a> 动态二进制插桩(Dynamic Binary Instrumentation)框架, <a href="http://bbs.pediy.com/thread-216645.htm">使用Frida来hack安卓APP（一）</a></li></ul><h2 id="实用参考"><a href="#实用参考" class="headerlink" title="实用参考"></a>实用参考</h2><ul><li><p><a href="http://www.kanxue.com/">权威论坛-看雪</a></p></li><li><p><a href="http://bbs.pediy.com/thread-212685.htm">看雪iOS安全小组 置顶向导集合贴</a></p></li><li><p><a href="http://www.droidsec.cn/">Android安全中文站</a></p></li><li><p><a href="http://bbs.iosre.com/">&lt;&lt;iOS应用逆向工程&gt;&gt; 论坛</a></p></li><li><p><a href="https://www.gitbook.com/book/wizardforcel/ios-sec-wiki/details">iOS 安全 Wiki</a></p></li><li><p><a href="http://www.aneasystone.com/archives/2015/06/net-reverse-decompiling.html">关于 .Net 逆向的那些工具：反编译篇 </a>  </p></li><li><p><a href="http://www.52pojie.cn/thread-174802-1-1.html">破解NET的四大神器</a>    </p></li><li><p><a href="http://wzmlj.com/yiyan127/p/CSharp_CrackJava2CSharpConverter.html">破解Java to C# Converter</a></p></li></ul>]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>gallery</title>
-      <link href="/gallery/index.html"/>
-      <url>/gallery/index.html</url>
-      
-        <content type="html"><![CDATA[<ul><li><p>消愁 - 毛不易</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m804.music.126.net/20230715030040/3058f9a32c1a7c2ab4893a0c10bded60/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/28481677347/474c/85c2/535b/b2f2e46a8854595f90c56bf9a5db2ce2.mp3"></audio></p></li><li><p>像我这样的人 - 毛不易</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m804.music.126.net/20230715030000/c3bd7ebc6b90df3b09570c7047c5ac57/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/28481670328/e30c/18ad/2d86/5b9d878b11940b81e5efcdd1f5771d79.mp3?_authSecret=0000018955af504b086e0aaba3bf1b9a"></audio></p></li><li><p>不染 - 毛不易</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m8.music.126.net/20230715030021/9b8fb29ff25dd716673887bc6a85d183/ymusic/y7RHah68jgZBoxjkl7ieBw==/509951162915395763"></audio></p></li><li><p>Take My Hand - Simple Plan</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://other-web-ra01-sycdn.kuwo.cn/7d16061069e12b3c9e7f27f477d66b0d/64b19743/resource/n3/320/93/52/2280351848.mp3?from$unkown&plat$wapi"></audio></p></li><li><p>It’s My Life - Bon Jovi</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m10.music.126.net/20230715031049/9b363379164ade7cef7b779f50147f6c/ymusic/obj/w5zDlMODwrDDiGjCn8Ky/3066286606/07fe/758c/6f26/5fdcc90d2122f5eb933c39419e656119.mp3"></audio></p></li><li><p>挚爱 - 陈勋奇</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://other-web-ri01-sycdn.kuwo.cn/a47b6dffd701eeb7463410c9d519bf25/64b19842/resource/n2/60/27/3030200018.mp3"></audio></p></li></ul>]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>tags</title>
-      <link href="/tags/index.html"/>
-      <url>/tags/index.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>categories</title>
       <link href="/categories/index-1.html"/>
       <url>/categories/index-1.html</url>
@@ -7167,11 +7285,55 @@
     
     
     <entry>
+      <title>collect</title>
+      <link href="/collect/index.html"/>
+      <url>/collect/index.html</url>
+      
+        <content type="html"><![CDATA[<p><font color=#b0171f size=4 face=宋体><strong>Markdown 语法：</strong></font><font color=#00b2c2 size=4 face=宋体><strong><a href="https://keatonlao.gitee.io/a-study-note-for-markdown/syntax/">传送门</a></strong></font></p><p><font color=#b0171f size=4 face=宋体><strong>必备工具：</strong></font><font color=#00b2c2 size=4 face=宋体><strong><a href="https://blog.teadan.com/2023/07/11/%E5%BF%85%E5%A4%87%E5%B7%A5%E5%85%B7/">传送门</a></strong></font></p><p><font color=#b0171f size=4 face=宋体><strong>图片压缩：</strong></font><font color=#00b2c2 size=4 face=宋体><strong><a href="https://tinypng.com/">传送门</a></strong></font></p><p><font color=#b0171f size=4 face=宋体><strong>百度问题文字提取：</strong></font><font color=#00b2c2 size=4 face=宋体><strong><a href="http://www.html22.com/zh/">传送门</a></strong></font></p><p><font color=#b0171f size=4 face=宋体><strong>音频视频格式转换：</strong></font><font color=#00b2c2 size=4 face=宋体><strong><a href="https://app.xunjieshipin.com/audio-converter">传送门</a></strong></font></p><p><font color=#b0171f size=4 face=宋体><strong>PDF转换：</strong></font><font color=#00b2c2 size=4 face=宋体><strong><a href="https://app.xunjiepdf.com/pdf2txt/">传送门</a></strong></font></p><p><font color=#b0171f size=4 face=宋体><strong>PDF自建转换：</strong></font><font color=#00b2c2 size=4 face=宋体><strong><a href="http://tools.teadan.com/pdf">公共传送门</a></strong></font>、<font color=#00b2c2 size=4 face=宋体><strong><a href="http://192.168.200.200:8399/pdf">私有传送门</a></strong></font></p><p><font color=#b0171f size=4 face=宋体><strong>熊猫无损音乐：</strong></font><font color=#00b2c2 size=4 face=宋体><strong><a href="https://www.xmwav.com/">传送门</a></strong></font></p><p><font color=#b0171f size=4 face=宋体><strong>在線視頻下載 - zh-TW3660 - VideoFk：</strong></font><font color=#00b2c2 size=4 face=宋体><strong><a href="https://www.videofk.com/zh-TW3660">传送门</a></strong></font></p><p><font color=#b0171f size=4 face=宋体><strong>前言 · Python 爬虫实战课程问题集 (gitbooks.io)：</strong></font><font color=#00b2c2 size=4 face=宋体><strong><a href="https://mugglecoding.gitbooks.io/qa/content/">传送门</a></strong></font></p><p><font color=#b0171f size=4 face=宋体><strong>文件在线传输，不受限制：</strong></font><font color=#00b2c2 size=4 face=宋体><strong><a href="https://send-anywhere.com/ja/">传送门</a></strong></font></p><p><font color=#b0171f size=4 face=宋体><strong>JAVA 学习，笔记：</strong></font><a href="https://www.yuque.com/mrcode.cn/note-combat/fc8qd4">传送门</a></p><p><font color=#b0171f size=4 face=宋体><strong>Linux 系统教程（笔记）：</strong></font><a href="https://zq99299.github.io/linux-tutorial/">传送门</a></p><p><a href="https://github.com/zq99299">zq99299 (mrcode) · GitHub</a></p><hr><center><font color=#00b2c2 size=5 face=宋体><strong>华丽分割线</strong></font></center><hr><h1 id="ReverseTool"><a href="#ReverseTool" class="headerlink" title="ReverseTool"></a>ReverseTool</h1><p>逆向工具集合</p><ul><li><a href="https://github.com/Hack-with-Github/Awesome-Hacking">Awesome-Hacking</a></li></ul><h2 id="Java-Jar-Android"><a href="#Java-Jar-Android" class="headerlink" title="Java &amp; Jar (Android)"></a>Java &amp; Jar (Android)</h2><ul><li><p><a href="http://jd.benow.ca/">jd-gui</a>    jar包浏览工具,对应的IDE插件，JD-Eclipse&#x2F;JD-IntelliJ </p></li><li><p><a href="https://github.com/deathmarine/Luyten">Luyten</a> An Open Source Java Decompiler Gui for Procyon</p></li><li><p><a href="https://github.com/skylot/jadx">jadx-gui</a> 直接反编译apk</p></li><li><p><a href="https://ibotpeaches.github.io/Apktool/">Apktool</a> apk的反编译,编译工具(smali格式) </p></li><li><p><a href="https://github.com/pxb1988/dex2jar">dex2jar</a> dex转为jar工具</p></li><li><p><a href="https://www.nuget.org/packages/axmlprinter">AXMLPrinter</a>  XML浏览工具</p></li><li><p><a href="https://github.com/androguard/androguard">androguard</a> 使用DAD作为反编译器，可以分析恶意软件的可视化软件</p></li><li><p><a href="https://github.com/google/enjarify">Enjarify</a> Google官方逆向分析工具(Dalvik字节码 -&gt; Java),需python环境</p></li><li><p><a href="https://github.com/google/android-classyshark">ClassyShark</a> Google官方dex&#x2F;apk&#x2F;jar&#x2F;class&#x2F;aar浏览工具</p></li><li><p>APK Analyzer(AndroidStudio 2.2+) Google官方APK分析工具, <a href="https://medium.com/google-developers/making-the-most-of-the-apk-analyzer-c066cb871ea2">making-the-most-of-the-apk-analyzer</a> </p></li><li><p><a href="https://github.com/JesusFreke/smali/wiki/smalidea">Smali&#x2F;baksmali</a> APK文件编辑工具</p></li><li><p><a href="http://www.hensence.com/cn/smali2java">Smali2Java</a> APK图形化浏览工具</p></li><li><p><a href="https://blogs.uni-paderborn.de/sse/tools/codeinspect/">CodeInspect</a> </p></li><li><p><a href="https://bytecodeviewer.com/">bytecodeviewer</a></p></li><li><p><a href="http://www.xiaomiren.net/">APKIDE</a> 国人开发综合图形化工具</p></li><li><p><a href="https://bytecodeviewer.com/">bytecode-viewer</a> 集成了J-RET,JHexPane, Dex2Jar等多个反编译工具</p></li><li><p><a href="https://www.pnfsoftware.com/">JEB</a> 商业反编译软件,支持动态编辑</p></li><li><p><a href="https://github.com/radare/radare2">RADARE2</a>  可以反汇编、调试、分析和操作二进制文件</p></li><li><p><a href="https://github.com/CalebFenton/simplify">Simplify</a>  反混淆工具</p></li><li><p><a href="https://varaneckas.com/jad/">JAD</a>  Java反编译工具</p></li><li><p><a href="https://github.com/iSECPartners/Introspy-iOS">Introspy</a>  黑盒测试工具</p></li><li><p><a href="https://github.com/vaibhavpandeyvpz/apkstudio">ApkStudio</a>  跨平台逆向IDE</p></li><li><p><a href="http://apk-deguard.com/">APK DeGuard</a> 在线Android反编译工具</p></li></ul><blockquote><p>Hook Tools</p></blockquote><ul><li><p><a href="http://repo.xposed.info/">Xposed Framework</a>   运行时修改系统或应用程序方面和行为</p></li><li><p><a href="http://www.cydiasubstrate.com/">Cydia Substrate</a>  注入</p></li><li><p><a href="https://github.com/samsung/adbi">ADBI</a> &amp; <a href="https://github.com/crmulliner/ddi">DDI</a> 动态跟踪工具</p></li><li><p><a href="https://github.com/crmulliner/ddi">Frida</a> &amp; <a href="https://github.com/antojoseph/diff-gui">Diff-GUI</a> JavaScript 注入</p></li></ul><blockquote><p>Android 漏洞查询</p></blockquote><ul><li><p><a href="http://androidvulnerabilities.org/">Android Vulnerabilties</a></p></li><li><p><a href="http://www.cvedetails.com/vulnerability-list/vendor_id-1224/product_id-19997/Google-Android.html">Android CVE Details</a></p></li></ul><h2 id="C-So-Android"><a href="#C-So-Android" class="headerlink" title="C++ &amp; So (Android)"></a>C++ &amp; So (Android)</h2><ul><li><a href="https://www.hex-rays.com/products/ida/index.shtml">IDAPro</a>  最强大的静态逆向分析工具,没有之一   <a href="http://www.52pojie.cn/forum.php?mod=viewthread&tid=442702&extra=page=1&filter=typeid&typeid=123">IDA Pro 6.8 + All Decompilers Full Leak</a></li></ul><h2 id="C-Dll-EXE"><a href="#C-Dll-EXE" class="headerlink" title="C# &amp; Dll &amp; EXE"></a>C# &amp; Dll &amp; EXE</h2><ul><li><p><a href="http://ilspy.net/">ILSpy</a>(免费) 直接使用,dll查看工具</p></li><li><p><a href="http://www.red-gate.com/products/dotnet-development/reflector/">.Net Reflector</a> &amp; Reflexil RedGate开发的.Net逆向工具(反编译查看)<a href="https://github.com/sailro/reflexil">加上Reflexil插件</a>(开源)用于编辑,修改&#x2F;注入</p></li><li><p><a href="http://www.dependencywalker.com/">Dependency Walker</a></p></li><li><p><a href="https://www.jetbrains.com/decompiler/">dotPeek</a></p></li><li><p><a href="https://github.com/0xd4d/de4dot">De4Dot(开源) 脱壳&#x2F;反混淆工具</a><br>使用: de4dot.exe xx.dll -p un</p></li><li><p><a href="https://sourceforge.net/projects/dile/">DILE Dotnet IL Editor</a> 调试工具</p></li><li><p>ilasm &amp; ildasm(微软官方) 把IL文件重新生成DLL的功能,<a href="http://www.cnblogs.com/dudu/archive/2011/05/17/ildasm_ilasm_il.html">使用参考</a> </p></li><li><p><a href="http://www.telerik.com/products/decompiler.aspx">Just Decompile</a>  反编译工具</p></li><li><p><a href="https://www.preemptive.com/products/dotfuscator/overview">Dotfuscator</a>, Visual Studio自带 混淆工具, 目录为”**\Microsoft Visual Studio 14.0\PreEmptive Solutions\Dotfuscator and Analytics CommunityEdition\dotfuscator.exe “</p></li><li><p><a href="https://www.codeguard.com/">Codeguard</a> 混淆工具</p></li><li><p><a href="https://projectreactor.io/">Reactor</a> 混淆工具</p></li><li><p><a href="https://turbo.net/studio">xeoncode</a> 混淆工具 <a href="http://download.csdn.net/detail/sndntdkj/6521975">破解版</a>(64位不可用)</p></li><li><p><a href="https://yck1509.github.io/ConfuserEx/">ConfuserEx</a>(开源)混淆工具, <a href="https://github.com/yck1509/ConfuserEx/releases">下载地址</a> </p></li><li><p><a href="http://www.ollydbg.de/">OllyDbg</a></p></li></ul><h2 id="iOS"><a href="#iOS" class="headerlink" title="iOS"></a>iOS</h2><ul><li><p><a href="https://www.hex-rays.com/products/ida/index.shtml">IDA Pro</a>  反汇编工具 (Windows,Linux, Mac OS X) &amp; <a href="https://www.hopperapp.com/">Hopper</a> (Mac OS X)</p></li><li><p><a href="https://revealapp.com/">Reveal</a> &amp; <a href="https://github.com/square/PonyDebugger">PonyDebugger</a>   UI分析利器</p></li><li><p><a href="http://www.i-funbox.com/zh-cn_index.html">iFunbox</a> &amp; <a href="https://iexplorer.en.softonic.com/">iExplorer</a> &amp; <a href="http://www.itools.cn/">iTools</a> 文件查看工具</p></li><li><p><a href="https://www.charlesproxy.com/">Charles</a> 网络分析工具</p></li><li><p><a href="http://www.cycript.org/">Cycript</a> 调试器</p></li><li><p><a href="https://lldb.llvm.org/">LLDB</a></p></li><li><p><a href="https://code.google.com/archive/p/snoop-it/">snoop-it</a> 查看类信息，调试调用类的方法</p></li><li><p><a href="https://github.com/iSECPartners/Introspy-iOS">introspy</a></p></li><li><p><a href="http://stevenygard.com/projects/class-dump/">class-dump</a></p></li></ul><blockquote><p>Hook Tools</p></blockquote><ul><li><p><a href="http://iphonedevwiki.net/index.php/Theos/Setup">Theos</a> 越狱程序开发框架</p></li><li><p><a href="http://www.iosopendev.com/">iOSOpenDev</a></p></li></ul><h2 id="Others"><a href="#Others" class="headerlink" title="Others"></a>Others</h2><ul><li><a href="https://www.frida.re/">Frida</a> 动态二进制插桩(Dynamic Binary Instrumentation)框架, <a href="http://bbs.pediy.com/thread-216645.htm">使用Frida来hack安卓APP（一）</a></li></ul><h2 id="实用参考"><a href="#实用参考" class="headerlink" title="实用参考"></a>实用参考</h2><ul><li><p><a href="http://www.kanxue.com/">权威论坛-看雪</a></p></li><li><p><a href="http://bbs.pediy.com/thread-212685.htm">看雪iOS安全小组 置顶向导集合贴</a></p></li><li><p><a href="http://www.droidsec.cn/">Android安全中文站</a></p></li><li><p><a href="http://bbs.iosre.com/">&lt;&lt;iOS应用逆向工程&gt;&gt; 论坛</a></p></li><li><p><a href="https://www.gitbook.com/book/wizardforcel/ios-sec-wiki/details">iOS 安全 Wiki</a></p></li><li><p><a href="http://www.aneasystone.com/archives/2015/06/net-reverse-decompiling.html">关于 .Net 逆向的那些工具：反编译篇 </a>  </p></li><li><p><a href="http://www.52pojie.cn/thread-174802-1-1.html">破解NET的四大神器</a>    </p></li><li><p><a href="http://wzmlj.com/yiyan127/p/CSharp_CrackJava2CSharpConverter.html">破解Java to C# Converter</a></p></li></ul>]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>tagcloud</title>
       <link href="/tagcloud/index.html"/>
       <url>/tagcloud/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>tags</title>
+      <link href="/tags/index.html"/>
+      <url>/tags/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>about</title>
+      <link href="/about/index.html"/>
+      <url>/about/index.html</url>
+      
+        <content type="html"><![CDATA[<p><font color=#00b2c2 size=6 face=宋体><strong><strong>站点说明:</strong></strong></font></p><p><font color=#f26522 size=4 face=宋体><strong><strong>1、本站属于个人记录网站，不支持交流</strong></strong></font></p><p><font color=#f26522 size=4 face=宋体><strong><strong>2、转载请指明来源，谢谢！</strong></strong></font></p><p><font color=#f26522 size=4 face=宋体><strong><strong>3、本站模板采用自 &#x3D;&gt; <a href="https://www.niemingzhao.top/">聂明照的博客</a>  Github地址 &#x3D;&gt; <a href="https://github.com/niemingzhao/niemingzhao.github.io/tree/theme">点击进入</a></strong></strong></font></p><p><font color=#f26522 size=4 face=宋体><strong><strong>4、关于搜索配置的问题</strong></strong></font></p><ul><li><font color=#b0171f size=3 face=宋体><strong>除了安装插件以外，还需要配置路径，根据原作者的设置，这里有个坑</strong></font></li><li><font color=#b0171f size=3 face=宋体><strong>坑：use  不是  false、true     而是 false  和plugin 这两个选项，  其中 false &#x3D;&gt; 关闭搜索， plugin &#x3D;&gt; 开启选项</strong></font></li><li><font color=#b0171f size=3 face=宋体><strong>安装插件 &#x3D;&gt; npm install hexo-generator-search –save</strong></font></li></ul><p><img src="https://s2.loli.net/2023/03/20/7PLrKys2ubemoM5.png" alt="image-20230320034837859"></p>]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>gallery</title>
+      <link href="/gallery/index.html"/>
+      <url>/gallery/index.html</url>
+      
+        <content type="html"><![CDATA[<ul><li><p>消愁 - 毛不易</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m804.music.126.net/20230715030040/3058f9a32c1a7c2ab4893a0c10bded60/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/28481677347/474c/85c2/535b/b2f2e46a8854595f90c56bf9a5db2ce2.mp3"></audio></p></li><li><p>像我这样的人 - 毛不易</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m804.music.126.net/20230715030000/c3bd7ebc6b90df3b09570c7047c5ac57/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/28481670328/e30c/18ad/2d86/5b9d878b11940b81e5efcdd1f5771d79.mp3?_authSecret=0000018955af504b086e0aaba3bf1b9a"></audio></p></li><li><p>不染 - 毛不易</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m8.music.126.net/20230715030021/9b8fb29ff25dd716673887bc6a85d183/ymusic/y7RHah68jgZBoxjkl7ieBw==/509951162915395763"></audio></p></li><li><p>Take My Hand - Simple Plan</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://other-web-ra01-sycdn.kuwo.cn/7d16061069e12b3c9e7f27f477d66b0d/64b19743/resource/n3/320/93/52/2280351848.mp3?from$unkown&plat$wapi"></audio></p></li><li><p>It’s My Life - Bon Jovi</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m10.music.126.net/20230715031049/9b363379164ade7cef7b779f50147f6c/ymusic/obj/w5zDlMODwrDDiGjCn8Ky/3066286606/07fe/758c/6f26/5fdcc90d2122f5eb933c39419e656119.mp3"></audio></p></li><li><p>挚爱 - 陈勋奇</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://other-web-ri01-sycdn.kuwo.cn/a47b6dffd701eeb7463410c9d519bf25/64b19842/resource/n2/60/27/3030200018.mp3"></audio></p></li></ul>]]></content>
       
     </entry>
     
