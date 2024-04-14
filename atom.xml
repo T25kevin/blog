@@ -6,7 +6,7 @@
   <link href="https://kanoc.gitee.io/atom.xml" rel="self"/>
   
   <link href="https://kanoc.gitee.io/"/>
-  <updated>2024-04-13T07:22:22.016Z</updated>
+  <updated>2024-04-14T22:33:06.062Z</updated>
   <id>https://kanoc.gitee.io/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>mac-查看硬盘命令</title>
+    <link href="https://kanoc.gitee.io/2024/04/15/mac-%E6%9F%A5%E7%9C%8B%E7%A1%AC%E7%9B%98%E5%91%BD%E4%BB%A4/"/>
+    <id>https://kanoc.gitee.io/2024/04/15/mac-%E6%9F%A5%E7%9C%8B%E7%A1%AC%E7%9B%98%E5%91%BD%E4%BB%A4/</id>
+    <published>2024-04-14T22:28:28.000Z</published>
+    <updated>2024-04-14T22:33:06.062Z</updated>
+    
+    <content type="html"><![CDATA[<p><font color=#00b2c2 size=5 face=宋体><strong>mac 查看硬盘命令:</strong></font></p><p><font color=#f26522 size=4 face=宋体><strong>在 Mac 上查看硬盘的命令有多种，以下是几个常用的方法：</strong></font></p><ul><li><font color=#b0171f size=3 face=宋体><strong>1、使用 Finder</strong></font></li></ul><p>可以在 Finder 中查看所有已连接的硬盘和存储设备。在 Finder 窗口的侧边栏中，单击“设备”即可查看硬盘列表。您还可以在“应用程序”文件夹中找到“实用工具”文件夹，里面包含“磁盘工具”应用程序，可用于查看磁盘和分区的详细信息。</p><ul><li><font color=#b0171f size=3 face=宋体><strong>2、使用终端命令</strong></font><ul><li>在 Mac 上也可以使用终端命令来查看硬盘信息，以下是几个常用的命令：</li><li><code>df</code> 命令：该命令可以查看所有已连接的硬盘和存储设备的总体使用情况。在终端中输入<code>df -h</code>即可将磁盘使用情况以人类可读的方式输出。</li><li><code>diskutil</code> 命令：该命令可以查看所有磁盘和分区的详细信息。在终端中输入<code>diskutil list</code>即可列出所有磁盘和分区的信息。</li><li><code>diskutil info</code> 命令：该命令可以查看指定磁盘或分区的详细信息。在终端中输入<code>diskutil info /dev/disk0</code>即可查看磁盘<code>/dev/disk0</code>的详细信息。</li></ul></li></ul><p><font color=red size=4 face=宋体><strong>以上是在 Mac 上常用的查看硬盘信息的方法，您可以根据实际需求选择适合自己的方法。</strong></font></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;&lt;font color=#00b2c2 size=5 face=宋体&gt;&lt;strong&gt;mac 查看硬盘命令:&lt;/strong&gt;&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font color=#f26522 size=4 face=宋体&gt;&lt;strong&gt;在 Mac 上查看硬盘的命令有多</summary>
+      
+    
+    
+    
+    <category term="Mac" scheme="https://kanoc.gitee.io/categories/Mac/"/>
+    
+    
+    <category term="运维" scheme="https://kanoc.gitee.io/tags/%E8%BF%90%E7%BB%B4/"/>
+    
+    <category term="命令" scheme="https://kanoc.gitee.io/tags/%E5%91%BD%E4%BB%A4/"/>
+    
+    <category term="磁盘" scheme="https://kanoc.gitee.io/tags/%E7%A3%81%E7%9B%98/"/>
+    
+  </entry>
   
   <entry>
     <title>一键搞定多层跳板访问目标机器</title>
@@ -389,9 +418,9 @@
     <category term="LayUI" scheme="https://kanoc.gitee.io/categories/LayUI/"/>
     
     
-    <category term="前端" scheme="https://kanoc.gitee.io/tags/%E5%89%8D%E7%AB%AF/"/>
-    
     <category term="LayUI" scheme="https://kanoc.gitee.io/tags/LayUI/"/>
+    
+    <category term="前端" scheme="https://kanoc.gitee.io/tags/%E5%89%8D%E7%AB%AF/"/>
     
     <category term="快速开发" scheme="https://kanoc.gitee.io/tags/%E5%BF%AB%E9%80%9F%E5%BC%80%E5%8F%91/"/>
     
@@ -420,9 +449,9 @@
     <category term="LayUI" scheme="https://kanoc.gitee.io/categories/LayUI/"/>
     
     
-    <category term="前端" scheme="https://kanoc.gitee.io/tags/%E5%89%8D%E7%AB%AF/"/>
-    
     <category term="LayUI" scheme="https://kanoc.gitee.io/tags/LayUI/"/>
+    
+    <category term="前端" scheme="https://kanoc.gitee.io/tags/%E5%89%8D%E7%AB%AF/"/>
     
     <category term="快速开发" scheme="https://kanoc.gitee.io/tags/%E5%BF%AB%E9%80%9F%E5%BC%80%E5%8F%91/"/>
     
@@ -479,9 +508,9 @@
     <category term="Vue3.0" scheme="https://kanoc.gitee.io/categories/Vue3-0/"/>
     
     
-    <category term="javascript" scheme="https://kanoc.gitee.io/tags/javascript/"/>
-    
     <category term="前端" scheme="https://kanoc.gitee.io/tags/%E5%89%8D%E7%AB%AF/"/>
+    
+    <category term="javascript" scheme="https://kanoc.gitee.io/tags/javascript/"/>
     
   </entry>
   
@@ -533,34 +562,6 @@
     
     
     
-    
-  </entry>
-  
-  <entry>
-    <title>centos7安装openVPN教程</title>
-    <link href="https://kanoc.gitee.io/2024/02/14/centos7%E5%AE%89%E8%A3%85openVPN%E6%95%99%E7%A8%8B/"/>
-    <id>https://kanoc.gitee.io/2024/02/14/centos7%E5%AE%89%E8%A3%85openVPN%E6%95%99%E7%A8%8B/</id>
-    <published>2024-02-14T08:12:49.000Z</published>
-    <updated>2024-03-14T08:38:09.827Z</updated>
-    
-    <content type="html"><![CDATA[<p><font color=#00b2c2 size=5 face=宋体><strong>centos7安装openVPN教程：</strong></font></p><ul><li><font color=#b0171f size=2 face=宋体><strong>支持 <code>Debian 9</code>或 <code>Centos 7/8</code>或 <code>Ubuntu 18</code>或更高版本</strong></font></li></ul><p><font color=#f26522 size=4 face=宋体><strong>OpenVPN搭建代码：</strong></font></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://git.io/vpn -O openvpn-install.sh &amp;&amp; bash openvpn-install.sh</span><br></pre></td></tr></table></figure><p><font color=#f26522 size=4 face=宋体><strong>FinalShell下载</strong></font></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">https://wa6.lanzoui.com/ihjg2y3h14j</span><br><span class="line"></span><br><span class="line">FinalShell备用下载（含MAC版）：https://drive.google.com/drive/folders/1yUKRCn58kzDM6FRIadIWO8e5cDLz1mrx?usp=sharing</span><br></pre></td></tr></table></figure>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;&lt;font color=#00b2c2 size=5 face=宋体&gt;&lt;strong&gt;centos7安装openVPN教程：&lt;/strong&gt;&lt;/font&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;font color=#b0171f size=2 face=宋体&gt;&lt;strong&gt;支持</summary>
-      
-    
-    
-    
-    <category term="工具" scheme="https://kanoc.gitee.io/categories/%E5%B7%A5%E5%85%B7/"/>
-    
-    
-    <category term="代理" scheme="https://kanoc.gitee.io/tags/%E4%BB%A3%E7%90%86/"/>
-    
-    <category term="梯子" scheme="https://kanoc.gitee.io/tags/%E6%A2%AF%E5%AD%90/"/>
     
   </entry>
   
