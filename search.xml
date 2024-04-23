@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>必备工具-代码类</title>
+      <link href="/2024/04/24/%E5%BF%85%E5%A4%87%E5%B7%A5%E5%85%B7-%E4%BB%A3%E7%A0%81%E7%B1%BB/"/>
+      <url>/2024/04/24/%E5%BF%85%E5%A4%87%E5%B7%A5%E5%85%B7-%E4%BB%A3%E7%A0%81%E7%B1%BB/</url>
+      
+        <content type="html"><![CDATA[<p><font color=#00b2c2 size=5 face=宋体><strong>必备工具（代码类）：</strong></font></p><p><font color=#f26522 size=4 face=宋体><strong>SCP命令：<a href="https://blog.csdn.net/CHNIM/article/details/134813154">本文参考自</a></strong></font></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 基本语法</span></span><br><span class="line"><span class="comment"># scp [选项] 源文件/目录 目标路径</span></span><br><span class="line"><span class="comment"># 选项：</span></span><br><span class="line"><span class="comment">#-r：递归复制，用于复制目录。</span></span><br><span class="line"><span class="comment"># -P：指定SSH端口号。</span></span><br><span class="line"><span class="comment"># -i：指定身份文件（私钥文件）。</span></span><br><span class="line"><span class="comment"># -v：详细模式，显示详细的调试信息。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 从 远程 ==&gt; 本地</span></span><br><span class="line">scp root@192.168.1.33:/root/requirements.txt /root/requirements.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 从 本地 ==&gt; 远程</span></span><br><span class="line">scp /root/requirements.txt root@192.168.1.33:/root/requirements.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 从 远程 ==&gt; 远程  </span></span><br><span class="line">scp root@192.168.1.33:/root/requirements.txt root@172.16.73.130:/root</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用端口和指定私钥</span></span><br><span class="line">scp -P 2222 -i /path/to/private_key.pem localfile.txt user@remote:/path/to/destination/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 递归复制目录</span></span><br><span class="line">scp -r sourcedir user@remote:/path/to/destination/</span><br><span class="line"><span class="comment">#3. 注意事项</span></span><br><span class="line"><span class="comment"># 如果目标路径是目录，文件将会被复制到该目录中。</span></span><br><span class="line"><span class="comment"># 如果目标路径包含文件名，文件将被复制并重命名为指定的文件名。</span></span><br><span class="line"><span class="comment"># 使用递归选项 -r 可以复制整个目录及其内容。</span></span><br><span class="line"><span class="comment"># 如果目标路径中包含空格，应该使用引号将其括起来。</span></span><br><span class="line"><span class="comment"># 要连接到非标准SSH端口，可以使用 -P 选项。</span></span><br><span class="line"><span class="comment"># 使用 -i 选项可以指定用于身份验证的私钥文件。</span></span><br></pre></td></tr></table></figure><p><font color=#f26522 size=4 face=宋体><strong>Python pip可用包查看：</strong></font></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pip3 list  <span class="comment"># 查看已经安装的包</span></span><br><span class="line"></span><br><span class="line">pip3 index versions &lt;包名&gt;   <span class="comment"># 查看服务器上 当前系统可以用所有包  例如：pip3 index versions requests</span></span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 工具 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 必备工具 </tag>
+            
+            <tag> 代码类 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>python操作MinIO</title>
       <link href="/2024/04/23/python%E6%93%8D%E4%BD%9CMinIO/"/>
       <url>/2024/04/23/python%E6%93%8D%E4%BD%9CMinIO/</url>
@@ -7346,9 +7373,9 @@
             
             <tag> python </tag>
             
-            <tag> selenium </tag>
-            
             <tag> cloudflare 5秒盾 </tag>
+            
+            <tag> selenium </tag>
             
         </tags>
       
@@ -7593,11 +7620,22 @@
     
     
     <entry>
-      <title>gallery</title>
-      <link href="/gallery/index.html"/>
-      <url>/gallery/index.html</url>
+      <title>tags</title>
+      <link href="/tags/index.html"/>
+      <url>/tags/index.html</url>
       
-        <content type="html"><![CDATA[<ul><li><p>消愁 - 毛不易</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m804.music.126.net/20230715030040/3058f9a32c1a7c2ab4893a0c10bded60/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/28481677347/474c/85c2/535b/b2f2e46a8854595f90c56bf9a5db2ce2.mp3"></audio></p></li><li><p>像我这样的人 - 毛不易</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m804.music.126.net/20230715030000/c3bd7ebc6b90df3b09570c7047c5ac57/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/28481670328/e30c/18ad/2d86/5b9d878b11940b81e5efcdd1f5771d79.mp3?_authSecret=0000018955af504b086e0aaba3bf1b9a"></audio></p></li><li><p>不染 - 毛不易</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m8.music.126.net/20230715030021/9b8fb29ff25dd716673887bc6a85d183/ymusic/y7RHah68jgZBoxjkl7ieBw==/509951162915395763"></audio></p></li><li><p>Take My Hand - Simple Plan</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://other-web-ra01-sycdn.kuwo.cn/7d16061069e12b3c9e7f27f477d66b0d/64b19743/resource/n3/320/93/52/2280351848.mp3?from$unkown&plat$wapi"></audio></p></li><li><p>It’s My Life - Bon Jovi</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m10.music.126.net/20230715031049/9b363379164ade7cef7b779f50147f6c/ymusic/obj/w5zDlMODwrDDiGjCn8Ky/3066286606/07fe/758c/6f26/5fdcc90d2122f5eb933c39419e656119.mp3"></audio></p></li><li><p>挚爱 - 陈勋奇</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://other-web-ri01-sycdn.kuwo.cn/a47b6dffd701eeb7463410c9d519bf25/64b19842/resource/n2/60/27/3030200018.mp3"></audio></p></li></ul>]]></content>
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>timeline</title>
+      <link href="/timeline/index.html"/>
+      <url>/timeline/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
       
     </entry>
     
@@ -7615,22 +7653,11 @@
     
     
     <entry>
-      <title>tags</title>
-      <link href="/tags/index.html"/>
-      <url>/tags/index.html</url>
+      <title>gallery</title>
+      <link href="/gallery/index.html"/>
+      <url>/gallery/index.html</url>
       
-        <content type="html"><![CDATA[]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>timeline</title>
-      <link href="/timeline/index.html"/>
-      <url>/timeline/index.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
+        <content type="html"><![CDATA[<ul><li><p>消愁 - 毛不易</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m804.music.126.net/20230715030040/3058f9a32c1a7c2ab4893a0c10bded60/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/28481677347/474c/85c2/535b/b2f2e46a8854595f90c56bf9a5db2ce2.mp3"></audio></p></li><li><p>像我这样的人 - 毛不易</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m804.music.126.net/20230715030000/c3bd7ebc6b90df3b09570c7047c5ac57/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/28481670328/e30c/18ad/2d86/5b9d878b11940b81e5efcdd1f5771d79.mp3?_authSecret=0000018955af504b086e0aaba3bf1b9a"></audio></p></li><li><p>不染 - 毛不易</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m8.music.126.net/20230715030021/9b8fb29ff25dd716673887bc6a85d183/ymusic/y7RHah68jgZBoxjkl7ieBw==/509951162915395763"></audio></p></li><li><p>Take My Hand - Simple Plan</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://other-web-ra01-sycdn.kuwo.cn/7d16061069e12b3c9e7f27f477d66b0d/64b19743/resource/n3/320/93/52/2280351848.mp3?from$unkown&plat$wapi"></audio></p></li><li><p>It’s My Life - Bon Jovi</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m10.music.126.net/20230715031049/9b363379164ade7cef7b779f50147f6c/ymusic/obj/w5zDlMODwrDDiGjCn8Ky/3066286606/07fe/758c/6f26/5fdcc90d2122f5eb933c39419e656119.mp3"></audio></p></li><li><p>挚爱 - 陈勋奇</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://other-web-ri01-sycdn.kuwo.cn/a47b6dffd701eeb7463410c9d519bf25/64b19842/resource/n2/60/27/3030200018.mp3"></audio></p></li></ul>]]></content>
       
     </entry>
     

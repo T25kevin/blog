@@ -6,7 +6,7 @@
   <link href="https://kanoc.gitee.io/atom.xml" rel="self"/>
   
   <link href="https://kanoc.gitee.io/"/>
-  <updated>2024-04-23T15:36:04.562Z</updated>
+  <updated>2024-04-23T21:21:20.071Z</updated>
   <id>https://kanoc.gitee.io/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>必备工具-代码类</title>
+    <link href="https://kanoc.gitee.io/2024/04/24/%E5%BF%85%E5%A4%87%E5%B7%A5%E5%85%B7-%E4%BB%A3%E7%A0%81%E7%B1%BB/"/>
+    <id>https://kanoc.gitee.io/2024/04/24/%E5%BF%85%E5%A4%87%E5%B7%A5%E5%85%B7-%E4%BB%A3%E7%A0%81%E7%B1%BB/</id>
+    <published>2024-04-23T21:10:59.000Z</published>
+    <updated>2024-04-23T21:21:20.071Z</updated>
+    
+    <content type="html"><![CDATA[<p><font color=#00b2c2 size=5 face=宋体><strong>必备工具（代码类）：</strong></font></p><p><font color=#f26522 size=4 face=宋体><strong>SCP命令：<a href="https://blog.csdn.net/CHNIM/article/details/134813154">本文参考自</a></strong></font></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 基本语法</span></span><br><span class="line"><span class="comment"># scp [选项] 源文件/目录 目标路径</span></span><br><span class="line"><span class="comment"># 选项：</span></span><br><span class="line"><span class="comment">#-r：递归复制，用于复制目录。</span></span><br><span class="line"><span class="comment"># -P：指定SSH端口号。</span></span><br><span class="line"><span class="comment"># -i：指定身份文件（私钥文件）。</span></span><br><span class="line"><span class="comment"># -v：详细模式，显示详细的调试信息。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 从 远程 ==&gt; 本地</span></span><br><span class="line">scp root@192.168.1.33:/root/requirements.txt /root/requirements.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 从 本地 ==&gt; 远程</span></span><br><span class="line">scp /root/requirements.txt root@192.168.1.33:/root/requirements.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 从 远程 ==&gt; 远程  </span></span><br><span class="line">scp root@192.168.1.33:/root/requirements.txt root@172.16.73.130:/root</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用端口和指定私钥</span></span><br><span class="line">scp -P 2222 -i /path/to/private_key.pem localfile.txt user@remote:/path/to/destination/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 递归复制目录</span></span><br><span class="line">scp -r sourcedir user@remote:/path/to/destination/</span><br><span class="line"><span class="comment">#3. 注意事项</span></span><br><span class="line"><span class="comment"># 如果目标路径是目录，文件将会被复制到该目录中。</span></span><br><span class="line"><span class="comment"># 如果目标路径包含文件名，文件将被复制并重命名为指定的文件名。</span></span><br><span class="line"><span class="comment"># 使用递归选项 -r 可以复制整个目录及其内容。</span></span><br><span class="line"><span class="comment"># 如果目标路径中包含空格，应该使用引号将其括起来。</span></span><br><span class="line"><span class="comment"># 要连接到非标准SSH端口，可以使用 -P 选项。</span></span><br><span class="line"><span class="comment"># 使用 -i 选项可以指定用于身份验证的私钥文件。</span></span><br></pre></td></tr></table></figure><p><font color=#f26522 size=4 face=宋体><strong>Python pip可用包查看：</strong></font></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pip3 list  <span class="comment"># 查看已经安装的包</span></span><br><span class="line"></span><br><span class="line">pip3 index versions &lt;包名&gt;   <span class="comment"># 查看服务器上 当前系统可以用所有包  例如：pip3 index versions requests</span></span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;&lt;font color=#00b2c2 size=5 face=宋体&gt;&lt;strong&gt;必备工具（代码类）：&lt;/strong&gt;&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;&lt;font color=#f26522 size=4 face=宋体&gt;&lt;strong&gt;SCP命令：&lt;a href=&quot;ht</summary>
+      
+    
+    
+    
+    <category term="工具" scheme="https://kanoc.gitee.io/categories/%E5%B7%A5%E5%85%B7/"/>
+    
+    
+    <category term="必备工具" scheme="https://kanoc.gitee.io/tags/%E5%BF%85%E5%A4%87%E5%B7%A5%E5%85%B7/"/>
+    
+    <category term="代码类" scheme="https://kanoc.gitee.io/tags/%E4%BB%A3%E7%A0%81%E7%B1%BB/"/>
+    
+  </entry>
   
   <entry>
     <title>python操作MinIO</title>
@@ -547,27 +574,6 @@
     <category term="python" scheme="https://kanoc.gitee.io/tags/python/"/>
     
     <category term="django" scheme="https://kanoc.gitee.io/tags/django/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>python-虚拟环境包(requirements.txt)的导出与安装</title>
-    <link href="https://kanoc.gitee.io/2024/03/20/python-%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E5%8C%85(requirements.txt)%E7%9A%84%E5%AF%BC%E5%87%BA%E4%B8%8E%E5%AE%89%E8%A3%85/"/>
-    <id>https://kanoc.gitee.io/2024/03/20/python-%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E5%8C%85(requirements.txt)%E7%9A%84%E5%AF%BC%E5%87%BA%E4%B8%8E%E5%AE%89%E8%A3%85/</id>
-    <published>2024-03-20T06:06:35.000Z</published>
-    <updated>2024-03-20T06:11:53.553Z</updated>
-    
-    <content type="html"><![CDATA[<p><font color=#00b2c2 size=5 face=宋体><strong>python-虚拟环境包(requirements.txt)的导出与安装：</strong></font></p><p><font color=#00b2c2 size=5 face=宋体><strong>导出：</strong></font></p><ul><li><font color=#f26522 size=4 face=宋体><strong>bash命令：</strong></font></li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 虚拟环境下</span></span><br><span class="line">pip freeze &gt; requirements.txt</span><br></pre></td></tr></table></figure><ul><li><font color=#f26522 size=4 face=宋体><strong>python：</strong></font></li></ul><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> subprocess</span><br><span class="line">subprocess.call([<span class="string">&#x27;pip&#x27;</span>, <span class="string">&#x27;freeze&#x27;</span>], stdout=<span class="built_in">open</span>(<span class="string">&#x27;requirements.txt&#x27;</span>, <span class="string">&#x27;w&#x27;</span>))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;已成功导出环境到requirements.txt&quot;</span>)</span><br></pre></td></tr></table></figure><ul><li><font color=red size=5 face=宋体><strong>导入虚拟环境：</strong></font></li></ul><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 进入虚拟环境</span></span><br><span class="line">source xxx/<span class="built_in">bin</span>/activate</span><br><span class="line"></span><br><span class="line"><span class="comment"># 开始导入包</span></span><br><span class="line">pip3 install -r requirements.txt</span><br></pre></td></tr></table></figure>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;&lt;font color=#00b2c2 size=5 face=宋体&gt;&lt;strong&gt;python-虚拟环境包(requirements.txt)的导出与安装：&lt;/strong&gt;&lt;/font&gt;&lt;/p&gt;
-&lt;p&gt;&lt;font color=#00b2c2 size=5 face=宋</summary>
-      
-    
-    
-    
     
   </entry>
   
