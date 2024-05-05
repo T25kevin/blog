@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>pip-更换源</title>
+      <link href="/2024/05/01/pip-%E6%9B%B4%E6%8D%A2%E6%BA%90/"/>
+      <url>/2024/05/01/pip-%E6%9B%B4%E6%8D%A2%E6%BA%90/</url>
+      
+        <content type="html"><![CDATA[<p><font color=#00b2c2 size=5 face=宋体><strong>pip 更换源：</strong></font></p><h2 id="使用全局配置，建议使用豆瓣"><a href="#使用全局配置，建议使用豆瓣" class="headerlink" title="使用全局配置，建议使用豆瓣"></a>使用全局配置，建议使用豆瓣</h2><p><font color=#f26522 size=4 face=宋体><strong>阿里源：</strong></font></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pip3.8 config <span class="built_in">set</span> global.index-url https://mirrors.aliyun.com/pypi/simple</span><br><span class="line">pip3.8 config <span class="built_in">set</span> install.trusted-host mirrors.aliyun.com</span><br></pre></td></tr></table></figure><p><font color=#f26522 size=4 face=宋体><strong>如豆瓣：</strong></font></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pip config <span class="built_in">set</span> global.index-url http://pypi.douban.com/simple/</span><br><span class="line">pip config <span class="built_in">set</span> install.trusted-host pypi.douban.com</span><br></pre></td></tr></table></figure><p><font color=#f26522 size=4 face=宋体><strong>一、清华源：</strong></font></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install xxx -i https://pypi.tuna.tsinghua.edu.cn/simple/</span><br></pre></td></tr></table></figure><p><font color=#f26522 size=4 face=宋体><strong>二、阿里源：</strong></font></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install xxx -i https://mirrors.aliyun.com/pypi/simple</span><br></pre></td></tr></table></figure><p><font color=#f26522 size=4 face=宋体><strong>三、中科大源：</strong></font></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install xxx -i https://pypi.mirrors.ustc.edu.cn/simple/</span><br></pre></td></tr></table></figure><p><font color=#f26522 size=4 face=宋体><strong>四、豆瓣源：</strong></font></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install xxx -i http://pypi.douban.com/simple/</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> python </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 基础 </tag>
+            
+            <tag> pycharm </tag>
+            
+            <tag> 源 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>nginx+nginx-rtmp-module+ffmpeg-搭建流媒体-点播-服务器</title>
       <link href="/2024/04/24/nginx-nginx-rtmp-module-ffmpeg-%E6%90%AD%E5%BB%BA%E6%B5%81%E5%AA%92%E4%BD%93-%E7%82%B9%E6%92%AD-%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
       <url>/2024/04/24/nginx-nginx-rtmp-module-ffmpeg-%E6%90%AD%E5%BB%BA%E6%B5%81%E5%AA%92%E4%BD%93-%E7%82%B9%E6%92%AD-%E6%9C%8D%E5%8A%A1%E5%99%A8/</url>
@@ -618,9 +647,9 @@
       
         <tags>
             
-            <tag> LayUI </tag>
-            
             <tag> 前端 </tag>
+            
+            <tag> LayUI </tag>
             
             <tag> 快速开发 </tag>
             
@@ -649,9 +678,9 @@
       
         <tags>
             
-            <tag> LayUI </tag>
-            
             <tag> 前端 </tag>
+            
+            <tag> LayUI </tag>
             
             <tag> 快速开发 </tag>
             
@@ -707,9 +736,9 @@
       
         <tags>
             
-            <tag> 前端 </tag>
-            
             <tag> javascript </tag>
+            
+            <tag> 前端 </tag>
             
         </tags>
       
@@ -900,9 +929,9 @@
       
         <tags>
             
-            <tag> centos7 </tag>
-            
             <tag> 工具 </tag>
+            
+            <tag> centos7 </tag>
             
             <tag> docker </tag>
             
@@ -1960,11 +1989,11 @@
       
         <tags>
             
-            <tag> python </tag>
-            
             <tag> 逆向 </tag>
             
             <tag> Cloudflare </tag>
+            
+            <tag> python </tag>
             
             <tag> javascript </tag>
             
@@ -2155,11 +2184,11 @@
       
         <tags>
             
-            <tag> python </tag>
-            
             <tag> 逆向 </tag>
             
             <tag> Cloudflare </tag>
+            
+            <tag> python </tag>
             
             <tag> tls/ja3 </tag>
             
@@ -4406,9 +4435,9 @@
       
         <tags>
             
-            <tag> python </tag>
-            
             <tag> 错误 </tag>
+            
+            <tag> python </tag>
             
             <tag> django </tag>
             
@@ -5792,9 +5821,9 @@
       
         <tags>
             
-            <tag> python </tag>
-            
             <tag> 错误 </tag>
+            
+            <tag> python </tag>
             
             <tag> 库 </tag>
             
@@ -5906,9 +5935,9 @@
             
             <tag> python </tag>
             
-            <tag> django </tag>
-            
             <tag> 模板 </tag>
+            
+            <tag> django </tag>
             
         </tags>
       
@@ -7020,9 +7049,9 @@
       
         <tags>
             
-            <tag> python </tag>
-            
             <tag> 错误 </tag>
+            
+            <tag> python </tag>
             
             <tag> django </tag>
             
@@ -7076,9 +7105,9 @@
       
         <tags>
             
-            <tag> 系统 </tag>
-            
             <tag> 工具 </tag>
+            
+            <tag> 系统 </tag>
             
         </tags>
       
@@ -7627,17 +7656,6 @@
     
     
     <entry>
-      <title>categories</title>
-      <link href="/categories/index.html"/>
-      <url>/categories/index.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>collect</title>
       <link href="/collect/index.html"/>
       <url>/collect/index.html</url>
@@ -7649,20 +7667,9 @@
     
     
     <entry>
-      <title>gallery</title>
-      <link href="/gallery/index.html"/>
-      <url>/gallery/index.html</url>
-      
-        <content type="html"><![CDATA[<ul><li><p>消愁 - 毛不易</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m804.music.126.net/20230715030040/3058f9a32c1a7c2ab4893a0c10bded60/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/28481677347/474c/85c2/535b/b2f2e46a8854595f90c56bf9a5db2ce2.mp3"></audio></p></li><li><p>像我这样的人 - 毛不易</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m804.music.126.net/20230715030000/c3bd7ebc6b90df3b09570c7047c5ac57/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/28481670328/e30c/18ad/2d86/5b9d878b11940b81e5efcdd1f5771d79.mp3?_authSecret=0000018955af504b086e0aaba3bf1b9a"></audio></p></li><li><p>不染 - 毛不易</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m8.music.126.net/20230715030021/9b8fb29ff25dd716673887bc6a85d183/ymusic/y7RHah68jgZBoxjkl7ieBw==/509951162915395763"></audio></p></li><li><p>Take My Hand - Simple Plan</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://other-web-ra01-sycdn.kuwo.cn/7d16061069e12b3c9e7f27f477d66b0d/64b19743/resource/n3/320/93/52/2280351848.mp3?from$unkown&plat$wapi"></audio></p></li><li><p>It’s My Life - Bon Jovi</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m10.music.126.net/20230715031049/9b363379164ade7cef7b779f50147f6c/ymusic/obj/w5zDlMODwrDDiGjCn8Ky/3066286606/07fe/758c/6f26/5fdcc90d2122f5eb933c39419e656119.mp3"></audio></p></li><li><p>挚爱 - 陈勋奇</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://other-web-ri01-sycdn.kuwo.cn/a47b6dffd701eeb7463410c9d519bf25/64b19842/resource/n2/60/27/3030200018.mp3"></audio></p></li></ul>]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>tagcloud</title>
-      <link href="/tagcloud/index.html"/>
-      <url>/tagcloud/index.html</url>
+      <title>categories</title>
+      <link href="/categories/index.html"/>
+      <url>/categories/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
@@ -7682,11 +7689,33 @@
     
     
     <entry>
+      <title>tagcloud</title>
+      <link href="/tagcloud/index.html"/>
+      <url>/tagcloud/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>tags</title>
       <link href="/tags/index.html"/>
       <url>/tags/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>gallery</title>
+      <link href="/gallery/index.html"/>
+      <url>/gallery/index.html</url>
+      
+        <content type="html"><![CDATA[<ul><li><p>消愁 - 毛不易</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m804.music.126.net/20230715030040/3058f9a32c1a7c2ab4893a0c10bded60/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/28481677347/474c/85c2/535b/b2f2e46a8854595f90c56bf9a5db2ce2.mp3"></audio></p></li><li><p>像我这样的人 - 毛不易</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m804.music.126.net/20230715030000/c3bd7ebc6b90df3b09570c7047c5ac57/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/28481670328/e30c/18ad/2d86/5b9d878b11940b81e5efcdd1f5771d79.mp3?_authSecret=0000018955af504b086e0aaba3bf1b9a"></audio></p></li><li><p>不染 - 毛不易</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m8.music.126.net/20230715030021/9b8fb29ff25dd716673887bc6a85d183/ymusic/y7RHah68jgZBoxjkl7ieBw==/509951162915395763"></audio></p></li><li><p>Take My Hand - Simple Plan</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://other-web-ra01-sycdn.kuwo.cn/7d16061069e12b3c9e7f27f477d66b0d/64b19743/resource/n3/320/93/52/2280351848.mp3?from$unkown&plat$wapi"></audio></p></li><li><p>It’s My Life - Bon Jovi</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://m10.music.126.net/20230715031049/9b363379164ade7cef7b779f50147f6c/ymusic/obj/w5zDlMODwrDDiGjCn8Ky/3066286606/07fe/758c/6f26/5fdcc90d2122f5eb933c39419e656119.mp3"></audio></p></li><li><p>挚爱 - 陈勋奇</p><p><audio id="audio" controls="" preload="none"><source id="mp3" src="https://other-web-ri01-sycdn.kuwo.cn/a47b6dffd701eeb7463410c9d519bf25/64b19842/resource/n2/60/27/3030200018.mp3"></audio></p></li></ul>]]></content>
       
     </entry>
     
