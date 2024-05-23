@@ -203,6 +203,186 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2024/03/26/golang-%E9%A1%B9%E7%9B%AE%E4%B8%AD-web%E6%A1%86%E6%9E%B6%E7%9A%84%E5%AF%B9%E6%AF%94/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/452794135.jpg">
+      <meta itemprop="name" content="Kanoc Ge">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/03/26/golang-%E9%A1%B9%E7%9B%AE%E4%B8%AD-web%E6%A1%86%E6%9E%B6%E7%9A%84%E5%AF%B9%E6%AF%94/" class="post-title-link" itemprop="url">golang-项目中-web框架的对比</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-03-26 23:30:35 / 修改时间：23:33:22" itemprop="dateCreated datePublished" datetime="2024-03-26T23:30:35+08:00">2024-03-26</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/go/" itemprop="url" rel="index"><span itemprop="name">go</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><font color=#00b2c2 size=5 face=宋体><strong>golang 有哪些快速开发的web框架？：</strong></font></p>
+<p><font color=#f26522 size=4 face=宋体><strong></strong></font></p>
+<p><font color=#b0171f size=2 face=宋体><strong></strong></font></p>
+<p><strong>不BB，直接上干货。</strong></p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">下面的框架涵盖了 Go 语言开发中所有可能用到的开源Web 框架。</span><br></pre></td></tr></table></figure>
+
+<p><strong>看完之后，你绝对可以找到适合自己的框架。</strong></p>
+<h2 id="企业级常用-Web-框架"><a href="#企业级常用-Web-框架" class="headerlink" title="企业级常用 Web 框架"></a>企业级常用 Web 框架</h2><h3 id="iris（比较推荐）"><a href="#iris（比较推荐）" class="headerlink" title="iris（比较推荐）"></a><font color=#f26522 size=6 face=宋体><strong>iris（比较推荐）</strong></font></h3><p>Web: 性能测试：8</p>
+<p>开源（海外）</p>
+<p>Web框架</p>
+<p>目前发展最快的Go Web框架。提供完整的MVC功能并且面向未来。</p>
+<p><strong>项目地址</strong>：<a href="https://link.zhihu.com/?target=https://github.com/kataras/iris">github.com&#x2F;kataras&#x2F;iris</a></p>
+<p><strong>优点：</strong></p>
+<p>主要侧重于Web开发，提供了Web开发的一系列功能组件，基于MVC开发模式。iris这一年发展比较快，从一个Web Server的组件，也慢慢朝着beego的设计方向努力。</p>
+<p><strong>缺点：</strong></p>
+<p>号称性能最强，结果平平。非模块化设计。最近两年开始朝beego方向发展，但整体框架能力还不完备，需要加油。</p>
+<p><img src="https://pic3.zhimg.com/80/v2-6d8759da8b8de5bb0109142a0093dbe2_720w.webp" alt="img"></p>
+<h3 id="beego"><a href="#beego" class="headerlink" title="beego"></a><font color=#f26522 size=6 face=宋体><strong>beego</strong></font></h3><p>Web: 性能测试：8</p>
+<p>开源（国内）</p>
+<p>Web框架</p>
+<p><strong>项目地址</strong>：<a href="https://link.zhihu.com/?target=https://github.com/beego/beego">github.com&#x2F;beego&#x2F;beego</a></p>
+<p><strong>优点：</strong></p>
+<p>开源的比较早，最早的一款功能比较全面的Golang开发框架，一直在Golang领域有着比较大的影响力，作者谢大多年组织着国内影响力比较大GopherCN活动。beego有着比较丰富的开发模块、开箱即用，提供了基于MVC设计模式的项目结构、开发工具链，主要定位为Web开发，当然也可以用于非Web项目开发。</p>
+<p><strong>缺点：</strong></p>
+<p>起步较早，自谢大创业后，近几年发展较慢。非模块化设计，对第三方重量级模块依赖较多。</p>
+<h3 id="gin"><a href="#gin" class="headerlink" title="gin"></a><font color=#f26522 size=6 face=宋体><strong>gin</strong></font></h3><p><strong>Web: 性能测试：9</strong></p>
+<p><strong>Web框架</strong></p>
+<p><strong>项目地址</strong>：<a href="https://link.zhihu.com/?target=https://github.com/gin-gonic/gin">github.com&#x2F;gin-gonic&#x2F;gin</a></p>
+<p><strong>优点：</strong></p>
+<p>专注于轻量级的Web Server，比较简单，易于理解，路由和中间件设计不错，可以看做替代标准库net&#x2F;http.Server的路由加强版web server。献给爱造轮子的朋友们。</p>
+<p><strong>缺点：</strong></p>
+<p>功能简单易用，既是优点，也是缺点。</p>
+<h3 id="goframe"><a href="#goframe" class="headerlink" title="goframe"></a><font color=#f26522 size=6 face=宋体><strong>goframe</strong></font></h3><p>Web: 性能测试：8</p>
+<p>开源（国内）</p>
+<p><strong>项目地址</strong>：<a href="https://link.zhihu.com/?target=https://github.com/gogf/gf">github.com&#x2F;gogf&#x2F;gf</a></p>
+<p><strong>模块化框架</strong></p>
+<p><strong>优点：</strong></p>
+<p>主要以工程化和企业级方向为主，特别是模块化设计和工程化设计思想非常棒。针对业务项目而言，提供了开发规范、项目规范、命名规范、设计模式、开发工具链、丰富的模块、高质量代码和文档，社区活跃。作者也是资深的PHP开发者，PHP转Go的小伙伴会倍感亲切。</p>
+<p><strong>缺点：</strong>开源时间较晚，推广过于佛系，目前主要面向国内用户，未推广海外。</p>
+<h2 id="Go语言学习资料推荐"><a href="#Go语言学习资料推荐" class="headerlink" title="Go语言学习资料推荐"></a>Go语言学习资料推荐</h2><h3 id="30-天入门-Go-语言"><a href="#30-天入门-Go-语言" class="headerlink" title="30 天入门 Go 语言"></a><strong>30 天入门 Go 语言</strong></h3><p><a href="https://link.zhihu.com/?target=https://mp.weixin.qq.com/s/2ux5nnExKXIdxxQR3Z6vKQ">Go语言学习路线图</a></p>
+<p><a href="https://link.zhihu.com/?target=https://mp.weixin.qq.com/s/ije6vF-yVR4GoKPVH3cdUg">前言：Go 语言为什么这么火？</a></p>
+<p><a href="https://link.zhihu.com/?target=https://mp.weixin.qq.com/s/v3SK5CxtdTXx38i3m1TDtg">Day1:Go语言入门篇</a></p>
+<p><a href="https://link.zhihu.com/?target=https://mp.weixin.qq.com/s?__biz=MzI1MjkxNDU4OQ==&mid=2247484089&idx=1&sn=0f79f77fb36ae5d11a1b607090af35b4&chksm=e9dd3c4bdeaab55d55265f50c0e7974a12a108e6248d6d622409219cd9651bf9ddce718ad02e&scene=178&cur_album_id=2106348088293376002%23rd">Day2：Go语言发展史，如何学习Go语言？</a></p>
+<p><a href="https://link.zhihu.com/?target=https://mp.weixin.qq.com/s?__biz=MzI1MjkxNDU4OQ==&mid=2247484159&idx=1&sn=56235262b4bcb951ff16a2f887eb8c61&chksm=e9dd3c0ddeaab51bf2e2a49d50b8a2d8df2c9697f93f07dde148e6e422414ae461adee030241&scene=178&cur_album_id=2106348088293376002%23rd">Day3: C语言与Go语言对比学习（关键字、标识符、注释等系列知识）</a></p>
+<p><a href="https://link.zhihu.com/?target=https://mp.weixin.qq.com/s?__biz=MzI1MjkxNDU4OQ==&mid=2247484192&idx=1&sn=a384304d424d3f5673b8ff347898c548&chksm=e9dd3dd2deaab4c4f2871f65913e04b7be1e2a00dacce1c6d6074874a8d2dcd407448fdd25d0&scene=178&cur_album_id=2106348088293376002%23rd">Day4: Go 语言程序组成（开始实践编写Go语言程序）</a></p>
+<p><a href="https://link.zhihu.com/?target=https://mp.weixin.qq.com/s?__biz=MzI1MjkxNDU4OQ==&mid=2247484232&idx=1&sn=f8995471c0133b2284898df08c004219&chksm=e9dd3dbadeaab4ac963b5b96fe138cecaa9aac1c1464f9071a55ec069a3764289b236801ea85&scene=178&cur_album_id=2106348088293376002%23rd">Day5: Go语言编码风格</a></p>
+<p><a href="https://link.zhihu.com/?target=https://mp.weixin.qq.com/s?__biz=MzI1MjkxNDU4OQ==&mid=2247484250&idx=1&sn=43595cfd10e3fdddf193f144fd3e24e4&chksm=e9dd3da8deaab4bea30bffa2d41f069c2432c3c9c8ec67a3c0933b239f9d22d2db73c64aaa55&scene=178&cur_album_id=2106348088293376002%23rd">Day6: Go 语言基础知识巩固加强</a></p>
+<p><a href="https://link.zhihu.com/?target=https://mp.weixin.qq.com/s?__biz=MzI1MjkxNDU4OQ==&mid=2247484299&idx=1&sn=047b9bb53f63cdfa7b6754c13d9ab68b&chksm=e9dd3d79deaab46ff5dceaae19d9b77a07695b1b041217c32fa65fb4e500151e2890ca7fc2e3&scene=178&cur_album_id=2106348088293376002%23rd">Day7: Go语言变量与变量定义大全解</a></p>
+<p><a href="https://link.zhihu.com/?target=https://mp.weixin.qq.com/s/x5apTYjJIxDCAHUvS5j_ig">Day8: Go语言数据类型转换</a></p>
+<p><a href="https://link.zhihu.com/?target=https://mp.weixin.qq.com/s/Py7Mv4Ue5K0ulnPYVnV8fg">Day9: Go语言常量相关知识点</a></p>
+<p><a href="https://link.zhihu.com/?target=https://mp.weixin.qq.com/s/URjA2g_32toxrp6UAwPmCQ">Day10: Go语言输出输入函数</a></p>
+<p><a href="https://link.zhihu.com/?target=https://mp.weixin.qq.com/s/5oRGYi6dSCeljM6zTvyUYQ">Day11: Go语言命令行详细解读</a></p>
+<p><a href="https://link.zhihu.com/?target=https://mp.weixin.qq.com/s/Ov0bhzs6zTI8PGNsA-KxHA">Day12: Go语言运算符（各类运算符详细讲解）</a></p>
+<p><a href="https://link.zhihu.com/?target=https://mp.weixin.qq.com/s/x65RcVsFIoGdwNoP7QT7-w">Day13: Go语言流程控制</a></p>
+<p><a href="https://link.zhihu.com/?target=https://mp.weixin.qq.com/s/LqEglWaYksPtkszCCPl8xA">Day14: Go语言函数与闭包等知识点</a></p>
+<p><a href="https://link.zhihu.com/?target=https://mp.weixin.qq.com/s/USqjlB6wG0w0yb-V8fB9MQ">Day15: Go语言数组与切片等知识讲解</a></p>
+<p><a href="https://link.zhihu.com/?target=https://mp.weixin.qq.com/s/twqhfQ13oEXKoBtxd24ipA">Day16: Go语言字典与结构体大全解</a></p>
+<p><a href="https://link.zhihu.com/?target=https://mp.weixin.qq.com/s/Ti5bgeQdKhnRDOlxkSjefw">Day17: Go语言方法与接口保姆级讲解</a></p>
+<p><a href="https://link.zhihu.com/?target=https://mp.weixin.qq.com/s/__UUZFFSnNq_4uwUzIT2mA">Day18: Go语言面向对象各类知识点讲解</a></p>
+<p><a href="https://link.zhihu.com/?target=https://mp.weixin.qq.com/s/K6pDuD9MmHLxrAfol2VJGQ">Day19: Go语言异常处理各类知识讲解</a></p>
+<p><a href="https://link.zhihu.com/?target=https://mp.weixin.qq.com/s/mYxATpMXyxeW5dHEl0iLKA">Day20: Go语言字符串与正则表达式大全解</a></p>
+<p><a href="https://link.zhihu.com/?target=https://mp.weixin.qq.com/s/n-cd4D010hitdrNnPVWt4A">Day21: Go语言和C语言交叉访问</a></p>
+<p><a href="https://link.zhihu.com/?target=https://mp.weixin.qq.com/s/-E9wB4-TqiDdVGXA9yeRLw">Day22: Go语言操作文件</a></p>
+<p><a href="https://link.zhihu.com/?target=https://mp.weixin.qq.com/s/47a26-HLSKxMM0hjl7SSAg">Day23: Go语言并发编程知识讲解</a></p>
+<p><a href="https://link.zhihu.com/?target=https://mp.weixin.qq.com/s/y7F0aSNBVvDhe7uwyQIV4g">Day24: Go语言多线程同步与生产者消费问题详细解读</a></p>
+<p><a href="https://link.zhihu.com/?target=https://mp.weixin.qq.com/s/qJYB9iExAgJxZ6DLCP2rBg">Day25:Go语言管道(Channel)</a></p>
+<p><a href="https://link.zhihu.com/?target=https://mp.weixin.qq.com/s/6rbB_QgTjvqsPp2qmVXOYA">Day26: Go 语言定时器</a></p>
+<p><a href="https://link.zhihu.com/?target=https://mp.weixin.qq.com/s/M-BD8Auty_t9B93F82MUCw">Day27: Go语言指针操作教程（持续更新ing）</a></p>
+<h3 id="Go-语言电子书推荐"><a href="#Go-语言电子书推荐" class="headerlink" title="Go 语言电子书推荐"></a>Go 语言电子书推荐</h3><p><a href="https://link.zhihu.com/?target=https://pan.baidu.com/s/1sE6RQ5We5ciLtkkWAaSyyQ">Go并发实战链接：</a>提取码：41zd</p>
+<p><a href="https://link.zhihu.com/?target=https://pan.baidu.com/s/1yo_weXsbl_tMXjJrVPMI-A">Go语言编程链接</a> 提取码：dcu3</p>
+<p><a href="https://link.zhihu.com/?target=https://pan.baidu.com/s/1MNkUhJT-ZQA5D7-tGAX-Lg">Go语言标准库链接</a>：提取码：8kx9</p>
+<p><a href="https://link.zhihu.com/?target=https://pan.baidu.com/s/1db91f8NGAzhMicPGdxuBPA">Go语言程序设计：</a>提取码：2uqt</p>
+<p><a href="https://link.zhihu.com/?target=https://pan.baidu.com/s/19xZJsF8KyCGp2fO4VYvPmA">Go语言圣经</a>：提取码：7emu</p>
+<p><a href="https://link.zhihu.com/?target=https://pan.baidu.com/s/143UFM4Uoir_yGRgSgt7hsA">Go语言实战</a>：提取码：f7o2</p>
+<p><a href="https://link.zhihu.com/?target=https://pan.baidu.com/s/1qnle6ZlgtSYANwjN4spS8Q">Go语言学习</a>笔记：提取码：7il3</p>
+<h3 id="Go书籍在线推荐阅读："><a href="#Go书籍在线推荐阅读：" class="headerlink" title="Go书籍在线推荐阅读："></a>Go书籍在线推荐阅读：</h3><h3 id="《深入解析Go》"><a href="#《深入解析Go》" class="headerlink" title="《深入解析Go》"></a><a href="https://link.zhihu.com/?target=https://github.com/tiancaiamao/go-internals">《深入解析Go》</a></h3><blockquote>
+<p>这本书适合对 Go 底层的东西比较感兴趣的朋友阅读，也是作者抽空写的一本开源的书籍《深入解析Go》。写这本书不表示我能力很强，而是我愿意分享，和大家一起分享对Go语言的内部实现的一些研究。作者一直认为知识是用来分享的，让更多的人分享自己拥有的一切知识这个才是人生最大的快乐。</p>
+</blockquote>
+<h3 id="《Go实战开发》"><a href="#《Go实战开发》" class="headerlink" title="《Go实战开发》"></a><a href="https://link.zhihu.com/?target=https://github.com/astaxie/Go-in-Action">《Go实战开发》</a></h3><blockquote>
+<p>这本书适合有Go语言基础的朋友阅读，没有任何基础的建议不要阅读学习，建议去 GitHub 阅读 <a href="https://link.zhihu.com/?target=https://github.com/coderit666/GoGuide">GoGuide</a>开源项目，有编程基础的可以通过这本书进阶学习 Go。</p>
+</blockquote>
+<h3 id="《Go入门指南》"><a href="#《Go入门指南》" class="headerlink" title="《Go入门指南》"></a><a href="https://link.zhihu.com/?target=https://github.com/Unknwon/the-way-to-go_ZH_CN">《Go入门指南》</a></h3><blockquote>
+<p>这是作者在完成阅读这本名叫 《The Way to Go》 之后，决定每天抽出一点时间来进行翻译的工作，并且以开源的形式免费分享给有需要的 Go 语言爱好者，适合初学者学习。</p>
+</blockquote>
+<h3 id="《Go语言标准库》"><a href="#《Go语言标准库》" class="headerlink" title="《Go语言标准库》"></a><a href="https://link.zhihu.com/?target=https://github.com/polaris1119/The-Golang-Standard-Library-by-Example">《Go语言标准库》</a></h3><blockquote>
+<p>这是 Go语言标准库，学习 Go 语言首选。</p>
+</blockquote>
+<h3 id="《Go-Web-编程》"><a href="#《Go-Web-编程》" class="headerlink" title="《Go Web 编程》"></a><a href="https://link.zhihu.com/?target=https://github.com/astaxie/build-web-application-with-golang">《Go Web 编程》</a></h3><blockquote>
+<p>这本书适合学习完成Go语言基础+前端基础的朋友去学习进阶Go-Web 相关的知识。</p>
+</blockquote>
+<h3 id="《Go语言博客实践》"><a href="#《Go语言博客实践》" class="headerlink" title="《Go语言博客实践》"></a><a href="https://link.zhihu.com/?target=https://github.com/achun/Go-Blog-In-Action">《Go语言博客实践》</a></h3><blockquote>
+<p>中文名<strong>Go语言博客实践</strong>. 是对<a href="https://link.zhihu.com/?target=https://github.com/typepress/typepress">TypePress</a>开发过程中的想法, 方法, 探讨等任何方面同步整理成的电子书。</p>
+</blockquote>
+<h3 id="《Go语言学习笔记》"><a href="#《Go语言学习笔记》" class="headerlink" title="《Go语言学习笔记》"></a><a href="https://link.zhihu.com/?target=https://github.com/qyuhen/book">《Go语言学习笔记》</a></h3><blockquote>
+<p>这本书主要是作者记录学习Go语言的笔记，适合初学者学习。</p>
+</blockquote>
+<h3 id="《Go语言高级编程》"><a href="#《Go语言高级编程》" class="headerlink" title="《Go语言高级编程》"></a><a href="https://link.zhihu.com/?target=https://github.com/chai2010/advanced-go-programming-book">《Go语言高级编程》</a></h3><blockquote>
+<p>本书涵盖 CGO、Go 汇编语言、RPC 实现、Web 框架实现、分布式系统等高阶主题，针对Go语言有一定经验想深入了解Go语言各种高级用法的开发人员。对于刚学习 Go 语言的读者，建议去学习Go语言开源项目 <a href="https://link.zhihu.com/?target=https://github.com/coderit666/GoGuide">GoGuide</a>。</p>
+</blockquote>
+<h3 id="Effective-Go-英文版"><a href="#Effective-Go-英文版" class="headerlink" title="Effective Go 英文版"></a><a href="https://link.zhihu.com/?target=https://golang.org/doc/effective_go.html">Effective Go</a> 英文版</h3><blockquote>
+<p>这是一本英文版的Go语言书籍，建议你有英语基础再去阅读。</p>
+</blockquote>
+<h3 id="The-Way-to-Go-中文版"><a href="#The-Way-to-Go-中文版" class="headerlink" title="The Way to Go 中文版"></a><a href="https://link.zhihu.com/?target=https://github.com/Unknwon/the-way-to-go_ZH_CN">The Way to Go</a> 中文版</h3><blockquote>
+<p>《The Way to Go》中文译本，中文正式名《<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=Go+%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra=%7B%22sourceType%22:%22answer%22,%22sourceId%22:2229767926%7D">Go 入门指南</a>》</p>
+</blockquote>
+<h3 id="Go语言学习导航"><a href="#Go语言学习导航" class="headerlink" title="Go语言学习导航"></a>Go语言学习导航</h3><p><strong><a href="https://link.zhihu.com/?target=https://hao.golangstack.com/">Golang 学习导航</a></strong></p>
+<blockquote>
+<p><strong>网站中含有 GO 语言开源图书、Go语言开发工具、Go语言入门教程、Go语言进阶教程、Go语言官方资源、Go语言 Web 框架、Go语言微服务资源、Go语言领域大牛。</strong></p>
+</blockquote>
+<p><img src="https://pic2.zhimg.com/80/v2-d2ab1ecc8944671d9ed53c74c94dbaa1_720w.webp" alt="img"></p>
+<p><img src="https://pic3.zhimg.com/80/v2-26c2047240759a367ce48638a5d8fef6_720w.webp" alt="img"></p>
+<p>最后，如果觉得大叔的分享对你有帮助，欢迎<strong>关注我</strong></p>
+<p><a target="_blank" rel="noopener" href="https://www.zhihu.com/people/669446be2fffd5481e8a1fa99f91c2e4">@Go语言入门到精通</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2024/03/20/django-%E8%B7%A8%E5%9F%9F%E6%94%AF%E6%8C%81%E9%85%8D%E7%BD%AE/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -4200,200 +4380,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/11/20/AI%E6%8D%A2%E8%84%B8%E9%A1%B9%E7%9B%AE-faceswap-%E5%9F%BA%E4%BA%8ECentos7-%E7%9A%84%E9%83%A8%E7%BD%B2%E3%80%81%E9%85%8D%E7%BD%AE%E3%80%81%E8%AE%AD%E7%BB%83%E3%80%81%E6%9B%BF%E6%8D%A2%E6%95%99%E7%A8%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/452794135.jpg">
-      <meta itemprop="name" content="Kanoc Ge">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/11/20/AI%E6%8D%A2%E8%84%B8%E9%A1%B9%E7%9B%AE-faceswap-%E5%9F%BA%E4%BA%8ECentos7-%E7%9A%84%E9%83%A8%E7%BD%B2%E3%80%81%E9%85%8D%E7%BD%AE%E3%80%81%E8%AE%AD%E7%BB%83%E3%80%81%E6%9B%BF%E6%8D%A2%E6%95%99%E7%A8%8B/" class="post-title-link" itemprop="url">AI换脸项目 - faceswap 基于Centos7 的部署、配置、训练、替换教程</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-11-20 09:03:24" itemprop="dateCreated datePublished" datetime="2023-11-20T09:03:24+08:00">2023-11-20</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-14 16:38:09" itemprop="dateModified" datetime="2024-03-14T16:38:09+08:00">2024-03-14</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <br>
-
-<hr>
-<br>
-
-<h3 id="AI换脸项目-faceswap-基于Centos7-的部署、配置、训练、替换教程（原创）"><a href="#AI换脸项目-faceswap-基于Centos7-的部署、配置、训练、替换教程（原创）" class="headerlink" title="AI换脸项目 - faceswap 基于Centos7 的部署、配置、训练、替换教程（原创）"></a><font color=#00b2c2 size=5 face=宋体><strong>AI换脸项目 - faceswap 基于Centos7 的部署、配置、训练、替换教程（原创）</strong></font></h3><br>
-
-<hr>
-<br>
-
-<p><font color=#f26522 size=4 face=宋体><strong>知识拓展：</strong></font></p>
-<ul>
-<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Dust_Evc/article/details/125019266">【精选】Nvidia GPU 最新计算能力表（CUDA Compute Capability）_cuda计算能力排行_Dust_Evc的博客-CSDN博客</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/377418009">训练指南-deepfakes&#x2F;faceswap：训练Faceswap，模型恢复和分析，手把手教学，简单快速上手！ - 知乎 (zhihu.com)</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000042846780">python - faceswap换脸程序安装及使用 - 个人文章 - SegmentFault 思否</a></p>
-</li>
-</ul>
-<p><font color=#f26522 size=4 face=宋体><strong>环境说明：</strong></font></p>
-<ul>
-<li>系统：Centos7.9</li>
-<li>Intel(R) Xeon(R) CPU E5-2678 v3</li>
-<li>2部署方式：CPU</li>
-<li>指令集强制要求（CPU方式安装）：AVX</li>
-<li>软件：FFmpeg</li>
-<li>python版本：3.10（强制要求，非3.10，很多环境不支持）</li>
-</ul>
-<br>
-
-<hr>
-<br>
-
-<h4 id="1、编译安装-python-3-10-环境："><a href="#1、编译安装-python-3-10-环境：" class="headerlink" title="1、编译安装 python 3.10 环境："></a><font color=#00b2c2 size=5 face=宋体><strong>1、编译安装 python 3.10 环境：</strong></font></h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">cd /root</span><br><span class="line"></span><br><span class="line"><span class="comment">#只是将python3.11的安装包下载到 /root目录下</span></span><br><span class="line">wget https://www.python.org/ftp/python/<span class="number">3.10</span><span class="number">.9</span>/Python-<span class="number">3.10</span><span class="number">.9</span>.tgz</span><br><span class="line"></span><br><span class="line"><span class="comment">#下载最新的软件安装包</span></span><br><span class="line">tar -xzf Python-<span class="number">3.10</span><span class="number">.9</span>.tgz</span><br><span class="line"></span><br><span class="line"><span class="comment">#解压缩安装包</span></span><br><span class="line">yum -y install gcc zlib zlib-devel libffi libffi-devel</span><br><span class="line"></span><br><span class="line"><span class="comment">#安装源码编译需要的编译环境</span></span><br><span class="line">yum install readline-devel</span><br><span class="line"></span><br><span class="line"><span class="comment">#可以解决后期出现的方向键、删除键乱码问题，这里提前避免。</span></span><br><span class="line">yum install openssl-devel openssl11 openssl11-devel</span><br><span class="line"></span><br><span class="line"><span class="comment">#安装openssl11，后期的pip3安装网络相关模块需要用到ssl模块。</span></span><br><span class="line">export CFLAGS=$(pkg-config --cflags openssl11)</span><br><span class="line">export LDFLAGS=$(pkg-config --libs openssl11)</span><br><span class="line"></span><br><span class="line"><span class="comment">#设置编译FLAG，以便使用最新的openssl库</span></span><br><span class="line">cd /root/Python-<span class="number">3.10</span><span class="number">.9</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#进入刚解压缩的目录</span></span><br><span class="line">./configure --prefix=/usr/python --<span class="keyword">with</span>-ssl</span><br><span class="line"></span><br><span class="line"><span class="comment">#指定python3的安装目录为 /usr/python 并使用ssl模块，指定目录好处是</span></span><br><span class="line"><span class="comment">#后期删除此文件夹就可以完全删除软件了。</span></span><br><span class="line">make</span><br><span class="line">make install</span><br><span class="line"></span><br><span class="line"><span class="comment">#就是源码编译并安装了，时间会持续几分钟。</span></span><br><span class="line"><span class="comment"># 如果下面命令执行，提示已经存在/usr/bin/python3 和 /usr/bin/pip3， 可以删除。建议删除，后续会方便很多，也可以不删除，后续执行python3.10也可</span></span><br><span class="line"><span class="comment"># 删除命令：rm -rf /usr/bin/python3 /usr/bin/pip3  # 然后在执行下面的命令</span></span><br><span class="line">ln -s /usr/python/<span class="built_in">bin</span>/python3 /usr/<span class="built_in">bin</span>/python3</span><br><span class="line">ln -s /usr/python/<span class="built_in">bin</span>/pip3 /usr/<span class="built_in">bin</span>/pip3</span><br><span class="line"><span class="comment">#指定链接，此后我们系统的任何地方输入python3就是我们安装的</span></span><br></pre></td></tr></table></figure>
-
-<br>
-
-<hr>
-<p><br><font color=#00b2c2 size=5 face=宋体><strong>2、yum 安装 ffmpeg 环境：</strong></font></p>
-<ul>
-<li><font color=#b0171f size=2 face=宋体><strong>yum官方不支持ffmpeg，所以我们需要添加第三方源</strong></font></li>
-</ul>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 安装epel-release，因为安装需要使用其他的repo源，所以需要epel支持：</span></span><br><span class="line">yum install -y epel-release rpm</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装Nux-Dextop源：</span></span><br><span class="line">rpm --<span class="keyword">import</span> http://li.nux.ro/download/nux/RPM-GPG-KEY-nux.ro</span><br><span class="line">rpm -Uvh http://li.nux.ro/download/nux/dextop/el7/x86_64/nux-dextop-release-<span class="number">0</span>-<span class="number">1.</span>el7.nux.noarch.rpm</span><br><span class="line">yum repolist</span><br><span class="line"></span><br><span class="line"><span class="comment"># 开始安装</span></span><br><span class="line">yum install -y ffmpeg</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><font color=#b0171f size=2 face=宋体><strong>ffmpeg 相关常用命令：</strong></font></li>
-</ul>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 从视频input.mp4中，裁剪出从1分30秒开始的一分钟视频</span></span><br><span class="line">ffmpeg -ss <span class="number">0</span>:<span class="number">1</span>:<span class="number">30</span> -t <span class="number">0</span>:<span class="number">1</span>:<span class="number">0</span> -i <span class="built_in">input</span>.mp4 -vcodec copy -acodec copy out.mp4</span><br><span class="line"></span><br><span class="line"><span class="comment"># 视频转图片，-r:每秒钟提取的帧数，默认为30</span></span><br><span class="line">ffmpeg -i <span class="built_in">input</span>.mp4 -r <span class="number">10</span> output/video_%d.jpg</span><br><span class="line"></span><br><span class="line"><span class="comment"># 图片转视频，-b:v：控制视频码率，默认为200，所以合成的视频像素很低</span></span><br><span class="line">ffmpeg -i <span class="built_in">input</span>/video_%04d.jpg -b:v 5626k out.mp4</span><br><span class="line"></span><br><span class="line"><span class="comment"># 视频合成，分为两步，先把每个视频转成ts流，再合成一个视频</span></span><br><span class="line">ffmpeg -i input1.mp4 -vcodec copy -acodec copy -vbsf h264_mp4toannexb input1.ts</span><br><span class="line">ffmpeg -i input2.mp4 -vcodec copy -acodec copy -vbsf h264_mp4toannexb input2.ts</span><br><span class="line">ffmpeg -i <span class="string">&quot;concat:input1.ts|input2.ts&quot;</span> -acodec copy -vcodec copy -absf aac_adtstoasc concat.mp4</span><br></pre></td></tr></table></figure>
-
-<br>
-
-<hr>
-<br>
-
-<p><font color=#00b2c2 size=5 face=宋体><strong>3、部署安装 faceswap， 基于 Centos7：</strong></font></p>
-<ul>
-<li>官方文档说明：<a target="_blank" rel="noopener" href="https://github.com/deepfakes/faceswap/blob/master/INSTALL.md">faceswap&#x2F;INSTALL.md at master · deepfakes&#x2F;faceswap · GitHub</a></li>
-<li>官方项目地址：<a target="_blank" rel="noopener" href="https://github.com/deepfakes/faceswap">GitHub - deepfakes&#x2F;faceswap: Deepfakes Software For All</a></li>
-</ul>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 进入root 根目录，创建一个 ai 文件夹 用来存放所有的ai文件</span></span><br><span class="line">cd /root</span><br><span class="line">mkdir ai</span><br><span class="line"></span><br><span class="line"><span class="comment"># 进入 ai 文件夹</span></span><br><span class="line">cd /root/ai</span><br><span class="line"></span><br><span class="line"><span class="comment"># 开始 clone 项目到本地</span></span><br><span class="line">git clone --depth <span class="number">1</span> https://github.com/deepfakes/faceswap.git</span><br><span class="line">cd faceswap</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装项目相关依赖  不报错，就说明没问题</span></span><br><span class="line">python3 install -r ./requirements/requirements_cpu.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装完成，执行初始化</span></span><br><span class="line">cd /root/ai/faceswap</span><br><span class="line">python3 faceswap.py -h</span><br><span class="line"></span><br><span class="line"><span class="comment"># 此时会跳出让你选择的界面，我们是cpu方式运行，就选择 cpu就好</span></span><br></pre></td></tr></table></figure>
-
-<br>
-
-<hr>
-<br>
-
-<p><font color=#00b2c2 size=5 face=宋体><strong>4、faceswap 项目运行：</strong></font></p>
-<ul>
-<li><p><font color=#f26522 size=4 face=宋体><strong>后期部署参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42370471/article/details/107448694">换脸开源项目faceswap在centos的实现-CSDN博客</a></strong></font></p>
-</li>
-<li><h3 id="工作流程-此处要把-gakki-的脸换成-刘亦菲-："><a href="#工作流程-此处要把-gakki-的脸换成-刘亦菲-：" class="headerlink" title="工作流程(此处要把 gakki 的脸换成 刘亦菲)："></a><font color=#f26522 size=4 face=宋体><strong>工作流程(此处要把 <strong>gakki</strong> 的脸换成 <strong>刘亦菲</strong>)：</strong></font></h3><ul>
-<li><font color=#b0171f size=2 face=宋体><strong>1、&#x2F;root&#x2F;ai&#x2F;AiSetFiles&#x2F;gakki：<code>要被换脸</code>的人原图，即从爬虫爬的图片</strong></font></li>
-<li><font color=#b0171f size=2 face=宋体><strong>2、&#x2F;root&#x2F;ai&#x2F;AiSetFiles&#x2F;gakki_video：<code>要被换脸</code>的人视频</strong></font></li>
-<li><font color=#b0171f size=2 face=宋体><strong>3、&#x2F;root&#x2F;ai&#x2F;AiSetFiles&#x2F;gakki_ready：<code>要被换脸</code>的人，原始图片&#x2F;视频进行脸部特征抽取后，放置的文件夹</strong></font></li>
-<li><font color=#b0171f size=2 face=宋体><strong>4、&#x2F;root&#x2F;ai&#x2F;AiSetFiles&#x2F;lyf：<code>要换成谁的脸</code>的人原图，即从爬虫爬的图片</strong></font></li>
-<li><font color=#b0171f size=2 face=宋体><strong>5、&#x2F;root&#x2F;ai&#x2F;AiSetFiles&#x2F;lyf_video：<code>要换成谁的脸</code> 的人视频</strong></font></li>
-<li><font color=#b0171f size=2 face=宋体><strong>6、&#x2F;root&#x2F;ai&#x2F;AiSetFiles&#x2F;lyf_ready：<code>要换成谁的脸</code>的人，原始图片&#x2F;视频进行脸部特征抽取后，放置的文件夹</strong></font></li>
-<li><font color=#b0171f size=2 face=宋体><strong>7、&#x2F;root&#x2F;ai&#x2F;AiSetFiles&#x2F;gakki_lyf_model：放置训练的模型文件</strong></font></li>
-<li><font color=#b0171f size=2 face=宋体><strong>8、&#x2F;root&#x2F;ai&#x2F;AiSetFiles&#x2F;convert：放置模型跑出来的最终结果，即已经换脸后的文件</strong></font></li>
-</ul>
-</li>
-<li><p><font color=#00b2c2 size=4 face=宋体><strong>1、抽取脸部特征：</strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 抽取图片的脸部特征，传入的是文件夹，会保留原本的格式，即jpg文件抽取后的图片依然是jpg</span></span><br><span class="line">python faceswap.py extract -i /root/ai/AiSetFiles/gakki -o /root/ai/AiSetFiles/gakki_ready</span><br><span class="line">python faceswap.py extract -i /root/ai/AiSetFiles/lyf -o /root/ai/AiSetFiles/lyf_ready</span><br><span class="line"><span class="comment"># 抽取视频里每帧图片的脸部特征，传入的是视频文件，默认保存为png格式</span></span><br><span class="line">python faceswap.py extract -i /root/ai/AiSetFiles/gakki_video/gakki.mp4 -o /root/ai/AiSetFiles/gakki_ready</span><br><span class="line">python faceswap.py extract -i /root/ai/AiSetFiles/lyf_video/lyf.mp4 -o /root/ai/AiSetFiles/lyf_ready</span><br><span class="line"></span><br><span class="line"><span class="comment"># 若是从网上下了多个短视频，可以使用上面的ffmpeg命令进行视频合并</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 若传入的是视频，则提取面部特征后的图片数量一般会比较巨大，若是想自己控制输出图片的数量，可以使用ffmpeg将视频切成图片，然后当作图片进行处理。不过我的ffmpeg无法操作png格式，只能转成jpg格式，会导致丢失很多信息。png格式的文件一般要比jpg格式文件大得多，模型的效果也要好些</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p><font color=#00b2c2 size=4 face=宋体><strong>2、人工筛选：</strong></font></p>
-<ul>
-<li><font color=#b0171f size=2 face=宋体><strong>图片进行面部特征抽取后，会变成下面这种大头照。</strong></font></li>
-<li><font color=red size=2 face=宋体><strong>这时候就需要进行人工筛选了，这一步是最耗时的，因为最后入模型的就是这些图片，因此需要仔细的筛选。</strong></font></li>
-</ul>
-</li>
-</ul>
-<p><img src="https://s2.loli.net/2023/11/20/OJeaRcV6mdgsIP2.png" alt="面部特征抽取后.png"></p>
-<ul>
-<li><p><font color=#00b2c2 size=4 face=宋体><strong>3、训练模型：</strong></font></p>
-<ul>
-<li><font color=#b0171f size=2 face=宋体><strong>这里有个点要额外注意一下，我在使用<code>nohup</code>进行后台运行的时候，程序直接崩了，我也没搞清楚是什么问题，如果出现了这种情况，建议使用<code>jupyter-lab --port 9999 --allow-root</code>开启jupyter，然后在本地windows浏览器打开jupyter的终端，然后在这里进行模型训练。就不用担心关电脑后程序自动终止。</strong></font></li>
-<li><font color=#b0171f size=2 face=宋体><strong>模型训练没什么说的，这里的模型是手动停止的，自己觉得模型不再收敛，时间有差不多的时候，直接在命令行 <code>敲回车</code> 就可以直接停止了</strong></font></li>
-</ul>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># python3 faceswap.py train -A &lt;要被换掉人的脸的抽取面部特征的文件夹&gt; -B &lt;想要替换成谁的脸的面部特征文件夹&gt; -m &lt;训练后的model存放文件夹&gt;</span></span><br><span class="line">python3 faceswap.py train -A /root/ai/AiSetFiles/gakki_ready -B /root/ai/AiSetFiles/lyf_ready -m /root/ai/AiSetFiles/gakki_lyf_model/</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><font color=#00b2c2 size=4 face=宋体><strong>4、调用模型进行换脸：</strong></font></p>
-<ul>
-<li><font color=#f26522 size=3 face=宋体><strong>对图片进行换脸：</strong></font></li>
-</ul>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># python faceswap.py convert -i &lt;输入文件夹&gt; -o &lt;输出文件夹&gt; -m &lt;模型文件夹&gt;</span></span><br><span class="line">python faceswap.py convert -i /root/ai/AiSetFiles/gakki -o /root/ai/AiSetFiles/convert -m /root/ai/AiSetFiles/gakki_lyf_model/</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p><font color=#f26522 size=3 face=宋体><strong>对视频进行换脸：</strong></font></p>
-<ul>
-<li>如果想对视频进行换脸，必须调用<code>ffmpeg</code>把视频切成图片，然后再调用上面的命令，最后再自己把图片拼成视频。涉及的<code>ffmpeg命令</code>都在上面。</li>
-<li>换脸后生成的文件是png格式，如果ffmpeg操作不了png格式图片，就需要先转成jpg</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line">img = Image.<span class="built_in">open</span>(<span class="string">&#x27;lyf_1.png&#x27;</span>)</span><br><span class="line">img.save(<span class="string">&#x27;lyf_1.jpg&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 直接将png格式读进去，然后保存为jpg即可，再配合os模块即可批量转换</span></span><br></pre></td></tr></table></figure></li>
-</ul>
-<p><font color=#00b2c2 size=5 face=宋体><strong>5、补充：</strong></font></p>
-<ul>
-<li><p><font color=#f26522 size=4 face=宋体><strong>使用频繁的linux命令：</strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 查看当前文件下的文件数量（仅文件）</span></span><br><span class="line">ls -l | grep <span class="string">&quot;^-&quot;</span> | wc -l</span><br><span class="line"><span class="comment"># 解压zip文件，可能会把一大堆文件直接解压在当前文件夹，建议在一个空文件夹内解压zip文件</span></span><br><span class="line">unzip lyf.<span class="built_in">zip</span></span><br><span class="line"><span class="comment"># 压缩文件夹lyf内的所有文件</span></span><br><span class="line">tar -zcvf lyf.tar.gz ./lyf</span><br><span class="line"><span class="comment"># 查看当前目录下所有的文件大小</span></span><br><span class="line">du -sh *</span><br></pre></td></tr></table></figure></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -4464,18 +4450,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">290</span>
+          <span class="site-state-item-count">291</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">39</span>
+        <span class="site-state-item-count">40</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">158</span>
+        <span class="site-state-item-count">160</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

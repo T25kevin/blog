@@ -203,6 +203,329 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/08/14/python%E5%AE%8C%E7%BE%8E%E7%AA%81%E7%A0%B4tls-ja3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/452794135.jpg">
+      <meta itemprop="name" content="Kanoc Ge">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/08/14/python%E5%AE%8C%E7%BE%8E%E7%AA%81%E7%A0%B4tls-ja3/" class="post-title-link" itemprop="url">python完美突破tls/ja3</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-08-14 04:42:32" itemprop="dateCreated datePublished" datetime="2023-08-14T04:42:32+08:00">2023-08-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-14 16:38:10" itemprop="dateModified" datetime="2024-03-14T16:38:10+08:00">2024-03-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%80%86%E5%90%91-%E5%8F%8D%E7%88%AC/" itemprop="url" rel="index"><span itemprop="name">逆向_反爬</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="python完美突破tls-ja3"><a href="#python完美突破tls-ja3" class="headerlink" title="python完美突破tls&#x2F;ja3"></a>python完美突破tls&#x2F;ja3</h1><h1 id="声明："><a href="#声明：" class="headerlink" title="声明："></a>声明：</h1><p>本文搬运自csdn&gt;&gt;&gt; <a target="_blank" rel="noopener" href="https://blog.csdn.net/y_morph/article/details/129487839">https://blog.csdn.net/y_morph/article/details/129487839</a></p>
+<p>以下只是搬运下我公众号的东西。很早就发过了。原帖地址：</p>
+<p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/GU2AgushvIEtLHtYR7BQzg">python完美突破tls&#x2F;ja3 (qq.com)</a></p>
+<h2 id="已经发公众号的为什么还发csdn"><a href="#已经发公众号的为什么还发csdn" class="headerlink" title="已经发公众号的为什么还发csdn"></a>已经发公众号的为什么还发csdn</h2><p>有的圈内朋友，不经过我的允许，删减摘录我公众号的内容，这里就不提谁了，心里清楚，还能获得一些关注和流量。很无语，所以我还不如自己也发发。【猛男落泪】</p>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>时隔一个多月我又发文了，我还是只发好文的geekbyte，前几天有朋友跟我说我断更一个多月了，哈哈，这不就来了吗</p>
+<p>不多废话，进入正题。</p>
+<p>如果你偶尔看到这篇文章，而对tls还一脸懵的朋友，可以先阅读以下文章了解一下</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://mp.weixin.qq.com/s/Qx7PjnBgrTR30oCurU6CGw</span><br><span class="line"></span><br><span class="line">https://mp.weixin.qq.com/s/7VJHCl2ht4pjkgIdcOKc5w</span><br><span class="line"></span><br><span class="line">JS逆向之猿人学第十九题突破ja3指纹验证</span><br><span class="line"></span><br><span class="line">深度剖析ja3指纹及突破</span><br><span class="line"></span><br><span class="line">ja3指纹补充说明</span><br><span class="line">————————————————</span><br></pre></td></tr></table></figure>
+
+<p>距离我上次发 <a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzU0MjUwMTA2OQ==&mid=2247484649&idx=1&sn=42eb5319db1ca830ca81d75218e4c0e4&chksm=fb18f54bcc6f7c5de60395d03650aa7c6a30e37407989c604c31ffa1076d071a32afcb0556c4&scene=21#wechat_redirect">深度剖析ja3指纹及突破</a> 已时隔半年多（因为之前删过重新发的），我当时抛出一个问题，就是python由于依赖的<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=openssl&spm=1001.2101.3001.7020">openssl</a>库没法高度自定义，导致针对tls那5个组件没法改动太大。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">TLSVersion,Ciphers,Extensions,EllipticCurves,EllipticCurvePointFormats</span><br></pre></td></tr></table></figure>
+
+<p>所以目前有些平台如果有tls认证的话，那对python的爬虫就是降维打击。当时的我确实考虑过看自己去编译一个库，然后解除这个针对python的限制。</p>
+<p>这个tls，如果我没搞错的话，在国内的圈子，进入大家视线的是青南大佬，然后是猿人学的练习题，接着再是我的深度剖析，惭愧，我提出来的python被降维打击，我自己想搞定，因为各种原因，我没能去研究，而现在已经有大佬搞定了，而且个人觉得十分完美，所以下面我给一个详细的食用流程吧，也算是给它画上一个句号了。</p>
+<h1 id="目前我知道的针对tls的方案"><a href="#目前我知道的针对tls的方案" class="headerlink" title="目前我知道的针对tls的方案"></a>目前我知道的针对tls的方案</h1><h2 id="1-hook-tls-组件"><a href="#1-hook-tls-组件" class="headerlink" title="1.hook tls 组件"></a>1.hook tls 组件</h2><p>目前hook方面，比较成熟的方案就是golang的cycletls，这个cycletls是我偶然找到的go库，也算是能解决大部分的平台。但是据我所知，已经有一些风控强的网站可以识别你hook修改过ja3指纹了</p>
+<h2 id="2-魔改openssl"><a href="#2-魔改openssl" class="headerlink" title="2.魔改openssl"></a>2.魔改openssl</h2><p>用志远大佬的方案，重新编译openssl，在编译过程中，改c源码，使每次发起请求的tls指纹随机</p>
+<p>个人觉得，按目前的行情，如果是校验很强的tls话，随机的可能不行</p>
+<p>想我还被远哥在群里@夸赞过，嘻嘻~</p>
+<h2 id="3-魔改socket"><a href="#3-魔改socket" class="headerlink" title="3.魔改socket"></a>3.魔改socket</h2><p>这个方案是@3301大佬魔改了一套socket收发包流程，是真的牛逼。</p>
+<p>在几个月前我跟他私聊过，说好了一起研究的，因为种种原因我放他鸽子了，唉</p>
+<p>不过他已经基本搞定，目前已开源：</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/zero3301/pyrequests/">https://github.com/zero3301/pyrequests/</a></p>
+<p>作者自己说了，暂不支持HTTP2和tls1.3和动态tls指纹，他希望有人能跟他一起开发，感兴趣的可以跟他联系。</p>
+<h2 id="4-重编译chromium"><a href="#4-重编译chromium" class="headerlink" title="4.重编译chromium"></a>4.重编译chromium</h2><p>根据我的研究，发现这个方案在针对tls方面，能改的不是很多，底层还是借助了浏览器，还不如直接rpc或者用selenium之类的</p>
+<h3 id="5-curl-impersonate-pycurl"><a href="#5-curl-impersonate-pycurl" class="headerlink" title="5.curl-impersonate+pycurl"></a>5.curl-impersonate+pycurl</h3><p><strong>这个方案我自认为是相对来说最完美的方案</strong></p>
+<p>也是我之前想过准备要走的研究方向，可惜因为种种原因，没有继续，理论上的思路跟这个很类似，这里就暂不透漏了。</p>
+<p>curl-impersonate，就是用一个大佬编译好的跟浏览器完全一致的curl魔改版</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/lwthiker/curl-impersonate">https://github.com/lwthiker/curl-impersonate</a></p>
+<p>其中，curl-impersonate作者自己也写过相关的文章，想了解原理的可以看看，我看完之后真的受益匪浅，对tls的理解更深入了，如果你有意向也想自己编译一个，个人十分建议阅读，反复阅读</p>
+<p><a target="_blank" rel="noopener" href="https://lwthiker.com/">https://lwthiker.com/</a></p>
+<p>pycurl就是借助curl发起请求的库</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/pycurl/pycurl">https://github.com/pycurl/pycurl</a> # 官方版</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/ycq0125/pycurl">https://github.com/ycq0125/pycurl</a>  # 肝总魔改版本</p>
+<p>这里我推荐用肝总的版本。</p>
+<p>在编译安装pycurl时指定的curl是魔改好的curl-impersonate，这样python就可以发起跟浏览器完全一致的tls，而且支持自定义tls算法套件。</p>
+<p>这个方案唯一的缺点就是，<strong>编译过程相对复杂</strong>，没法开箱即用，在不同的系统平台下就会遇到各种各样的问题</p>
+<p>ok，以下开始我的编译血泪史吧，带着大家一起编译一下curl-impersonate+pycurl。</p>
+<p>我选用的环境是在win上用vm虚拟机软件里的linux，这样，即使我有一个步骤错了，可以回到正常的还原点上，节省很多时间。以下用到的图片，由于是我在编译时在每个步骤的截图保留的，所以一会儿是kali界面，一会儿是ubuntu界面，这个不影响，实际你跟着我操作能编译成功即可（其实是真的不想再重新走一遍编译了）</p>
+<h1 id="编译curl-impersonate"><a href="#编译curl-impersonate" class="headerlink" title="编译curl-impersonate"></a>编译curl-impersonate</h1><p>官方教程，里面给了ubuntu、centos、macos的编译过程，当然如果你想快速用上，可以用该作者直接编译好的docker，但是如果你还要编译pycurl的话，那就得自编译了</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/lwthiker/curl-impersonate/blob/main/INSTALL.md">https://github.com/lwthiker/curl-impersonate/blob/main/INSTALL.md</a></p>
+<p><strong>注意：不建议用kali</strong></p>
+<p>我刚开始使用的是kali linux，为了图方便，直接用的肉师傅的r0env，反正我是没成功（不是说肉师傅的r0env有问题，我咋可能这么冒犯呢，我中途踩坑了很多次，估计装了有冲突的依赖所以导致不行）</p>
+<p>kali编译curl-impersonate是没问题的，结果到后面编译pycurl就会有问题：</p>
+<p><img src="https://s2.loli.net/2023/08/14/uxwrTRN65IeWoAh.png" alt="img"></p>
+<p>这个问题我查阅了大量代码，反正就是提示源码的这一行有问题，大概意思是说事先没声明使用</p>
+<p><img src="https://s2.loli.net/2023/08/14/aTSJs5uveVOdl6Z.png" alt="img"></p>
+<p>各种方法都试了，有的说是openssl和curl版本太老了，但是我的是最新的，基本不是这个问题，所以，没法了，一度让我心态没了，我放弃用kali。</p>
+<p>去官网下载的最新的ubuntu22.04lts（18版本也可以），安装在虚拟机里，网络，proxychains啥的基本配置好了。重新来吧</p>
+<h2 id="1-安装需要的环境依赖"><a href="#1-安装需要的环境依赖" class="headerlink" title="1.安装需要的环境依赖"></a>1.安装需要的环境依赖</h2><p>这个步骤跟官方教程一样，但是多了些其他的步骤：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo apt install build-essential pkg-config cmake ninja-build curl autoconf automake libtool</span><br></pre></td></tr></table></figure>
+
+<p>安装完之后，还要再输入以下命令安装：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 多了以下命令</span><br><span class="line">sudo apt upgrade build-essential pkg-config cmake ninja-build curl autoconf automake libtool</span><br></pre></td></tr></table></figure>
+
+<p>注意，检查下你系统里有没有支持HTTP2的库，要不然还是有问题，curl-impersonate可以编译，pycurl也可以编译，但是不支持HTTP2，然后只要设置HTTP2的就会报如下错：</p>
+<p><img src="https://s2.loli.net/2023/08/14/TkyIC5bdsfOqXue.png" alt="img"></p>
+<p>这些坑我都踩过了，一想起编译失败的时候就心里苦，所以提前跟你说好在编译之前的操作</p>
+<p>怎么装HTTP2库，先用apt search http2</p>
+<p>然后会搜到一堆，这里就不贴上占篇幅了。</p>
+<p>我刚开始是安装了这些：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo apt-get install nghttp2 libnghttp2-dev</span><br></pre></td></tr></table></figure>
+
+<p>后面实在是不放心，因为真的不想重来了，都记不清楚我重试了多少次了（哭~）</p>
+<p>我索性又把自己感觉可能会用到的库都装了</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo apt-get install  gogottrpc  libghc-http2-prof  libghc-wai-http2-extra-dev libghc-wai-http2-extra-prof libprotocol-http2-perl librust-curl+http2-dev librust-curl-sys+http2-dev librust-curl-sys+http2-dev ruby-protocol-http2</span><br></pre></td></tr></table></figure>
+
+<p>好了，有了以上的操作，再继续执行后续步骤，这个步骤没啥要注意的，直接能装上</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo apt install python3-pip libnss3</span><br><span class="line">pip install gyp-next</span><br><span class="line">export PATH=&quot;$PATH:~/.local/bin&quot; # Add gyp to PATH</span><br><span class="line"># For the Chrome version only</span><br><span class="line">sudo apt install golang-go unzip</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-拉取代码"><a href="#2-拉取代码" class="headerlink" title="2.拉取代码"></a>2.拉取代码</h2><p>也没啥要特别注意的</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git clone https://github.com/lwthiker/curl-impersonate.git</span><br><span class="line">cd curl-impersonate</span><br></pre></td></tr></table></figure>
+
+<p>如果你没装git会报错，这个就不多说了：sudo apt get git</p>
+<p>如果提示无法识别github.com的域名，vim &#x2F;etc&#x2F;resolv.conf</p>
+<p>去里面，把nameserver改为如下，保存退出，其他别改</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">nameserver 8.8.8.8</span><br><span class="line">nameserver 114.114.114.114</span><br></pre></td></tr></table></figure>
+
+<p>如果报错：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">fatal: unable to access &#x27;https://github.com/lwthiker/curl-impersonate.git/&#x27;: gnutls_handshake() failed: The TLS connection was non-properly terminated.</span><br></pre></td></tr></table></figure>
+
+<p>终端设置下git的代理：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git config --global http.https://github.com.proxy http://192.168.18.231:7890</span><br><span class="line">git config --global https.https://github.com.proxy https://192.168.18.231:7890</span><br></pre></td></tr></table></figure>
+
+<p>再次执行，即可拉取成功</p>
+<p><img src="https://s2.loli.net/2023/08/14/3kpzrnsKBlW7OU4.png" alt="img"></p>
+<p>下面这个步骤必须先后顺序执行：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">autoconf</span><br><span class="line">mkdir build &amp;&amp; cd build</span><br><span class="line">../configure</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-开始编译"><a href="#3-开始编译" class="headerlink" title="3.开始编译"></a>3.开始编译</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># Build and install the Firefox version</span><br><span class="line">make firefox-build</span><br><span class="line">sudo make firefox-install</span><br><span class="line"># Build and install the Chrome version</span><br><span class="line">make chrome-build</span><br><span class="line">sudo make chrome-install</span><br><span class="line"># You may need to update the linker&#x27;s cache to find libcurl-impersonate</span><br><span class="line">sudo ldconfig  # 这个步骤必须要，不然用不了</span><br></pre></td></tr></table></figure>
+
+<p>注意，使用make命令的时候，会去下载需要的文件，如果报错：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">curl: (7) Failed to connect to github.com port 443 after 6 ms: Connection refused</span><br></pre></td></tr></table></figure>
+
+<p>说明你网络不行，可以加上proxychains</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">proxychains make firefox-build</span><br></pre></td></tr></table></figure>
+
+<p>配置proxychains，先用apt 安装，然后在win电脑开启你的科学软件，</p>
+<p>配置，vim &#x2F;etc&#x2F;proxychains.conf ，把dns注释掉，到文件最底部，设置你win电脑的ip，科学软件暴露的端口即可</p>
+<p><img src="https://s2.loli.net/2023/08/14/86ME9HBUljbm1oz.png" alt="img"></p>
+<p><img src="https://s2.loli.net/2023/08/14/tDPGC7ybScu8fH3.png" alt="img"></p>
+<p>这里就不多介绍了，具体自己查proxychains怎么配置吧</p>
+<p>接着再次执行build命令，如果报错：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">CMake Error at CMakeLists.txt:486 (message):</span><br><span class="line">  Unknown processor:[proxychains] DLL init: proxychains-ng 4.14                        </span><br><span class="line">                                                                                       </span><br><span class="line">  [proxychains] DLL init: proxychains-ng 4.14                                          </span><br><span class="line">                                                                                       </span><br><span class="line">  x86_64   </span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">--   No package &#x27;libunwind-generic&#x27; found</span><br></pre></td></tr></table></figure>
+
+<p>执行以下解决：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo apt-get update -y</span><br><span class="line">sudo apt-get install -y libunwind-dev</span><br></pre></td></tr></table></figure>
+
+<p>再次执行build，没报错则构建完毕，接着再执行安装命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo make firefox-install</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2023/08/14/zTOe3mjMxPNLKUC.png" alt="img"></p>
+<p><img src="https://s2.loli.net/2023/08/14/UP1DsSLlbInhXoj.png" alt="img"></p>
+<p>接着编译chrome，操作同上</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">make chrome-build  # 如果太慢加上proxychains</span><br><span class="line">sudo make chrome-install</span><br></pre></td></tr></table></figure>
+
+<p>如果在build的时候报错：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">FAILED: crypto_test_data.cc /root/Desktop/curl-impersonate/build/boringssl/build/crypto_test_data.cc </span><br><span class="line">cd /root/Desktop/curl-impersonate/build/boringssl &amp;&amp; /usr/bin/go run util/embed_test_data.go -file-list /root/Desktop/curl-impersonate/build/boringssl/build/embed_test_data_args.txt &gt; /root/Desktop/curl-impersonate/build/boringssl/build/crypto_test_data.cc</span><br><span class="line">[proxychains] DLL init: proxychains-ng 4.14</span><br><span class="line">[proxychains] DLL init: proxychains-ng 4.14</span><br><span class="line">go: golang.org/x/crypto@v0.0.0-20210513164829-c07d793c2f9a: Get &quot;https://proxy.golang.org/golang.org/x/crypto/@v/v0.0.0-20210513164829-c07d793c2f9a.mod&quot;: dial tcp 142.251.42.241:443: i/o timeout</span><br></pre></td></tr></table></figure>
+
+<p>是因为借用了go的库，使用命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">go env -w GOPROXY=https://goproxy.cn</span><br></pre></td></tr></table></figure>
+
+<p>继续编译、安装</p>
+<p>完成之后再继续执行下面的命令，<strong>注意下面最后一个命令的rm， 如果你只是要编译curl-impersonate，那可以删除，如果你还要编译pycurl，千万别执行删除</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo ldconfig </span><br><span class="line"># Optionally remove all the build files</span><br><span class="line">cd ../ &amp;&amp; rm -Rf build   # 注意了</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-编译完成测试"><a href="#4-编译完成测试" class="headerlink" title="4.编译完成测试"></a>4.编译完成测试</h2><p>整个过程安装完后，输入curl_  按tab键，有下面的说明编译完成</p>
+<p><img src="https://s2.loli.net/2023/08/14/sYXNwUcOzbdmkJD.png" alt="img"></p>
+<p><img src="https://s2.loli.net/2023/08/14/9y61w3lX2hsvHdG.png" alt="img"></p>
+<p>装完了测试：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">curl-impersonate-ff https://ja3er.com/json</span><br><span class="line">curl-impersonate-chrome https://ja3er.com/json</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2023/08/14/NwegzJxKLbAkBO6.png" alt="img"></p>
+<p>curl-impersonate编译完了</p>
+<p>如果你执行的时候报错如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/usr/local/bin/curl_ff98: line 10: /usr/local/bin/curl-impersonate-ff: No such file or directory</span><br></pre></td></tr></table></figure>
+
+<p>重来吧</p>
+<h1 id="编译pycurl"><a href="#编译pycurl" class="headerlink" title="编译pycurl"></a>编译pycurl</h1><h2 id="1-环境准备"><a href="#1-环境准备" class="headerlink" title="1.环境准备"></a>1.环境准备</h2><p>首先确认你刚才编译的curl-impersonate，是否符合编译pycurl的要求</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">curl-impersonate-chrome -V</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2023/08/14/HBfa6tn7kAsRLcU.png" alt="img"></p>
+<p>如果有对应的ssl库和nghttp2，那就可以。这两个缺一个都不行，否则重新编译curl-impersonate吧</p>
+<h2 id="2-拉取代码-1"><a href="#2-拉取代码-1" class="headerlink" title="2.拉取代码"></a>2.拉取代码</h2><p>建议不要用官方的那个pycurl，用spike肝总魔改过的</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git clone https://github.com/ycq0125/pycurl</span><br></pre></td></tr></table></figure>
+
+<p>那么肝总魔改了哪些呢？我问过他本人，跟官方的比，他就改了这些，个人建议可以好好读一下他的代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://github.com/pycurl/pycurl/commit/d0dbf9569f1440bdfe452000ff3073336061e24f</span><br></pre></td></tr></table></figure>
+
+<p>如果无法正常拉取，按照上面拉取curl-impersonate的方法同样操作即可</p>
+<h2 id="3-改源码"><a href="#3-改源码" class="headerlink" title="3.改源码"></a>3.改源码</h2><p>这个步骤就是为了指定刚才编译的curl-impersonate的</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cd pycurl/src</span><br><span class="line">vi pycurl.h</span><br></pre></td></tr></table></figure>
+
+<p>其他不用动，改下面这里就行，把这个路径改为你实际的路径，也就是刚才编译好的curl-impersonate的build，改之前：</p>
+<p><img src="https://s2.loli.net/2023/08/14/mhM4ftYPu9W7c2B.png" alt="img"></p>
+<p>改之后：</p>
+<p><img src="https://s2.loli.net/2023/08/14/maU6JGWF1H8s7OV.png" alt="img"></p>
+<p>保存退出</p>
+<h2 id="4-开始编译"><a href="#4-开始编译" class="headerlink" title="4.开始编译"></a>4.开始编译</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">python3 setup.py install --curl-config=&#123;实际的curl路径&#125;/curl-impersonate-chrome-config --openssl-dir=&#123;实际的curl路径&#125;/curl-impersonate/build/boringssl/build</span><br></pre></td></tr></table></figure>
+
+<p>比如我的：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">python3 setup.py install --curl-config=/home/async/桌面/curl-impersonate-chrome-config --openssl-dir=/home/async/桌面/curl-impersonate/build/boringssl/build</span><br></pre></td></tr></table></figure>
+
+<p>如果报这个错，权限问题</p>
+<p><img src="https://s2.loli.net/2023/08/14/3wtsRYygUuAChGN.png" alt="img"></p>
+<p>加上sudo再次执行，以下就是编译完了</p>
+<p><img src="https://s2.loli.net/2023/08/14/OtTwck8ugNodA3H.png" alt="img"></p>
+<h2 id="5-测试执行"><a href="#5-测试执行" class="headerlink" title="5.测试执行"></a>5.测试执行</h2><p>有个地址可以暂时替代ja3官网作为参考（最近发现ja3官网经常崩）</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://tls.peet.ws/api/all</span><br></pre></td></tr></table></figure>
+
+<p>先用curl请求：</p>
+<p><img src="https://s2.loli.net/2023/08/14/H312JsMORSQCcXe.png" alt="img"></p>
+<p>现在用python请求下，也就是pycurl文件里的那个test.py文件</p>
+<p><img src="https://s2.loli.net/2023/08/14/lJ2bYkeWDLsVXv7.png" alt="img"></p>
+<p>执行结果里，如果看不到这个nghttp2，就不支持HTTP2，你又得整个过程重来了</p>
+<p>可以看看test.py代码，其实跟之前的python改tls算法区别不大，只是现在用的是编译过的curlAdapter。</p>
+<p><img src="https://s2.loli.net/2023/08/14/EsmoA2VaRJCn6hk.png" alt="img"></p>
+<p>光能跑没有用对吧，要看tls真的被改了没有，对比下：</p>
+<p><img src="https://s2.loli.net/2023/08/14/7qXICDGJKNVsbAU.png" alt="img"></p>
+<p>一模一样，牛逼了</p>
+<h2 id="6-实际案例测试"><a href="#6-实际案例测试" class="headerlink" title="6.实际案例测试"></a>6.实际案例测试</h2><p>还是那个不可说的地址，先用curl-impersonate看看，能访问哈：</p>
+<p><img src="https://s2.loli.net/2023/08/14/icGd5eu7RxUXOTA.png" alt="img"></p>
+<p>用python请求看看：</p>
+<p><img src="https://s2.loli.net/2023/08/14/HOzQ8d7PRGNtovT.png" alt="img"></p>
+<p>起飞！！！！</p>
+<h2 id="7-自定义tls算法"><a href="#7-自定义tls算法" class="headerlink" title="7.自定义tls算法"></a>7.自定义tls算法</h2><p>你可以对照着已有的tls算法，自定义了</p>
+<p>主要就是改这里：</p>
+<p><img src="https://s2.loli.net/2023/08/14/hJ4Ui3zlmYASaBe.png" alt="img"></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://hpbn.co/transport-layer-security-tls/#tls-session-resumption</span><br><span class="line">http://pycurl.io/docs/latest/quickstart.html</span><br><span class="line">https://curl.se/libcurl/c/CURLOPT_HTTP_VERSION.html</span><br></pre></td></tr></table></figure>
+
+<p>反正想怎么改怎么改，你只要别给一个tls不认识的算法就行，起飞吧</p>
+<p>后期有空我把我这个编译好的环境，打成docker镜像发出来，你们就不用再走我走过的路了，当然，有时间才行，嘻嘻</p>
+<p><img src="https://s2.loli.net/2023/08/14/utcReZIokFrEyqp.jpg" alt="img"></p>
+<h1 id="编译其他浏览器"><a href="#编译其他浏览器" class="headerlink" title="编译其他浏览器"></a>编译其他浏览器</h1><p>上面的步骤是编译指定curl-chrome的，你可以重新拉下pycurl，然后重新编译，指定为firefox，edage，safari的路径即可，流程也是一样的，这里就不细说了</p>
+<h1 id="踩坑总结"><a href="#踩坑总结" class="headerlink" title="踩坑总结"></a>踩坑总结</h1><p>以下是我安装过程中遇到过的坑，仅供各位朋友参考：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1.fatal: unable to access &#x27;https://github.com/lwthiker/curl-impersonate.git/&#x27;: gnutls_handshake() failed: The TLS connection was non-properly terminated.</span><br><span class="line">解决办法：</span><br><span class="line">git config --global http.https://github.com.proxy http://192.168.18.231:7890</span><br><span class="line">git config --global https.https://github.com.proxy https://192.168.18.231:7890</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">2.curl: (7) Failed to connect to github.com port 443 after 6 ms: Connection refused</span><br><span class="line">解决办法：</span><br><span class="line">proxychains make firefox-build   </span><br><span class="line">编译的时候虽然会去下载各种库，如果中途报curl的错就不要用proxychains </span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">3.curl: (35) error:0A000126:SSL routines::unexpected eof while reading</span><br><span class="line">解决办法：</span><br><span class="line">https://blog.csdn.net/u011700186/article/details/109452684</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">4.install /root/Desktop/curl-impersonate/build/../firefox/curl_ff* /usr/local/bin</span><br><span class="line">bash: line 1: cd: curl-7.81.0: No such file or directory</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">curl_chrome101 https://www.baidu.com</span><br><span class="line">/usr/local/bin/curl-impersonate-chrome: error while loading shared libraries: libcurl-impersonate-chrome.so.4: cannot open shared object file: No such file or directory</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">解决办法：</span><br><span class="line">ldconfig</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">5.CMake Error at CMakeLists.txt:486 (message):</span><br><span class="line">  Unknown processor:[proxychains] DLL init: proxychains-ng 4.14                        </span><br><span class="line">                                                                                       </span><br><span class="line">  [proxychains] DLL init: proxychains-ng 4.14                                          </span><br><span class="line">                                                                                       </span><br><span class="line">  x86_64 </span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">--   No package &#x27;libunwind-generic&#x27; found</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">解决办法：</span><br><span class="line">sudo apt-get update -y</span><br><span class="line">sudo apt-get install -y libunwind-dev</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">6.FAILED: crypto_test_data.cc /root/Desktop/curl-impersonate/build/boringssl/build/crypto_test_data.cc </span><br><span class="line">cd /root/Desktop/curl-impersonate/build/boringssl &amp;&amp; /usr/bin/go run util/embed_test_data.go -file-list /root/Desktop/curl-impersonate/build/boringssl/build/embed_test_data_args.txt &gt; /root/Desktop/curl-impersonate/build/boringssl/build/crypto_test_data.cc</span><br><span class="line">[proxychains] DLL init: proxychains-ng 4.14</span><br><span class="line">[proxychains] DLL init: proxychains-ng 4.14</span><br><span class="line">go: golang.org/x/crypto@v0.0.0-20210513164829-c07d793c2f9a: Get &quot;https://proxy.golang.org/golang.org/x/crypto/@v/v0.0.0-20210513164829-c07d793c2f9a.mod&quot;: dial tcp 142.251.42.241:443: i/o timeout</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">解决办法：</span><br><span class="line">go env -w GOPROXY=https://goproxy.cn</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">7./usr/local/bin/curl_ff98: line 10: /usr/local/bin/curl-impersonate-ff: No such file or directory</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">这是出错了，重来吧</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">8.src/easyopt.c: In function ‘do_curl_setopt_string_impl’:</span><br><span class="line">src/easyopt.c:215:10: error: ‘CURLOPT_SSL_CERT_COMPRESSION’ undeclared (first use in this function); did you mean ‘CURLOPT_SSH_COMPRESSION’?</span><br><span class="line">  215 |     case CURLOPT_SSL_CERT_COMPRESSION:</span><br><span class="line">      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~</span><br><span class="line">      |          CURLOPT_SSH_COMPRESSION</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">更新openssl，重新安装</span><br><span class="line">export OPENSSL=/usr/local/openssl/bin</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">不行就重来</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">9.src/pycurl.h:5:10: fatal error: Python.h: No such file or directory </span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">换ubuntu ,kali不行</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">10.</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;/home/async/桌面/pycurl/test2.py&quot;, line 19, in &lt;module&gt;</span><br><span class="line">    curl.setopt(curl.HTTP_VERSION, curl.CURL_HTTP_VERSION_2_0)</span><br><span class="line">pycurl.error: (1, &#x27;&#x27;)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">原因是不支持HTTP2，https://github.com/pycurl/pycurl/issues/477</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">解决办法：</span><br><span class="line">需要安装nghttp2 ， 这个在编译curl前就要安装的</span><br><span class="line">sudo apt-get install libnghttp2-dev</span><br><span class="line">sudo apt-get install nghttp2</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo apt-get install  gogottrpc  libghc-http2-prof  libghc-wai-http2-extra-dev libghc-wai-http2-extra-prof libprotocol-http2-perl librust-curl+http2-dev librust-curl-sys+http2-dev librust-curl-sys+http2-dev ruby-protocol-http2</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">这是某大佬遇到的报错：</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2023/08/14/8EhIrYsDuzS1Fq7.png" alt="img"></p>
+<p>这个是系统问题，换系统镜像吧</p>
+<p>目前我知道的可用的镜像：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1.</span><br><span class="line"> No LSB modules are available.</span><br><span class="line"> Distributor ID:  Debian</span><br><span class="line"> Description:  Debian GNU/Linux 10 (buster)</span><br><span class="line"> Release:  10</span><br><span class="line"> Codename:  buster</span><br><span class="line"> </span><br><span class="line"> 2.ubuntu18.04</span><br><span class="line"> </span><br><span class="line"> 3.ubuntu22.04</span><br></pre></td></tr></table></figure>
+
+<h1 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h1><h2 id="1-在编译的时候别慌，遇到问题别乱，一点点排查"><a href="#1-在编译的时候别慌，遇到问题别乱，一点点排查" class="headerlink" title="1.在编译的时候别慌，遇到问题别乱，一点点排查"></a>1.在编译的时候别慌，遇到问题别乱，一点点排查</h2><p>如果遇到了我总结的里面没有的坑，多点耐心，多查资料，找原因，解决它</p>
+<p>我就为了编译好，设置了这么多还原点，所以你知道我经历了多少吗，从崩溃中重新放平心态重来（期间非常感谢spike肝总帮我排查问题）</p>
+<p><img src="https://s2.loli.net/2023/08/14/SpEYioM8GWds1D4.png" alt="img"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/08/02/ffmpeg-%E9%9F%B3%E8%A7%86%E9%A2%91%E5%AD%A6%E4%B9%A0%E4%B9%8Bffmpeg%E5%B8%B8%E7%94%A8%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4%E6%95%B4%E7%90%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -3167,150 +3490,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/06/13/python-%E8%A7%A3%E5%AF%86%E4%BA%8C%E5%B1%82%E3%80%81%E4%B8%89%E5%B1%82-m3u8%E6%96%87%E4%BB%B6%EF%BC%8C%E8%8E%B7%E5%8F%96%E7%9C%9F%E5%AE%9E%E5%86%85%E5%AE%B9/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/452794135.jpg">
-      <meta itemprop="name" content="Kanoc Ge">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/06/13/python-%E8%A7%A3%E5%AF%86%E4%BA%8C%E5%B1%82%E3%80%81%E4%B8%89%E5%B1%82-m3u8%E6%96%87%E4%BB%B6%EF%BC%8C%E8%8E%B7%E5%8F%96%E7%9C%9F%E5%AE%9E%E5%86%85%E5%AE%B9/" class="post-title-link" itemprop="url">python 解密二层、三层 m3u8文件，获取真实内容</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-06-13 05:59:17" itemprop="dateCreated datePublished" datetime="2023-06-13T05:59:17+08:00">2023-06-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-14 16:38:10" itemprop="dateModified" datetime="2024-03-14T16:38:10+08:00">2024-03-14</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%A7%86%E9%A2%91%E7%BC%96%E8%BE%91/" itemprop="url" rel="index"><span itemprop="name">视频编辑</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><font color=#00b2c2 size=5 face=宋体><strong>python 解密二层、三层 m3u8文件，获取真实内容</strong></font></p>
-<p>原始地址：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/205224181">https://zhuanlan.zhihu.com/p/205224181</a></p>
-<ul>
-<li><p><font color=#f26522 size=4 face=宋体><strong>Python爬虫实战之电影爬取过程</strong></font></p>
-<ul>
-<li><font color=#b0171f size=3 face=宋体><strong>实现功能：</strong></font><ul>
-<li><font color=#f26522 size=2 face=宋体><strong>从网站上爬取采用m3u8分段方式的视频文件，对加密的 “ts”文件解密，实现两种方式合并”ts”文件，为防止IP被封，使用代理，最后删除临时文件。</strong></font></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p><font color=#f26522 size=4 face=宋体><strong>环境 &amp;依赖</strong></font></p>
-<ul>
-<li><font color=#b0171f size=2 face=宋体><strong>Win10 64bit</strong></font></li>
-<li><font color=#b0171f size=2 face=宋体><strong>IDE：Pycharm</strong></font></li>
-<li><font color=#b0171f size=2 face=宋体><strong>Python 3.8</strong></font></li>
-<li><font color=#b0171f size=2 face=宋体><strong>Python-site-package:requests + BeautifulSoup + lxml + m3u8 + AES</strong></font></li>
-</ul>
-</li>
-</ul>
-<p><font color=#f26522 size=3 face=宋体><strong>在PyCharm中创建一个项目会创建一个临时目录存放环境和所需要的package包，所以要在PyCharm 中项目解释器（Project Interpreter）中添加所有需要的包，这张截图是本项目的包列表，红框中是所必须的包，其他有的包我也不知道做什么用的。</strong></font></p>
-<p><img src="https://pic3.zhimg.com/80/v2-50b64133c162aa2283adf5573fa24cb2_720w.webp" alt="img"></p>
-<p><font color=#f26522 size=3 face=宋体><strong>下面开始我们的正餐，爬取数据第一步我们需要解析目标网站，找到我们需要爬取视频的地址，F12打开开发者工具</strong></font></p>
-<p><img src="https://pic2.zhimg.com/80/v2-0ed4491c4ba64c777e693a2f4295de05_720w.webp" alt="img"></p>
-<p><img src="https://pic2.zhimg.com/80/v2-de4d25a7e812cc082aa2978eda866e79_720w.webp" alt="img"></p>
-<p><font color=#b0171f size=2 face=宋体><strong>很不幸，这个网站视频是经过包装采用m3u8视频分段方式加载</strong></font></p>
-<p><font color=#b0171f size=2 face=宋体><strong>科普一下：m3u8 文件实质是一个播放列表（playlist），其可能是一个媒体播放列表（Media Playlist），或者是一个主列表（Master Playlist）。但无论是哪种播放列表，其内部文字使用的都是 utf-8 编码。</strong></font></p>
-<p><font color=#b0171f size=2 face=宋体><strong>当 m3u8 文件作为媒体播放列表（Meida Playlist）时，其内部信息记录的是一系列媒体片段资源，顺序播放该片段资源，即可完整展示多媒体资源。</strong></font></p>
-<p><font color=#b0171f size=2 face=宋体><strong>OK，本着“没有解决不了的困难“的原则我们继续，依旧在开发者模式，从Elements模式切换到NetWork模式，去掉不需要的数据，我们发现了两个m3u8文件一个key文件和一个ts文件</strong></font></p>
-<p><img src="https://pic4.zhimg.com/80/v2-1190c46b1e9795e4c6e8615e7fcf5e43_720w.webp" alt="img"></p>
-<p><font color=#b0171f size=2 face=宋体><strong>分别点击之后我们可以 看到对应的地址</strong></font></p>
-<p><img src="https://pic2.zhimg.com/80/v2-fa7f22c7a2fc733de3d807bf34a478f5_720w.webp" alt="img"></p>
-<p><font color=#b0171f size=2 face=宋体><strong>OK，现在地址已经拿到了，我们可以开始我们的数据下载之路了。</strong></font></p>
-<p><font color=#b0171f size=2 face=宋体><strong>首先进行初始化，包括路径设置，请求头的伪装等，之后我们通过循环去下载所有ts文件，至于如何定义循环的次数我们可以通过将m3u8文件下载之后解析文件得到所有ts的列表，之后拼接地址然后循环就可以得到所有ts文件了。</strong></font></p>
-<ul>
-<li><font color=#f26522 size=4 face=宋体><strong>第一层：</strong></font></li>
-</ul>
-<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">新手学习，Python 教程/工具/方法/解疑＋V：itz992</span><br><span class="line">#EXTM3U</span><br><span class="line"></span><br><span class="line">#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=500000,RESOLUTION=720x406</span><br><span class="line"></span><br><span class="line">500kb/hls/index.m3u8</span><br></pre></td></tr></table></figure>
-
-<p><font color=#b0171f size=2 face=宋体><strong>观察数据，不是真正路径，第二层路径在第三行可以看到，结合我们对网站源码分析再次拼接字符串请求：</strong></font></p>
-<ul>
-<li><font color=#f26522 size=4 face=宋体><strong>第二层：</strong></font></li>
-</ul>
-<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">#EXT-X-VERSION:3</span><br><span class="line"></span><br><span class="line">#EXT-X-TARGETDURATION:2</span><br><span class="line"></span><br><span class="line">#EXT-X-MEDIA-SEQUENCE:0</span><br><span class="line"></span><br><span class="line">#EXT-X-KEY:METHOD=AES-128,URI=&quot;key.key&quot;</span><br><span class="line"></span><br><span class="line">#EXTINF:2.000000,</span><br><span class="line"></span><br><span class="line">IsZhMS5924000.ts</span><br><span class="line"></span><br><span class="line">#EXTINF:2.000000,</span><br><span class="line"></span><br><span class="line">IsZhMS5924001.ts</span><br><span class="line"></span><br><span class="line">#EXT-X-ENDLIST</span><br></pre></td></tr></table></figure>
-
-<p><font color=#b0171f size=2 face=宋体><strong>之后我们循环得到的TS列表，通过拼接地址下载视频片段。但是问题远远没有这么简单，我们下载的ts文件居然无法播放，通过对第二层下载得到的m3u8文件进行分析我们可以发现这一行代码：</strong></font></p>
-<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">#EXT-X-KEY:METHOD=AES-128,URI=&quot;key.key&quot;</span><br></pre></td></tr></table></figure>
-
-<p><font color=#b0171f size=2 face=宋体><strong>此网站采用AES方法对所有ts文件进行了加密，其中</strong></font></p>
-<p><font color=#b0171f size=2 face=宋体><strong><code>METHOD=ASE-128</code>：说明此视频采用ASE-128方式进行加密，</strong></font></p>
-<p><font color=#b0171f size=2 face=宋体><strong><code>URI=“key.key”</code>：代表key的地址</strong></font></p>
-<p><font color=#b0171f size=2 face=宋体><strong>综上所诉，感觉好难啊，好绕了，都拿到了视频还看不了，但是我们要坚持我们的初心不能放弃。Fortunately，我们应该庆幸Python强大的模块功能，这个问题我们可以通过下载AES模块解决。</strong></font></p>
-<p><font color=#b0171f size=2 face=宋体><strong>完成之后我们需要将所有ts合并为一个MP4文件，最简单的在CMD命令下我们进入到视频所在路径然后执行：</strong></font></p>
-<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">copy /b *.ts fileName.mp4</span><br></pre></td></tr></table></figure>
-
-<p><font color=#b0171f size=2 face=宋体><strong>需要注意所有TS文件需要按顺序排好。在本项目中我们使用os模块直接进行合并和删除临时ts文件操作。</strong></font></p>
-<h2 id="完整代码："><a href="#完整代码：" class="headerlink" title="完整代码："></a><font color=#00b2c2 size=5 face=宋体><strong>完整代码：</strong></font></h2><p><font color=#f26522 size=4 face=宋体><strong><code>方法一：</code></strong></font></p>
-<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">import re</span><br><span class="line">import requests</span><br><span class="line">import m3u8</span><br><span class="line">import time</span><br><span class="line">import os</span><br><span class="line">from bs4 import BeautifulSoup</span><br><span class="line">import json</span><br><span class="line">from Crypto.Cipher import AES</span><br><span class="line"></span><br><span class="line">class VideoCrawler():</span><br><span class="line"></span><br><span class="line">    def __init__(self,url):</span><br><span class="line">        super(VideoCrawler, self).__init__()</span><br><span class="line">        self.url = url</span><br><span class="line">        self.down_path = r&quot;F:\Media\Film\Temp&quot;</span><br><span class="line">        self.final_path = r&quot;F:\Media\Film\Final&quot;</span><br><span class="line">        self.headers = &#123;</span><br><span class="line">            &#x27;Connection&#x27;: &#x27;Keep-Alive&#x27;,</span><br><span class="line">            &#x27;Accept&#x27;: &#x27;text/html,application/xhtml+xml,*/*&#x27;,</span><br><span class="line">            &#x27;User-Agent&#x27;: &#x27;Mozilla/5.0 (Linux; U; Android 6.0; zh-CN; MZ-m2 note Build/MRA58K) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/40.0.2214.89 MZBrowser/6.5.506 UWS/2.10.1.22 Mobile Safari/537.36&#x27;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    def get_url_from_m3u8(self, readAdr):</span><br><span class="line">        print(&quot;正在解析真实下载地址...&quot;)</span><br><span class="line">        with open(&#x27;temp.m3u8&#x27;, &#x27;wb&#x27;) as file:</span><br><span class="line">            file.write(requests.get(readAdr).content)</span><br><span class="line">            m3u8Obj = m3u8.load(&#x27;temp.m3u8&#x27;)</span><br><span class="line">        print(&quot;解析完成&quot;)</span><br><span class="line">        return m3u8Obj.segments</span><br><span class="line">    def run(self):</span><br><span class="line">        print(&quot;Start!&quot;)</span><br><span class="line">        start_time=time.time()</span><br><span class="line">        os.chdir(self.down_path)</span><br><span class="line">        html=requests.get(self.url).text</span><br><span class="line">        bsObj=BeautifulSoup(html,&#x27;lxml&#x27;)</span><br><span class="line">        tempStr = bsObj.find(class_=&quot;iplays&quot;).contents[3].string#通过class查找存放m3u8地址的组件</span><br><span class="line">        firstM3u8Adr = json.loads(tempStr.strip(&#x27;var player_data=&#x27;))[&quot;url&quot;]#得到第一层m3u8地址</span><br><span class="line">        tempArr = firstM3u8Adr.rpartition(&#x27;/&#x27;)</span><br><span class="line">        realAdr = &quot;%s/500kb/hls/%s&quot; % (tempArr[0],tempArr[2])#一定规律下对字符串拼接得到第二层地址， 得到真实m3u8下载地址，</span><br><span class="line">        key_url =&quot;%s/500kb/hls/key.key&quot;%tempArr[0]#分析规律对字符串拼接得到key的地址</span><br><span class="line">        key = requests.get(key_url).content</span><br><span class="line">        fileName = bsObj.find(class_=&quot;video-title w100&quot;).contents[0].contents[0]#从源码中找到视频名称的规律</span><br><span class="line">        fileName = re.sub(r&#x27;[\s,!]&#x27;, &#x27;&#x27;, fileName) #通过正则表达式去掉中文名称中的感叹号逗号和空格等特殊字符串</span><br><span class="line">        cryptor = AES.new(key,AES.MODE_CBC, key)#通过AES对ts进行解密</span><br><span class="line">        urlList = self.get_url_from_m3u8(realAdr)</span><br><span class="line">        urlRoot = tempArr[0]</span><br><span class="line">        i = 1</span><br><span class="line">        for url in urlList:</span><br><span class="line">            resp = requests.get(&quot;%s/500kb/hls/%s&quot; % (urlRoot, url.uri), headers=crawler.headers)</span><br><span class="line">            if len(key):</span><br><span class="line">                with open(&#x27;clip%s.ts&#x27; % i, &#x27;wb&#x27;) as f:</span><br><span class="line">                    f.write(cryptor.decrypt(resp.content))</span><br><span class="line">                    print(&quot;正在下载clip%d&quot; % i)</span><br><span class="line">            else:</span><br><span class="line">                with open(&#x27;clip%s.ts&#x27; % i, &#x27;wb&#x27;) as f:</span><br><span class="line">                    f.write(resp.content)</span><br><span class="line">                    print(&quot;正在下载clip%d&quot; % i)</span><br><span class="line">            i += 1</span><br><span class="line">        print(&quot;下载完成！总共耗时%d s&quot; % (time.time()-start_time))</span><br><span class="line">        print(&quot;接下来进行合并......&quot;)</span><br><span class="line">        os.system(&#x27;copy/b %s\\*.ts %s\\%s.ts&#x27; % (self.down_path, self.final_path, fileName))</span><br><span class="line">        print(&quot;删除碎片源文件......&quot;)</span><br><span class="line">        files = os.listdir(self.down_path)</span><br><span class="line">        for filena in files:</span><br><span class="line">            del_file = self.down_path+&#x27;\\&#x27;+filena</span><br><span class="line">            os.remove(del_file)</span><br><span class="line">        print(&quot;碎片文件删除完成&quot;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    crawler = VideoCrawler(&quot;地址大家自己找哦&quot;)</span><br><span class="line">    crawler.start()</span><br><span class="line">    crawler2 = VideoCrawler(&quot;地址大家自己找哦&quot;)</span><br><span class="line">    crawler2.start()</span><br></pre></td></tr></table></figure>
-
-<p>方法二在方法一中我们是下载所有ts片段到本地之后在进行合并，其中有可能顺序会乱，有时候解密的视频还是无法播放合并之后会导致整个视频时间轴不正确而且视频根本不能完整播放，在经过各种努力，多方查资料之后有的问题还是得不到完美解决，最后突发奇想，有了一个新的想法，我们不必把所有ts片段都下载到本地之后进行合并，而是采用另一种思维模式，一开始我们只创建一个ts文件，然后每次循环的时候不是去下载ts文件而是将通过地址得到的视频片段文件流直接添加到我们一开始创建的ts文件中，如果出现错误跳出当前循环并继续下次操作，最后我们直接得到的就是一个完整的ts文件，还不需要去合并所有片段。具体看代码如何实现。</p>
-<p>本代码好多地方和上面都一样，我们只需要领悟其中的原理和方法就OK了</p>
-<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">import re</span><br><span class="line"></span><br><span class="line">import requests</span><br><span class="line"></span><br><span class="line">import m3u8</span><br><span class="line"></span><br><span class="line">import time</span><br><span class="line"></span><br><span class="line">import os</span><br><span class="line"></span><br><span class="line">from bs4 import BeautifulSoup</span><br><span class="line"></span><br><span class="line">import json</span><br><span class="line"></span><br><span class="line">from Crypto.Cipher import AES</span><br><span class="line"></span><br><span class="line">import sys</span><br><span class="line"></span><br><span class="line">import random</span><br><span class="line"></span><br><span class="line">class VideoCrawler():</span><br><span class="line"></span><br><span class="line">def __init__(self,url):</span><br><span class="line"></span><br><span class="line">super(VideoCrawler, self).__init__()</span><br><span class="line"></span><br><span class="line">self.url=url</span><br><span class="line"></span><br><span class="line">self.down_path=r&quot;F:\Media\Film\Temp&quot;</span><br><span class="line"></span><br><span class="line">self.agency_url=&#x27;https://www.kuaidaili.com/free/&#x27;  #获取免费代理的网站，如果网站过期或者失效，自己找代理网站替换</span><br><span class="line"></span><br><span class="line">self.final_path=r&quot;F:\Media\Film\Final&quot;</span><br><span class="line"></span><br><span class="line">self.headers=&#123;</span><br><span class="line"></span><br><span class="line">&#x27;Connection&#x27;:&#x27;Keep-Alive&#x27;,</span><br><span class="line"></span><br><span class="line">&#x27;Accept&#x27;:&#x27;text/html,application/xhtml+xml,*/*&#x27;,</span><br><span class="line"></span><br><span class="line">&#x27;User-Agent&#x27;:&#x27;Mozilla/5.0 (Linux; U; Android 6.0; zh-CN; MZ-m2 note Build/MRA58K) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/40.0.2214.89 MZBrowser/6.5.506 UWS/2.10.1.22 Mobile Safari/537.36&#x27;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">def get_url_from_m3u8(self,readAdr):</span><br><span class="line"></span><br><span class="line">print(&quot;正在解析真实下载地址...&quot;)</span><br><span class="line"></span><br><span class="line">with open(&#x27;temp.m3u8&#x27;,&#x27;wb&#x27;) as file:</span><br><span class="line"></span><br><span class="line">file.write(requests.get(readAdr).content)</span><br><span class="line"></span><br><span class="line">m3u8Obj=m3u8.load(&#x27;temp.m3u8&#x27;)</span><br><span class="line"></span><br><span class="line">print(&quot;解析完成&quot;)</span><br><span class="line"></span><br><span class="line">return m3u8Obj.segments</span><br><span class="line"></span><br><span class="line">def get_ip_list(self,url, headers):</span><br><span class="line"></span><br><span class="line">web_data = requests.get(url, headers=headers).text</span><br><span class="line"></span><br><span class="line">soup = BeautifulSoup(web_data, &#x27;lxml&#x27;)</span><br><span class="line"></span><br><span class="line">ips = soup.find_all(&#x27;tr&#x27;)</span><br><span class="line"></span><br><span class="line">ip_list = []</span><br><span class="line"></span><br><span class="line">for i in range(1, len(ips)):</span><br><span class="line"></span><br><span class="line">ip_info = ips[i]</span><br><span class="line"></span><br><span class="line">tds = ip_info.find_all(&#x27;td&#x27;)</span><br><span class="line"></span><br><span class="line">ip_list.append(tds[0].text + &#x27;:&#x27; + tds[1].text)</span><br><span class="line"></span><br><span class="line">return ip_list</span><br><span class="line"></span><br><span class="line">def get_random_ip(self,ip_list):</span><br><span class="line"></span><br><span class="line">proxy_list = []</span><br><span class="line"></span><br><span class="line">for ip in ip_list:</span><br><span class="line"></span><br><span class="line">proxy_list.append(&#x27;http://&#x27; + ip)</span><br><span class="line"></span><br><span class="line">proxy_ip = random.choice(proxy_list)</span><br><span class="line"></span><br><span class="line">proxies = &#123;&#x27;http&#x27;: proxy_ip&#125;</span><br><span class="line"></span><br><span class="line">return proxies</span><br><span class="line"></span><br><span class="line">def run(self):</span><br><span class="line"></span><br><span class="line">print(&quot;Start!&quot;)</span><br><span class="line"></span><br><span class="line">start_time=time.time()</span><br><span class="line"></span><br><span class="line">self.down_path = r&quot;%s\%s&quot; % (self.down_path, uuid.uuid1())#拼接新的下载地址</span><br><span class="line"></span><br><span class="line">if not os.path.exists(self.down_path): #判断文件是否存在，不存在则创建</span><br><span class="line"></span><br><span class="line">os.mkdir(self.down_path)</span><br><span class="line"></span><br><span class="line">html=requests.get(self.url).text</span><br><span class="line"></span><br><span class="line">bsObj=BeautifulSoup(html,&#x27;lxml&#x27;)</span><br><span class="line"></span><br><span class="line">tempStr = bsObj.find(class_=&quot;iplays&quot;).contents[3].string#通过class查找存放m3u8地址的组件</span><br><span class="line"></span><br><span class="line">firstM3u8Adr=json.loads(tempStr.strip(&#x27;var player_data=&#x27;))[&quot;url&quot;]#得到第一层m3u8地址</span><br><span class="line"></span><br><span class="line">tempArr=firstM3u8Adr.rpartition(&#x27;/&#x27;)</span><br><span class="line"></span><br><span class="line">all_content = (requests.get(firstM3u8Adr).text).split(&#x27;\n&#x27;)[2]#从第一层m3u8文件中中找出第二层文件的的地址</span><br><span class="line"></span><br><span class="line">midStr = all_content.split(&#x27;/&#x27;)[0]#得到其中有用的字符串，这个针对不同的网站采用不同的方法自己寻找其中的规律</span><br><span class="line"></span><br><span class="line">realAdr = &quot;%s/%s&quot; % (tempArr[0], all_content)#一定规律下对字符串拼接得到第二层地址， 得到真实m3u8下载地址，</span><br><span class="line"></span><br><span class="line">key_url = &quot;%s/%s/hls/key.key&quot; % (tempArr[0], midStr)#分析规律对字符串拼接得到key的地址</span><br><span class="line"></span><br><span class="line">key_html = requests.head(key_url)#访问key的地址得到的文本</span><br><span class="line"></span><br><span class="line">status = key_html.status_code#是否成功访问到key的地址</span><br><span class="line"></span><br><span class="line">key = &quot;&quot;</span><br><span class="line"></span><br><span class="line">if status == 200:</span><br><span class="line"></span><br><span class="line">all_content=requests.get(realAdr).text#请求第二层m3u8文件地址得到内容</span><br><span class="line"></span><br><span class="line">if &quot;#EXT-X-KEY&quot; in all_content:</span><br><span class="line"></span><br><span class="line">key = requests.get(key_url).content#如果其中有&quot;#EXT-X-KEY&quot;这个字段说明视频被加密</span><br><span class="line"></span><br><span class="line">self.fileName = bsObj.find(class_=&quot;video-title w100&quot;).contents[0].contents[0]#分析网页得到视频的名称</span><br><span class="line"></span><br><span class="line">self.fileName=re.sub(r&#x27;[\s,!]&#x27;,&#x27;&#x27;,self.fileName)#因为如果文件名中有逗号感叹号或者空格会导致合并时出现命令不正确错误，所以通过正则表达式直接去掉名称中这些字符</span><br><span class="line"></span><br><span class="line">iv = b&#x27;abcdabcdabcdabcd&#x27;#AES解密时候凑位数的iv</span><br><span class="line"></span><br><span class="line">if len(key):#如果key有值说明被加密</span><br><span class="line"></span><br><span class="line">cryptor = AES.new(key, AES.MODE_CBC, iv)#通过AES对ts进行解密</span><br><span class="line"></span><br><span class="line">urlList=self.get_url_from_m3u8(realAdr)</span><br><span class="line"></span><br><span class="line">urlRoot=tempArr[0]</span><br><span class="line"></span><br><span class="line">i=1</span><br><span class="line"></span><br><span class="line">outputfile=open(os.path.join(self.final_path,&#x27;%s.ts&#x27;%self.fileName),&#x27;wb&#x27;)#初始创建一个ts文件，之后每次循环将ts片段的文件流写入此文件中从而不需要在去合并ts文件</span><br><span class="line"></span><br><span class="line">ip_list=self.get_ip_list(self.agency_url,self.headers)#通过网站爬取到免费的代理ip集合</span><br><span class="line"></span><br><span class="line">for url in urlList:</span><br><span class="line"></span><br><span class="line">try:</span><br><span class="line"></span><br><span class="line">proxies=self.get_random_ip(ip_list)#从ip集合中随机拿到一个作为此次访问的代理</span><br><span class="line"></span><br><span class="line">resp = requests.get(&quot;%s/%s/hls/%s&quot; % (urlRoot, midStr, url.uri), headers=crawler.headers,proxies=proxies)#拼接地址去爬取数据，通过模拟header和使用代理解决封IP</span><br><span class="line"></span><br><span class="line">if len(key):</span><br><span class="line"></span><br><span class="line">tempText=cryptor.decrypt(resp.content)#解密爬取到的内容</span><br><span class="line"></span><br><span class="line">progess=i/len(urlList)#记录当前的爬取进度</span><br><span class="line"></span><br><span class="line">outputfile.write(tempText)#将爬取到ts片段的文件流写入刚开始创建的ts文件中</span><br><span class="line"></span><br><span class="line">sys.stdout.write(&#x27;\r正在下载：%s,进度：%s %%&#x27;%(self.fileName,progess))#通过百分比显示下载进度</span><br><span class="line"></span><br><span class="line">sys.stdout.flush()#通过此方法将上一行代码刷新，控制台只保留一行</span><br><span class="line"></span><br><span class="line">else:</span><br><span class="line"></span><br><span class="line">outputfile.write(resp.content)</span><br><span class="line"></span><br><span class="line">except Exception as e:</span><br><span class="line"></span><br><span class="line">print(&quot;\n出现错误：%s&quot;,e.args)</span><br><span class="line"></span><br><span class="line">continue#出现错误跳出当前循环，继续下次循环</span><br><span class="line"></span><br><span class="line">i+=1</span><br><span class="line"></span><br><span class="line">outputfile.close()</span><br><span class="line"></span><br><span class="line">print(&quot;下载完成！总共耗时%d s&quot;%(time.time()-start_time))</span><br><span class="line"></span><br><span class="line">self.del_tempfile()#删除临时文件</span><br><span class="line"></span><br><span class="line">def del_tempfile(self):</span><br><span class="line"></span><br><span class="line">file_list=os.listdir(self.down_path)</span><br><span class="line"></span><br><span class="line">for i in file_list:</span><br><span class="line"></span><br><span class="line">tempPath=os.path.join(self.down_path,i)</span><br><span class="line"></span><br><span class="line">os.remove(tempPath)</span><br><span class="line"></span><br><span class="line">os.rmdir(self.down_path)</span><br><span class="line"></span><br><span class="line">print(&#x27;临时文件删除完成&#x27;)</span><br><span class="line"></span><br><span class="line">if __name__==&#x27;__main__&#x27;:</span><br><span class="line"></span><br><span class="line">url=input(&quot;输入地址：\n&quot;)</span><br><span class="line"></span><br><span class="line">crawler=VideoCrawler(url)</span><br><span class="line"></span><br><span class="line">crawler.run()</span><br><span class="line"></span><br><span class="line">quitClick=input(&quot;请按Enter键确认退出！&quot;)</span><br></pre></td></tr></table></figure>
-
-<p>问题与解决：</p>
-<ol>
-<li>一开始以为电脑中Python环境中有模块就OK了，最后发现在Pycharm中自己虚拟的环境中还需要添加对应模块，</li>
-<li>No module named Crypto.Cipher ，网上看了很多最后通过添加pycryptodome模块解决，电脑环境Win10</li>
-<li>文件名不能有感叹号，逗号或者空格等这些特殊字符，不然执行合并命令的时候会提示命令不正确</li>
-<li>在下载中将ts文件流写入文件时会出现这种错误（’Data must be padded to 16 byte boundary in CBC mode’,) Data must be padded，我们直接continue跳出当前循环继续下次下载。</li>
-<li>有时出现 “Protocol Error, Connection abort, os.error”,应该是爬取操作太频繁ip被封，针对此问题我们使用免费代理。</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -3381,18 +3560,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">290</span>
+          <span class="site-state-item-count">291</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">39</span>
+        <span class="site-state-item-count">40</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">158</span>
+        <span class="site-state-item-count">160</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
