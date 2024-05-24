@@ -198,6 +198,288 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/05/22/%E6%90%AD%E5%BB%BA%E5%B1%9E%E4%BA%8E%E8%87%AA%E5%B7%B1%E7%9A%84Linux%E7%9A%84http%E4%BB%A3%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%88%E6%AD%A3%E5%90%91%E4%BB%A3%E7%90%86HTTP-HTTPS%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/452794135.jpg">
+      <meta itemprop="name" content="Kanoc Ge">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/05/22/%E6%90%AD%E5%BB%BA%E5%B1%9E%E4%BA%8E%E8%87%AA%E5%B7%B1%E7%9A%84Linux%E7%9A%84http%E4%BB%A3%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%88%E6%AD%A3%E5%90%91%E4%BB%A3%E7%90%86HTTP-HTTPS%EF%BC%89/" class="post-title-link" itemprop="url">搭建属于自己的Linux的http代理服务器（正向代理HTTP/HTTPS）</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-05-22 21:58:31" itemprop="dateCreated datePublished" datetime="2023-05-22T21:58:31+08:00">2023-05-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-14 16:38:10" itemprop="dateModified" datetime="2024-03-14T16:38:10+08:00">2024-03-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2>1. 服务器环境：Centos7 宝塔面板</h2>
+
+<h4><font color=red size=5 face="黑体">方法一：利用Nginx来搭建HTTP正向代理</font></h4>
+
+<h6>起初折腾老半天，请求代理就是不出数据，后来查了下，原来正常情况下，利用Nginx来搭建仅支持http代理访问，想要代理请求SSL的话，需要Nginx编译安装 ngx_http_proxy_connect_module 模块才行。以宝塔面板操作过一遍，已失败告终。等待继续研究。这里就简单说下仅支持http的代理搭建操作。</h6>
+
+<ul>
+<li>资料：
+ngx_http_proxy_connect_module 模块
+
+<p><a target="_blank" rel="noopener" href="https://github.com/chobits/ngx_http_proxy_connect_module">https://github.com/chobits/ngx_http_proxy_connect_module</a></p></li></p>
+<li>1，宝塔面板，已安装Nginx (我这里用的是Nginx-1.16)</p></li>
+<li><p>2，可以直接在Nginx配置里设置，也可以通过新建一个站点，在站点配置里设置（推荐，下面图也是通过新建一个站点来设置的），并设置一个带端口的ip地址（这里也是你要设置的代理端口）。</p></li>
+</ul>
+
+<p><img src="https://s2.loli.net/2022/06/08/dmKNj3JF5LrI6Vg.png" alt="" />
+
+<ul>
+<li>3，在 server{ ... } 类中相应位置添加如下代码。</li>
+</ul>
+
+<pre><code class="language-shell line-numbers">resolver 114.114.114.114;
+resolver_timeout 5s;
+
+location / &#123;
+    proxy_pass $scheme://$host$request_uri;
+    proxy_set_header Host $http_host;
+
+    proxy_buffers 256 4k;
+    proxy_max_temp_file_size 0;
+    
+    proxy_connect_timeout 30;
+    
+    proxy_cache_valid 200 302 10m;
+    proxy_cache_valid 301 1h;
+    proxy_cache_valid any 1m;
+    &#125;
+</code></pre>
+
+<img src="https://s2.loli.net/2022/06/08/FZNcyaELQAPMmxw.png" alt="" />
+
+<ul>
+<li>4，此方法已经在面板的安全组中加了端口放行。若是在Nginx配置中设置的话，需要另外添加</li>
+</ul>
+
+<h4><font color=red size=5 face="黑体">方法二：使用squid搭建自己专属的http/https正向代理服务器</font></h4>
+
+<p>由于我需要httos代理，所以方法一我就放弃了，网上找了下还有个方法就是使用squid来搭建了，测试支持http 和 https 代理访问。</p>
+<p>测试呢，此方法相较于Nginx正向代理速度较慢些</p>
+<ul>
+<li>1，shell 命令安装squid</li>
+</ul>
+
+<pre><code class="language-shell line-numbers">yum install -y squid
+</code></pre>
+
+<ul>
+<li>2，配置 squid
+
+<ul>
+<li>1，会命令语句的，就直接用 vim 编辑下配置文件</li>
+</ul></li>
+</ul>
+
+<pre><code class="language-shell line-numbers">vim /etc/squid/squid.conf
+</code></pre>
+
+<ul>
+<li>2，像我不太熟的，就到宝塔面板的文件处编辑了
+
+<ul>
+<li>3，配置端口，以及设置下 允许访问所有地址 为 allow （默认是deny，设置用户密码验证的话，保持默认deny）</li>
+</ul></li>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 允许访问所有地址，默认是 deny，这个要主动改一下</span></span><br><span class="line">http_access allow <span class="built_in">all</span></span><br><span class="line"><span class="comment"># Squid normally listens to port 3128</span></span><br><span class="line"><span class="comment"># 代理服务器端口</span></span><br><span class="line">http_port <span class="number">4399</span></span><br></pre></td></tr></table></figure>
+
+<img src="https://s2.loli.net/2022/06/08/cQLxVoGnzqM7HBm.png" alt="" />
+
+<ul>
+<li>4，启动代理</li>
+</ul>
+
+<pre><code class="language-shell line-numbers">service squid start
+</code></pre>
+
+<ul>
+<li>5，其他shell命令</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 启动</span></span><br><span class="line">service squid start</span><br><span class="line"><span class="comment"># 停止</span></span><br><span class="line">service squid stop</span><br><span class="line"><span class="comment"># 重启</span></span><br><span class="line">service squid restart</span><br><span class="line"><span class="comment"># 重新加载配置文件</span></span><br><span class="line">service squid reload</span><br><span class="line"><span class="comment"># 查看是否正在运行</span></span><br><span class="line">service squid status</span><br></pre></td></tr></table></figure>
+
+
+<p>全部命令：{start|stop|status|reload|force-reload|restart|condrestart|try-restart|probe}</p>
+<ul>
+<li>6，到了这其实就算完成了，如果要设置用户密码验证的话，就继续。
+
+<p>（注意第3点处 http_access deny all）</p>
+</li>
+</ul>
+
+<h4><font color=red size=5 face="黑体">重点：</font></h4>
+
+<ul>
+<li>①，在  http_access deny all  上方添加 如下代码</li>
+</ul>
+
+<pre><code class="language-shell line-numbers">auth_param basic program /usr/lib64/squid/basic_ncsa_auth /etc/squid/passwd
+acl auth_user proxy_auth REQUIRED
+http_access allow auth_user
+</code></pre>
+<img src="https://s2.loli.net/2022/06/08/iHrgvQWVZG8zsme.png" alt="" />
+
+<ul>
+<li>②，设置高匿，文件末尾加上如下代码（可省）</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#文件最后加上  高匿配置</span></span><br><span class="line">request_header_access X-Forwarded-For deny <span class="built_in">all</span></span><br><span class="line">request_header_access From deny <span class="built_in">all</span></span><br><span class="line">request_header_access Via deny <span class="built_in">all</span></span><br></pre></td></tr></table></figure>
+
+
+<ul>
+<li>③，创建用户密码，shell执行</li>
+</ul>
+
+<pre><code class="language-shell line-numbers">htpasswd -c /etc/squid/passwd proxy_username
+</code></pre>
+
+<p>（proxy_username 自定义哈）</p>
+<p>确定后，会提示你输入密码两次</p>
+<p>上述完成后就会生成 文件 &#x2F;etc&#x2F;squid&#x2F;passwd</p>
+<ul>
+<li>④，重启</li>
+</ul>
+
+<pre><code class="language-shell line-numbers">systemctl restart squid
+</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/05/22/%E5%85%B3%E4%BA%8E%E8%A7%A3%E5%86%B3%E2%80%94%E2%80%94bash-ping-command-not-found/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/452794135.jpg">
+      <meta itemprop="name" content="Kanoc Ge">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/05/22/%E5%85%B3%E4%BA%8E%E8%A7%A3%E5%86%B3%E2%80%94%E2%80%94bash-ping-command-not-found/" class="post-title-link" itemprop="url">关于解决——bash: ping: command not found</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-05-22 21:56:01" itemprop="dateCreated datePublished" datetime="2023-05-22T21:56:01+08:00">2023-05-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-14 16:38:10" itemprop="dateModified" datetime="2024-03-14T16:38:10+08:00">2024-03-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><font color=#00b2c2 size=5 face=宋体><strong>关于解决——bash: ping: command not found</strong></font></p>
+<p><font color=red size=5 face=宋体><strong>bash: ping: command not found 是因为系统没有包，直接安装即可</strong></font></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">apt-get install iputils-ping</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/05/22/%E5%88%A9%E7%94%A8%E9%98%BF%E9%87%8C%E4%BA%91%E5%B7%A5%E5%8D%95%E5%AE%A2%E6%9C%8D%E7%B3%BB%E7%BB%9F%E5%81%9A%E5%85%8D%E8%B4%B9%E5%9B%BE%E5%BA%8A/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -4329,233 +4611,6 @@ ssl_enable=NO
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/05/22/hexo%E6%96%87%E7%AB%A0%E5%88%86%E7%B1%BB/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/452794135.jpg">
-      <meta itemprop="name" content="Kanoc Ge">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/05/22/hexo%E6%96%87%E7%AB%A0%E5%88%86%E7%B1%BB/" class="post-title-link" itemprop="url">hexo文章分类</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-05-22 19:58:50" itemprop="dateCreated datePublished" datetime="2023-05-22T19:58:50+08:00">2023-05-22</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-14 16:38:09" itemprop="dateModified" datetime="2024-03-14T16:38:09+08:00">2024-03-14</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%8D%9A%E5%AE%A2/" itemprop="url" rel="index"><span itemprop="name">博客</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><font color=#00b2c2 size=5 face=宋体><strong>hexo文章分类：</strong></font></p>
-<p><font color=#f26522 size=4 face=宋体><strong>1、进入博客目录，创建页面。</strong></font></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo new page categories</span><br></pre></td></tr></table></figure>
-
-<br>
-
-<hr>
-<br>
-
-<p><font color=#b0171f size=2 face=宋体><strong>完成后有提示：</strong></font></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">INFO Created: /opt/blog/source/categories/index.md</span><br></pre></td></tr></table></figure>
-
-<br>
-
-<hr>
-<p><br><font color=#f26522 size=4 face=宋体><strong>2、修改上一步生成的md文件，添加type: “categories”到文件中，改好后是这样的：</strong></font></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">—</span><br><span class="line">title: 文章分类</span><br><span class="line">date: 2020-02-18 05:07:50</span><br><span class="line">type: “categories”</span><br><span class="line">—</span><br></pre></td></tr></table></figure>
-
-<p><font color=red size=2 face=宋体><strong>至此，文章分类已经创建完成，下面需要给博文指定分类。</strong></font></p>
-<br>
-
-<hr>
-<p><br><font color=#f26522 size=4 face=宋体><strong>3，打开博文md文件，添加分类属性：</strong></font></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">categories:</span><br><span class="line">– server</span><br></pre></td></tr></table></figure>
-
-<br>
-
-<hr>
-<p><br><font color=#f26522 size=4 face=宋体><strong>4，重新发布即可看到。</strong></font></p>
-<p><font color=red size=2 face=宋体><strong>注意，一篇博文只能属于一个分类，设置多个分类时将会成为分类嵌套。</strong></font></p>
-<p><br><br><br></p>
-<hr>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/05/22/HLS%E4%B8%8B-ffmpeg%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/452794135.jpg">
-      <meta itemprop="name" content="Kanoc Ge">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/05/22/HLS%E4%B8%8B-ffmpeg%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/" class="post-title-link" itemprop="url">HLS下 ffmpeg命令详解</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-05-22 19:52:28" itemprop="dateCreated datePublished" datetime="2023-05-22T19:52:28+08:00">2023-05-22</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-14 16:38:09" itemprop="dateModified" datetime="2024-03-14T16:38:09+08:00">2024-03-14</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%A7%86%E9%A2%91%E7%BC%96%E8%BE%91/" itemprop="url" rel="index"><span itemprop="name">视频编辑</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><font color=#00b2c2 size=5 face=宋体><strong>FFMPEG下命令繁多，特此记录关于HLS的相关命令，以备不时之需</strong></font></p>
-<p><font color=#f26522 size=4 face=宋体><strong>如果看到有需要的命令，然后在来更新</strong></font></p>
-<br>
-
-<hr>
-<br>
-
-<ul>
-<li><font color=#b0171f size=3 face=宋体><strong>通过m3u8下载视频，并合成mp4</strong></font></li>
-</ul>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">ffmpeg -i  -c copy &lt;保存路径&gt;</span><br><span class="line"><span class="comment"># 例如： ffmpeg -i &#x27;https://xxx.com/aaa.m3u8&#x27; -c copy &#x27;/home/ll/aaa.mp4&#x27;</span></span><br><span class="line"><span class="comment"># 不改变视频流的码率，直接合成mp4   这是最快的一种下载视频的方法</span></span><br></pre></td></tr></table></figure>
-
-<br>
-
-<hr>
-<br>
-
-<ul>
-<li><font color=#b0171f size=3 face=宋体><strong>添加headers到 命令中下载视频</strong></font></li>
-</ul>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">ffmpeg -headers $<span class="string">&#x27;User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36\r\nHost: xxx.com&#x27;</span> -i <span class="string">&#x27;xxx.m3u8&#x27;</span> -c copy <span class="string">&#x27;xxx.mp4&#x27;</span></span><br><span class="line"><span class="comment"># 这种就是简单的直接将 headers 请求头文件加如hls请求中去，然后获取数据</span></span><br></pre></td></tr></table></figure>
-
-<br>
-
-<hr>
-<br>
-
-<ul>
-<li><font color=#b0171f size=3 face=宋体><strong>ffmpeg 添加 headers 详解中高级方法</strong></font></li>
-</ul>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">ffmpeg -headers <span class="string">&#x27;Origin: https://xxx.com\r\nUser-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36\r\nReferer: https://xxx.com&#x27;</span> -threads <span class="number">0</span> -i <span class="string">&#x27;地址&#x27;</span> -c copy -y -f mpegts <span class="string">&#x27;文件名.ts&#x27;</span> -v trace</span><br><span class="line"></span><br><span class="line"><span class="comment">#  &gt;&gt;&gt;  使用-headers’头一\r\n头二’添加header</span></span><br><span class="line"><span class="comment"># 注意顺序 ，放在命令行最后面无法生效困扰了半天..</span></span><br><span class="line"><span class="comment"># 后来输出了一下信息才发现问题</span></span><br><span class="line"><span class="comment"># -v trace 用于输出当前的header信息方便调试</span></span><br><span class="line"><span class="comment"># 在Linux终端下正常使用，Windows下应该大同小异。</span></span><br><span class="line"><span class="comment"># 设置UA可以使用单独的-user-agent指令</span></span><br><span class="line"><span class="comment"># 在输出文件名前使用-fs 1024K限制为1024K</span></span><br></pre></td></tr></table></figure>
-
-<br>
-
-<hr>
-<br>
-
-<ul>
-<li><font color=#b0171f size=3 face=宋体><strong>ffmpeg 添加 headers 转码 线程 高级方法</strong></font></li>
-</ul>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">ffmpeg -headers <span class="string">&#x27;User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36\r\nHost: xxx.net\r\nReferer: https://xxx.com/\r\n&#x27;</span> -i <span class="string">&#x27;https://xxx.m3u8&#x27;</span> -threads <span class="number">5</span> -preset ultrafast -y -c:v libx264 -strict -<span class="number">2</span> <span class="string">&#x27;测试2.mp4&#x27;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#  &gt;&gt;&gt;  使用-headers’头一\r\n头二’添加header</span></span><br><span class="line"><span class="comment">#  &gt;&gt;&gt;  需要注意的是 在添加 headers 的时候 ,   在headers 结束时   需要添加\r\n 来结束，否则会收到错误 </span></span><br><span class="line"><span class="comment">#  &gt;&gt;&gt;  No trailing CRLF found in HTTP header. Adding it        当然这是错误提示，不是报错，并不影响程序运行， ffmpeg 会主动添加 \r\n来结束headers</span></span><br><span class="line"><span class="comment"># 注意顺序 ，放在命令行最后面无法生效困扰了半天..</span></span><br><span class="line"><span class="comment"># threads 5   线程转码</span></span><br><span class="line"><span class="comment"># -y -c:v libx264 -strict -2     转换h264 编码视频</span></span><br><span class="line"><span class="comment"># 后来输出了一下信息才发现问题</span></span><br><span class="line"><span class="comment"># -v trace 用于输出当前的header信息方便调试</span></span><br><span class="line"><span class="comment"># 在Linux终端下正常使用，Windows下应该大同小异。</span></span><br><span class="line"><span class="comment"># 设置UA可以使用单独的-user-agent指令</span></span><br><span class="line"><span class="comment"># 在输出文件名前使用-fs 1024K限制为1024K</span></span><br></pre></td></tr></table></figure>
-
-<br>
-
-<br>
-
-<br>
-
-<hr>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -4626,18 +4681,18 @@ ssl_enable=NO
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">291</span>
+          <span class="site-state-item-count">293</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-count">42</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">160</span>
+        <span class="site-state-item-count">163</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

@@ -198,6 +198,198 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/08/15/%E5%88%A9%E7%94%A8m3u8%E6%96%87%E4%BB%B6%E6%9C%BA%E5%88%B6%E6%B7%BB%E5%8A%A0%E7%89%87%E5%A4%B4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/452794135.jpg">
+      <meta itemprop="name" content="Kanoc Ge">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/08/15/%E5%88%A9%E7%94%A8m3u8%E6%96%87%E4%BB%B6%E6%9C%BA%E5%88%B6%E6%B7%BB%E5%8A%A0%E7%89%87%E5%A4%B4/" class="post-title-link" itemprop="url">利用m3u8文件机制添加片头</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-08-15 17:12:35" itemprop="dateCreated datePublished" datetime="2023-08-15T17:12:35+08:00">2023-08-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-14 16:38:10" itemprop="dateModified" datetime="2024-03-14T16:38:10+08:00">2024-03-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%A7%86%E9%A2%91%E7%BC%96%E8%BE%91/" itemprop="url" rel="index"><span itemprop="name">视频编辑</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><font color=#00b2c2 size=5 face=宋体><strong>利用m3u8文件机制添加片头：</strong></font></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">set_header</span>(<span class="params">m3u8_file_path, header_path</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    :param m3u8_file_path:  m3u8文件所在绝对路径</span></span><br><span class="line"><span class="string">    :param header_path:     视频片头播放绝对路径</span></span><br><span class="line"><span class="string">    :return:   False 片头已经添加， True 片头添加成功</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(m3u8_file_path, <span class="string">&quot;r&quot;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        all_lines = f.readlines()</span><br><span class="line">        <span class="keyword">for</span> i, item <span class="keyword">in</span> <span class="built_in">enumerate</span>(all_lines):</span><br><span class="line">            <span class="keyword">if</span> <span class="string">&quot;#EXTINF:&quot;</span> <span class="keyword">in</span> item:</span><br><span class="line">                vernier = i</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">if</span> header_path <span class="keyword">in</span> all_lines[vernier+<span class="number">1</span>]:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f&quot;已经添加了片头，请勿重复添加&quot;</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">        <span class="built_in">print</span>(vernier)</span><br><span class="line">        all_lines.insert(vernier, <span class="string">&quot;#EXTINF:5,\n&quot;</span>)   <span class="comment"># 此处的5是时长</span></span><br><span class="line">        all_lines.insert(vernier + <span class="number">1</span>, <span class="string">f&quot;<span class="subst">&#123;header_path&#125;</span>\n&quot;</span>)</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(m3u8_file_path, <span class="string">&quot;w&quot;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> w_f:</span><br><span class="line">        <span class="keyword">for</span> k_w <span class="keyword">in</span> all_lines:</span><br><span class="line">            w_f.write(<span class="string">f&quot;<span class="subst">&#123;k_w&#125;</span>&quot;</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    set_header(<span class="string">&#x27;test.m3u8&#x27;</span>, <span class="string">&quot;http://xxx.xxx.com/wuxing.ts&quot;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/08/15/FFmpeg%E6%8B%BC%E6%8E%A5%E8%A7%86%E9%A2%91-%E5%B9%B6%E8%AE%BE%E7%BD%AE%E5%B8%A7%E7%8E%87%E3%80%81%E5%88%86%E8%BE%A8%E7%8E%87%E3%80%81%E7%BC%96%E7%A0%81%E5%99%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/452794135.jpg">
+      <meta itemprop="name" content="Kanoc Ge">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/08/15/FFmpeg%E6%8B%BC%E6%8E%A5%E8%A7%86%E9%A2%91-%E5%B9%B6%E8%AE%BE%E7%BD%AE%E5%B8%A7%E7%8E%87%E3%80%81%E5%88%86%E8%BE%A8%E7%8E%87%E3%80%81%E7%BC%96%E7%A0%81%E5%99%A8/" class="post-title-link" itemprop="url">FFmpeg拼接视频 并设置帧率、分辨率、编码器</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-08-15 02:57:08" itemprop="dateCreated datePublished" datetime="2023-08-15T02:57:08+08:00">2023-08-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-14 16:38:09" itemprop="dateModified" datetime="2024-03-14T16:38:09+08:00">2024-03-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%A7%86%E9%A2%91%E7%BC%96%E8%BE%91/" itemprop="url" rel="index"><span itemprop="name">视频编辑</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><font color=#00b2c2 size=5 face=宋体><strong>获取视频参数：</strong></font></p>
+<ul>
+<li><font color=#f26522 size=4 face=宋体><strong>安装cv2库：</strong></font></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pip3 install opencv-python==4.4.0.46  # 指定版本 4.4.0.46</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><font color=#f26522 size=4 face=宋体><strong>分辨率获取：</strong></font></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line">video = cv2.VideoCapture(<span class="string">f&quot;<span class="subst">&#123;video_path&#125;</span>/v1.mp4&quot;</span>)</span><br><span class="line">resolution = (<span class="built_in">int</span>(video.get(cv2.CAP_PROP_FRAME_WIDTH)), <span class="built_in">int</span>(video.get(cv2.CAP_PROP_FRAME_HEIGHT)))</span><br><span class="line"><span class="built_in">print</span>(resolution)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出：(1920, 1080)</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><font color=#f26522 size=4 face=宋体><strong>获取fps值(帧率)：</strong></font></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line">video = cv2.VideoCapture(<span class="string">f&quot;<span class="subst">&#123;video_path&#125;</span>/v1.mp4&quot;</span>)</span><br><span class="line">fps = video.get(cv2.CAP_PROP_FPS)  <span class="comment"># 这里可能取到的值是 29.xxx  59.xxx 所以我们需要向上取整</span></span><br><span class="line"><span class="comment"># 向上取整</span></span><br><span class="line">fps_a = math.ceil(fps)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;fps值：<span class="subst">&#123;fps_a&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出：fps值：60</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><font color=#f26522 size=4 face=宋体><strong>获取编码器名称</strong></font></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># ffprobe 是FFmpeg工具集中的一个命令行工具</span></span><br><span class="line">file_path = <span class="string">&quot;v1.mp4&quot;</span></span><br><span class="line">command = <span class="string">f&quot;ffprobe -v quiet -select_streams v:0 -show_entries stream=codec_name -of default &#x27;<span class="subst">&#123;file_path&#125;</span>&#x27;&quot;</span></span><br><span class="line">result = subprocess.run(command, shell=<span class="literal">True</span>, stdout=subprocess.PIPE)</span><br><span class="line">encoder = result.stdout.decode().strip()</span><br><span class="line"><span class="comment"># 通过指定 -select_streams v:0 参数选择视频流的第一个视屏流，然后使用 -show_entries stream=codec_name 参数来获取该视频流的编码器名称。最后，我们使用 subprocess.run() 函数来执行命令并获取输出。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 这里返回的并非我们想要的纯的内容，而是添加了其他东西，所以我们需要在提取一次</span></span><br><span class="line">new_encoder = re.search(<span class="string">&quot;codec_name=(?P&lt;codec_name&gt;.*?)\n&quot;</span>, encoder)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;Video Encoder: <span class="subst">&#123;new_encoder.group(<span class="string">&#x27;codec_name&#x27;</span>)&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+<p><font color=#00b2c2 size=5 face=宋体><strong>FFmpeg拼接视频 并设置帧率、分辨率、编码器</strong></font></p>
+<p><font color=#f26522 size=4 face=宋体><strong>是的，FFmpeg提供了一种方法来拼接视频。您可以使用<code>concat</code>过滤器来实现这个目的。</strong></font></p>
+<p><font color=#f26522 size=4 face=宋体><strong>首先，您需要创建一个文本文件，其中包含要拼接的视频文件的列表。每个文件应在一行上，并按照它们应该出现的顺序排列。</strong></font></p>
+<p><font color=#f26522 size=4 face=宋体><strong>例如，假设您有三个视频文件，名为<code>video1.mp4</code>、<code>video2.mp4</code>和<code>video3.mp4</code>，您可以在一个名为<code>input.txt</code>的文本文件中按如下方式列出它们：</strong></font></p>
+<figure class="highlight txt"><table><tr><td class="code"><pre><span class="line">file &#x27;video1.mp4&#x27;</span><br><span class="line">file &#x27;video2.mp4&#x27;</span><br><span class="line">file &#x27;video3.mp4&#x27;</span><br></pre></td></tr></table></figure>
+
+<p><font color=#b0171f size=3 face=宋体><strong>然后，您可以使用以下命令来拼接这些视频文件：</strong></font></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ffmpeg -f concat -i input.txt -c copy output.mp4</span><br></pre></td></tr></table></figure>
+
+<p><font color=#f26522 size=4 face=宋体><strong>这里，<code>-f concat</code>指定了使用<code>concat</code>过滤器，<code>-i input.txt</code>指定了输入文件为<code>input.txt</code>，<code>-c copy</code>表示将输入流的编码直接复制到输出流中，而不需要重新编码。最后，您指定了输出文件名称为<code>output.mp4</code>。</strong></font></p>
+<p><font color=red size=4 face=宋体><strong>请注意，这种方法要求输入的视频文件具有相同的分辨率、帧率和编码器。如果这些参数不同，您可能需要进行一些额外的处理来确保拼接后的视频质量。</strong></font></p>
+<br>
+
+<hr>
+<br>
+
+<p><font color=#00b2c2 size=5 face=宋体><strong>FFmpeg 指定编码器：</strong></font></p>
+<p><font color=#f26522 size=4 face=宋体><strong>使用FFmpeg编码器进行音频或视频编码时，可以通过指定<code>-acodec</code>或<code>-vcodec</code>参数来设置编码器。例如，使用AAC音频编码器可以设置<code>-acodec aac</code>，使用H.264视频编码器可以设置&#96;-vcodec h2641。</strong></font></p>
+<p><font color=#f26522 size=4 face=宋体><strong>同时，在编码的过程中也可以设置音频或视频的参数，例如码率、通道数、采样率等1。</strong></font></p>
+<p><font color=#f26522 size=4 face=宋体><strong>具体使用FFmpeg进行编码器设置的命令和参数可以参考FFmpeg官方文档或相关教程</strong></font></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/08/14/python%E5%AE%8C%E7%BE%8E%E7%AA%81%E7%A0%B4tls-ja3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -3331,160 +3523,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/06/13/python-url%E5%9F%9F%E5%90%8D-%E4%B8%8E-%E6%96%87%E4%BB%B6%E8%B7%AF%E5%BE%84-%E6%8B%BC%E6%8E%A5%E7%9A%84%E5%BF%AB%E6%8D%B7%E6%96%B9%E6%B3%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/452794135.jpg">
-      <meta itemprop="name" content="Kanoc Ge">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/06/13/python-url%E5%9F%9F%E5%90%8D-%E4%B8%8E-%E6%96%87%E4%BB%B6%E8%B7%AF%E5%BE%84-%E6%8B%BC%E6%8E%A5%E7%9A%84%E5%BF%AB%E6%8D%B7%E6%96%B9%E6%B3%95/" class="post-title-link" itemprop="url">python url域名 与 文件路径 拼接的快捷方法</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-06-13 22:22:40" itemprop="dateCreated datePublished" datetime="2023-06-13T22:22:40+08:00">2023-06-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-14 16:38:10" itemprop="dateModified" datetime="2024-03-14T16:38:10+08:00">2024-03-14</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><font color=#00b2c2 size=5 face=宋体><strong>python url域名 与 文件路径 拼接的快捷方法</strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 使用 urllib 库下的 urljoin</span></span><br><span class="line"><span class="keyword">from</span> urllib.parse <span class="keyword">import</span> urljoin</span><br><span class="line"></span><br><span class="line"><span class="comment"># index_url = &#x27;http://xx.xxx.com/index.m3u8&#x27;  #这里随便什么地址</span></span><br><span class="line"><span class="comment"># uri = &quot;/file/0001.ts&quot;     # 文件路径</span></span><br><span class="line"></span><br><span class="line">url = urljoin(index_url, uri)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 得到如下内容</span></span><br><span class="line">http://xx.xxx.com/file/<span class="number">0001.</span>ts</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/06/13/python-%E9%9A%8F%E6%9C%BA%E8%8E%B7%E5%8F%96ua%E5%A4%B4/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/452794135.jpg">
-      <meta itemprop="name" content="Kanoc Ge">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/06/13/python-%E9%9A%8F%E6%9C%BA%E8%8E%B7%E5%8F%96ua%E5%A4%B4/" class="post-title-link" itemprop="url">python 随机获取ua头</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-06-13 15:00:52" itemprop="dateCreated datePublished" datetime="2023-06-13T15:00:52+08:00">2023-06-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-14 16:38:10" itemprop="dateModified" datetime="2024-03-14T16:38:10+08:00">2024-03-14</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><font color=#00b2c2 size=5 face=宋体><strong>python 随机获取ua头：</strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 安装库</span></span><br><span class="line"><span class="comment"># pip install -U anti-useragent</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> anti_useragent <span class="keyword">import</span> UserAgent</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_ua</span>(<span class="params">platform=<span class="string">&#x27;windows&#x27;</span>, browser_type=<span class="string">&#x27;chrome&#x27;</span>, min_version=<span class="number">80</span>, max_version=<span class="number">100</span></span>):</span><br><span class="line">    <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">    :param platform: &#x27;windows&#x27;, &#x27;linux&#x27;, &#x27;android&#x27;</span></span><br><span class="line"><span class="string">    :param browser_type: &#x27;chrome&#x27;, &#x27;firefox&#x27;</span></span><br><span class="line"><span class="string">    :param min_version:</span></span><br><span class="line"><span class="string">    :param max_version:</span></span><br><span class="line"><span class="string">    :return:</span></span><br><span class="line"><span class="string">    &#x27;&#x27;&#x27;</span></span><br><span class="line">    ua = UserAgent(platform=platform, min_version=min_version, max_version=max_version)[browser_type]</span><br><span class="line">    <span class="keyword">return</span> ua</span><br><span class="line"></span><br><span class="line">ua = get_ua()</span><br><span class="line"><span class="built_in">print</span>(ua)</span><br></pre></td></tr></table></figure>
-
-<p><font color=#00b2c2 size=5 face=宋体><strong>结果:</strong></font></p>
-<p><img src="https://s2.loli.net/2023/06/13/yuP3XecFKBZYgxs.png" alt="image-20230613150250217"></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -3555,18 +3593,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">291</span>
+          <span class="site-state-item-count">293</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-count">42</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">160</span>
+        <span class="site-state-item-count">163</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

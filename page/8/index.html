@@ -198,6 +198,174 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/05/18/python-PyQt5-%E6%9F%A5%E7%9C%8B%E6%89%80%E6%9C%89%E5%9F%BA%E7%B1%BB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/452794135.jpg">
+      <meta itemprop="name" content="Kanoc Ge">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/05/18/python-PyQt5-%E6%9F%A5%E7%9C%8B%E6%89%80%E6%9C%89%E5%9F%BA%E7%B1%BB/" class="post-title-link" itemprop="url">python PyQt5_查看所有基类</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-05-18 00:15:57" itemprop="dateCreated datePublished" datetime="2023-05-18T00:15:57+08:00">2023-05-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-14 16:38:10" itemprop="dateModified" datetime="2024-03-14T16:38:10+08:00">2024-03-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python-PyQt5/" itemprop="url" rel="index"><span itemprop="name">python_PyQt5</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><font color=#00b2c2 size=5 face=宋体><strong>PyQt5_查看所有基类：</strong></font></p>
+<ul>
+<li><font color=#b0171f size=2 face=宋体><strong>建议直接去官网查看基类：</strong></font></li>
+</ul>
+<p><font color=#f26522 size=4 face=宋体><strong>QtWidgets所有基类：</strong></font><a target="_blank" rel="noopener" href="https://www.riverbankcomputing.com/static/Docs/PyQt5/api/qtwidgets/qtwidgets-module.html"><font color=#b0171f size=2 face=宋体><strong><strong>点击进入</strong></strong></font></a></p>
+<hr>
+<p><br><font color=red size=4 face=宋体><strong>完整代码：</strong></font></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> PyQt5.QtWidgets <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">any_parent</span>(<span class="title class_ inherited__">QWidget</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">super</span>().__init__()</span><br><span class="line">        <span class="built_in">print</span>(QWidget.__subclasses__())</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    app = QApplication(sys.argv)</span><br><span class="line">    window = any_parent()</span><br><span class="line">    window.show()</span><br><span class="line">    sys.exit(app.exec_())</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<br>
+
+<p><font color=#f26522 size=4 face=宋体><strong><strong>剖析代码：</strong></strong></font></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 使用__subclasses__()方法，可查看基于某个类的所有基类</span></span><br><span class="line">QWidget.__subclasses__() <span class="comment"># 查看QWidget的所有基类</span></span><br><span class="line"><span class="built_in">print</span>(QWidget.__subclasses__())</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看QObect的所有基类</span></span><br><span class="line"><span class="keyword">from</span> PyQt5.Qt <span class="keyword">import</span> *</span><br><span class="line"><span class="built_in">print</span>(QObject.__subclasses__())</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<br>
+
+<p><br><font color=red size=5 face=宋体><strong>QWidget.subclasses()执行结果如下：</strong></font></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">[&lt;<span class="keyword">class</span> <span class="string">&#x27;PyQt5.QtWidgets.QAbstractButton&#x27;</span>&gt;, &lt;<span class="keyword">class</span> <span class="string">&#x27;PyQt5.QtWidgets.QFrame&#x27;</span>&gt;, &lt;<span class="keyword">class</span> <span class="string">&#x27;PyQt5.QtWidgets.QAbstractSlider&#x27;</span>&gt;, &lt;<span class="keyword">class</span> <span class="string">&#x27;PyQt5.QtWidgets.QAbstractSpinBox&#x27;</span>&gt;, &lt;<span class="keyword">class</span> <span class="string">&#x27;PyQt5.QtWidgets.QCalendarWidget&#x27;</span>&gt;, &lt;<span class="keyword">class</span> <span class="string">&#x27;PyQt5.QtWidgets.QDialog&#x27;</span>&gt;, &lt;<span class="keyword">class</span> <span class="string">&#x27;PyQt5.QtWidgets.QComboBox&#x27;</span>&gt;, &lt;<span class="keyword">class</span> <span class="string">&#x27;PyQt5.QtWidgets.QDesktopWidget&#x27;</span>&gt;, &lt;<span class="keyword">class</span> <span class="string">&#x27;PyQt5.QtWidgets.QDialogButtonBox&#x27;</span>&gt;, &lt;<span class="keyword">class</span> <span class="string">&#x27;PyQt5.QtWidgets.QDockWidget&#x27;</span>&gt;, &lt;<span class="keyword">class</span> <span class="string">&#x27;PyQt5.QtWidgets.QFocusFrame&#x27;</span>&gt;, &lt;<span class="keyword">class</span> <span class="string">&#x27;PyQt5.QtWidgets.QGroupBox&#x27;</span>&gt;, &lt;<span class="keyword">class</span> <span class="string">&#x27;PyQt5.QtWidgets.QKeySequenceEdit&#x27;</span>&gt;, &lt;<span class="keyword">class</span> <span class="string">&#x27;PyQt5.QtWidgets.QLineEdit&#x27;</span>&gt;, &lt;<span class="keyword">class</span> <span class="string">&#x27;PyQt5.QtWidgets.QMainWindow&#x27;</span>&gt;, &lt;<span class="keyword">class</span> <span class="string">&#x27;PyQt5.QtWidgets.QMdiSubWindow&#x27;</span>&gt;, &lt;<span class="keyword">class</span> <span class="string">&#x27;PyQt5.QtWidgets.QMenu&#x27;</span>&gt;, &lt;<span class="keyword">class</span> <span class="string">&#x27;PyQt5.QtWidgets.QMenuBar&#x27;</span>&gt;, &lt;<span class="keyword">class</span> <span class="string">&#x27;PyQt5.QtWidgets.QOpenGLWidget&#x27;</span>&gt;, &lt;<span class="keyword">class</span> <span class="string">&#x27;PyQt5.QtWidgets.QProgressBar&#x27;</span>&gt;, &lt;<span class="keyword">class</span> <span class="string">&#x27;PyQt5.QtWidgets.QRubberBand&#x27;</span>&gt;, &lt;<span class="keyword">class</span> <span class="string">&#x27;PyQt5.QtWidgets.QSizeGrip&#x27;</span>&gt;, &lt;<span class="keyword">class</span> <span class="string">&#x27;PyQt5.QtWidgets.QSplashScreen&#x27;</span>&gt;, &lt;<span class="keyword">class</span> <span class="string">&#x27;PyQt5.QtWidgets.QSplitterHandle&#x27;</span>&gt;, &lt;<span class="keyword">class</span> <span class="string">&#x27;PyQt5.QtWidgets.QStatusBar&#x27;</span>&gt;, &lt;<span class="keyword">class</span> <span class="string">&#x27;PyQt5.QtWidgets.QTabBar&#x27;</span>&gt;, &lt;<span class="keyword">class</span> <span class="string">&#x27;PyQt5.QtWidgets.QTabWidget&#x27;</span>&gt;, &lt;<span class="keyword">class</span> <span class="string">&#x27;PyQt5.QtWidgets.QToolBar&#x27;</span>&gt;, &lt;<span class="keyword">class</span> <span class="string">&#x27;PyQt5.QtWidgets.QWizardPage&#x27;</span>&gt;, &lt;<span class="keyword">class</span> <span class="string">&#x27;__main__.any_parent&#x27;</span>&gt;]</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/05/17/python-PyQt5-%E4%BB%A3%E7%A0%81%E7%BB%93%E6%9E%84/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/452794135.jpg">
+      <meta itemprop="name" content="Kanoc Ge">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/05/17/python-PyQt5-%E4%BB%A3%E7%A0%81%E7%BB%93%E6%9E%84/" class="post-title-link" itemprop="url">python PyQt5_代码结构</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-05-17 23:46:29" itemprop="dateCreated datePublished" datetime="2023-05-17T23:46:29+08:00">2023-05-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-14 16:38:10" itemprop="dateModified" datetime="2024-03-14T16:38:10+08:00">2024-03-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python-PyQt5/" itemprop="url" rel="index"><span itemprop="name">python_PyQt5</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><font color=#00b2c2 size=5 face=宋体><strong>PyQt5_代码结构：</strong></font></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 0. 导入需要的包和模块</span></span><br><span class="line"><span class="keyword">from</span> PyQt5.Qt <span class="keyword">import</span> *  <span class="comment"># 主要包含了我们常用的一些类, 汇总到了一块</span></span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个应用程序对象</span></span><br><span class="line">app = QApplication(sys.argv)</span><br><span class="line"><span class="comment"># print(app.arguments())</span></span><br><span class="line"><span class="comment"># print(qApp.arguments())</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 控件的操作</span></span><br><span class="line"><span class="comment"># 创建控件,设置控件(大小,位置,样式...),事件,信号的处理</span></span><br><span class="line"><span class="comment"># 2.1 创建控件</span></span><br><span class="line"><span class="comment"># 当我们创建一个控件之后, 如果说,这个控件没有父控件, 则把它当做顶层控件(窗口)</span></span><br><span class="line"><span class="comment"># 系统会自动的给窗口添加一些装饰(标题栏), 窗口控件具备一些特性(设置标题,图标)</span></span><br><span class="line">window = QWidget()</span><br><span class="line"><span class="comment"># window = QPushButton()</span></span><br><span class="line"><span class="comment"># window = QLabel()</span></span><br><span class="line"><span class="comment"># 2.2 设置控件</span></span><br><span class="line"><span class="comment"># window.setText(&quot;hello sz&quot;)</span></span><br><span class="line">window.setWindowTitle(<span class="string">&quot;蛋君威武，霸气！就是忒特娘的怂了&quot;</span>)</span><br><span class="line">window.resize(<span class="number">400</span>, <span class="number">400</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 控件也可以作为一个容器(承载其他的控件)</span></span><br><span class="line">label = QLabel(window)</span><br><span class="line">label.setText(<span class="string">&quot;xxx&quot;</span>)</span><br><span class="line">label.setWindowTitle(<span class="string">&quot;xxxxxxx&quot;</span>)</span><br><span class="line">label.move(<span class="number">100</span>, <span class="number">50</span>)</span><br><span class="line"><span class="comment"># label.show()</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2.3 展示控件</span></span><br><span class="line"><span class="comment"># 刚创建好一个控件之后,(这个控件没有什么父控件), 默认情况下不会被展示,只有手动的调用show()才可以</span></span><br><span class="line"><span class="comment"># 如果说这个控件, 有父控件的,那么一般情况下, 父控件展示之后, 子控件会自动展示</span></span><br><span class="line">window.show()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 应用程序的执行, 进入到消息循环</span></span><br><span class="line"><span class="comment"># 让整个程序开始执行,并且进入到消息循环(无限循环)</span></span><br><span class="line"><span class="comment"># 检测整个程序所接收到的用户的交互信息</span></span><br><span class="line">sys.exit(app.exec_())</span><br><span class="line"></span><br><span class="line"><span class="comment"># 我们的代码, 到时候的执行方式, 右击, 执行   2, 命令行 python 代码名称</span></span><br><span class="line"><span class="comment"># 当别人通过命令行启动这个程序的时候,可以设定一种功能(接收命令行传递的参数, 来执行不同的业务逻辑</span></span><br><span class="line"><span class="comment"># args = sys.argv</span></span><br><span class="line"><span class="comment"># print(args)</span></span><br><span class="line"><span class="comment"># if args[1] == &#x27;1&#x27;:</span></span><br><span class="line"><span class="comment">#     print(&quot;xxx&quot;)</span></span><br><span class="line"><span class="comment"># else:</span></span><br><span class="line"><span class="comment">#     print(&quot;ooo&quot;)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># sys.exit()</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/05/17/python-PyQt5-%E5%88%A4%E5%AE%9AAPI/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2752,178 +2920,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/03/20/python%E4%B8%AD%E5%A4%9A%E5%B1%82List%E5%B1%95%E5%B9%B3%E4%B8%BA%E4%B8%80%E5%B1%82/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/452794135.jpg">
-      <meta itemprop="name" content="Kanoc Ge">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/03/20/python%E4%B8%AD%E5%A4%9A%E5%B1%82List%E5%B1%95%E5%B9%B3%E4%B8%BA%E4%B8%80%E5%B1%82/" class="post-title-link" itemprop="url">python中多层List展平为一层</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-03-20 09:32:14" itemprop="dateCreated datePublished" datetime="2023-03-20T09:32:14+08:00">2023-03-20</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-14 16:38:10" itemprop="dateModified" datetime="2024-03-14T16:38:10+08:00">2024-03-14</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><font color=#00b2c2 size=5 face=宋体><strong><strong>python中多层List展平为一层：</strong></strong></font></p>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>使用Python脚本的过程中,偶尔需要使用list多层转一层,</strong></strong></font></p>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>又总是忘记怎么写搜索关键词,所以总是找了很久,现在把各种方法记录下来,方便自己也方便大家.方法很多,现在就简单写8种,后面再对这8种方法做基准测试.</strong></strong></font></p>
-<p><font color=#b0171f size=3 face=宋体><strong><strong>1.定义减层方法：</strong></strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> functools</span><br><span class="line"><span class="keyword">import</span> itertools</span><br><span class="line"><span class="keyword">import</span> numpy</span><br><span class="line"><span class="keyword">import</span> operator</span><br><span class="line"><span class="keyword">import</span> perfplot</span><br><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> Iterable  <span class="comment"># or from collections.abc import Iterable</span></span><br><span class="line"><span class="keyword">from</span> iteration_utilities <span class="keyword">import</span> deepflatten</span><br><span class="line"></span><br><span class="line"><span class="comment">#使用两次for循环</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">forfor</span>(<span class="params">a</span>):</span><br><span class="line">    <span class="keyword">return</span> [item <span class="keyword">for</span> sublist <span class="keyword">in</span> a <span class="keyword">for</span> item <span class="keyword">in</span> sublist]</span><br><span class="line"></span><br><span class="line"><span class="comment">#通过sum</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">sum_brackets</span>(<span class="params">a</span>):</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">sum</span>(a, [])</span><br><span class="line"></span><br><span class="line"><span class="comment">#使用functools內建模块</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">functools_reduce</span>(<span class="params">a</span>):</span><br><span class="line">    <span class="keyword">return</span> functools.reduce(operator.concat, a)</span><br><span class="line"></span><br><span class="line"><span class="comment">#使用itertools內建模块(平常一般用)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">itertools_chain</span>(<span class="params">a</span>):</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">list</span>(itertools.chain.from_iterable(a))</span><br><span class="line"></span><br><span class="line"><span class="comment">#使用numpy</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">numpy_flat</span>(<span class="params">a</span>):</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">list</span>(numpy.array(a).flat)</span><br><span class="line"></span><br><span class="line"><span class="comment">#使用numpy</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">numpy_concatenate</span>(<span class="params">a</span>):</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">list</span>(numpy.concatenate(a))</span><br><span class="line"></span><br><span class="line"><span class="comment">#自定义函数</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">flatten</span>(<span class="params">items</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;Yield items from any nested iterable; see REF.&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">for</span> x <span class="keyword">in</span> items:</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">isinstance</span>(x, Iterable) <span class="keyword">and</span> <span class="keyword">not</span> <span class="built_in">isinstance</span>(x, (<span class="built_in">str</span>, <span class="built_in">bytes</span>)):</span><br><span class="line">            <span class="keyword">yield</span> <span class="keyword">from</span> flatten(x)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">yield</span> x</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">pylangs_flatten</span>(<span class="params">a</span>):</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">list</span>(flatten(a))</span><br><span class="line"></span><br><span class="line"><span class="comment">#使用库iteration_utilities</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">iteration_utilities_deepflatten</span>(<span class="params">a</span>):</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">list</span>(deepflatten(a, depth=<span class="number">1</span>))</span><br></pre></td></tr></table></figure>
-
-<p><font color=#b0171f size=3 face=宋体><strong><strong>2.测试：</strong></strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">a=[[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>],[<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>],[<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>]]</span><br><span class="line"><span class="built_in">print</span>(a)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;--------------------------&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(forfor(a))</span><br><span class="line"><span class="built_in">print</span>(sum_brackets(a))</span><br><span class="line"><span class="built_in">print</span>(functools_reduce(a))</span><br><span class="line"><span class="built_in">print</span>(itertools_chain(a))</span><br><span class="line"><span class="built_in">print</span>(numpy_flat(a))</span><br><span class="line"><span class="built_in">print</span>(numpy_concatenate(a))</span><br><span class="line"><span class="built_in">print</span>(pylangs_flatten(a))</span><br><span class="line"><span class="built_in">print</span>(iteration_utilities_deepflatten(a))</span><br></pre></td></tr></table></figure>
-
-<p><font color=#b0171f size=3 face=宋体><strong><strong>输出：</strong></strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">[[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>], [<span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>]]</span><br><span class="line">--------------------------</span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>]</span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>]</span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>]</span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>]</span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>]</span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>]</span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>]</span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>]</span><br></pre></td></tr></table></figure>
-
-<p><font color=#b0171f size=3 face=宋体><strong><strong>2.各种方法的基准测试(消耗时间对比)：</strong></strong></font></p>
-<p><font color=#f26522 size=2 face=宋体><strong><strong>各种方法在小数据上消耗时间差别不大,如果数据很小,没必要为了选择而烦恼,如果数据很大,可以参考下面基准测试的结果来选择减层方法.</strong></strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">from</span> simple_benchmark <span class="keyword">import</span> benchmark</span><br><span class="line"></span><br><span class="line"><span class="comment">#基准测试</span></span><br><span class="line">b = benchmark(</span><br><span class="line">    [forfor, sum_brackets, functools_reduce, itertools_chain,numpy_flat, numpy_concatenate, pylangs_flatten,iteration_utilities_deepflatten],</span><br><span class="line">    arguments=&#123;<span class="number">2</span>**i: [[<span class="number">0</span>]*<span class="number">5</span>]*(<span class="number">2</span>**i) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="number">13</span>)&#125;,</span><br><span class="line">    argument_name=<span class="string">&#x27;number of inner lists&#x27;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">#显示测试结果</span></span><br><span class="line">plt.subplots(<span class="number">1</span>,<span class="number">1</span>,figsize=(<span class="number">15</span>,<span class="number">10</span>))</span><br><span class="line">b.plot()</span><br><span class="line">plt.legend(loc = <span class="string">&#x27;upper left&#x27;</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://s2.loli.net/2022/06/13/Xek5O3vrpCmqIMN.png" alt="img"></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/03/20/js%E4%B9%A6%E5%86%99%E7%9A%84%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/452794135.jpg">
-      <meta itemprop="name" content="Kanoc Ge">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/03/20/js%E4%B9%A6%E5%86%99%E7%9A%84%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F/" class="post-title-link" itemprop="url">js书写的三种方式</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-03-20 09:30:01" itemprop="dateCreated datePublished" datetime="2023-03-20T09:30:01+08:00">2023-03-20</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-14 16:38:09" itemprop="dateModified" datetime="2024-03-14T16:38:09+08:00">2024-03-14</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">前端</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><font color=#00b2c2 size=5 face=宋体><strong><strong>js书写的三种方式:</strong></strong></font></p>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>1.直接把代码书写在标签身上:</strong></strong></font></p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- a标签 -  书写在 href 的属性上 --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;javascript: js代码 ;&quot;</span>&gt;</span> 点我一下 <span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 例如： --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;javascript: alert(&#x27;hello world&#x27;)&quot;</span>&gt;</span> 点我一下 <span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 非a标签 书写在行为属性上  --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">js行为</span>&gt;</span>点我一下<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 例如: --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">onclick</span>=<span class="string">&quot;alert(&#x27;hello world&#x27;)&quot;</span>&gt;</span>点我一下<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p><font color=#f26522 size=4 face=宋体><strong><strong>2.内嵌式JS代码：</strong></strong></font></p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- &lt;script&gt; 代码&lt;/script&gt; --&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>内嵌式JS代码<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">        <span class="title function_">alert</span>(<span class="string">&#x27;hello word&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p><font color=#f26522 size=4 face=宋体><strong><strong>3.外链式JS代码：</strong></strong></font></p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 外链式js代码，不需要依赖任何行为，打开页面就会执行 --&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 通过script 的 src属性调用js文件 --&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- &lt;script src=&quot;js文件地址&quot;&gt;&lt;/script&gt; --&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 同一目录下存在test.js文件 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;test.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -2994,18 +2990,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">291</span>
+          <span class="site-state-item-count">293</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-count">42</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">160</span>
+        <span class="site-state-item-count">163</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
