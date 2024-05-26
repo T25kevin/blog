@@ -198,6 +198,172 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/08/17/ffmpeg-%E8%A7%86%E9%A2%91%E6%97%8B%E8%BD%AC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/452794135.jpg">
+      <meta itemprop="name" content="Kanoc Ge">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/08/17/ffmpeg-%E8%A7%86%E9%A2%91%E6%97%8B%E8%BD%AC/" class="post-title-link" itemprop="url">ffmpeg 视频旋转</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-08-17 16:44:52" itemprop="dateCreated datePublished" datetime="2023-08-17T16:44:52+08:00">2023-08-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-14 16:38:09" itemprop="dateModified" datetime="2024-03-14T16:38:09+08:00">2024-03-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%A7%86%E9%A2%91%E7%BC%96%E8%BE%91/" itemprop="url" rel="index"><span itemprop="name">视频编辑</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><font color=#00b2c2 size=5 face=宋体><strong>ffmpeg 视频旋转：</strong></font></p>
+<p><font color=#f26522 size=4 face=宋体><strong>要使用FFmpeg旋转视频，您可以使用以下命令：</strong></font></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">shellffmpeg -i input_video.mp4 -vf &quot;transpose=1&quot; output_video.mp4</span><br></pre></td></tr></table></figure>
+
+<p><font color=#f26522 size=4 face=宋体><strong>在这个命令中，<code>-i input_video.mp4</code>指定输入视频文件的路径和文件名。<code>-vf &quot;transpose=1&quot;</code>指定旋转视频的角度，这里旋转90度。您可以根据需要更改旋转角度。最后，<code>output_video.mp4</code>指定输出视频文件的路径和文件名。</strong></font></p>
+<p><font color=#f26522 size=4 face=宋体><strong>如果您想旋转视频逆时针90度，可以使用以下命令：</strong></font></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">shellffmpeg -i input_video.mp4 -vf &quot;transpose=2&quot; output_video.mp4</span><br></pre></td></tr></table></figure>
+
+<p><font color=#f26522 size=4 face=宋体><strong>这将使用<code>transpose=2</code>来逆时针旋转视频90度。</strong></font></p>
+<p><font color=#f26522 size=4 face=宋体><strong>请注意，这些命令假设您已经安装了FFmpeg，并且可以在命令行中运行它。</strong></font></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/08/15/%E6%A0%B9%E6%8D%AE%E4%B8%BB%E8%A7%86%E9%A2%91%EF%BC%8C%E8%87%AA%E5%8A%A8%E8%AE%BE%E7%BD%AE%E7%89%87%E5%A4%B4%E7%9A%84%E5%88%86%E8%BE%A8%E7%8E%87%E3%80%81Fps%E3%80%81%E7%BC%96%E7%A0%81%E5%99%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/452794135.jpg">
+      <meta itemprop="name" content="Kanoc Ge">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/08/15/%E6%A0%B9%E6%8D%AE%E4%B8%BB%E8%A7%86%E9%A2%91%EF%BC%8C%E8%87%AA%E5%8A%A8%E8%AE%BE%E7%BD%AE%E7%89%87%E5%A4%B4%E7%9A%84%E5%88%86%E8%BE%A8%E7%8E%87%E3%80%81Fps%E3%80%81%E7%BC%96%E7%A0%81%E5%99%A8/" class="post-title-link" itemprop="url">根据主视频，自动设置片头的分辨率、Fps、编码器</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-08-15 17:26:08" itemprop="dateCreated datePublished" datetime="2023-08-15T17:26:08+08:00">2023-08-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-14 16:38:10" itemprop="dateModified" datetime="2024-03-14T16:38:10+08:00">2024-03-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%A7%86%E9%A2%91%E7%BC%96%E8%BE%91/" itemprop="url" rel="index"><span itemprop="name">视频编辑</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><font color=#00b2c2 size=5 face=宋体><strong>根据主视频，自动设置片头的分辨率、Fps、编码器：</strong></font></p>
+<ul>
+<li><font color=#f26522 size=4 face=宋体><strong>前提：</strong></font><ul>
+<li><font color=#b0171f size=3 face=宋体><strong>安装：ffmpeg</strong></font></li>
+<li><font color=#b0171f size=3 face=宋体><strong>安装：python库 opencv-python <code>pip3 install opencv-python</code></strong></font></li>
+</ul>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">set_start_video</span>(<span class="params">self, video_path, start_video_path</span>):</span><br><span class="line">  <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    :param video_path: 原始mp4 绝对路径</span></span><br><span class="line"><span class="string">    :param start_video_path:   片头的绝对路径</span></span><br><span class="line"><span class="string">    :return: </span></span><br><span class="line"><span class="string">  &quot;&quot;&quot;</span></span><br><span class="line">    video = cv2.VideoCapture(<span class="string">f&quot;<span class="subst">&#123;video_path&#125;</span>&quot;</span>)</span><br><span class="line">    <span class="comment"># print(height, width)</span></span><br><span class="line">    <span class="comment"># resolution1 = (int(video.get(cv2.CAP_PROP_FRAME_WIDTH)), int(video.get(cv2.CAP_PROP_FRAME_HEIGHT)))</span></span><br><span class="line">    <span class="comment"># print(resolution1)</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 获取高度</span></span><br><span class="line">    height = <span class="built_in">int</span>(video.get(cv2.CAP_PROP_FRAME_HEIGHT))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 获取宽度</span></span><br><span class="line">    width = <span class="built_in">int</span>(video.get(cv2.CAP_PROP_FRAME_WIDTH))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 获取帧率</span></span><br><span class="line">    fps = video.get(cv2.CAP_PROP_FPS)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># # 向上取整</span></span><br><span class="line">    <span class="comment"># fps_a = math.ceil(fps)</span></span><br><span class="line">	</span><br><span class="line">    <span class="comment"># 保留2位小数</span></span><br><span class="line">    fps_a = <span class="string">&#x27;%.2f&#x27;</span> % fps</span><br><span class="line">    <span class="comment"># &quot;ffmpeg -i a.mp4 -r 30 b.mp4&quot;</span></span><br><span class="line">    <span class="comment"># print(fps_a)</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 退出cv2</span></span><br><span class="line">    video.release()</span><br><span class="line">    cv2.destroyAllWindows()</span><br><span class="line">    </span><br><span class="line">	<span class="comment"># 开始获取编码器 因为我的本地opencv库版本低，尝试获取编码器格式失败，所以这里用另一种方式获取</span></span><br><span class="line">    command = <span class="string">f&quot;ffprobe -v quiet -select_streams v:0 -show_entries stream=codec_name -of default &#x27;<span class="subst">&#123;video_path&#125;</span>/v1.mp4&#x27;&quot;</span></span><br><span class="line">    result = subprocess.run(command, shell=<span class="literal">True</span>, stdout=subprocess.PIPE)</span><br><span class="line">    encoder = result.stdout.decode().strip()</span><br><span class="line">    new_encoder = re.search(<span class="string">&quot;codec_name=(?P&lt;codec_name&gt;.*?)\n&quot;</span>, encoder)</span><br><span class="line">	</span><br><span class="line">    <span class="comment"># 编写执行命令字符串</span></span><br><span class="line">    cmd_str = <span class="string">f&quot;ffmpeg -i <span class="subst">&#123;start_video_path&#125;</span> -vf scale=<span class="subst">&#123;width&#125;</span>:<span class="subst">&#123;height&#125;</span> -r <span class="subst">&#123;fps_a&#125;</span> -acodec aac -vcodec <span class="subst">&#123;new_encoder.group(<span class="string">&#x27;codec_name&#x27;</span>)&#125;</span> <span class="subst">&#123;video_path&#125;</span>/xxx.ts&quot;</span>   <span class="comment"># 这里的xxx.ts 就是我们根据主视频修改后的片头</span></span><br><span class="line">    <span class="comment"># 开始执行命令</span></span><br><span class="line">    os.system(cmd_str)</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/08/15/%E5%88%A9%E7%94%A8m3u8%E6%96%87%E4%BB%B6%E6%9C%BA%E5%88%B6%E6%B7%BB%E5%8A%A0%E7%89%87%E5%A4%B4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2976,7 +3142,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-14 16:38:09" itemprop="dateModified" datetime="2024-03-14T16:38:09+08:00">2024-03-14</time>
+                <time title="修改时间：2024-05-26 08:30:16" itemprop="dateModified" datetime="2024-05-26T08:30:16+08:00">2024-05-26</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -2984,7 +3150,11 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/django/" itemprop="url" rel="index"><span itemprop="name">django</span></a>
+                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/django/" itemprop="url" rel="index"><span itemprop="name">django</span></a>
                 </span>
             </span>
 
@@ -3374,155 +3544,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/07/01/Mac-OS-%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/452794135.jpg">
-      <meta itemprop="name" content="Kanoc Ge">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/07/01/Mac-OS-%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/" class="post-title-link" itemprop="url">Mac OS 环境变量配置</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-07-01 13:19:14" itemprop="dateCreated datePublished" datetime="2023-07-01T13:19:14+08:00">2023-07-01</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-14 16:38:09" itemprop="dateModified" datetime="2024-03-14T16:38:09+08:00">2024-03-14</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="Mac-OS-环境变量配置："><a href="#Mac-OS-环境变量配置：" class="headerlink" title="Mac OS 环境变量配置："></a><font color=#00b2c2 size=5 face=宋体><strong>Mac OS 环境变量配置：</strong></font></h3><h5 id="请输入文字信息-编辑-platform-tools-或者编辑-zshrc"><a href="#请输入文字信息-编辑-platform-tools-或者编辑-zshrc" class="headerlink" title="请输入文字信息&gt;&gt;&gt;编辑 ~/.platform-tools 或者编辑 ~/.zshrc"></a>请输入文字信息&gt;&gt;&gt;<font color=#f26522 size=4 face=宋体><strong>编辑 <code>~/.platform-tools</code> 或者编辑 <code>~/.zshrc</code></strong></font></h5><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 模板文件</span></span><br><span class="line">&lt;变量名&gt;=/User/xxx/xxx</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:$&lt;变量名&gt;/&lt;具体路径&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 例如:</span></span><br><span class="line">ANDORID_SDK=/User/</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$ANDORID_SDK</span>/PSDD</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># </span></span><br><span class="line">USER_PATH=/Users/kate_01</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:$/Users/kate_01/bash_files</span><br></pre></td></tr></table></figure>
-
-<p>编辑完成之后立即生效</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">source</span> ~/.platform-tools    <span class="comment"># 立即生效的意思</span></span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/06/14/python-ImportError-urllib3-v2-0-only-supports-OpenSSL-1-1-1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/452794135.jpg">
-      <meta itemprop="name" content="Kanoc Ge">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/06/14/python-ImportError-urllib3-v2-0-only-supports-OpenSSL-1-1-1/" class="post-title-link" itemprop="url">python ImportError: urllib3 v2.0 only supports OpenSSL 1.1.1+</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-06-14 04:15:35" itemprop="dateCreated datePublished" datetime="2023-06-14T04:15:35+08:00">2023-06-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-14 16:38:10" itemprop="dateModified" datetime="2024-03-14T16:38:10+08:00">2024-03-14</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><font color=#00b2c2 size=5 face=宋体><strong>ImportError: urllib3 v2.0 only supports OpenSSL 1.1.1+</strong></font></p>
-<p><font color=#f26522 size=4 face=宋体><strong>解决办法：</strong></font></p>
-<ul>
-<li><font color=#b0171f size=2 face=宋体><strong>指定python环境下的 urllib3 特定版本</strong></font></li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">pip3 install --upgrade urllib3==1.26.15</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -3593,18 +3614,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">293</span>
+          <span class="site-state-item-count">295</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">43</span>
+        <span class="site-state-item-count">47</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">163</span>
+        <span class="site-state-item-count">169</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

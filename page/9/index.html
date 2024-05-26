@@ -198,6 +198,158 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/03/20/python-task-%E5%88%97%E8%A1%A8%E8%BF%94%E5%9B%9E%E5%80%BC%E7%9A%84%E8%8E%B7%E5%8F%96/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/452794135.jpg">
+      <meta itemprop="name" content="Kanoc Ge">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/03/20/python-task-%E5%88%97%E8%A1%A8%E8%BF%94%E5%9B%9E%E5%80%BC%E7%9A%84%E8%8E%B7%E5%8F%96/" class="post-title-link" itemprop="url">python task 列表返回值的获取</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-03-20 09:47:35" itemprop="dateCreated datePublished" datetime="2023-03-20T09:47:35+08:00">2023-03-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-14 16:38:10" itemprop="dateModified" datetime="2024-03-14T16:38:10+08:00">2024-03-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python-%E5%BC%82%E6%AD%A5/" itemprop="url" rel="index"><span itemprop="name">python_异步</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="python-task-列表返回值的获取（异步返回值）："><a href="#python-task-列表返回值的获取（异步返回值）：" class="headerlink" title="python task 列表返回值的获取（异步返回值）："></a><font color=#00b2c2 size=5 face=宋体><strong>python task 列表返回值的获取（异步返回值）：</strong></font></h1><p>技术获取地址 ：<a target="_blank" rel="noopener" href="https://juejin.cn/s/python%20%E5%8D%8F%E7%A8%8B%E8%BF%94%E5%9B%9E%E5%80%BC">https://juejin.cn/s/python%20%E5%8D%8F%E7%A8%8B%E8%BF%94%E5%9B%9E%E5%80%BC</a></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">RunAsync</span>(<span class="params">self, data_list</span>):</span><br><span class="line">    sem = asyncio.Semaphore(<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">async</span> <span class="keyword">with</span> aiohttp.ClientSession() <span class="keyword">as</span> session:</span><br><span class="line">        tasks = [asyncio.create_task(self.get_all_audio(session, sem, data)) <span class="keyword">for</span> data <span class="keyword">in</span> data_list]</span><br><span class="line">        <span class="keyword">await</span> asyncio.wait(tasks)</span><br><span class="line">        s_ = [i.result() <span class="keyword">for</span> i <span class="keyword">in</span> tasks]</span><br><span class="line">        <span class="built_in">print</span>(s_)</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2023/03/20/AiWjN9ogn28Q1aq.png" alt="image-20230313165657958"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/03/20/HTML%E7%89%B9%E6%AE%8A%E7%AC%A6%E5%8F%B7%E6%98%BE%E7%A4%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/452794135.jpg">
+      <meta itemprop="name" content="Kanoc Ge">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/03/20/HTML%E7%89%B9%E6%AE%8A%E7%AC%A6%E5%8F%B7%E6%98%BE%E7%A4%BA/" class="post-title-link" itemprop="url">HTML特殊符号显示</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-03-20 09:36:22" itemprop="dateCreated datePublished" datetime="2023-03-20T09:36:22+08:00">2023-03-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-14 16:38:09" itemprop="dateModified" datetime="2024-03-14T16:38:09+08:00">2024-03-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">前端</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="HTML特殊符号显示"><a href="#HTML特殊符号显示" class="headerlink" title="HTML特殊符号显示"></a><font color=#00b2c2 size=5 face=宋体><strong><strong>HTML特殊符号显示</strong></strong></font></h1><p><font color=#f26522 size=4 face=宋体><strong><strong>想要在html页面中显示特殊符号 需要做转义</strong></strong></font></p>
+<p><img src="https://s2.loli.net/2022/06/19/9cM1HJdy5XQqLfu.png" alt="img"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/03/20/python%E4%B8%AD%E5%A4%9A%E5%B1%82List%E5%B1%95%E5%B9%B3%E4%B8%BA%E4%B8%80%E5%B1%82/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2638,191 +2790,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/03/20/Jinja2%E6%A8%A1%E6%9D%BF%E5%88%9B%E5%BB%BA%E6%B5%81%E7%A8%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/452794135.jpg">
-      <meta itemprop="name" content="Kanoc Ge">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/03/20/Jinja2%E6%A8%A1%E6%9D%BF%E5%88%9B%E5%BB%BA%E6%B5%81%E7%A8%8B/" class="post-title-link" itemprop="url">Jinja2模板创建流程</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-03-20 06:56:31" itemprop="dateCreated datePublished" datetime="2023-03-20T06:56:31+08:00">2023-03-20</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-14 16:38:09" itemprop="dateModified" datetime="2024-03-14T16:38:09+08:00">2024-03-14</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/django/" itemprop="url" rel="index"><span itemprop="name">django</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><font color=#00b2c2 size=5 face=宋体><strong><strong>Jinja2模板创建流程：</strong></strong></font></p>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>1.安装Django包：</strong></strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 安装django项目</span></span><br><span class="line"></span><br><span class="line">pip3 install virtualenv   <span class="comment"># 安装virtualenv</span></span><br><span class="line">python3 -m venv django_venv   <span class="comment"># 创建venv虚拟环境</span></span><br><span class="line">source ./django_venv/<span class="built_in">bin</span>/activate    <span class="comment"># 进入虚拟环境</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 下载django</span></span><br><span class="line">pip3 install django  <span class="comment"># 直接安装</span></span><br><span class="line">pip3 install django==<span class="number">2.2</span> -i https://pypi.douban.com/simple    <span class="comment"># 指定安装版本 和安装源</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建工程  </span></span><br><span class="line">django-admin startproject mysite    <span class="comment">#  创建一个名叫mysite的django工程</span></span><br><span class="line">python manage.py startapp app     <span class="comment"># 创建一个名叫app的子应用</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 运行命令 </span></span><br><span class="line">python3 manage.py runserver <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span>:<span class="number">8000</span>   <span class="comment"># 指定运行到 8000 端口</span></span><br></pre></td></tr></table></figure>
-
-<p><font color=#f26522 size=4 face=宋体><strong><strong>2.配置settings：</strong></strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># pip install jinja2    在虚拟环境中安装mako 包</span></span><br><span class="line">ALLOWED_HOSTS = [<span class="string">&quot;*&quot;</span>]    <span class="comment"># 允许所有ip访问</span></span><br><span class="line"></span><br><span class="line">INSTALLED_APPS = [</span><br><span class="line">    <span class="string">&#x27;django.contrib.admin&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;django.contrib.auth&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;django.contrib.contenttypes&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;django.contrib.sessions&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;django.contrib.messages&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;django.contrib.staticfiles&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;app&#x27;</span>,          <span class="comment"># 以上是默认系统生成， 此处添加子应用名称，在这里添加了才可以使用</span></span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">TEMPLATES = [    <span class="comment"># temolates 模板配置</span></span><br><span class="line"></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">&#x27;BACKEND&#x27;</span>: <span class="string">&#x27;django.template.backends.django.DjangoTemplates&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;DIRS&#x27;</span>: [os.path.join(BASE_DIR, <span class="string">&#x27;templates&#x27;</span>)],     <span class="comment">#  自动生成修改</span></span><br><span class="line">        <span class="string">&#x27;APP_DIRS&#x27;</span>: <span class="literal">True</span>,</span><br><span class="line">        <span class="string">&#x27;OPTIONS&#x27;</span>: &#123;</span><br><span class="line">            <span class="string">&#x27;context_processors&#x27;</span>: [</span><br><span class="line">                <span class="string">&#x27;django.template.context_processors.debug&#x27;</span>,</span><br><span class="line">                <span class="string">&#x27;django.template.context_processors.request&#x27;</span>,</span><br><span class="line">                <span class="string">&#x27;django.contrib.auth.context_processors.auth&#x27;</span>,</span><br><span class="line">                <span class="string">&#x27;django.contrib.messages.context_processors.messages&#x27;</span>,</span><br><span class="line">            ],</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#  固定写法</span></span><br><span class="line">LANGUAGE_CODE = <span class="string">&#x27;zh-hans&#x27;</span></span><br><span class="line">TIME_ZONE = <span class="string">&#x27;Asia/Shanghai&#x27;</span></span><br><span class="line">USE_I18N = <span class="literal">True</span></span><br><span class="line">USE_I10N = <span class="literal">True</span></span><br><span class="line">USE_TZ = <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">STATIC_URL = <span class="string">&#x27;/static/&#x27;</span></span><br><span class="line">STATICFILES_DIRS = [</span><br><span class="line">    os.path.join(BASE_DIR, <span class="string">&#x27;static&#x27;</span>)</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-
-<p><font color=#f26522 size=4 face=宋体><strong><strong>3.配置主路由urls内容：</strong></strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> django.contrib <span class="keyword">import</span> admin</span><br><span class="line"><span class="keyword">from</span> django.urls <span class="keyword">import</span> path, include    <span class="comment"># 导入include包</span></span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">    path(<span class="string">&#x27;admin/&#x27;</span>, admin.site.urls),    <span class="comment"># 固定写法 系统自动生成</span></span><br><span class="line">    path(<span class="string">&#x27;&#x27;</span>, include(<span class="string">&#x27;app.urls&#x27;</span>))     <span class="comment"># 添加子路由</span></span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-
-<p><font color=#f26522 size=4 face=宋体><strong><strong>4.配置子路由urls内容（mako模板版本）：</strong></strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> django.urls <span class="keyword">import</span> path</span><br><span class="line"><span class="keyword">from</span> .views <span class="keyword">import</span> mako   <span class="comment"># 导入mako包</span></span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">    path(<span class="string">&#x27;&#x27;</span>, mako.as_view())     <span class="comment"># 指向mako模板</span></span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-
-<p><font color=#f26522 size=4 face=宋体><strong><strong>5.创建jinja2模板py（app &gt; base_jinja2.py）文件：</strong></strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> jinja2 <span class="keyword">import</span> Environment</span><br><span class="line"><span class="keyword">from</span> django.contrib.staticfiles.storage <span class="keyword">import</span> staticfiles_storage</span><br><span class="line"><span class="keyword">from</span> django.urls <span class="keyword">import</span> reverse</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">environment</span>(<span class="params">**options</span>):</span><br><span class="line">    env = Environment(**options)</span><br><span class="line">    env.<span class="built_in">globals</span>.update(&#123;</span><br><span class="line">        <span class="string">&#x27;static&#x27;</span>: staticfiles_storage.url,</span><br><span class="line">        <span class="string">&#x27;url&#x27;</span>: reverse</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">return</span> env</span><br></pre></td></tr></table></figure>
-
-<p><font color=#f26522 size=4 face=宋体><strong><strong>6.配置views.py：</strong></strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> .base_render <span class="keyword">import</span> render_to_response</span><br><span class="line"><span class="keyword">from</span> django.views.generic <span class="keyword">import</span> View</span><br><span class="line"><span class="comment"># Create your views here.</span></span><br><span class="line"><span class="keyword">from</span> django.shortcuts <span class="keyword">import</span> render</span><br><span class="line"><span class="keyword">from</span> django.http <span class="keyword">import</span> HttpResponse</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">mako</span>(<span class="title class_ inherited__">View</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">get</span>(<span class="params">self, request</span>):</span><br><span class="line">        data = &#123;<span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;coocoo&#x27;</span>, <span class="string">&#x27;age&#x27;</span>: <span class="number">20</span>&#125;</span><br><span class="line">        <span class="keyword">return</span> render(request, <span class="string">&#x27;index.html&#x27;</span>, data=data)</span><br></pre></td></tr></table></figure>
-
-<p><font color=#f26522 size=4 face=宋体><strong><strong>7.创建 templates &gt; index.html：</strong></strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">//该内容是mako模板下的html</span><br><span class="line">    </span><br><span class="line">    Title</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#123;name&#125;&#123;age&#125;</span><br><span class="line">    &lt;%!</span><br><span class="line">        <span class="keyword">from</span> django.conf <span class="keyword">import</span> settings</span><br><span class="line">        <span class="keyword">import</span> requests</span><br><span class="line">        res_a = requests.get(<span class="string">&#x27;https://www.baidu.com&#x27;</span>)</span><br><span class="line">        res_a.encoding = <span class="string">&#x27;utf-8&#x27;</span></span><br><span class="line">    %&gt;</span><br><span class="line">&#123;<span class="comment">#    &#123;settings.TEMPLATES[0][&#x27;DIRS&#x27;][0]&#125;#&#125;&#123;res_a.text&#125;</span></span><br></pre></td></tr></table></figure>
-
-<p><font color=#f26522 size=4 face=宋体><strong><strong>8.Mako基本语法：</strong></strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">变量被 &#123;&#123; 和 &#125;&#125; 包围，如下所示：</span><br><span class="line">My first name <span class="keyword">is</span> &#123;&#123; first_name &#125;&#125;. My last name <span class="keyword">is</span> &#123;&#123; last_name &#125;&#125;.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">字典查找，属性查找和列表索引查找均以点符号实现：</span><br><span class="line">&#123;&#123; my_dict.key &#125;&#125;</span><br><span class="line">&#123;&#123; my_object.attribute &#125;&#125;</span><br><span class="line">&#123;&#123; my_list<span class="number">.0</span> &#125;&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">标签在渲染过程中提供了任意逻辑。</span><br><span class="line">这个定义是故意含糊的。例如，标签可以输出内容，或用作控制结构如 “<span class="keyword">if</span>” 语句和 “<span class="keyword">for</span>” 循环，或从数据库中抓取内容，甚至可以访问其他模板标签。</span><br><span class="line">标签被 &#123;% 和 %&#125; 包围，如下所示：</span><br><span class="line"></span><br><span class="line">标签被 &#123;% 和 %&#125; 包围，如下所示：</span><br><span class="line">&#123;% csrf_token %&#125;</span><br><span class="line"></span><br><span class="line">大多数标签都接受参数：</span><br><span class="line">&#123;% cycle <span class="string">&#x27;odd&#x27;</span> <span class="string">&#x27;even&#x27;</span> %&#125;</span><br><span class="line"></span><br><span class="line">一些标签需要开始和结束标签：</span><br><span class="line">&#123;% <span class="keyword">if</span> user.is_authenticated %&#125;Hello, &#123;&#123; user.username &#125;&#125;.&#123;% endif %&#125;</span><br></pre></td></tr></table></figure>
-
-<p><font color=#f26522 size=4 face=宋体><strong><strong>9、jinja2基本语法：</strong></strong></font></p>
-<p><img src="https://s2.loli.net/2022/06/21/VmLFau3lHsfKrYp.png" alt="img"></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/03/20/Linux%E4%B8%8BDjango%E5%85%B3%E4%BA%8E%E5%AE%89%E8%A3%85mysqlclient%E6%8A%A5%E9%94%99%E7%9A%84%E9%97%AE%E9%A2%98/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/452794135.jpg">
-      <meta itemprop="name" content="Kanoc Ge">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/03/20/Linux%E4%B8%8BDjango%E5%85%B3%E4%BA%8E%E5%AE%89%E8%A3%85mysqlclient%E6%8A%A5%E9%94%99%E7%9A%84%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">Linux下Django关于安装mysqlclient报错的问题</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-03-20 06:52:02" itemprop="dateCreated datePublished" datetime="2023-03-20T06:52:02+08:00">2023-03-20</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-14 16:38:09" itemprop="dateModified" datetime="2024-03-14T16:38:09+08:00">2024-03-14</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/django/" itemprop="url" rel="index"><span itemprop="name">django</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><font color=#00b2c2 size=5 face=宋体><strong><strong>Linux下Django关于安装mysqlclient报错的问题：</strong></strong></font></p>
-<hr>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>错误提示：</strong></strong></font></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ERROR: Command errored out with exit status 1: python setup.py egg_info Check the logs for full command output.</span><br></pre></td></tr></table></figure>
-
-<p><font color=#f26522 size=4 face=宋体><strong><strong>解决办法：</strong></strong></font></p>
-<p><font color=#b0171f size=3 face=宋体><strong><strong>我这边是因为缺少库导致的安装失败（PYTHON&#x3D;3.81，DJANGO&#x3D;4.0.6）</strong></strong></font></p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo apt-get install libmysqlclient-dev</span><br><span class="line">pip3 install wheel</span><br></pre></td></tr></table></figure>
-
-<p><font color=#b0171f size=3 face=宋体><strong><strong>最后在执行mysqlclient的安装</strong></strong></font></p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pip3 install mysqlclient</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -2893,18 +2860,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">293</span>
+          <span class="site-state-item-count">295</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">43</span>
+        <span class="site-state-item-count">47</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">163</span>
+        <span class="site-state-item-count">169</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

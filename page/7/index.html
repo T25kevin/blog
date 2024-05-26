@@ -198,6 +198,235 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/05/22/Flask-%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/452794135.jpg">
+      <meta itemprop="name" content="Kanoc Ge">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/05/22/Flask-%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/" class="post-title-link" itemprop="url">Flask_基础教程</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-05-22 20:09:20" itemprop="dateCreated datePublished" datetime="2023-05-22T20:09:20+08:00">2023-05-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-14 16:38:09" itemprop="dateModified" datetime="2024-03-14T16:38:09+08:00">2024-03-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python-flask/" itemprop="url" rel="index"><span itemprop="name">python_flask</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><font color=#00b2c2 size=5 face=宋体><strong>Flask_基础教程：</strong></font></p>
+<p><font color=#f26522 size=4 face=宋体><strong>Flask轻量级框架，入门配置教程</strong></font></p>
+<ul>
+<li><font color=#b0171f size=2 face=宋体><strong>安装Flask</strong></font></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pip install flask</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><font color=#b0171f size=2 face=宋体><strong>基本使用</strong></font></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask    <span class="comment"># 导入Flask包</span></span><br><span class="line">app = Flask(__name__, template_folder=<span class="string">&#x27;templates&#x27;</span>)  <span class="comment">#  默认模板文件夹是templates    # 实例化Flask到app  __name__ Flask本身</span></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/index&#x27;</span></span>)    </span><span class="comment"># 定义路由 为/index</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">index</span>():</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;Hello World&#x27;</span>   <span class="comment"># 访问返回内容</span></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    app.run()    <span class="comment"># 运行 Flask</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<br>
+
+<br>
+
+<hr>
+<br>
+
+<p><font color=#f26522 size=4 face=宋体><strong>重点：</strong></font></p>
+<ul>
+<li><font color=#b0171f size=2 face=宋体><strong>Flask其实是有werkzeug 下拓展出来的</strong></font></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> werkzeug.wrappers <span class="keyword">import</span> Request, Response</span><br><span class="line"><span class="keyword">from</span> werkzeug.serving <span class="keyword">import</span> run_simple</span><br><span class="line"></span><br><span class="line"><span class="meta">@Request.application</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">hello</span>(<span class="params">request</span>):</span><br><span class="line">    <span class="keyword">return</span> Response(<span class="string">&#x27;Hello World!&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    run_simple(<span class="string">&#x27;localhost&#x27;</span>, <span class="number">4000</span>, hello)   <span class="comment"># 监听端口localhost:4000   返回函数 hello()下内容</span></span><br></pre></td></tr></table></figure>
+
+<br>
+
+<br>
+
+<hr>
+<br>
+
+<p><font color=#f26522 size=4 face=宋体><strong>Flask 框架下的get与post写法：</strong></font></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask,render_template, request, redirect</span><br><span class="line">app = Flask(__name__, template_folder=<span class="string">&#x27;templates&#x27;</span>)</span><br><span class="line">app.secret_key = <span class="string">&#x27;sdqx4q4we2w&#x27;</span>  <span class="comment"># session_cookie 加盐</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/login&#x27;</span>, methods=[<span class="string">&#x27;GET&#x27;</span>,<span class="string">&#x27;POST&#x27;</span>]</span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">login</span>():</span><br><span class="line">    <span class="keyword">if</span> request.method == <span class="string">&#x27;GET&#x27;</span>:</span><br><span class="line">        <span class="keyword">return</span> render_template(<span class="string">&#x27;login.html&#x27;</span>)</span><br><span class="line">    <span class="comment"># request.args   # 获取GET传来的参数</span></span><br><span class="line">    <span class="comment"># request.form   # 获取POST传递过来的参数</span></span><br><span class="line">    user = request.form.get(<span class="string">&#x27;user&#x27;</span>) <span class="comment"># 获取POST过来的值 USER</span></span><br><span class="line">    pwd = request.form.get(<span class="string">&#x27;pwd&#x27;</span>)  <span class="comment"># 获取POST过来的值  pwd</span></span><br><span class="line">    <span class="keyword">if</span> user == <span class="string">&#x27;alex&#x27;</span> <span class="keyword">and</span> pwd ==<span class="string">&#x27;123&#x27;</span>:</span><br><span class="line">        session[<span class="string">&#x27;user_info&#x27;</span>] = user   <span class="comment"># 将个人信息存入 session给浏览器</span></span><br><span class="line">        <span class="keyword">return</span> redirect(<span class="string">&#x27;/index&#x27;</span>)    <span class="comment"># 跳转页面</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> render_template(<span class="string">&#x27;login.html&#x27;</span>, msg = <span class="string">&#x27;用户名或密码错误&#x27;</span>)  <span class="comment"># flask 的两种传参方式</span></span><br><span class="line">        <span class="comment"># return render_template(&#x27;login.html&#x27;, **&#123;&#x27;msg&#x27;: &#x27;用户名或密码错误&#x27;&#125;)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/index&#x27;</span></span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">index</span>():  <span class="comment"># 默认get请求</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;登陆成功&#x27;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    app.run()    <span class="comment"># 运行 Flask</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<br>
+
+<br>
+
+<br>
+
+<hr>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/05/22/Hexo-%E6%B7%BB%E5%8A%A0%E5%88%86%E7%B1%BB%E5%8F%8A%E6%A0%87%E7%AD%BE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/452794135.jpg">
+      <meta itemprop="name" content="Kanoc Ge">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/05/22/Hexo-%E6%B7%BB%E5%8A%A0%E5%88%86%E7%B1%BB%E5%8F%8A%E6%A0%87%E7%AD%BE/" class="post-title-link" itemprop="url">Hexo 添加分类及标签</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-05-22 20:04:17" itemprop="dateCreated datePublished" datetime="2023-05-22T20:04:17+08:00">2023-05-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-14 16:38:09" itemprop="dateModified" datetime="2024-03-14T16:38:09+08:00">2024-03-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%8D%9A%E5%AE%A2/" itemprop="url" rel="index"><span itemprop="name">博客</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><font color=#00b2c2 size=5 face=宋体><strong>Hexo 添加分类及标签：</strong></font></p>
+<p><font color=#f26522 size=4 face=宋体><strong>1. 创建“分类”选项</strong></font></p>
+<p><font color=#b0171f size=2 face=宋体><strong>生成“分类”页并添加tpye属性,进入博客目录。执行命令下方命令</strong></font></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo new page categories</span><br></pre></td></tr></table></figure>
+
+<p><font color=#b0171f size=2 face=宋体><strong>categories文件夹下会有index.md这个文件，打开后默认内容是这样的：</strong></font></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: categories</span><br><span class="line">date: 2019-04-22 14:47:40</span><br><span class="line">---</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><font color=#b0171f size=2 face=宋体><strong>添加type: “categories”到内容中，添加后是这样的：</strong></font></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: 分类</span><br><span class="line">date: 2019-04-24 15:30:30</span><br><span class="line">type: categories</span><br><span class="line">---</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p><font color=#b0171f size=2 face=宋体><strong>保存并关闭文件。</strong></font></p>
+<p><font color=#b0171f size=2 face=宋体><strong>给文章添加“categories”属性</strong></font></p>
+<p><font color=#b0171f size=2 face=宋体><strong>打开需要添加分类的文章，为其添加categories属性。下方的categories:Hexo表示这篇文章添加到到“Hexo”这个分类。注意：一篇文章只会添加到一个分类中，</strong></font></p>
+<p><font color=#b0171f size=2 face=宋体><strong>如果是多个默认放到第一个分类中。</strong></font></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: Hexo 添加分类及标签</span><br><span class="line">date: 2017-05-26 12:12:57</span><br><span class="line">categories: Hexo</span><br><span class="line">---</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: linux安装VMware坑</span><br><span class="line">date: 2021-11-01 20:05:30</span><br><span class="line">categories: </span><br><span class="line">- [Hexo]</span><br><span class="line">- [Linux笔记]</span><br><span class="line">tags:</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+
+<p><font color=#b0171f size=2 face=宋体><strong>至此，成功给文章添加分类，点击首页的“分类”可以看到该分类下的所有文章。当然，只有添加了categories: xxx的文章才会被收录到首页的“分类”中。</strong></font></p>
+<br>
+
+<hr>
+<br>
+
+<p><font color=#f26522 size=4 face=宋体><strong>2. 创建“标签”选项</strong></font></p>
+<p><font color=#b0171f size=2 face=宋体><strong>生成“标签”页并添加tpye属性</strong></font></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo new page tags</span><br></pre></td></tr></table></figure>
+
+<p><font color=#b0171f size=2 face=宋体><strong>在tags文件夹下，找到index.md这个文件，打开后默认内容是这样的：</strong></font></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: 标签</span><br><span class="line">date: 2019-04-22 14:22:08</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+
+<p><font color=#b0171f size=2 face=宋体><strong>添加type: “tags”到内容中，添加后是这样的：</strong></font></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: 标签</span><br><span class="line">date: 2019-04-24 15:40:24</span><br><span class="line">type: tags</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+
+<p><font color=#b0171f size=2 face=宋体><strong>保存并关闭文件。</strong></font></p>
+<p><font color=#b0171f size=2 face=宋体><strong>给文章添加“tags”属性,打开需要添加标签的文章，为其添加tags属性。</strong></font></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: Hexo 添加分类及标签</span><br><span class="line">date: 2019-04-24 15:40:24</span><br><span class="line">categories:</span><br><span class="line">- Hexo</span><br><span class="line">tags:</span><br><span class="line">- 博客</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/05/22/hexo%E6%96%87%E7%AB%A0%E5%88%86%E7%B1%BB/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -3308,300 +3537,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/05/18/Navicat-%E6%BF%80%E6%B4%BB%E6%95%99%E7%A8%8B2021-Linux/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/452794135.jpg">
-      <meta itemprop="name" content="Kanoc Ge">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/05/18/Navicat-%E6%BF%80%E6%B4%BB%E6%95%99%E7%A8%8B2021-Linux/" class="post-title-link" itemprop="url">Navicat_激活教程2021(Linux)</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-05-18 00:40:39" itemprop="dateCreated datePublished" datetime="2023-05-18T00:40:39+08:00">2023-05-18</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-14 16:38:09" itemprop="dateModified" datetime="2024-03-14T16:38:09+08:00">2024-03-14</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Navicat-激活教程2021-Linux"><a href="#Navicat-激活教程2021-Linux" class="headerlink" title="Navicat_激活教程2021(Linux)"></a><font color=#00b2c2 size=5 face=宋体><strong>Navicat_激活教程2021(Linux)</strong></font></h1><p><font color=#f26522 size=4 face=宋体><strong>一个强大的数据库管理软件 Navicat 激活教程2021（Linux）</strong></font></p>
-<p>Navicat 是香港卓软数字科技有限公司生产的一系列 MySQL、MariaDB、MongoDB、Oracle、SQLite、PostgreSQL 及 Microsoft SQL Server 的图形化数据库管理及发展软件。它有一个类似浏览器的图形用户界面，支持多重连线到本地和远程数据库。它的设计合乎各种用户的需求，从数据库管理员和程序员，到各种为客户服务并与合作伙伴共享信息的不同企业或公司。 –Wikipedia</p>
-<hr>
-<br>
-
-<p><font color=#00b2c2 size=4 face=宋体><strong>环境：</strong></font></p>
-<hr>
-<ul>
-<li><p><font color=#f26522 size=4 face=宋体><strong>1.环境清单：</strong></font></p>
-<ul>
-<li><font color=#b0171f size=3 face=宋体><strong>Navicat包：<a target="_blank" rel="noopener" href="https://www.navicat.com.cn/download/navicat-premium">官网传送阵</a></strong></font></li>
-<li><font color=#b0171f size=3 face=宋体><strong>Navicat-Keygen工具(依赖下面三个库)</strong></font></li>
-<li><font color=#b0171f size=3 face=宋体><strong>capstone</strong></font></li>
-<li><font color=#b0171f size=3 face=宋体><strong>keystone (需要cmake)</strong></font></li>
-<li><font color=#b0171f size=3 face=宋体><strong>rapidjson</strong></font></li>
-<li><font color=#b0171f size=3 face=宋体><strong>AppImage打包工具</strong></font></li>
-</ul>
-</li>
-</ul>
-<hr>
-<br>
-
-<ul>
-<li><p><font color=#f26522 size=4 face=宋体><strong>2.环境准备：</strong></font></p>
-<ul>
-<li><p><font color=#b0171f size=3 face=宋体><strong>Navicat 包下载<a target="_blank" rel="noopener" href="https://bd.bcebos.com/v1/xly-icafe/navicat15-premium-cs-20220217092059-kezae2.appimage">BD直下(navicat premium-15.0.23)</a></strong></font></p>
-</li>
-<li><p><font color=#b0171f size=3 face=宋体><strong>Note: 官网最新版激活失败，可以使用这个旧版本（小编激活官网最新版的时候，卡在激活的第2 步）</strong></font></p>
-</li>
-<li><p><font color=#b0171f size=3 face=宋体><strong>准备Navicat-Keygen的编译环境</strong></font></p>
-</li>
-<li><p><font color=#b0171f size=3 face=宋体><strong>capstone</strong></font></p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo apt install libcapstone-dev</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-</ul>
-<hr>
-<br>
-
-<ul>
-<li><p><font color=#b0171f size=3 face=宋体><strong>keystone</strong></font></p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">安装编译工具cmake</span></span><br><span class="line">sudo apt install cmake</span><br><span class="line">cd ~/下载  # 获取keystone源码并编译安装</span><br><span class="line">git clone https://github.com/keystone-engine/keystone.git</span><br><span class="line">cd keystone</span><br><span class="line">mkdir build  # 创建一个build目录用于存放keystone编译后的库文件</span><br><span class="line">cd build</span><br><span class="line">../make-share.sh</span><br><span class="line">sudo make install # 安装keystone动态库</span><br><span class="line">sudo ldconfig   # 执行dconfig动态链接库为系统所共享</span><br><span class="line">sudo apt install rapidjson-dev   # 安装 rapidjson  </span><br></pre></td></tr></table></figure></li>
-</ul>
-<hr>
-<br>
-
-<ul>
-<li><font color=#f26522 size=4 face=宋体><strong>3.编译安装Navicat-Keygen：</strong></font></li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">下载</span></span><br><span class="line">cd ~/下载</span><br><span class="line">git clone -b linux --single-branch https://github.com/Orginly/navicat-keygen.git</span><br><span class="line">cd navicat-keygen</span><br><span class="line">make all</span><br><span class="line">sudo chmod a+x bin/*  # 授权navicat-pacher 和navicat-keygen</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>​	Note: 如果make all 的时候，提示fatal error: openssl&#x2F;opensslv.h: 没有那个文件或目录，此时请执行<font color=#00b2c2 size=3 face=宋体><strong><strong>sudo apt-get install libssl-dev</strong></strong></font>就可以了</p>
-<hr>
-<br>
-
-<ul>
-<li><font color=#f26522 size=4 face=宋体><strong>4.下载AppImage打包工具并授权：</strong></font></li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/下载  <span class="comment"># 下载</span></span><br><span class="line">wget <span class="string">&#x27;https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage&#x27;</span></span><br><span class="line">sudo <span class="built_in">chmod</span> a+x appimagetool-x86_64.AppImage <span class="comment"># 授权</span></span><br></pre></td></tr></table></figure>
-
-<br>
-
-<br>
-
-<p><font color=red size=7 face=宋体><strong><strong>激活：</strong></strong></font></p>
-<hr>
-<br>
-
-<ul>
-<li><font color=#00b2c2 size=4 face=宋体><strong><strong>1. 提取AppImage文件:</strong></strong></font></li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">将navicat15-premium-cs.AppImage 移动到 /home/目录下,进入AppImage目录下，打开终端并执行</span></span><br><span class="line">wget https://bd.bcebos.com/v1/xly-icafe/navicat15-premium-cs-20220217092059-kezae2.appimage</span><br><span class="line">mv navicat15-premium-cs-20220217092059-kezae2.appimage ~/下载/navicat15-premium-cs.AppImage</span><br><span class="line">cd ~/下载</span><br><span class="line">mkdir navicat15-premium-cs</span><br><span class="line">sudo mount -o loop navicat15-premium-cs.AppImage navicat15-premium-cs</span><br><span class="line">sudo cp -r navicat15-premium-cs navicat15</span><br><span class="line">sudo umount navicat15-premium-cs</span><br><span class="line">rm -rf navicat15-premium-cs</span><br></pre></td></tr></table></figure>
-
-<hr>
-<br>
-+ <font color=#00b2c2 size=4 face=宋体><strong>**2. navicat-patcher 替换官方公钥:**</strong></font>
-
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 进入navicat-keygen/bin/目录</span><br><span class="line">cd ~/下载/navicat-keygen/bin/</span><br><span class="line">sudo ./navicat-patcher ~/下载/navicat15  # 执行</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><font color=#b0171f size=3 face=宋体><strong>样式输出</strong></font></li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">**********************************************************</span><br><span class="line">\*       Navicat Patcher (Linux) by @DoubleLabyrinth      *</span><br><span class="line">\*                  Version: 1.0                          *</span><br><span class="line">\**********************************************************</span><br><span class="line"></span><br><span class="line">Press ENTER to <span class="built_in">continue</span> or Ctrl + C to abort.</span><br><span class="line"></span><br><span class="line">[+] Try to open libcc.so ... Ok!</span><br><span class="line"></span><br><span class="line">[+] PatchSolution0 ...... Ready to apply</span><br><span class="line">   RefSegment      =  1</span><br><span class="line">   MachineCodeRva  =  0x0000000001377200</span><br><span class="line">   PatchMarkOffset = +0x000000000292c840</span><br><span class="line"></span><br><span class="line">[*] Generating new RSA private key, it may take a long time...</span><br><span class="line">[*] Your RSA private key:</span><br><span class="line">    -----BEGIN RSA PRIVATE KEY-----</span><br><span class="line">    MIIEowIBAAKCAQEAta5uHinxzLei/iSOBu/Nf8y3X/BuGpmFcxacQIKb60amSHL4</span><br><span class="line">    vg0RaoWs3f04PapKSX+uGeWjhOzWX9UxRXj2xi1FeNgIKDa9+1cLKIvrOVlTlrpx</span><br><span class="line">    irXbOvGkF+uOd2mbEd11LgLwbnTKNoqWZuPHPh3hgUWF+fZ6/7rLuWrh+8K/OlHU</span><br><span class="line">    hOjgKZWoGxO7dXQhDav+iDxW7ab/s5B5/OJcwv+IvI3ZakL12C2fNKYcLtkonCTl</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line">...</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[*] New RSA-2048 private key has been saved to</span><br><span class="line">    /home/navicat-keygen/bin/RegPrivateKey.pem</span><br><span class="line"></span><br><span class="line">*******************************************************</span><br><span class="line">\ *           PATCH HAS BEEN DONE SUCCESSFULLY!         *</span><br><span class="line">\*                  HAVE FUN AND ENJOY~                *</span><br><span class="line">*******************************************************</span><br></pre></td></tr></table></figure>
-
-<hr>
-<br>
-
-<p><font color=#00b2c2 size=4 face=宋体><strong><strong>3. 将navicat15 打包:</strong></strong></font></p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cd ~/下载</span><br><span class="line">./appimagetool-x86_64.AppImage navicat15 navicat15.AppImage</span><br></pre></td></tr></table></figure>
-
-<hr>
-<br>
-
-<p><font color=#00b2c2 size=4 face=宋体><strong><strong>4. 运行刚打包的navicat15.AppImage:</strong></strong></font></p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">./navicat15.AppImage</span><br></pre></td></tr></table></figure>
-
-<hr>
-<br>
-
-<p><font color=#00b2c2 size=4 face=宋体><strong><strong>5. 使用 navicat-keygen 来生成 序列号 和 激活码:</strong></strong></font></p>
-<ul>
-<li><p><font color=#b0171f size=2 face=宋体><strong>1. 执行navicat-keygen</strong></font></p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cd ~/下载/navicat-keygen/bin/</span><br><span class="line">./navicat-keygen --text ./RegPrivateKey.pem</span><br></pre></td></tr></table></figure>
-
-</li>
-<li><p><font color=#b0171f size=2 face=宋体><strong>你会被要求选择Navicat产品类别、Navicat语言版本和填写主版本号。之后一个随机生成的 序列号 将会给出</strong></font></p>
-<p><img src="https://s2.loli.net/2022/06/09/xNzVRSmrDHsq78b.png"></p>
-</li>
-</ul>
-<hr>
-<br>
-
-<p><font color=red size=3 face=宋体><strong>使用这个 序列号(Serial number) 来暂时激活Navicat。</strong></font></p>
-<p><font color=red size=3 face=宋体><strong>之后你会被要求填写 用户名 和 组织名, 你可以随意填写，但别太长。</strong></font></p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[*] Your name: LIBRA</span><br><span class="line">[*] Your organization: ROOKIE</span><br></pre></td></tr></table></figure>
-
-<hr>
-<br>
-
-<p><font color=#b0171f size=3 face=宋体><strong>之后你会被要求填写请求码。注意不要关闭keygen。</strong></font><br><font color=#00b2c2 size=3 face=宋体><strong><strong>断开网络. 找到navicat注册窗口，填写keygen给你的 序列号，然后点击 激活，再点击 手动激活。(通常在线激活会失败，所以在弹出的提示中选择手动激活)</strong></strong></font></p>
-<p><font color=red size=3 face=宋体><strong>复制 请求码 到keygen，连按两次回车结束。</strong></font></p>
-<p><img src="https://s2.loli.net/2022/06/09/baoMzyGq4xS2L3f.png" alt="返回的激活码"></p>
-<br>
-
-<br>
-
-<br>
-
-<hr>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/05/18/pycharm%E4%B8%8B%E4%BD%BF%E7%94%A8%E6%A8%A1%E6%9D%BF%E5%BF%AB%E9%80%9F%E5%88%9B%E5%BB%BA/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/452794135.jpg">
-      <meta itemprop="name" content="Kanoc Ge">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/05/18/pycharm%E4%B8%8B%E4%BD%BF%E7%94%A8%E6%A8%A1%E6%9D%BF%E5%BF%AB%E9%80%9F%E5%88%9B%E5%BB%BA/" class="post-title-link" itemprop="url">pycharm下使用模板快速创建</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-05-18 00:23:35" itemprop="dateCreated datePublished" datetime="2023-05-18T00:23:35+08:00">2023-05-18</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-14 16:38:10" itemprop="dateModified" datetime="2024-03-14T16:38:10+08:00">2024-03-14</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><font color=#00b2c2 size=5 face=宋体><strong>pycharm下使用模板快速创建：</strong></font></p>
-<p><font color=#f26522 size=4 face=宋体><strong>设置&#x3D;&gt;编辑器&#x3D;&gt;实时模板&#x3D;&gt;python</strong></font></p>
-<ul>
-<li><p><font color=#b0171f size=2 face=宋体><strong>缩写 &#x3D; 你需要设置的快捷键</strong></font></p>
-</li>
-<li><p><font color=#b0171f size=2 face=宋体><strong>模板文本 &#x3D; 你想要使用的代码模板</strong></font></p>
-</li>
-<li><p><font color=#b0171f size=2 face=宋体><strong>重点：记得勾选类别，</strong></font></p>
-</li>
-<li><p><font color=#b0171f size=2 face=宋体><strong>模板中想要创建后自动定位光标位置到某个地方，可以使用 $title$</strong></font></p>
-</li>
-</ul>
-<br>
-
-<br>
-
-<br>
-
-<hr>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -3672,18 +3607,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">293</span>
+          <span class="site-state-item-count">295</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">43</span>
+        <span class="site-state-item-count">47</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">163</span>
+        <span class="site-state-item-count">169</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
