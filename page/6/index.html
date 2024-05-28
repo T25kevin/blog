@@ -198,6 +198,88 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/05/22/%E5%AE%89%E8%A3%85nodejs-cnpm/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/452794135.jpg">
+      <meta itemprop="name" content="Kanoc Ge">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/05/22/%E5%AE%89%E8%A3%85nodejs-cnpm/" class="post-title-link" itemprop="url">安装nodejs-cnpm</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-05-22 22:09:51" itemprop="dateCreated datePublished" datetime="2023-05-22T22:09:51+08:00">2023-05-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-05-25 03:51:47" itemprop="dateModified" datetime="2024-05-25T03:51:47+08:00">2024-05-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7/%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">安装教程</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><strong><a class="wp-editor-md-post-content-link" target="_blank" rel="noopener" href="https://nodejs.org">nodejs官方网址</a></strong></p>
+<p><strong>Nodejs v16.13.0：</strong><a target="_blank" rel="noopener" href="https://nodejs.org/dist/v16.13.0/node-v16.13.0-linux-x64.tar.xz"><strong>官方版</strong></a>、<a target="_blank" rel="noopener" href="https://bd.bcebos.com/v1/xly-icafe/node-v16.2.0-linux-x64.tar-20240525034348-plibvg.xz">直链下载</a></p>
+<p><strong>Nodejs v20.0.0：</strong><a target="_blank" rel="noopener" href="https://nodejs.org/dist/v20.2.0/node-v20.2.0-linux-x64.tar.xz"><strong>官方版</strong></a>、<a target="_blank" rel="noopener" href="https://bd.bcebos.com/v1/xly-icafe/node-v20.2.0-linux-x64.tar-20240525034121-bpmrw1.xz">直链下载</a></p>
+<p><strong>Nodejs v22.0.0：</strong><a target="_blank" rel="noopener" href="https://nodejs.org/dist/v22.0.0/node-v22.0.0-linux-x64.tar.xz"><strong>官方版</strong></a>、<a target="_blank" rel="noopener" href="https://bd.bcebos.com/v1/xly-icafe/node-v22.0.0-linux-x64.tar-20240525034203-hmckok.xz">直链下载</a></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 下载nodejs v22</span></span><br><span class="line">wget -O node-v22<span class="number">.0</span><span class="number">.0</span>-linux-x64.tar.xz https://bd.bcebos.com/v1/xly-icafe/node-v22<span class="number">.0</span><span class="number">.0</span>-linux-x64.tar-<span class="number">20240525034203</span>-hmckok.xz</span><br><span class="line"></span><br><span class="line"><span class="comment"># 下载完成之后 使用：tar -xf &lt;文件&gt;  解压 *.tar.xz文件</span></span><br><span class="line">tar -xf node-v16<span class="number">.13</span><span class="number">.0</span>-linux-x64.tar.xz</span><br><span class="line"><span class="comment"># 将文件移动到opt文件夹下</span></span><br><span class="line">mv node-v16<span class="number">.13</span><span class="number">.0</span>-linux-x64 /opt</span><br><span class="line"><span class="comment"># 创建全局变量，使node在任何地方都能使用</span></span><br><span class="line">sudo ln -s /opt/node-v16<span class="number">.13</span><span class="number">.0</span>-linux-x64/<span class="built_in">bin</span>/node /usr/local/<span class="built_in">bin</span>/node</span><br><span class="line">sudo ln -s /opt/node-v16<span class="number">.13</span><span class="number">.0</span>-linux-x64/<span class="built_in">bin</span>/npm /usr/local/<span class="built_in">bin</span>/npm</span><br><span class="line"><span class="comment"># 到此 node和 npm 就算安装完成了</span></span><br><span class="line">node -v   <span class="comment"># 查看node版本信息</span></span><br><span class="line">npm -v   <span class="comment"># 查看npm版本信息</span></span><br><span class="line"><span class="comment"># 接下来，开始安装cnpm</span></span><br><span class="line"><span class="comment"># cnpm是npm的国内源，其服务器是淘宝的，所以国内比较快</span></span><br><span class="line"><span class="comment"># cnpm的执行过程是先去淘宝源下找软件，当淘宝源下没有所需要的包，会自动到npm服务器下寻找包</span></span><br><span class="line">npm install -g cnpm --registry=https://registry.npm.taobao.org  <span class="comment"># 定义cnpm淘宝源码</span></span><br><span class="line">sudo ln -s /opt/node-v16<span class="number">.13</span><span class="number">.0</span>-linux-x64/<span class="built_in">bin</span>/cnpm /usr/local/<span class="built_in">bin</span>/cnpm  <span class="comment">#   创建全局变量</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/05/22/%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF-%E5%8E%86%E5%8F%B2%E7%89%88%E6%9C%AC-%E8%84%B1%E7%A6%BB%E5%AE%98%E6%96%B9%E4%B8%8B%E8%BD%BD/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -4528,125 +4610,6 @@ ssl_enable=NO
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/05/22/Django%E4%B8%8B%E4%BD%BF%E7%94%A8MongoDB%E6%95%B0%E6%8D%AE%E5%BA%93%E6%95%99%E7%A8%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/452794135.jpg">
-      <meta itemprop="name" content="Kanoc Ge">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/05/22/Django%E4%B8%8B%E4%BD%BF%E7%94%A8MongoDB%E6%95%B0%E6%8D%AE%E5%BA%93%E6%95%99%E7%A8%8B/" class="post-title-link" itemprop="url">Django下使用MongoDB数据库教程</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-05-22 20:13:57" itemprop="dateCreated datePublished" datetime="2023-05-22T20:13:57+08:00">2023-05-22</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-05-26 08:32:43" itemprop="dateModified" datetime="2024-05-26T08:32:43+08:00">2024-05-26</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/python/django-%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">django-数据库</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><font color=#00b2c2 size=5 face=宋体><strong>Django下使用MongoDB数据库教程：</strong></font></p>
-<br>
-
-<hr>
-<br>
-
-<p><font color=#f26522 size=4 face=宋体><strong>1、安装</strong></font></p>
-<p><font color=#b0171f size=2 face=宋体><strong>要在Django下使用mongodb数据库，首先在虚拟环境下安装mongodb包</strong></font></p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pip install pymongo</span><br></pre></td></tr></table></figure>
-
-<br>
-
-<hr>
-<br>
-
-<p><font color=#f26522 size=4 face=宋体><strong>2、配置settings</strong></font></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">from pymongo import MongoClient   # 导入模块，mongo客户端</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://s2.loli.net/2022/06/08/bicEP2eHOylFaxJ.png"></p>
-<br>
-
-<hr>
-<p><br><font color=#f26522 size=4 face=宋体><strong>3、创建python文件</strong></font></p>
-<p><font color=#b0171f size=2 face=宋体><strong>在APP下创建一个mongo_models.py文件</strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> django.conf <span class="keyword">import</span> settings</span><br><span class="line">conn = settings.MONGOCLIENT[<span class="string">&#x27;user_one&#x27;</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">user</span>(<span class="title class_ inherited__">object</span>):</span><br><span class="line">    db = conn[<span class="string">&#x27;user_one&#x27;</span>]</span><br><span class="line"></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">insert</span>(<span class="params">cls, **params</span>):</span><br><span class="line">        <span class="keyword">return</span> cls.db.insert(params)</span><br><span class="line"></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">get</span>(<span class="params">cls, **params</span>):</span><br><span class="line">        <span class="keyword">return</span> cls.db.find_one(params)</span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">gets</span>(<span class="params">cls, **params</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">list</span>(cls.db.find(params))</span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">update</span>(<span class="params">cls, _<span class="built_in">id</span>, **params</span>):</span><br><span class="line">        <span class="keyword">return</span> cls.db.update(&#123;<span class="string">&#x27;_id&#x27;</span>: _<span class="built_in">id</span>&#125;, &#123;<span class="string">&#x27;$set&#x27;</span>: params&#125;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<br>
-
-<hr>
-<p><br><font color=#f26522 size=4 face=宋体><strong>4、创建python文件_mongo数据库引擎</strong></font></p>
-<ul>
-<li><font color=#b0171f size=2 face=宋体><strong>安装mongoengine</strong></font></li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pip install mongoengine</span><br></pre></td></tr></table></figure>
-
-<br>
-
-<br>
-
-<br>
-
-<hr>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -4717,7 +4680,7 @@ ssl_enable=NO
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">295</span>
+          <span class="site-state-item-count">296</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -4728,7 +4691,7 @@ ssl_enable=NO
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">169</span>
+        <span class="site-state-item-count">171</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
