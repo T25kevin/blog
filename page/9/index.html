@@ -198,6 +198,272 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/03/20/centos7-%E5%AE%89%E8%A3%85-MongoDB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/452794135.jpg">
+      <meta itemprop="name" content="Kanoc Ge">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/03/20/centos7-%E5%AE%89%E8%A3%85-MongoDB/" class="post-title-link" itemprop="url">centos7 安装 MongoDB</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-03-20 18:27:02" itemprop="dateCreated datePublished" datetime="2023-03-20T18:27:02+08:00">2023-03-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-14 16:38:09" itemprop="dateModified" datetime="2024-03-14T16:38:09+08:00">2024-03-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="centos7-安装-MongoDB："><a href="#centos7-安装-MongoDB：" class="headerlink" title="centos7 安装 MongoDB："></a><font color=#00b2c2 size=5 face=宋体><strong>centos7 安装 MongoDB：</strong></font></h1><hr>
+<ul>
+<li><font color=#f26522 size=4 face=宋体><strong>Linux(centos_7) 下安装</strong></font></li>
+<li><a target="_blank" rel="noopener" href="https://www.mongodb.com/try/download/community"><code>官网自主选择下载</code></a></li>
+<li><a target="_blank" rel="noopener" href="https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-rhel70-5.0.3.tgz"><code>MongoDB下载地址</code></a></li>
+<li><a target="_blank" rel="noopener" href="https://fastdl.mongodb.org/linux/mongodb-shell-linux-x86_64-rhel70-5.0.3.tgz"><code>MongoDB_shell地址</code></a></li>
+<li><font color=#f26522 size=4 face=宋体><strong>Linux 可直接用命令下载</strong></font></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"> <span class="comment"># 先获取root权限</span></span><br><span class="line">sudo -i <span class="comment"># 然后输入密码</span></span><br><span class="line"><span class="comment"># 下载mongoDB</span></span><br><span class="line">wget https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-rhel70-<span class="number">5.0</span><span class="number">.3</span>.tgz</span><br><span class="line"><span class="comment"># 解压到当前文件夹（最好用wget的方式下载，我用浏览器的方式下载后，发现解压出错）</span></span><br><span class="line">tar -xzvf mongodb-linux-x86_64-rhel70-<span class="number">5.0</span><span class="number">.3</span>.tgz</span><br><span class="line"><span class="comment"># 移动文件到/usr/local/ 目录下，一般放在这个目录下，不用配置环境。</span></span><br><span class="line">mv mongodb-linux-x86_64-rhel70-<span class="number">5.0</span><span class="number">.3</span> mongodb</span><br><span class="line">mv mongodb /usr/local/</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><font color=red size=4 face=宋体><strong>mongodb配置</strong></font></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 创建数据库存放目录和日志存放目录</span></span><br><span class="line">mkdir -p /usr/local/mongodb/data /usr/local/mongodb/logs</span><br><span class="line"><span class="comment"># 启动mongodb服务</span></span><br><span class="line">/usr/local/mongodb/<span class="built_in">bin</span>/mongod --dbpath=/usr/local/mongodb/data --logpath=/usr/local/mongodb/logs/mongodb.log --logappend -port=<span class="number">27017</span> --fork</span><br><span class="line"><span class="comment"># 后期可直接用命令开启</span></span><br><span class="line">/usr/local/mongodb/<span class="built_in">bin</span>/mongo</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="使用官方命令安装最新版本："><a href="#使用官方命令安装最新版本：" class="headerlink" title="使用官方命令安装最新版本："></a><font color=#00b2c2 size=5 face=宋体><strong>使用官方命令安装最新版本：</strong></font></h1><p><a target="_blank" rel="noopener" href="https://docs.mongodb.com/manual/tutorial/install-mongodb-on-red-hat/"><code>教程地址</code></a></p>
+<ul>
+<li><font color=#f26522 size=4 face=宋体><strong>安装yum源文件(一)</strong></font></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">vim /etc/yum.repos.d/mongodb-org-<span class="number">5.0</span>.repo</span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line">[mongodb-org-<span class="number">5.0</span>]</span><br><span class="line">name=MongoDB Repository</span><br><span class="line">baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/<span class="number">5.0</span>/x86_64/</span><br><span class="line">gpgcheck=<span class="number">1</span></span><br><span class="line">enabled=<span class="number">1</span></span><br><span class="line">gpgkey=https://www.mongodb.org/static/pgp/server-<span class="number">5.0</span>.asc</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<ul>
+<li><font color=#f26522 size=4 face=宋体><strong>安装yum源文件(二)</strong></font></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 1、安装mongodb</span></span><br><span class="line">sudo yum install -y mongodb-org</span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># 2、或者，要安装特定版本的 MongoDB，请单独指定每个组件包并将版本号附加到包名称，如下例所示（安装其中一个）：</span></span><br><span class="line">sudo yum install -y mongodb-org-<span class="number">5.0</span><span class="number">.2</span> mongodb-org-database-<span class="number">5.0</span><span class="number">.2</span> mongodb-org-server-<span class="number">5.0</span><span class="number">.2</span> mongodb-org-shell-<span class="number">5.0</span><span class="number">.2</span> mongodb-org-mongos-<span class="number">5.0</span><span class="number">.2</span> mongodb-org-tools-<span class="number">5.0</span><span class="number">.2</span></span><br><span class="line"><span class="comment"># 3、您可以指定任何可用的 MongoDB 版本。但是yum ，当新版本可用时升级包。为防止意外升级，请固定封装。要固定包，请将以下exclude指令添加到您的/etc/yum.conf文件中</span></span><br><span class="line">exclude=mongodb-org,mongodb-org-database,mongodb-org-server,mongodb-org-shell,mongodb-org-mongos,mongodb-org-tools</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h1 id="安装完成——命令篇："><a href="#安装完成——命令篇：" class="headerlink" title="安装完成——命令篇："></a><font color=#00b2c2 size=5 face=宋体><strong>安装完成——命令篇：</strong></font></h1><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 创建mongo日志文件夹 这两个文件夹如果不存在  官方版安装会无法启动，并且需要赋予权限</span></span><br><span class="line">mkdir /var/lib/mongo /var/log/mongodb</span><br><span class="line">sudo chown -R mongod:mongod /var/lib/mongo</span><br><span class="line">sudo chown -R mongod:mongod /var/log/mongodb</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动 MongoDB</span></span><br><span class="line">sudo systemctl start mongod</span><br><span class="line">sudo systemctl daemon-reload</span><br><span class="line"></span><br><span class="line"><span class="comment"># 验证 MongoDB 是否已成功启动</span></span><br><span class="line">sudo systemctl status mongod</span><br><span class="line">sudo systemctl enable mongod</span><br><span class="line"></span><br><span class="line"><span class="comment"># 停止 MongoDB</span></span><br><span class="line">sudo systemctl stop mongod</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重启MongoDB</span></span><br><span class="line">sudo systemctl restart mongod</span><br><span class="line"></span><br><span class="line"><span class="comment"># 开始使用 MongoDB</span></span><br><span class="line">mongosh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 停止 MongoDB</span></span><br><span class="line">sudo service mongod stop</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除包</span></span><br><span class="line">sudo yum erase $(rpm -qa | grep mongodb-org)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除数据目录</span></span><br><span class="line">sudo rm -r /var/log/mongodb</span><br><span class="line">sudo rm -r /var/lib/mongo</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/03/20/ubuntu-%E5%AE%89%E8%A3%85nodejs-cnpm/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/452794135.jpg">
+      <meta itemprop="name" content="Kanoc Ge">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/03/20/ubuntu-%E5%AE%89%E8%A3%85nodejs-cnpm/" class="post-title-link" itemprop="url">ubuntu 安装nodejs-cnpm</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-03-20 18:19:56" itemprop="dateCreated datePublished" datetime="2023-03-20T18:19:56+08:00">2023-03-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-14 16:38:10" itemprop="dateModified" datetime="2024-03-14T16:38:10+08:00">2024-03-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="安装nodejs-cnpm："><a href="#安装nodejs-cnpm：" class="headerlink" title="安装nodejs-cnpm："></a><font color=#00b2c2 size=5 face=宋体><strong>安装nodejs-cnpm：</strong></font></h1><hr>
+<p><font color=#f26522 size=4 face=宋体><strong>详情：</strong></font></p>
+<ul>
+<li><font color=#b0171f size=3 face=宋体><strong><code>系统 ： </code>ubuntu 20.04</strong></font></li>
+<li><font color=#b0171f size=3 face=宋体><strong><code>Node 版本 ： </code>v16.13.0</strong></font></li>
+</ul>
+<p><font color=#f26522 size=4 face=宋体><strong><strong><a target="_blank" rel="noopener" href="https://nodejs.org/"><code>nodejs官方网址</code></a></strong></strong></font><br><font color=#f26522 size=4 face=宋体><strong><strong>截止2021&#x2F;10&#x2F;28最新版本nodejs：<a target="_blank" rel="noopener" href="https://nodejs.org/dist/v16.13.0/node-v16.13.0-linux-x64.tar.xz"><code>点击下载</code></a></strong></strong></font></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">下载完成之后 使用：tar -xf &lt;文件&gt;  解压 *.tar.xz文件</span></span><br><span class="line">tar -xf node-v16.13.0-linux-x64.tar.xz</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">将文件移动到opt文件夹下</span></span><br><span class="line">mv node-v16.13.0-linux-x64 /opt</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">创建全局变量，使node在任何地方都能使用</span></span><br><span class="line">sudo ln -s /opt/node-v16.13.0-linux-x64/bin/node /usr/local/bin/node</span><br><span class="line">sudo ln -s /opt/node-v16.13.0-linux-x64/bin/npm /usr/local/bin/npm</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">到此 node和 npm 就算安装完成了</span></span><br><span class="line">node -v   # 查看node版本信息</span><br><span class="line">npm -v   # 查看npm版本信息</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">接下来，开始安装cnpm</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">cnpm是npm的国内源，其服务器是淘宝的，所以国内比较快</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">cnpm的执行过程是先去淘宝源下找软件，当淘宝源下没有所需要的包，会自动到npm服务器下寻找包</span></span><br><span class="line">npm install -g cnpm --registry=https://registry.npm.taobao.org  # 定义cnpm淘宝源码</span><br><span class="line">sudo ln -s /opt/node-v16.13.0-linux-x64/bin/cnpm /usr/local/bin/cnpm  #   创建全局变量</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/03/20/python-%E4%B8%BB%E5%8A%A8%E6%8A%9B%E5%87%BA%E5%BC%82%E5%B8%B8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/452794135.jpg">
+      <meta itemprop="name" content="Kanoc Ge">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/03/20/python-%E4%B8%BB%E5%8A%A8%E6%8A%9B%E5%87%BA%E5%BC%82%E5%B8%B8/" class="post-title-link" itemprop="url">python 主动抛出异常</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-03-20 18:13:37" itemprop="dateCreated datePublished" datetime="2023-03-20T18:13:37+08:00">2023-03-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-14 16:38:10" itemprop="dateModified" datetime="2024-03-14T16:38:10+08:00">2024-03-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="python-主动抛出异常："><a href="#python-主动抛出异常：" class="headerlink" title="python_主动抛出异常："></a><font color=#00b2c2 size=5 face=宋体><strong>python_主动抛出异常：</strong></font></h1><p><font color=#f26522 size=4 face=宋体><strong>有时候我们需要使用主动异常来测试，或者重试代码</strong></font></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">raise</span> IndexError</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="keyword">raise</span> IndexError</span><br><span class="line"><span class="keyword">except</span> IndexError:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&#x27;主动异常抛出  IndexError &#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/03/20/GitHub%E9%9D%99%E6%80%81%E6%96%87%E4%BB%B6%E5%8A%A0%E9%80%9F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2499,275 +2765,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/03/20/scrapy%E6%A1%86%E6%9E%B6%E6%8C%81%E4%B9%85%E5%8C%96%E5%AD%98%E5%82%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/452794135.jpg">
-      <meta itemprop="name" content="Kanoc Ge">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/03/20/scrapy%E6%A1%86%E6%9E%B6%E6%8C%81%E4%B9%85%E5%8C%96%E5%AD%98%E5%82%A8/" class="post-title-link" itemprop="url">scrapy框架持久化存储</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-03-20 08:04:04" itemprop="dateCreated datePublished" datetime="2023-03-20T08:04:04+08:00">2023-03-20</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-14 16:38:10" itemprop="dateModified" datetime="2024-03-14T16:38:10+08:00">2024-03-14</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/scrapy/" itemprop="url" rel="index"><span itemprop="name">scrapy</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><font color=#00b2c2 size=5 face=宋体><strong><strong>scrapy框架持久化存储：</strong></strong></font></p>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>—、基于终端指令 的持久化</strong></strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 要求：只可以将parse方法的返回值存储到本地的文本文件中</span></span><br><span class="line"><span class="comment"># 存储格式限定：json、jsonlines、jl、csv、xml、marshal、pickle</span></span><br><span class="line"><span class="comment"># 指令: scrapy crawl &lt;爬虫入口文件&gt; -o &lt;保存路径&gt;</span></span><br><span class="line">终端指令  ==&gt;  scrapy crawl top_main -o ./ks.csv</span><br><span class="line"></span><br><span class="line"><span class="comment"># 优点： 简介 高效 便捷</span></span><br><span class="line"><span class="comment"># 缺点： 局限性比较墙（数据只可以存储到指定的 后缀 文本文件中）</span></span><br></pre></td></tr></table></figure>
-
-<p><font color=#f26522 size=4 face=宋体><strong><strong>例如：</strong></strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> scrapy</span><br><span class="line"></span><br><span class="line"><span class="comment"># 基于终端的持久化存储范本</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">TopMainSpider</span>(scrapy.Spider):</span><br><span class="line">    name = <span class="string">&#x27;top_main&#x27;</span></span><br><span class="line">    <span class="comment"># allowed_domains = [&#x27;www.toptoon.net&#x27;]</span></span><br><span class="line">    <span class="comment"># start_urls = [&#x27;https://www.qiushibaike.com&#x27;]</span></span><br><span class="line">    start_urls = [<span class="string">&#x27;https://www.xiurenb.com/&#x27;</span>]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">parse</span>(<span class="params">self, response</span>):</span><br><span class="line">        li_list = response.xpath(<span class="string">&#x27;/html/body/div[3]/div/div[2]/ul/li&#x27;</span>)</span><br><span class="line">        images = []</span><br><span class="line">        <span class="keyword">for</span> li <span class="keyword">in</span> li_list:</span><br><span class="line">            girl_name = <span class="string">&#x27;&#x27;</span>.join(li.xpath(<span class="string">&#x27;a/div/span/text()&#x27;</span>).extract())</span><br><span class="line">            page_img = <span class="string">f&quot;https://www.xiurenb.com<span class="subst">&#123;<span class="string">&#x27;&#x27;</span>.join(li.xpath(<span class="string">&#x27;a/img/@src&#x27;</span>).extract())&#125;</span>&quot;</span></span><br><span class="line">            images_o = &#123;</span><br><span class="line">                <span class="string">&#x27;girl&#x27;</span>: girl_name,</span><br><span class="line">                <span class="string">&#x27;img&#x27;</span>: page_img</span><br><span class="line">            &#125;</span><br><span class="line">            images.append(images_o)</span><br><span class="line">        <span class="keyword">return</span> images</span><br><span class="line"></span><br><span class="line"><span class="comment"># 终端运行命令 scrapy crawl &lt;爬虫入口文件&gt; -o &lt;保存路径&gt;   即可保存到本地持久化</span></span><br></pre></td></tr></table></figure>
-
-<p><font color=#00b2c2 size=5 face=宋体><strong><strong>二、基于管道 持久化</strong></strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>、数据解析</span><br><span class="line"><span class="number">2</span>、在items.py 中定义数据名   <span class="comment"># 例如 ： girl_name = scrapy.Field()</span></span><br></pre></td></tr></table></figure>
-
-<p><font color=#f26522 size=4 face=宋体><strong><strong>2、 设置封装爬虫文件中的提交管道数据</strong></strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> scrapy</span><br><span class="line"><span class="keyword">from</span> xiuren.items <span class="keyword">import</span> XiurenItem    <span class="comment"># 导入items 下的管道类</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">TopMainSpider</span>(scrapy.Spider):</span><br><span class="line">    name = <span class="string">&#x27;top_main&#x27;</span></span><br><span class="line">    <span class="comment"># allowed_domains = [&#x27;www.xiurenb.com&#x27;]</span></span><br><span class="line">    start_urls = [<span class="string">&#x27;https://www.xiurenb.com/&#x27;</span>]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">parse</span>(<span class="params">self, response</span>):</span><br><span class="line">        li_list = response.xpath(<span class="string">&#x27;/html/body/div[3]/div/div[2]/ul/li&#x27;</span>)</span><br><span class="line">        images = []</span><br><span class="line">        <span class="keyword">for</span> li <span class="keyword">in</span> li_list:</span><br><span class="line">            girl_name = <span class="string">&#x27;&#x27;</span>.join(li.xpath(<span class="string">&#x27;a/div/span/text()&#x27;</span>).extract())</span><br><span class="line">            page_img = <span class="string">f&quot;https://www.xiurenb.com<span class="subst">&#123;<span class="string">&#x27;&#x27;</span>.join(li.xpath(<span class="string">&#x27;a/img/@src&#x27;</span>).extract())&#125;</span>&quot;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            item = ToptoonItem()   <span class="comment"># 实例化导入的类</span></span><br><span class="line"></span><br><span class="line">            <span class="comment"># 开始封装字段</span></span><br><span class="line">            item[<span class="string">&#x27;girl_name&#x27;</span>] = girl_name</span><br><span class="line">            item[<span class="string">&#x27;page_img&#x27;</span>] = page_img</span><br><span class="line"></span><br><span class="line">            <span class="keyword">yield</span> item   <span class="comment"># 将item 以迭代器的方式 提交给管道</span></span><br></pre></td></tr></table></figure>
-
-<p><font color=#f26522 size=4 face=宋体><strong><strong>3、items.py 下设置:</strong></strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> scrapy</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">XiurenItem</span>(scrapy.Item):</span><br><span class="line">    <span class="comment"># define the fields for your item here like:</span></span><br><span class="line">    <span class="comment"># name = scrapy.Field()</span></span><br><span class="line">    <span class="comment"># </span></span><br><span class="line">    girl_name = scrapy.Field()</span><br><span class="line">    page_img = scrapy.Field()</span><br></pre></td></tr></table></figure>
-
-<p><font color=#f26522 size=4 face=宋体><strong><strong>4、 pipelines.py设置</strong></strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#  在该文件夹下可以执行数据的存储 写入数据库等等</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> itemadapter <span class="keyword">import</span> ItemAdapter</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">XiurenPipeline</span>:</span><br><span class="line">    fq = <span class="literal">None</span></span><br><span class="line">    <span class="comment"># 开始的时候执行一次</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">open_spider</span>(<span class="params">self, spider</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;开始爬虫 ==&gt;&quot;</span>)</span><br><span class="line">        <span class="comment"># 在当前文件夹下打开_text_xiuren.txt</span></span><br><span class="line">        self.fq = <span class="built_in">open</span>(<span class="string">&#x27;_text_xiuren.txt&#x27;</span>, <span class="string">&#x27;a+&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">process_item</span>(<span class="params">self, item, spider</span>):</span><br><span class="line">        page_img = item[<span class="string">&#x27;page_img&#x27;</span>]</span><br><span class="line">        girl_name = item[<span class="string">&#x27;girl_name&#x27;</span>]</span><br><span class="line">        self.fq.write(<span class="string">f&quot;<span class="subst">&#123;girl_name&#125;</span> ==&gt; <span class="subst">&#123;page_img&#125;</span>\n&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span> item</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 爬虫结束的时候 执行一次</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">close_spider</span>(<span class="params">self, spider</span>):</span><br><span class="line">        <span class="comment"># 该函数下 并不局限任何参数</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;结束爬虫&quot;</span>)</span><br><span class="line">        self.fq.close()</span><br></pre></td></tr></table></figure>
-
-<p><font color=#f26522 size=4 face=宋体><strong><strong>5、settings.py 下开启管道（不开启 无法使用）</strong></strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 管道可以多个，但是需要在settings.py中配置每个管道</span></span><br><span class="line"></span><br><span class="line">ITEM_PIPELINES = &#123;</span><br><span class="line">   <span class="string">&#x27;toptoon.pipelines.ToptoonPipeline&#x27;</span>: <span class="number">300</span>,</span><br><span class="line">    <span class="comment"># 300表示的是优先级  数值越小  优先级就越高</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/03/20/Nginx%E8%B7%A8%E5%9F%9F%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/452794135.jpg">
-      <meta itemprop="name" content="Kanoc Ge">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/03/20/Nginx%E8%B7%A8%E5%9F%9F%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" class="post-title-link" itemprop="url">Nginx跨域解决方案</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-03-20 07:12:40" itemprop="dateCreated datePublished" datetime="2023-03-20T07:12:40+08:00">2023-03-20</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-14 16:38:09" itemprop="dateModified" datetime="2024-03-14T16:38:09+08:00">2024-03-14</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%BF%90%E7%BB%B4/" itemprop="url" rel="index"><span itemprop="name">运维</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><font color=#00b2c2 size=5 face=宋体><strong><strong>Nginx跨域解决方案：</strong></strong></font></p>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>Access-Control-Allow-Origin 轻松解决宝塔 Nginx 跨域问题</strong></strong></font></p>
-<p><font color=#00b2c2 size=5 face=宋体><strong><strong>概述：</strong></strong></font></p>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>出于浏览器的同源策略限制。同源策略（Sameoriginpolicy）是一种约定，它是浏览器最核心也最基本的安全功能，如果缺少了同源策略，则浏览器的正常功能可能都会受到影响。可以说 Web 是构建在同源策略基础之上的，浏览器只是针对同源策略的一种实现。同源策略会阻止一个域的 javascript 脚本和另外一个域的内容进行交互。所谓同源（即指在同一个域）就是两个页面具有相同的协议（protocol），主机（host）和端口号（port）。</strong></strong></font></p>
-<p><font color=#00b2c2 size=5 face=宋体><strong><strong>疑问：</strong></strong></font></p>
-<ul>
-<li><font color=#f26522 size=4 face=宋体><strong><strong>提问 1：什么是跨域？</strong></strong></font></li>
-<li><font color=#f26522 size=4 face=宋体><strong><strong>提问 2：如何解决跨域问题？</strong></strong></font></li>
-</ul>
-<h2 id="解答："><a href="#解答：" class="headerlink" title="解答："></a><font color=#00b2c2 size=5 face=宋体><strong><strong>解答：</strong></strong></font></h2><ul>
-<li><font color=#f26522 size=4 face=宋体><strong><strong>回答 1：a 页面想获取 b 页面的资源，如果 a、b 页面的协议、域名、端口、子域名不同，所进行的访问行动都是跨域的，而浏览器为了安全问题一般都限制了跨域访问，也就是不允许跨域请求资源。比如我们在使用 CDN 时就经常会遇到跨域问题。</strong></strong></font></li>
-<li><font color=#f26522 size=4 face=宋体><strong><strong>回答 2：以宝塔 Nginx 环境来说，我们只要把下面的 Header 头指令添加到网站 b 宝塔面板「网站」&#x3D;&#x3D;&gt;「设置」&#x3D;&#x3D;&gt;「配置文件」&#x3D;&#x3D;&gt;「倒数第三行」当中保存并重载 Nginx 配置即可。</strong></strong></font></li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">add_header Access-Control-Allow-Origin *;</span><br><span class="line">add_header Access-Control-Allow-Headers &quot;Origin, X-Requested-With, Content-Type, Accept&quot;;</span><br><span class="line">add_header Access-Control-Allow-Methods &quot;GET, POST, OPTIONS&quot;;</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://s2.loli.net/2022/07/27/4hyM7asOkUq8CDE.png" alt="img"></p>
-<h2 id="验证："><a href="#验证：" class="headerlink" title="验证："></a><font color=#00b2c2 size=5 face=宋体><strong><strong>验证：</strong></strong></font></h2><p><font color=#f26522 size=4 face=宋体><strong><strong>如果你已经按照上面的方法在 b 网站宝塔面板 Nginx 配置文件中添加了 Header 头指令 ，那么现在你可以访问 a 网站按F12 查看元素检查是否还存在跨域错误提示。</strong></strong></font></p>
-<h2 id="最后："><a href="#最后：" class="headerlink" title="最后："></a><font color=#00b2c2 size=5 face=宋体><strong><strong>最后：</strong></strong></font></h2><p><font color=#f26522 size=4 face=宋体><strong><strong>注意：在实际中 Access-Control-Allow-Origin 尽量不要指定为 * ，最好设置为允许访问的域名，比如：<a target="_blank" rel="noopener" href="https://www.a.com/">https://www.a.com</a> 。</strong></strong></font></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/03/20/%E5%9C%A8CentOS7%E4%B8%8B%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2ffmpeg/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/452794135.jpg">
-      <meta itemprop="name" content="Kanoc Ge">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/03/20/%E5%9C%A8CentOS7%E4%B8%8B%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2ffmpeg/" class="post-title-link" itemprop="url">在CentOS7下安装部署ffmpeg</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-03-20 07:07:18" itemprop="dateCreated datePublished" datetime="2023-03-20T07:07:18+08:00">2023-03-20</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-14 16:38:10" itemprop="dateModified" datetime="2024-03-14T16:38:10+08:00">2024-03-14</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%A7%86%E9%A2%91%E7%BC%96%E8%BE%91/" itemprop="url" rel="index"><span itemprop="name">视频编辑</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="在CentOS7下安装部署ffmpeg："><a href="#在CentOS7下安装部署ffmpeg：" class="headerlink" title="在CentOS7下安装部署ffmpeg："></a><font color=#00b2c2 size=5 face=宋体><strong><strong>在CentOS7下安装部署ffmpeg：</strong></strong></font></h1><p><font color=#f26522 size=4 face=宋体><strong><strong><a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=FFmpeg&spm=1001.2101.3001.7020">FFmpeg</a>是一个开源免费的多媒记录、转换数字音频、视频，并能将flv、mov等。</strong></strong></font></p>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>我们的开发人员在分析视频流数据时，也会经常用到这款工具。比如：</strong></strong></font></p>
-<p><font color=#b0171f size=3 face=宋体><strong><strong>录制：采集–&gt;编码–&gt;封装—&gt;生成文件</strong></strong></font></p>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>段落引用视频裁剪：输入音视频文件—&gt;解复用得到视频流—&gt;视频流解码–&gt;视频帧画面–&gt;图像帧裁剪–&gt;编码—&gt;封装–&gt;生成文件</strong></strong></font></p>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>段落引用分辨率修改：输入音视频文件—&gt;解复用得到视频流—&gt;视频流解码–&gt;视频帧画面–&gt;图像帧修改分辨率–&gt;编码—&gt;封装–&gt;生成文件</strong></strong></font></p>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>段落引用文件格式转码：输入MP4文件–&gt;解复用封装得到解码数据包–&gt;复用封装格式成FLV—&gt;输出文件</strong></strong></font><br><img src="https://s2.loli.net/2022/07/27/CuVJHTw6dLsmUfv.jpg" alt="img"></p>
-<p><font color=#00b2c2 size=5 face=宋体><strong><strong>今天和大家分享一下如何在CentOS7下安装部署ffmpeg。</strong></strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 安装epel-release，因为安装需要使用其他的repo源，所以需要epel支持：</span></span><br><span class="line">yum install -y epel-release rpm</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装Nux-Dextop源：</span></span><br><span class="line">rpm --<span class="keyword">import</span> http://li.nux.ro/download/nux/RPM-GPG-KEY-nux.ro</span><br><span class="line">rpm -Uvh http://li.nux.ro/download/nux/dextop/el7/x86_64/nux-dextop-release-<span class="number">0</span>-<span class="number">1.</span>el7.nux.noarch.rpm</span><br><span class="line">yum repolist</span><br><span class="line"></span><br><span class="line"><span class="comment"># 开始安装</span></span><br><span class="line">yum install -y ffmpeg</span><br></pre></td></tr></table></figure>
-
-<p><font color=red size=5 face=宋体><strong><strong>这样ffmpeg就正常安装完成了。</strong></strong></font></p>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>FFmpeg具有非常强大的功能，包括视频采集、视频格式转换、视频抓图、给视频加水印等，同时还能兼容行转换，并使用高质量的多相滤波器动态调整视频大小。</strong></strong></font></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -2838,18 +2835,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">296</span>
+          <span class="site-state-item-count">299</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">45</span>
+        <span class="site-state-item-count">46</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">171</span>
+        <span class="site-state-item-count">176</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
