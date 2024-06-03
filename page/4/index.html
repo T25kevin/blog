@@ -198,6 +198,118 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/09/07/ffmpeg-%E5%91%BD%E4%BB%A4%E5%BF%83%E5%BE%97-%E9%9D%9E%E5%B8%B8%E9%87%8D%E8%A6%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/452794135.jpg">
+      <meta itemprop="name" content="Kanoc Ge">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/09/07/ffmpeg-%E5%91%BD%E4%BB%A4%E5%BF%83%E5%BE%97-%E9%9D%9E%E5%B8%B8%E9%87%8D%E8%A6%81/" class="post-title-link" itemprop="url">ffmpeg 命令心得_非常重要</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-09-07 13:57:45" itemprop="dateCreated datePublished" datetime="2023-09-07T13:57:45+08:00">2023-09-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-14 16:38:09" itemprop="dateModified" datetime="2024-03-14T16:38:09+08:00">2024-03-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%A7%86%E9%A2%91%E7%BC%96%E8%BE%91/" itemprop="url" rel="index"><span itemprop="name">视频编辑</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><font color=#00b2c2 size=5 face=宋体><strong>ffmpeg 命令心得_非常重要：</strong></font></p>
+<p><font color=#f26522 size=4 face=宋体><strong>h5播放器，在pc和安卓端，播放没有任何问题，但是在ios端播放就有问题</strong></font></p>
+<p><font color=#f26522 size=4 face=宋体><strong>猜测这是因为播放器需要添加参数，但是如果我们将ios端能兼容的视频格式在原视频的基础上转换一下，其实也能解决</strong></font></p>
+<ul>
+<li><font color=#b0171f size=3 face=宋体><strong>切割帧：</strong></font></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ffmpeg -i test.m4v -f image2  -vf fps=fps=50 -qscale:v 2 text/%05d.jpg</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><font color=#b0171f size=3 face=宋体><strong>添加帧切割m3u8：</strong></font></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ffmpeg -i input.mp4 -force_key_frames &quot;expr:gte(t,n_forced*8)&quot; -strict -8 -c:a aac -c:v libx264 -hls_time 8 -f hls -map 0 -f segment -segment_list index.m3u8 %04d.ts</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">ffmpeg -i input.mp4：指定输入文件为 input.mp4。</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-force_key_frames <span class="string">&quot;expr:gte(t,n_forced*8)&quot;</span>：强制在每 8 帧之后生成一个关键帧，其中 t 表示当前时间戳，n_forced 表示之前已经强制生成的关键帧数量。</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-strict -8：使用严格模式，以保证生成的 HLS 文件在各种平台上兼容性更好。</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-c:a aac -c:v libx264：指定音频和视频的编码格式分别为 AAC 和 H.264。</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-hls_time 8：设置每个 HLS 切片的时间长度为 8 秒。</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-f hls -map 0：指定输出格式为 HLS，并映射输入文件的全部内容到输出中。</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-segment_list index.m3u8 %04d.ts：生成每个切片的索引列表文件 index.m3u8，其中 %04d 表示用数字填充四位数的占位符，用于表示每个切片的序号。</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">总结起来，该命令的作用是将输入的 MP4 文件进行处理，生成一系列按时间切片分割的 HLS 格式的视频片段，并生成相应的索引列表文件。</span></span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li><font color=#b0171f size=3 face=宋体><strong>转码到通用版本：</strong></font></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ffmpeg -i input.mp4 -threads 12 -s 1920x1080 -r 30000/1001 -video_track_timescale 30k -c:a copy output.mp4</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">ffmpeg -i v1.mp4：指定输入文件为 input.mp4。</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-threads 12：指定使用 12 个线程进行视频处理。</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-s 1920x1080：指定输出视频的分辨率大小为 1920x1080。</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-r 30000/1001：指定输出视频的帧率为 30000/1001 fps。</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-video_track_timescale 30k：指定输出视频的时间尺度为 30k time scale。</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-c:a copy：将输入文件的音频流直接复制到输出文件中。</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">newv1.mp4：指定输出文件名为 output.mp4。</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">总结起来，该命令的作用是将输入的 MP4 文件进行处理，生成一个新的 MP4 文件，该文件的分辨率大小为 HD 720p，帧率为 30000/1001 fps，时间尺度为 30k time scale，音频流保持不变。</span></span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li><font color=#b0171f size=3 face=宋体><strong>复制 切割m3u8：</strong></font></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ffmpeg -i input.mp4 -f segment -segment_time 8 -segment_format mpegts -segment_list index.m3u8 -c copy -bsf:v h264_mp4toannexb -map 0 %04d.ts</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">ffmpeg -i input.mp4：指定输入文件为 input.mp4。</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-f segment -segment_time 8 -segment_format mpegts -segment_list index.m3u8：将输入文件分割成多个片段，每个片段的时长为 8 秒，格式为 MPEG-TS，生成的索引列表文件名为 index.m3u8。</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-c copy -bsf:v h264_mp4toannexb：将输入文件的视频流直接复制到输出文件中，并使用 h264_mp4toannexb 过滤器将视频流转换为 Annex B 格式。</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-map 0 %04d.ts：将输入文件的全部内容映射到输出文件中，输出的每个片段的文件名为 %04d.ts，其中 %04d 表示用数字填充四位数的占位符，用于表示每个片段的序号。</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">总结起来，该命令的作用是将输入的 MP4 文件进行处理，生成一系列时长为 8 秒的 MPEG-TS 格式的视频片段，并将每个片段的文件名保存到 index.m3u8 文件中。同时，将视频流转换为 Annex B 格式。</span></span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li><font color=#b0171f size=3 face=宋体><strong>转码到通用版本(音频流转换为公有格式)：</strong></font></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ffmpeg -i input.mp4 -bsf:a aac_adtstoasc -threads 12 -s 1920x1080 -r 30000/1001 -video_track_timescale 30k -c:a copy output.mp4</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">ffmpeg -i input.mp4：指定输入文件为 input.mp4。</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-bsf:a aac_adtstoasc：使用 aac_adtstoasc 过滤器将输入文件的音频流转换为公有格式。</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-threads 12：指定使用 12 个线程进行视频处理。</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-s 1920x1080：指定输出视频的分辨率大小为 1920x1080。</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-r 30000/1001：指定输出视频的帧率为 30000/1001 fps。</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-video_track_timescale 30k：指定输出视频的时间尺度为 30k time scale。</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-c:a copy：将输入文件的音频流直接复制到输出文件中。</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">output.mp4：指定输出文件名为 output.mp4。</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">总结起来，该命令的作用是将输入的 MP4 文件进行处理，生成一个新的 MP4 文件，该文件的分辨率大小为 1920x1080，帧率为 30000/1001 fps，时间尺度为 30k time scale，音频流保持不变，并将结果保存为 output.mp4 文件。同时，使用 aac_adtstoasc 过滤器将音频流转换为公有格式。</span></span><br></pre></td></tr></table></figure>
+
+<p><font color=#00b2c2 size=5 face=宋体><strong>合并视频&gt;&gt;&gt;到通用版本：</strong></font></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ffmpeg -i input.mp4 -i v1.mp4 -threads 24  -bsf:a aac_adtstoasc -filter_complex &quot;concat=n=2:v=1:a=1&quot; -s 1920x1080 -r 30000/1001 -video_track_timescale 30k output.mp4</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">ffmpeg -i input.mp4 -i v1.mp4：指定输入文件为 input.mp4 和 v1.mp4。</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-threads 24：指定使用 24 个线程进行视频处理。</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-bsf:a aac_adtstoasc：使用 aac_adtstoasc 过滤器将输入文件的音频流转换为公有格式。</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-filter_complex <span class="string">&quot;concat=n=2:v=1:a=1&quot;</span>：使用 concat 过滤器将两个输入文件连接起来。n=2 表示输入文件的数量，v=1 表示视频流的数量，a=1 表示音频流的数量。</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-s 1920x1080：指定输出视频的分辨率大小为 1920x1080。</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-r 30000/1001：指定输出视频的帧率为 30000/1001 fps。</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-video_track_timescale 30k：指定输出视频的时间尺度为 30k time scale。</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">output.mp4：指定输出文件名为 output.mp4。</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">总结起来，该命令的作用是将 input.mp4 和 v1.mp4 两个文件进行处理，将它们连接成一个新的 MP4 文件，并将结果保存为 output.mp4 文件。该文件的分辨率大小为 1920x1080，帧率为 30000/1001 fps，时间尺度为 30k time scale，音频流保持不变，并将音频流转换为公有格式。同时，使用 24 个线程进行视频处理。</span></span><br></pre></td></tr></table></figure>
+
+<p><font color=#f26522 size=4 face=宋体><strong></strong></font></p>
+<p><font color=#b0171f size=2 face=宋体><strong></strong></font></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/09/02/linux%E4%B8%8Btree%E5%91%BD%E4%BB%A4%E4%B8%AD%E6%96%87%E5%AD%97%E7%AC%A6%E4%B9%B1%E7%A0%81%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -3241,115 +3353,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/07/11/Mac_python%E5%A4%9A%E7%89%88%E6%9C%AC%E5%85%B1%E5%AD%98/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/452794135.jpg">
-      <meta itemprop="name" content="Kanoc Ge">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/07/11/Mac_python%E5%A4%9A%E7%89%88%E6%9C%AC%E5%85%B1%E5%AD%98/" class="post-title-link" itemprop="url">Mac_python多版本共存</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-07-11 13:25:33" itemprop="dateCreated datePublished" datetime="2023-07-11T13:25:33+08:00">2023-07-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-14 16:38:09" itemprop="dateModified" datetime="2024-03-14T16:38:09+08:00">2024-03-14</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="python多版本共存"><a href="#python多版本共存" class="headerlink" title="python多版本共存"></a>python多版本共存</h3><h4 id="1-Mac-Os-多版本共存："><a href="#1-Mac-Os-多版本共存：" class="headerlink" title="1. Mac Os 多版本共存："></a>1. Mac Os 多版本共存：</h4><h5 id="1-1-配置-brew-命令行-安装工具"><a href="#1-1-配置-brew-命令行-安装工具" class="headerlink" title="1.1 配置 brew 命令行 安装工具"></a>1.1 配置 brew 命令行 安装工具</h5><ul>
-<li><p>我选的是中科大的国内源。</p>
-<p>之后终端自动安装<code>brew</code>。安装好之后记得运行下面命令。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">拉取脚本</span></span><br><span class="line">/bin/zsh -c &quot;$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh)&quot;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">立即生效配置</span></span><br><span class="line">source /Users/zhangchengcai/.zprofile</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">这里的 zhangchengcai   替换成  你自己的用户目录</span> </span><br></pre></td></tr></table></figure>
-</li>
-<li><p>查看是否安装完成</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">brew --version</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>成功之后，可以安装一个火狐浏览器</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">brew install --cask firefox</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://s2.loli.net/2023/07/11/RHsVhjdEpq4IMLS.png" alt="img"></p>
-</li>
-</ul>
-<h5 id="brew相关命令："><a href="#brew相关命令：" class="headerlink" title="brew相关命令："></a>brew相关命令：</h5><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">安装brew软件包管理器</span></span><br><span class="line">/usr/bin/ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">卸载brew软件包管理器</span></span><br><span class="line">/usr/bin/ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)&quot;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">常用命令：</span></span><br><span class="line">brew install gcc    //安装软件</span><br><span class="line">brew uninstall gcc  //卸载软件</span><br><span class="line">brew search gcc     //搜索软件</span><br><span class="line">brew upgrade gcc    //更新软件</span><br><span class="line">brew list           //查看安装列表</span><br><span class="line">brew update         //更新Homebrew</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看gcc可用所有版本</span></span><br><span class="line">brew search gcc</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">gcc ✔        gcc@4.9 ✔    gcc@7 ✔      apple-gcc42  gcc@5        gcc@6</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">指定版本安装</span></span><br><span class="line"></span><br><span class="line">brew install gcc@7</span><br></pre></td></tr></table></figure>
-
-
-
-<h5 id="1-2-安装多版本python"><a href="#1-2-安装多版本python" class="headerlink" title="1.2 安装多版本python"></a>1.2 安装多版本python</h5><ul>
-<li><p>使用命令行 安装 多版本python</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">目前存在的 可用的 命令行安装版本 &gt;&gt;&gt;</span> </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">python@3.7  python@3.8  python@3.9  python@3.10  python@3.11</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">直接使用命令行安装即可</span></span><br><span class="line">brew install python@3.7</span><br></pre></td></tr></table></figure></li>
-</ul>
-<p><img src="https://s2.loli.net/2023/07/11/YIlmzPBRgCvL42X.png" alt="image-20230711123327438"></p>
-<ul>
-<li><p>添加环境变量</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">添加环境变量文件夹</span></span><br><span class="line">mkdir ~/bash_files</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">打开 .zshrc</span></span><br><span class="line">open ~/.zshrc</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">将下面的环境变量添加到末尾</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">mac m1 对 brew 安装目录 /opt/homebrew/Cellar</span></span><br><span class="line">export PATH=$PATH:/Users/kate_01/bash_files:/usr/local/Cellar/ffmpeg/6.0:/bin:/usr/local/ffmpeg/bin</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">立即生效</span></span><br><span class="line">source ~/.zshrc</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p><img src="https://s2.loli.net/2023/07/11/uF2KDv5BymLqRaC.png" alt="添加环境变量到本地"></p>
-</li>
-<li><p><code>brew</code> 安装好的 python 主程序默认文件夹在 <code>/usr/local/Cellar</code> 、 <code>mac m1 对 brew 安装目录 /opt/homebrew/Cellar</code>中</p>
-<p><img src="https://s2.loli.net/2023/07/11/i8sYOy973fvXAWj.png" alt="image-20230711131409016"></p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">默认到 pip 和 python 程序 在</span></span><br><span class="line">/usr/local/Cellar/python@3.9/3.9.17_1/bin</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://s2.loli.net/2023/07/11/mwvHc5NiCLgu42K.png" alt="image-20230711131818314"></p>
-</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -3420,18 +3423,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">299</span>
+          <span class="site-state-item-count">300</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">46</span>
+        <span class="site-state-item-count">47</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">176</span>
+        <span class="site-state-item-count">178</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

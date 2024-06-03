@@ -198,6 +198,91 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2024/06/03/python-Django%E9%A1%B9%E7%9B%AE%E9%80%9A%E8%BF%87%E7%BC%96%E8%AF%91%E4%B8%BA-pyc-%E5%BD%A2%E5%BC%8F%E5%8F%91%E5%B8%83/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/452794135.jpg">
+      <meta itemprop="name" content="Kanoc Ge">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/06/03/python-Django%E9%A1%B9%E7%9B%AE%E9%80%9A%E8%BF%87%E7%BC%96%E8%AF%91%E4%B8%BA-pyc-%E5%BD%A2%E5%BC%8F%E5%8F%91%E5%B8%83/" class="post-title-link" itemprop="url">python-Django项目通过编译为.pyc-形式发布</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-06-03 14:59:07 / 修改时间：15:04:59" itemprop="dateCreated datePublished" datetime="2024-06-03T14:59:07+08:00">2024-06-03</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/%E7%BC%96%E8%AF%91/" itemprop="url" rel="index"><span itemprop="name">编译</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><font color=#00b2c2 size=5 face=宋体><strong>python Django项目通过编译为.pyc 形式发布：</strong></font></p>
+<h2 id="一、批量编译代码"><a href="#一、批量编译代码" class="headerlink" title="一、批量编译代码"></a>一、批量编译代码</h2><p>创建compile_pyc.py，代码如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> shutil</span><br><span class="line"><span class="keyword">from</span> py_compile <span class="keyword">import</span> <span class="built_in">compile</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">clean</span>(<span class="params">path</span>):</span><br><span class="line">    <span class="keyword">for</span> parent, dirname, filename <span class="keyword">in</span> os.walk(path):</span><br><span class="line">        <span class="keyword">for</span> <span class="built_in">dir</span> <span class="keyword">in</span> dirname:</span><br><span class="line">            <span class="keyword">if</span> <span class="built_in">dir</span> == <span class="string">&#x27;__pycache__&#x27;</span>:</span><br><span class="line">                <span class="keyword">try</span>:</span><br><span class="line">                    fullname = os.path.join(parent, <span class="built_in">dir</span>)</span><br><span class="line">                    shutil.rmtree(fullname)</span><br><span class="line">                    <span class="built_in">print</span>(<span class="string">&quot;Success clean Folder:%s&quot;</span> % fullname)</span><br><span class="line">                <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">                    <span class="built_in">print</span>(<span class="string">&quot;Can&#x27;t clean Folder:%s, reason:%s&quot;</span> % (fullname, e))</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">compile_pyc</span>(<span class="params">path</span>):</span><br><span class="line">    <span class="keyword">for</span> parent, dirname, filename <span class="keyword">in</span> os.walk(path):</span><br><span class="line">        <span class="keyword">for</span> cfile <span class="keyword">in</span> filename:</span><br><span class="line">            fullname = os.path.join(parent, cfile)</span><br><span class="line">            <span class="keyword">if</span> cfile[-<span class="number">3</span>:] == <span class="string">&#x27;.py&#x27;</span>:</span><br><span class="line">                <span class="keyword">try</span>:</span><br><span class="line">                    <span class="keyword">if</span> <span class="built_in">compile</span>(fullname):</span><br><span class="line">                        <span class="keyword">if</span> cfile != <span class="string">&#x27;settings.py&#x27;</span> <span class="keyword">and</span> cfile != <span class="string">&#x27;wsgi.py&#x27;</span>:</span><br><span class="line">                            os.remove(fullname) <span class="comment">#删除原文件，保留settings.py和wsgi.py</span></span><br><span class="line">                        <span class="built_in">print</span>(<span class="string">&quot;Success compile and remove file:%s&quot;</span> % fullname)</span><br><span class="line">                    <span class="keyword">else</span>:</span><br><span class="line">                        <span class="built_in">print</span>(<span class="string">&quot;Can&#x27;t compile file:%s,The original file has been retained&quot;</span> % fullname)</span><br><span class="line">                <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">                    <span class="built_in">print</span>(<span class="string">&quot;Can&#x27;t compile file:%s, reason:%s&quot;</span> % (fullname, e))</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">move</span>(<span class="params">path</span>):</span><br><span class="line">    <span class="keyword">for</span> parent, dirname, filename <span class="keyword">in</span> os.walk(path):</span><br><span class="line">        <span class="keyword">for</span> c_file <span class="keyword">in</span> filename:</span><br><span class="line">            fullname = os.path.join(parent, c_file)</span><br><span class="line">            <span class="keyword">if</span> c_file[-<span class="number">4</span>:] == <span class="string">&#x27;.pyc&#x27;</span>:</span><br><span class="line">                <span class="keyword">try</span>:</span><br><span class="line">                    parent_path = os.path.dirname(parent)</span><br><span class="line">                    shutil.move(fullname, parent_path)</span><br><span class="line">                    <span class="built_in">print</span>(<span class="string">&#x27;update the dir of file successfully&#x27;</span>)</span><br><span class="line">                <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">                    <span class="built_in">print</span>(<span class="string">&quot;Can&#x27;t move file:%s, reason:%s&quot;</span> % (fullname, e))</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">replace_name</span>(<span class="params">path</span>):</span><br><span class="line">    <span class="keyword">for</span> parent, dirname, filename <span class="keyword">in</span> os.walk(path):</span><br><span class="line">        <span class="keyword">for</span> c_file <span class="keyword">in</span> filename:</span><br><span class="line">            fullname = os.path.join(parent, c_file)</span><br><span class="line">            <span class="keyword">if</span> c_file[-<span class="number">4</span>:] == <span class="string">&#x27;.pyc&#x27;</span>:</span><br><span class="line">                <span class="keyword">try</span>:</span><br><span class="line">                    cfile_name = <span class="string">&#x27;&#x27;</span></span><br><span class="line">                    cfile_list = c_file.split(<span class="string">&#x27;.&#x27;</span>)</span><br><span class="line">                    version = sys.version_info</span><br><span class="line">                    replace_name = <span class="string">&#x27;cpython-&#x27;</span> + <span class="built_in">str</span>(version[<span class="number">0</span>])+<span class="built_in">str</span>(version[<span class="number">1</span>])</span><br><span class="line">                    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(cfile_list)):</span><br><span class="line">                        <span class="keyword">if</span> cfile_list[i] == replace_name:</span><br><span class="line">                            <span class="keyword">continue</span></span><br><span class="line">                        cfile_name += cfile_list[i]</span><br><span class="line">                        <span class="keyword">if</span> i == <span class="built_in">len</span>(cfile_list) - <span class="number">1</span>:</span><br><span class="line">                            <span class="keyword">continue</span></span><br><span class="line">                        cfile_name += <span class="string">&#x27;.&#x27;</span></span><br><span class="line">                    shutil.move(fullname, os.path.join(parent, cfile_name))</span><br><span class="line">                    <span class="built_in">print</span>(<span class="string">&#x27;update the name of the file successfully&#x27;</span>)</span><br><span class="line">                <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">                    <span class="built_in">print</span>(<span class="string">&quot;Can&#x27;t remove file:%s, reason:%s&quot;</span> % (fullname, e))</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(sys.argv) == <span class="number">3</span>:</span><br><span class="line">        cmd = sys.argv[<span class="number">1</span>]</span><br><span class="line">        path = sys.argv[<span class="number">2</span>]</span><br><span class="line">        <span class="keyword">if</span> os.path.exists(path) <span class="keyword">and</span> os.path.isdir(path):</span><br><span class="line">            <span class="keyword">if</span> cmd == <span class="string">&#x27;clean&#x27;</span>:</span><br><span class="line">                clean(path)</span><br><span class="line">            <span class="keyword">elif</span> cmd == <span class="string">&#x27;move&#x27;</span>:</span><br><span class="line">                move(path)</span><br><span class="line">            <span class="keyword">elif</span> cmd == <span class="string">&#x27;replace_name&#x27;</span>:</span><br><span class="line">                replace_name(path)</span><br><span class="line">            <span class="keyword">elif</span> cmd == <span class="string">&#x27;compile_pyc&#x27;</span>:</span><br><span class="line">                compile_pyc(path)</span><br><span class="line">            <span class="keyword">elif</span> cmd == <span class="string">&#x27;compile&#x27;</span>:</span><br><span class="line">                clean(path)</span><br><span class="line">                compile_pyc(path)</span><br><span class="line">                move(path)</span><br><span class="line">                replace_name(path)</span><br><span class="line">                clean(path)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">&#x27;没有该命令&#x27;</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;Not an directory or Direcotry doesn&#x27;t exist!&quot;</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;在命令行中使用以下命令:&quot;</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;\tpython3 compile_pyc.py compile_pyc PATH\t\t#生成pyc文件&quot;</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;\tpython3 compile_pyc.py move PATH\t\t#移动所有pyc文件至原位置&quot;</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;\tpython3 compile_pyc.py replace_name PATH\t\t#修改文件名文件&quot;</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;\tpython3 compile_pyc.py clean PATH\t\t#清除当前项目中所有的__pycache__文件夹及以内文件&quot;</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;\tpython3 compile_pyc.py compile PATH\t\t#一键编译pyc&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="二、运行命令"><a href="#二、运行命令" class="headerlink" title="二、运行命令"></a>二、运行命令</h2><p>逐步运行以下命令</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python3 compile_pyc.py clean &lt;PATH&gt; <span class="comment">#清除当前项目中所有的__pycache__文件夹及以内文件</span></span><br><span class="line">python3 compile_pyc.py compile_pyc &lt;PATH&gt; <span class="comment">#生成.pyc文件，并删除源文件</span></span><br><span class="line">python3 compile_pyc.py move &lt;PATH&gt; <span class="comment">#将.pyc文件移动到原py文件目录下</span></span><br><span class="line">python3 compile_pyc.py replace_name &lt;PATH&gt; <span class="comment">#去掉.pyc文件名中的版本号</span></span><br><span class="line">python3 compile_pyc.py clean &lt;PATH&gt;</span><br></pre></td></tr></table></figure>
+
+<p>或者直接运行以下一条命令就可以</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python3 compile_pyc.py compile &lt;PATH&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="三、注意"><a href="#三、注意" class="headerlink" title="三、注意"></a>三、注意</h2><p>保留了<code>settings.py</code>和<code>wsgi.py</code>这两个文件，方便改变配置，以及之后的<code>uwsgi</code>部署</p>
+<p>多次运行，.pyc会移动错乱，保证只移动在<code>__pycache__</code>下的.pyc文件，修改move代码</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">move</span>(<span class="params">path</span>):</span><br><span class="line">    <span class="keyword">for</span> parent, dirname, filename <span class="keyword">in</span> os.walk(path):</span><br><span class="line">        <span class="keyword">for</span> c_file <span class="keyword">in</span> filename:</span><br><span class="line">            fullname = os.path.join(parent, c_file)</span><br><span class="line">            <span class="keyword">if</span> os.path.basename(parent) == <span class="string">&#x27;__pycache__&#x27;</span>:</span><br><span class="line">                <span class="keyword">if</span> c_file[-<span class="number">4</span>:] == <span class="string">&#x27;.pyc&#x27;</span>:</span><br><span class="line">                    <span class="keyword">try</span>:</span><br><span class="line">                        parent_path = os.path.dirname(parent)</span><br><span class="line">                        shutil.move(fullname, parent_path)</span><br><span class="line">                        <span class="built_in">print</span>(<span class="string">&#x27;update the dir of file successfully&#x27;</span>)</span><br><span class="line">                    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">                        <span class="built_in">print</span>(<span class="string">&quot;Can&#x27;t move file:%s, reason:%s&quot;</span> % (fullname, e))</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2024/06/01/Centos7%E5%AE%89%E8%A3%85Python3%E5%92%8C%E5%8D%87%E7%BA%A7SQLite%E9%AB%98%E7%89%88%E6%9C%AC/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -223,7 +308,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2024-06-01 05:38:49 / 修改时间：05:56:26" itemprop="dateCreated datePublished" datetime="2024-06-01T05:38:49+08:00">2024-06-01</time>
+              <time title="创建时间：2024-06-01 05:38:49 / 修改时间：16:23:04" itemprop="dateCreated datePublished" datetime="2024-06-01T05:38:49+08:00">2024-06-01</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -310,7 +395,7 @@
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /home/tools/python/Python-3.8.12/   <span class="comment"># 切换到解压后的路径</span></span><br><span class="line">./configure --prefix=/usr/local/python3  <span class="comment"># 编译，‘--prefix’后接安装路径</span></span><br><span class="line">make clean   <span class="comment"># 清除缓存</span></span><br><span class="line">make &amp;&amp; make install   <span class="comment"># 安装 </span></span><br></pre></td></tr></table></figure>
 
 <p>将上述代码修改为:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /home/tools/python/Python-3.8.12/   <span class="comment"># 切换到解压后的路径</span></span><br><span class="line"><span class="comment"># 编译，‘--prefix’后接安装路径，其中LD_RUN_PATH和LDFLAGS为sqlite3的二进制文件位置路径，CPPFLAGS是头文件的位置路径。上面安装sqlite3时已经提到。</span></span><br><span class="line">LD_RUN_PATH=/usr/local/sqlite3.42/lib/ ./configure LDFLAGS=<span class="string">&quot;-L/usr/local/sqlite3.42/lib&quot;</span> CPPFLAGS=<span class="string">&quot;-I/usr/local/sqlite3.42/include&quot;</span>  --prefix=/usr/local/python3/</span><br><span class="line"></span><br><span class="line">LD_RUN_PATH=/usr/local/sqlite3.42/lib/ make  <span class="comment"># 编译时将sqlite3的二进制文件路径添加到动态链接库的搜索路径中</span></span><br><span class="line">make clean   <span class="comment"># 清除缓存</span></span><br><span class="line">make &amp;&amp; make install  <span class="comment"># 安装</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /home/tools/python/Python-3.8.12/   <span class="comment"># 切换到解压后的路径</span></span><br><span class="line"><span class="comment"># 编译，‘--prefix’后接安装路径，其中LD_RUN_PATH和LDFLAGS为sqlite3的二进制文件位置路径，CPPFLAGS是头文件的位置路径。上面安装sqlite3时已经提到。</span></span><br><span class="line">LD_RUN_PATH=/usr/local/sqlite3.42/lib/ ./configure LDFLAGS=<span class="string">&quot;-L/usr/local/sqlite3.42/lib&quot;</span> CPPFLAGS=<span class="string">&quot;-I/usr/local/sqlite3.42/include&quot;</span>  --prefix=/usr/local/python3/ --enable-shared --with-ssl</span><br><span class="line"></span><br><span class="line">LD_RUN_PATH=/usr/local/sqlite3.42/lib/ make  <span class="comment"># 编译时将sqlite3的二进制文件路径添加到动态链接库的搜索路径中</span></span><br><span class="line">make clean   <span class="comment"># 清除缓存</span></span><br><span class="line">make &amp;&amp; make install  <span class="comment"># 安装</span></span><br></pre></td></tr></table></figure>
 
 <h5 id="（2）建立软连接（快捷方式）"><a href="#（2）建立软连接（快捷方式）" class="headerlink" title="（2）建立软连接（快捷方式）"></a>（2）建立软连接（快捷方式）</h5><p>建立方法与sqlite3的软连接建立方式相同</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">ls</span> -la python*   <span class="comment"># 查看python已存在的软连接</span></span><br></pre></td></tr></table></figure>
@@ -3564,83 +3649,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2024/04/03/Python-%E6%89%93%E5%8C%85%E6%8A%A5%E9%94%99-PyInstaller-exceptions-PythonLibraryNotFoundError-Python-library-not-found/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/452794135.jpg">
-      <meta itemprop="name" content="Kanoc Ge">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/04/03/Python-%E6%89%93%E5%8C%85%E6%8A%A5%E9%94%99-PyInstaller-exceptions-PythonLibraryNotFoundError-Python-library-not-found/" class="post-title-link" itemprop="url">Python-打包报错-PyInstaller.exceptions.PythonLibraryNotFoundError:-Python-library-not-found</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2024-04-03 02:29:06 / 修改时间：02:40:11" itemprop="dateCreated datePublished" datetime="2024-04-03T02:29:06+08:00">2024-04-03</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><font color=#00b2c2 size=5 face=宋体><strong>Python-打包报错</strong></font></p>
-<p><font color=#f26522 size=4 face=宋体><strong>错误说明：</strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">PyInstaller.exceptions.PythonLibraryNotFoundError: Python library <span class="keyword">not</span> found: libpython3<span class="number">.8</span>.so<span class="number">.1</span><span class="number">.0</span>, libpython3<span class="number">.8</span>.so</span><br><span class="line"></span><br><span class="line">这个错误是因为 编译文件中没有以上两个文件，或者找不到</span><br></pre></td></tr></table></figure>
-
-<p><font color=red size=4 face=宋体><strong>解决办法：</strong></font><font color=#00b2c2 size=3 face=宋体><strong>重新编译</strong></font></p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">安装依赖</span></span><br><span class="line">sudo yum -y install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel libffi-devel gdbm-devel db4-devel libpcap-devel xz-devel make</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">下载源码 3.8.1</span></span><br><span class="line">wget https://www.python.org/ftp/python/3.8.1/Python-3.8.1.tgz</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">解压压缩包</span></span><br><span class="line">tar -zxvf Python-3.8.1.tgz</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">进入文件夹</span></span><br><span class="line">cd Python-3.8.1</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">配置安装位置</span></span><br><span class="line">./configure --prefix=/usr/local/python3 --enable-shared --with-ssl</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">安装</span></span><br><span class="line">make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
-
-<p><font color=red size=4 face=宋体><strong>解决 Python library not found：</strong></font><font color=#00b2c2 size=3 face=宋体><strong>复制编译好的文件，到系统环境变量：</strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 查找 libpython3.8.so.1.0 所在目录</span></span><br><span class="line">find / -name libpython3<span class="number">.8</span>.so<span class="number">.1</span><span class="number">.0</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 所在动态库在 /usr/local/python3/lib 中</span></span><br><span class="line">cp /usr/local/python3/lib/libpython3<span class="number">.8</span>.a /usr/lib64/</span><br><span class="line">cp /usr/local/python3/lib/libpython3<span class="number">.8</span>.so /usr/lib64/</span><br><span class="line">cp /usr/local/python3/lib/libpython3<span class="number">.8</span>.so<span class="number">.1</span><span class="number">.0</span> /usr/lib64/</span><br><span class="line">cp /usr/local/python3/lib/libpython3.so /usr/lib64/</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -3711,18 +3719,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">299</span>
+          <span class="site-state-item-count">300</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">46</span>
+        <span class="site-state-item-count">47</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">176</span>
+        <span class="site-state-item-count">178</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

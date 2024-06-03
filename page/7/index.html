@@ -198,6 +198,200 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/05/22/Django-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/452794135.jpg">
+      <meta itemprop="name" content="Kanoc Ge">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/05/22/Django-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">Django_学习笔记</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-05-22 20:42:10" itemprop="dateCreated datePublished" datetime="2023-05-22T20:42:10+08:00">2023-05-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-05-26 08:30:44" itemprop="dateModified" datetime="2024-05-26T08:30:44+08:00">2024-05-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/django/" itemprop="url" rel="index"><span itemprop="name">django</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><font color=#00b2c2 size=5 face=宋体><strong>Django_学习笔记：</strong></font></p>
+<p><font color=#00b2c2 size=5 face=宋体><strong>1. 安装python(已经安装python跳过，Linux默认已经安装了python)</strong></font></p>
+<br>
+
+<br>
+
+<br>
+
+<hr>
+<p><font color=red size=4 face=宋体><strong>1. python篇</strong></font></p>
+<ul>
+<li><font color=#f26522 size=4 face=宋体><strong>1. 检测是否安装python</strong></font></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">python -V</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<hr>
+<br>
+
+<ul>
+<li><font color=#f26522 size=4 face=宋体><strong>2. 检测python包安装情况</strong></font></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pip3 list</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<hr>
+<br>
+
+<ul>
+<li><font color=#f26522 size=4 face=宋体><strong>3. 安装virtualenv</strong></font></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pip3 install virtualenv</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<hr>
+<br>
+
+<ul>
+<li><font color=#f26522 size=4 face=宋体><strong>4. 创建python环境文件夹</strong></font></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">python3 -m venv django_venv     # (bash 运行结果，会在当前文件夹创建一个django_venv的文件夹)</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<hr>
+<br>
+
+<ul>
+<li><font color=#f26522 size=4 face=宋体><strong>5. 进入创建的虚拟环境</strong></font></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="built_in">source</span> /bin/activate</span></span><br><span class="line">source ./django_venv/bin/activate</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">备注：如果进入虚拟环境成功，在命令行前面会有一个小括号</span></span><br></pre></td></tr></table></figure>
+
+<br>
+
+<hr>
+<br>
+
+<ul>
+<li><font color=#f26522 size=4 face=宋体><strong>6. 进入成功后，安装django环境</strong></font></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pip3 install django #国外服务器下载</span><br><span class="line">pip3 install django==2.2     #  指定安装django版本2.2</span><br><span class="line">pip3 install django -i https://pypi.douban.com/simple   #  国内豆瓣源加速连接</span><br></pre></td></tr></table></figure>
+
+<p><font color=red size=2 face=宋体><strong>python和django版本有兼容问题，具体对应版本如下:</strong></font></p>
+<p><img src="https://s2.loli.net/2022/06/08/Xf5MS9YHPajdnWR.png"></p>
+<br>
+
+<br>
+
+<br>
+
+<hr>
+<p><font color=red size=4 face=宋体><strong>2. djiango篇</strong></font></p>
+<ul>
+<li><font color=#f26522 size=4 face=宋体><strong>1. 创建网站项目工程</strong></font></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">django-admin startproject &lt;网站工程名&gt;</span></span><br><span class="line">django-admin startproject mysite</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<hr>
+<br>
+
+<ul>
+<li><font color=#f26522 size=4 face=宋体><strong>2. 开启python—django网站服务</strong></font></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">python3 manage.py runserver 0.0.0.0:8000</span><br><span class="line">nohup python3 manage.py runserver 0.0.0.0:8000 &gt; manage.log 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<hr>
+<br>
+
+<ul>
+<li><font color=#f26522 size=4 face=宋体><strong>3. django 框架中添加子应用</strong></font></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">python manage.py startapp &lt;子应用名称&gt;</span></span><br><span class="line">python manage.py startapp index  # 创建了一个名叫 的文件夹</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<hr>
+<br>
+
+<ul>
+<li><font color=#f26522 size=4 face=宋体><strong>4. 如果django安装成功 使用python进入之后，使用命令会显示django版本信息</strong></font></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash">&gt;&gt;import django</span></span><br><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash">&gt;&gt;django.__version__</span></span><br></pre></td></tr></table></figure>
+
+<br>
+
+<br>
+
+<br>
+
+<hr>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/05/22/html-%E4%B8%8B%E5%90%84%E7%B1%BB%E6%A0%87%E7%AD%BE%E5%90%AB%E4%B9%89/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -3357,154 +3551,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/05/18/MongoDB%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/452794135.jpg">
-      <meta itemprop="name" content="Kanoc Ge">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/05/18/MongoDB%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/" class="post-title-link" itemprop="url">MongoDB基本操作</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-05-18 01:50:52" itemprop="dateCreated datePublished" datetime="2023-05-18T01:50:52+08:00">2023-05-18</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-14 16:38:09" itemprop="dateModified" datetime="2024-03-14T16:38:09+08:00">2024-03-14</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><font color=#00b2c2 size=5 face=宋体><strong>MongoDB基本操作：</strong></font></p>
-<p><br><font color=#f26522 size=4 face=宋体><strong>1. 基本概念</strong></font></p>
-<ul>
-<li><p>生活中：仓库、架子、物品</p>
-</li>
-<li><p>计算机：数据库(database)、集合(collection)、数据&#x2F;文档(document)</p>
-</li>
-</ul>
-<p><br><font color=#f26522 size=4 face=宋体><strong>2. 查看数据库</strong></font></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">show  databases      # 展示数据库</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://s2.loli.net/2022/06/09/TyhxKGYmI48bJv6.png"></p>
-<p><br><font color=#f26522 size=4 face=宋体><strong>3. 选择数据库</strong></font></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">use database   # 进入数据库</span><br><span class="line"># 假如没有该数据库，那么该数据库会被隐式创建</span><br><span class="line"># 如果数据库中没有集合名，而我们展示了此集合名。那么这种方法，也被称为隐式创建，有数据后会创建</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://s2.loli.net/2023/05/18/TN4eXFZLvdqBzS3.png"></p>
-<br>
-
-<p><font color=#f26522 size=4 face=宋体><strong>4. 查看集合</strong></font></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">show collections</span><br><span class="line"># 查看该数据库下集合</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://s2.loli.net/2022/06/09/CcoKUrFuvE3RGMD.png"></p>
-<br>
-
-<p><font color=#f26522 size=4 face=宋体><strong>5. 创建集合</strong></font></p>
-<p><img src="https://s2.loli.net/2022/06/09/7xcDBu4C3aLRqEz.png"></p>
-<br>
-
-<p><font color=#f26522 size=4 face=宋体><strong>6. 删除集合</strong></font></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">db.集合名.drop()</span><br><span class="line"># 删除集合</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://s2.loli.net/2022/06/09/ZhPyefgFou64q71.png"></p>
-<br>
-
-<p><font color=#f26522 size=4 face=宋体><strong>7. 删除数据库</strong></font></p>
-<ul>
-<li><font color=#b0171f size=2 face=宋体><strong>1. 通过use语法选中数据库</strong></font></li>
-<li><font color=#b0171f size=2 face=宋体><strong>2. 通过db.dropDatabase()删除数据库</strong></font></li>
-</ul>
-<br>
-
-<p><font color=#f26522 size=4 face=宋体><strong>8. 小总结</strong></font></p>
-<ul>
-<li><p><font color=#b0171f size=3 face=宋体><strong>数据库(查看、创建、选择、删除)</strong></font></p>
-<ul>
-<li><p><font color=#00b2c2 size=2 face=宋体><strong>1.查看：show databases</strong></font></p>
-</li>
-<li><p><font color=#00b2c2 size=2 face=宋体><strong>2.创建：有单独语法，但是忽略，隐式创建</strong></font></p>
-</li>
-<li><p><font color=#00b2c2 size=2 face=宋体><strong>3.选择：use 数据库名</strong></font></p>
-</li>
-<li><p><font color=#00b2c2 size=2 face=宋体><strong>4.删除：</strong></font></p>
-<ul>
-<li>1.通过use选中数据库</li>
-<li>2.通过db.dropDatabase()删除数据库</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p><font color=#b0171f size=3 face=宋体><strong>集合（查看、创建、删除)</strong></font></p>
-<ul>
-<li><font color=#00b2c2 size=2 face=宋体><strong>1.查看：show collections</strong></font></li>
-<li><font color=#00b2c2 size=2 face=宋体><strong>2.创建：db.createCollection(‘集合名’)</strong></font></li>
-<li><font color=#00b2c2 size=2 face=宋体><strong>3.&#x2F;&#x2F;忽略，后期插入数据，隐式创建集合</strong></font></li>
-<li><font color=#00b2c2 size=2 face=宋体><strong>4.删除:db.集合名.drop()</strong></font></li>
-</ul>
-</li>
-</ul>
-<br>
-
-<br>
-
-<br>
-
-<hr>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -3575,18 +3621,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">299</span>
+          <span class="site-state-item-count">300</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">46</span>
+        <span class="site-state-item-count">47</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">176</span>
+        <span class="site-state-item-count">178</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
