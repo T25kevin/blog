@@ -198,6 +198,82 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/09/07/ffmpeg-moviepy%E5%90%88%E5%B9%B6%E7%89%87%E5%A4%B4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/452794135.jpg">
+      <meta itemprop="name" content="Kanoc Ge">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/09/07/ffmpeg-moviepy%E5%90%88%E5%B9%B6%E7%89%87%E5%A4%B4/" class="post-title-link" itemprop="url">ffmpeg moviepy合并片头</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-09-07 22:45:23" itemprop="dateCreated datePublished" datetime="2023-09-07T22:45:23+08:00">2023-09-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-14 16:38:09" itemprop="dateModified" datetime="2024-03-14T16:38:09+08:00">2024-03-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%A7%86%E9%A2%91%E7%BC%96%E8%BE%91/" itemprop="url" rel="index"><span itemprop="name">视频编辑</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><font color=#00b2c2 size=5 face=宋体><strong>moviepy合并片头：</strong></font></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> moviepy.video.compositing.concatenate <span class="keyword">import</span> concatenate_videoclips</span><br><span class="line"><span class="keyword">from</span> moviepy.editor <span class="keyword">import</span> VideoFileClip</span><br><span class="line"></span><br><span class="line">intro = VideoFileClip(<span class="string">&quot;intro_video.mp4&quot;</span>)   <span class="comment"># 片头</span></span><br><span class="line">main_video = VideoFileClip(<span class="string">&quot;main_video.mp4&quot;</span>)   <span class="comment"># 创建一个新的视频对象，并将主视频的每一帧添加到该对象中：</span></span><br><span class="line">video = concatenate_videoclips([intro, main_video], method=<span class="string">&quot;compose&quot;</span>)   <span class="comment"># 开始合并视频  #合并之后，出现花屏 method=&quot;compose&quot; 即可解决</span></span><br><span class="line">video.write_videofile(<span class="string">&quot;final_video.mp4&quot;</span>)   <span class="comment"># 写入本地</span></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/09/07/ffmpeg-%E5%91%BD%E4%BB%A4%E5%BF%83%E5%BE%97-%E9%9D%9E%E5%B8%B8%E9%87%8D%E8%A6%81/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -3194,169 +3270,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/07/11/%E5%BF%85%E5%A4%87%E5%B7%A5%E5%85%B7/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/452794135.jpg">
-      <meta itemprop="name" content="Kanoc Ge">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/07/11/%E5%BF%85%E5%A4%87%E5%B7%A5%E5%85%B7/" class="post-title-link" itemprop="url">必备工具</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-07-11 13:52:53" itemprop="dateCreated datePublished" datetime="2023-07-11T13:52:53+08:00">2023-07-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-14 16:38:10" itemprop="dateModified" datetime="2024-03-14T16:38:10+08:00">2024-03-14</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="必备工具获取、下载"><a href="#必备工具获取、下载" class="headerlink" title="必备工具获取、下载"></a>必备工具获取、下载</h2><h4 id="1、Typora-版本v1-0"><a href="#1、Typora-版本v1-0" class="headerlink" title="1、Typora 版本v1.0"></a>1、Typora 版本v1.0</h4><ul>
-<li><a target="_blank" rel="noopener" href="https://bd.bcebos.com/v1/xly-icafe/typora-0.9.9.34.1-20230711135144-mzvutn.dmg"><code>Mac Os</code>版下载</a></li>
-<li><a target="_blank" rel="noopener" href="https://bd.bcebos.com/v1/xly-icafe/typora-setup-x64-20230711135722-voidbp.exe"><code>windows</code>版下载</a></li>
-</ul>
-<br>
-
-<hr>
-<br>
-
-<h4 id="2、Pycharm专业版-激活"><a href="#2、Pycharm专业版-激活" class="headerlink" title="2、Pycharm专业版+激活"></a>2、Pycharm专业版+激活</h4><ul>
-<li><p>官方渠道下载 IDE： <a target="_blank" rel="noopener" href="https://www.jetbrains.com/pycharm/download/other.html"><code>点击进入</code></a></p>
-</li>
-<li><p>亲测可用：<code>mac2021激活</code><a target="_blank" rel="noopener" href="https://bd.bcebos.com/v1/xly-icafe/macjihuo-20230714173437-xqdtdy.zip">点击下载</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://bd.bcebos.com/v1/xly-icafe/linux-20230711135957-rf7v0e.zip"><code>linux</code> zip版下载</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://bd.bcebos.com/v1/xly-icafe/mac-20230711140244-5mamhz.zip"><code>Mac</code> zip版下载</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://bd.bcebos.com/v1/xly-icafe/windows-20230711140345-2wukes.zip"><code>windows</code> zip版下载</a></p>
-</li>
-<li><p><font color=#f26522 size=4 face=宋体><strong><strong>Pycharm激活教程:      <a target="_blank" rel="noopener" href="https://www.yuque.com/lanchuan-vm6pi/buhvby/irtn6mlnmt1vuzgx?singleDoc">点击进入</a></strong></strong></font></p>
-</li>
-<li><p><font color=#f26522 size=4 face=宋体><strong><strong>二次购买：Pycharm激活教程:      [点击进入](<a target="_blank" rel="noopener" href="https://www.yuque.com/ningmengna-6ulrv/pfdno5/qtzl0p93s0icva9d">激活教程-mac版，支持2017-2023所有专业版 (yuque.com)</a>)</strong></strong></font></p>
-</li>
-</ul>
-<br>
-
-<hr>
-<br>
-
-<h4 id="3、Qv2ray-主程序-核心"><a href="#3、Qv2ray-主程序-核心" class="headerlink" title="3、Qv2ray 主程序 + 核心"></a>3、Qv2ray 主程序 + 核心</h4><ul>
-<li><p><a target="_blank" rel="noopener" href="https://bd.bcebos.com/v1/xly-icafe/qv2ray_%E7%AE%80%E6%98%93%E5%AE%89%E8%A3%85%20%E7%A8%8B%E5%BA%8F%E4%B8%89%E7%AB%AF-20230711145621-gvow7b.zip">Qv2ray_简易安装 程序三端</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://github.com/Qv2ray/Qv2ray/releases">Qv2ray 主程序下载</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://github.com/v2ray/v2ray-core/releases">QV2ray_核心下载</a></p>
-</li>
-<li><p>QV2ray 各类插件下载</p>
-<ul>
-<li><p>插件 ：<a target="_blank" rel="noopener" href="https://github.com/Qv2ray/QvPlugin-Trojan/releases/tag/v3.0.0-pre3">Trojan</a></p>
-</li>
-<li><p>插件 ：<a target="_blank" rel="noopener" href="https://github.com/Qv2ray/QvPlugin-SSR/releases/tag/v3.0.0-pre3">SSR</a></p>
-</li>
-<li><p>插件 ：<a target="_blank" rel="noopener" href="https://github.com/Qv2ray/QvPlugin-NaiveProxy/releases/tag/v3.0.0-pre3">NaiveProxy</a></p>
-</li>
-<li><p>插件 ：<a target="_blank" rel="noopener" href="https://github.com/Qv2ray/QvPlugin-Trojan-Go/releases/tag/v3.0.0-pre3">Trojan-Go</a></p>
-</li>
-<li><p>插件 ：<a target="_blank" rel="noopener" href="https://github.com/Qv2ray/QvPlugin-SS/releases/tag/v3.0.0-pre3">SS</a></p>
-</li>
-<li><p>插件 ：<a target="_blank" rel="noopener" href="https://github.com/Qv2ray/QvPlugin-Command/releases/tag/v3.0.0-pre3">Command</a></p>
-</li>
-</ul>
-</li>
-</ul>
-<br>
-
-<hr>
-<br>
-
-<h4 id="4、mysql安装下载网址"><a href="#4、mysql安装下载网址" class="headerlink" title="4、mysql安装下载网址"></a>4、mysql安装下载网址</h4><ul>
-<li><a target="_blank" rel="noopener" href="https://downloads.mysql.com/archives/community/"><code>mysql安装下载网址</code></a></li>
-</ul>
-<br>
-
-<hr>
-<br>
-
-<h4 id="5、App-Cleaner-Uninstaller-for-mac-mac应用清理和卸载软件-v8-2-1中文激活版"><a href="#5、App-Cleaner-Uninstaller-for-mac-mac应用清理和卸载软件-v8-2-1中文激活版" class="headerlink" title="5、App Cleaner &amp; Uninstaller for mac(mac应用清理和卸载软件)v8.2.1中文激活版"></a>5、App Cleaner &amp; Uninstaller for mac(mac应用清理和卸载软件)v8.2.1中文激活版</h4><p><a target="_blank" rel="noopener" href="https://bd.bcebos.com/v1/xly-icafe/app%20cleaner%20%26%20uninstaller%20for%20mac%28mac%E5%BA%94%E7%94%A8%E6%B8%85%E7%90%86%E5%92%8C%E5%8D%B8%E8%BD%BD%E8%BD%AF%E4%BB%B6%29v8.2.1%E4%B8%AD%E6%96%87%E6%BF%80%E6%B4%BB%E7%89%88-20230713200358-ylswgj.dmg"><code>App Cleaner &amp; Uninstaller_激活版下载</code></a></p>
-<br>
-
-<hr>
-<br>
-
-<h4 id="6、mysql安装下载网址"><a href="#6、mysql安装下载网址" class="headerlink" title="6、mysql安装下载网址"></a>6、mysql安装下载网址</h4><ul>
-<li><a target="_blank" rel="noopener" href="https://downloads.mysql.com/archives/community/"><code>mysql安装下载网址</code></a></li>
-</ul>
-<br>
-
-<hr>
-<br>
-
-<h4 id="7、fanmugua-HttpCanary-安卓抓包工具"><a href="#7、fanmugua-HttpCanary-安卓抓包工具" class="headerlink" title="7、fanmugua + HttpCanary(安卓抓包工具)"></a>7、fanmugua + HttpCanary(安卓抓包工具)</h4><p><a target="_blank" rel="noopener" href="https://bd.bcebos.com/v1/xly-icafe/%E7%95%AA%E6%9C%A8%E7%93%9C%2B%E6%89%8B%E6%9C%BAapk%E6%8A%93%E5%8C%85-20230928122154-gnuj5h.zip"><code>fanmugua + HttpCanary(安卓抓包工具)</code></a></p>
-<br>
-
-<hr>
-<br>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -3423,18 +3340,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">300</span>
+          <span class="site-state-item-count">301</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">47</span>
+        <span class="site-state-item-count">48</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">178</span>
+        <span class="site-state-item-count">179</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

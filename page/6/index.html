@@ -198,6 +198,132 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/05/22/ESXi%E6%B7%BB%E5%8A%A0USB%E7%A1%AC%E7%9B%98%E4%BD%9C%E4%B8%BA%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/452794135.jpg">
+      <meta itemprop="name" content="Kanoc Ge">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/05/22/ESXi%E6%B7%BB%E5%8A%A0USB%E7%A1%AC%E7%9B%98%E4%BD%9C%E4%B8%BA%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8/" class="post-title-link" itemprop="url">ESXi添加USB硬盘作为数据存储</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-05-22 22:38:43" itemprop="dateCreated datePublished" datetime="2023-05-22T22:38:43+08:00">2023-05-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-14 16:38:09" itemprop="dateModified" datetime="2024-03-14T16:38:09+08:00">2024-03-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="ESXi添加USB硬盘作为数据存储"><a href="#ESXi添加USB硬盘作为数据存储" class="headerlink" title="ESXi添加USB硬盘作为数据存储"></a><font color=#00b2c2 size=5 face=宋体><strong>ESXi添加USB硬盘作为数据存储</strong></font></h1><p><font color=#f26522 size=4 face=宋体><strong>原始博客地址：<a target="_blank" rel="noopener" href="https://www.dinghui.org/esxi-usb-datastore.html">ESXi添加USB硬盘作为数据存储 – 丁辉博客 (dinghui.org)</a></strong></font></p>
+<ul>
+<li><font color=#b0171f size=2 face=宋体><strong>ESXi添加USB硬盘作为数据存储</strong></font></li>
+</ul>
+<p><font color=#f26522 size=4 face=宋体><strong>通常在ESXi插上USB硬盘，都是映射给虚拟机使用，但是有些情况下我们需要提供给ESXi使用，直接扫描存储是无法扫描到USB硬盘的，需要做如下处理才能被识别。</strong></font></p>
+<ul>
+<li><font color=#b0171f size=2 face=宋体><strong>1、开启主机SSH功能：主机-配置-服务，找到SSH服务，启用；</strong></font></li>
+<li><font color=#b0171f size=2 face=宋体><strong>2、先不要插USB硬盘，输入以下命令：</strong></font></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/etc/init.d/usbarbitrator stop</span><br><span class="line">chkconfig usbarbitrator off</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><font color=#b0171f size=2 face=宋体><strong>3、插入USB硬盘，输入以下命令，可以看到有Is USB:true字样，表示USB设备已经识别出来。</strong></font></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">esxcli storage core device list |grep -i usb</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2023/05/22/txpebkovmzZ1ag3.png" alt="img"></p>
+<p><font color=red size=2 face=宋体><strong>可以看到设备名为：mpx.vmhba34:C0:T0:L0（注意，每款设备编号都会不同）</strong></font></p>
+<ul>
+<li><font color=#b0171f size=2 face=宋体><strong>4、输入以下命令，会列出所有的disk，确认一下是否正确识别该设备名。</strong></font></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ls /dev/disks/</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2023/05/22/GOL7MRXdcQw12Br.png" alt="img"></p>
+<ul>
+<li><font color=#b0171f size=2 face=宋体><strong>5、输入命令，注意替换（如果是mpx.vmhba34:C0:T0:L0则变成mpx.vmhba34:C0:T0:L0）</strong></font></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">partedUtil mklabel /dev/disks/mpx.vmhba34\:C0\:T0\:L0 gpt </span><br><span class="line">partedUtil getptbl /dev/disks/mpx.vmhba34\:C0\:T0\:L0</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2023/05/22/sCVSHKkWEvr1y8M.png" alt="img"></p>
+<p><img src="https://s2.loli.net/2023/05/22/AFKMBu68Sw1DXOj.png" alt="img"></p>
+<ul>
+<li><font color=#b0171f size=2 face=宋体><strong>6、如上图，得到一串硬盘的数值，这里是4000731136，注意每个硬盘数值都不同。</strong></font></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">eval expr $(partedUtil getptbl /dev/disks/mpx.vmhba34\:C0\:T0\:L0 | tail -1 | awk &#x27;&#123;print $1 &quot; \\* &quot; $2 &quot; \\* &quot; $3&#125;&#x27;) - 1</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2023/05/22/q5oIGFscKu7BSxv.png" alt="img"></p>
+<ul>
+<li><font color=#b0171f size=2 face=宋体><strong>7、如上，会换算出另外一个数值：4000715144，运行如下命令</strong></font></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">partedUtil setptbl /dev/disks/mpx.vmhba34\:C0\:T0\:L0 gpt &quot;1 2048 4000715144 AA31E02A400F11DB9590000C2911D1B8 0&quot;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2023/05/22/U1KHpTau2AZ5zjx.png" alt="img"><br>注意：（AA31E02A400F11DB9590000C2911D1B8）是VMFS数据存储分区的GUID，后面的0是属性，不要更改。</p>
+<ul>
+<li><font color=#b0171f size=2 face=宋体><strong>8、挂载USB硬盘，注意后面有个:1</strong></font></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">vmkfstools -C vmfs5 -S USB_Datastore /dev/disks/mpx.vmhba34\:C0\:T0\:L0:1</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://www.dinghui.org/wp-content/uploads/2021/04/image-7.png"><img src="https://s2.loli.net/2023/05/22/BcK2SyYV3vgznbH.png" alt="img"></a>说明：vmfs5是指用vmfs5格式，如果在其它esxi版本不支持vmfs5时，可以改为vmfs6，-S USB_Datastore是存储的名字，可自行定义。</p>
+<ul>
+<li><font color=#b0171f size=2 face=宋体><strong>9、这样USB_Datastore就已经创建好了，从ESXi数据存储那里就可以看到多了一个USB_Datastore了。</strong></font></li>
+</ul>
+<p><img src="https://s2.loli.net/2023/05/22/5w63xHpMAtP4RVW.png" alt="img"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/05/22/Hexo%E4%BD%BF%E7%94%A8%E6%94%BB%E7%95%A5-%E6%B7%BB%E5%8A%A0%E5%88%86%E7%B1%BB%E5%8F%8A%E6%A0%87%E7%AD%BE/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -4225,303 +4351,10 @@ cp -g -r <原位置> <现位置>
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/05/22/Linux-debian-%E4%B8%8B%E9%85%8D%E7%BD%AEftp%E6%9C%8D%E5%8A%A1%E5%99%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/452794135.jpg">
-      <meta itemprop="name" content="Kanoc Ge">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/05/22/Linux-debian-%E4%B8%8B%E9%85%8D%E7%BD%AEftp%E6%9C%8D%E5%8A%A1%E5%99%A8/" class="post-title-link" itemprop="url">Linux(debian)下配置ftp服务器</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-05-22 20:55:51" itemprop="dateCreated datePublished" datetime="2023-05-22T20:55:51+08:00">2023-05-22</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-14 16:38:09" itemprop="dateModified" datetime="2024-03-14T16:38:09+08:00">2024-03-14</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><font color=#00b2c2 size=5 face=宋体><strong>Linux(debian)下配置ftp服务器：</strong></font></p>
-<p><font color=#00b2c2 size=4 face="宋体"><strong>如果配置不够，或者想增加用户名可以去这里寻找答案：</strong></font><a class="wp-editor-md-post-content-link" target="_blank" rel="noopener" href="https://help.aliyun.com/document_detail/60152.html"><font color=#102b6a size=3 face="宋体"><strong>点击进入</strong></fout></a><br><font color=#00b2c2 size=4 face="宋体"><strong>视频教程（有可能你打不开）：</strong></font><a class="wp-editor-md-post-content-link" target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=v1dEgUrm_Ig"><font color=#102b6a size=3 face="宋体"><strong>点击进入</strong></fout></a></p>
-<h1><font color=#00b2c2 size=5 face="宋体"><strong>除了FTP服务器，更为简单的挂载远程服务器的是直接用ssh挂载：</strong></font></h1>
-
-<pre><code class="language-shell line-numbers"># 安装sshfs服务
-sudo apt install sshfs
-sshfs <用户名>@<ip地址>:<想要挂载的远程路径> <挂载到本地的路径>
-# 例如：
-sshfs kk@211.34.109.38:/mnt/share /mnt/share
-# 取消挂载
-fusermount  -u  /mnt/share
-# fusermount  -u <本地挂载的目录>
-</code></pre>
-
-<h1><font color=#00b2c2 size=5 face="宋体"><strong>debian下配置ftp服务器：</strong></font></h1>
-
-<p><font color=#102b6a size=3 face="宋体"><strong>由于开发需要使用ftp功能，一时之间有点蒙，这玩意一直都会用，但怎么配置还是有点蒙，然后花了两个小时去恶补了下相关知识！</strong></font></p>
-<h1><font color=#00b2c2 size=5 face="宋体"><strong>安装ftp：</strong></font></h1>
-
-<p><font color=#102b6a size=3 face="宋体">直接使用命令安装即可</fout></p>
-<pre><code class="language-shell line-numbers">sudo apt install vsftpd
-# 重点：这里是vsftpd不是ftp！！！
-</code></pre>
-
-<h1><font color=#00b2c2 size=5 face="宋体"><strong>ftp服务启动：</strong></font></h1>
-
-<p><font color=#102b6a size=3 face="宋体">第一种方式：</fout></p>
-<pre><code class="language-shell line-numbers">/etc/init.d/vsftpd &#123;start|stop|restart|reload|status&#125;
-# 重点：中括号前面的不变，后面的是命令
-</code></pre>
-
-<p><font color=#102b6a size=3 face="宋体">第二种方式：</fout></p>
-<pre><code class="language-shell line-numbers">service vsftpd &#123;start|stop|restart|reload|status&#125;
-# 重点：中括号前面的不变，后面的是命令
-</code></pre>
-
-<p><font color=#102b6a size=3 face="宋体">第三种方式：</fout></p>
-<pre><code class="language-shell line-numbers">systemctl &#123;start|stop|restart|reload|status&#125; vsftpd.service
-# 重点：只有中括号中的命令在变
-# 个人更喜欢第三种，简单粗暴，有深度！
-</code></pre>
-
-<h1><font color=#00b2c2 size=5 face="宋体"><strong>开机自启：</strong></font></h1>
-
-<p><font color=#102b6a size=3 face="宋体">自动启动：</fout></p>
-<pre><code class="language-shell line-numbers">systemctl enable vsftpd.service
-</code></pre>
-
-<p><font color=#102b6a size=3 face="宋体">取消自动启动：</fout></p>
-<pre><code class="language-shell line-numbers">systemctl disable vsftpd.service
-</code></pre>
-
-<h1><font color=#00b2c2 size=5 face="宋体"><strong>修改配置：</strong></font></h1>
-
-<p><font color=#102b6a size=3 face="宋体">apt方式安装的ftp，配置文件默认在’&#x2F;etc&#x2F;vsftpd.conf</fout></p>
-<pre><code class="language-shell line-numbers">vim /etc/vsftpd.conf
-</code></pre>
-
-<p><font color=#102b6a size=3 face="宋体">我的配置如下：</fout></p>
-<pre><code class="language-shell line-numbers"># Example config file /etc/vsftpd.conf
-#
-# The default compiled in settings are fairly paranoid. This sample file
-# loosens things up a bit, to make the ftp daemon more usable.
-# Please see vsftpd.conf.5 for all compiled in defaults.
-#
-# READ THIS: This example file is NOT an exhaustive list of vsftpd options.
-# Please read the vsftpd.conf.5 manual page to get a full idea of vsftpd's
-# capabilities.
-#
-#
-# Run standalone?  vsftpd can run either from an inetd or as a standalone
-# daemon started from an initscript.
-listen=NO
-#
-# This directive enables listening on IPv6 sockets. By default, listening
-# on the IPv6 "any" address (::) will accept connections from both IPv6
-# and IPv4 clients. It is not necessary to listen on *both* IPv4 and IPv6
-# sockets. If you want that (perhaps because you want to listen on specific
-# addresses) then you must run two copies of vsftpd with two configuration
-# files.
-listen_ipv6=YES
-#
-# Allow anonymous FTP? (Disabled by default).
-anonymous_enable=YES
-#
-# Uncomment this to allow local users to log in.
-local_enable=YES
-#
-# Uncomment this to enable any form of FTP write command.
-#write_enable=YES
-#
-# Default umask for local users is 077. You may wish to change this to 022,
-# if your users expect that (022 is used by most other ftpd's)
-#local_umask=022
-#
-# Uncomment this to allow the anonymous FTP user to upload files. This only
-# has an effect if the above global write enable is activated. Also, you will
-# obviously need to create a directory writable by the FTP user.
-anon_upload_enable=YES
-#
-# Uncomment this if you want the anonymous FTP user to be able to create
-# new directories.
-#anon_mkdir_write_enable=YES
-#
-# Activate directory messages - messages given to remote users when they
-# go into a certain directory.
-dirmessage_enable=YES
-#
-# If enabled, vsftpd will display directory listings with the time
-# in  your  local  time  zone.  The default is to display GMT. The
-# times returned by the MDTM FTP command are also affected by this
-# option.
-use_localtime=YES
-#
-# Activate logging of uploads/downloads.
-xferlog_enable=YES
-#
-# Make sure PORT transfer connections originate from port 20 (ftp-data).
-connect_from_port_20=YES
-#
-# If you want, you can arrange for uploaded anonymous files to be owned by
-# a different user. Note! Using "root" for uploaded files is not
-# recommended!
-#chown_uploads=YES
-#chown_username=whoever
-#
-# You may override where the log file goes if you like. The default is shown
-# below.
-#xferlog_file=/var/log/vsftpd.log
-#
-# If you want, you can have your log file in standard ftpd xferlog format.
-# Note that the default log file location is /var/log/xferlog in this case.
-#xferlog_std_format=YES
-#
-# You may change the default value for timing out an idle session.
-#idle_session_timeout=600
-#
-# You may change the default value for timing out a data connection.
-#data_connection_timeout=120
-#
-# It is recommended that you define on your system a unique user which the
-# ftp server can use as a totally isolated and unprivileged user.
-#nopriv_user=ftpsecure
-#
-# Enable this and the server will recognise asynchronous ABOR requests. Not
-# recommended for security (the code is non-trivial). Not enabling it,
-# however, may confuse older FTP clients.
-#async_abor_enable=YES
-#
-# By default the server will pretend to allow ASCII mode but in fact ignore
-# the request. Turn on the below options to have the server actually do ASCII
-# mangling on files when in ASCII mode.
-# Beware that on some FTP servers, ASCII support allows a denial of service
-# attack (DoS) via the command "SIZE /big/file" in ASCII mode. vsftpd
-# predicted this attack and has always been safe, reporting the size of the
-# raw file.
-# ASCII mangling is a horrible feature of the protocol.
-#ascii_upload_enable=YES
-#ascii_download_enable=YES
-#
-# You may fully customise the login banner string:
-#ftpd_banner=Welcome to blah FTP service.
-#
-# You may specify a file of disallowed anonymous e-mail addresses. Apparently
-# useful for combatting certain DoS attacks.
-#deny_email_enable=YES
-# (default follows)
-#banned_email_file=/etc/vsftpd.banned_emails
-#
-# You may restrict local users to their home directories.  See the FAQ for
-# the possible risks in this before using chroot_local_user or
-# chroot_list_enable below.
-#chroot_local_user=YES
-#
-# You may specify an explicit list of local users to chroot() to their home
-# directory. If chroot_local_user is YES, then this list becomes a list of
-# users to NOT chroot().
-# (Warning! chroot'ing can be very dangerous. If using chroot, make sure that
-# the user does not have write access to the top level directory within the
-# chroot)
-chroot_local_user=YES
-chroot_list_enable=YES
-# (default follows)
-chroot_list_file=/etc/vsftpd.chroot_list
-#
-# You may activate the "-R" option to the builtin ls. This is disabled by
-# default to avoid remote users being able to cause excessive I/O on large
-# sites. However, some broken FTP clients such as "ncftp" and "mirror" assume
-# the presence of the "-R" option, so there is a strong case for enabling it.
-#ls_recurse_enable=YES
-#
-# Customization
-#
-# Some of vsftpd's settings don't fit the filesystem layout by
-# default.
-#
-# This option should be the name of a directory which is empty.  Also, the
-# directory should not be writable by the ftp user. This directory is used
-# as a secure chroot() jail at times vsftpd does not require filesystem
-# access.
-secure_chroot_dir=/var/run/vsftpd/empty
-#
-# This string is the name of the PAM service vsftpd will use.
-pam_service_name=vsftpd
-
-pasv_min_port=37564
-#设置被动模式下，建立数据传输可使用的端口范围的最大值。
-pasv_max_port=43997
-#
-# This option specifies the location of the RSA certificate to use for SSL
-# encrypted connections.
-rsa_cert_file=/etc/ssl/certs/ssl-cert-snakeoil.pem
-rsa_private_key_file=/etc/ssl/private/ssl-cert-snakeoil.key
-ssl_enable=NO
-
-#
-# Uncomment this to indicate that vsftpd use a utf8 filesystem.
-#utf8_filesystem=YES
-
-</code></pre>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -4588,18 +4421,18 @@ ssl_enable=NO
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">300</span>
+          <span class="site-state-item-count">301</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">47</span>
+        <span class="site-state-item-count">48</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">178</span>
+        <span class="site-state-item-count">179</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

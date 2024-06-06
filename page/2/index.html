@@ -198,6 +198,108 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2024/04/13/%E4%B8%80%E9%94%AE%E6%90%9E%E5%AE%9A%E5%A4%9A%E5%B1%82%E8%B7%B3%E6%9D%BF%E8%AE%BF%E9%97%AE%E7%9B%AE%E6%A0%87%E6%9C%BA%E5%99%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/452794135.jpg">
+      <meta itemprop="name" content="Kanoc Ge">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/04/13/%E4%B8%80%E9%94%AE%E6%90%9E%E5%AE%9A%E5%A4%9A%E5%B1%82%E8%B7%B3%E6%9D%BF%E8%AE%BF%E9%97%AE%E7%9B%AE%E6%A0%87%E6%9C%BA%E5%99%A8/" class="post-title-link" itemprop="url">一键搞定多层跳板访问目标机器</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-04-13 14:47:07 / 修改时间：15:22:22" itemprop="dateCreated datePublished" datetime="2024-04-13T14:47:07+08:00">2024-04-13</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><font color=#00b2c2 size=5 face=宋体><strong>一、免密码登录ssh</strong></font></p>
+<ul>
+<li><p><font color=#f26522 size=4 face=宋体><strong>1、生成钥匙对</strong></font></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 生成key，但首先你得安装ssh</span></span><br><span class="line">ssh-keygen -t rsa -b 2048</span><br><span class="line"><span class="comment"># 一路按回车换行，终端输出大概是这样</span></span><br><span class="line"><span class="comment"># Generating public/private rsa key pair.</span></span><br><span class="line"><span class="comment"># Enter file in which to save the key (/home/username/.ssh/id_rsa): </span></span><br><span class="line"><span class="comment"># Enter passphrase (empty for no passphrase): </span></span><br><span class="line"><span class="comment"># Enter same passphrase again: </span></span><br><span class="line"><span class="comment"># Your identification has been saved in /home/username/.ssh/id_rsa.</span></span><br><span class="line"><span class="comment"># Your public key has been saved in /home/username/.ssh/id_rsa.pub.</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><font color=#f26522 size=4 face=宋体><strong>2、将共钥传输给远端主机</strong></font></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># id@server 是你的用户名和远端主机地址喔</span></span><br><span class="line">ssh-copy-id <span class="built_in">id</span>@server</span><br><span class="line"><span class="comment"># 按规定输入远端主机密码后，成功的话能看到终端输出</span></span><br><span class="line"><span class="comment"># Number of key(s) added:        1</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><font color=red size=4 face=宋体><strong>PS：</strong></font><font color=#b0171f size=3 face=宋体><strong>公钥储存在远端主机这个文件里：.ssh&#x2F;authorized_keys，现在当你重新再通过SSH连接到远端主机时，已经不再需要密码啦！</strong></font></p>
+<p><font color=#00b2c2 size=5 face=宋体><strong>二、使用<code>跳板</code>连接到<code>目标机器</code>(ProxyJump)</strong></font></p>
+<p> 本节内容参考自：<a href="https://link.zhihu.com/?target=https://woodenrobot.me/2019/07/18/ssh-proxyjump/">SSH 通过跳板机直接访问内网机器</a>、<a target="_blank" rel="noopener" href="https://atomlab.org/posts/code/ssh-trick/">SSH使用技巧-免密码&#x2F;自动代理</a></p>
+<p><font color=red size=4 face=宋体><strong>PS：</strong></font><font color=#b0171f size=3 face=宋体><strong>需要 <code>OpenSSH 7.3</code> 以上版本才可以使用 <code>ProxyJump</code>, 使用下列命令查看<code>OpenSSH</code> 版本：</strong></font></p>
+<ul>
+<li><p><font color=#f26522 size=4 face=宋体><strong>1、直接命令<code>临时使用</code>：</strong></font></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ssh -J [email protected]:port1,[email protected]:port2</span><br><span class="line"></span><br><span class="line"><span class="comment"># 可以直接使用上述命令通过跳板机直接登录内网机器，比如：</span></span><br><span class="line"><span class="comment"># ssh username@目标机器IP -p 22 -J username@跳板机IP:22</span></span><br><span class="line"><span class="comment"># 如果需要通过多个跳板机则以 , 分割：</span></span><br><span class="line"><span class="comment"># ssh username@目标机器IP -p 22 -J username1@跳板机IP1:22,username2@跳板机IP2:22</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><font color=#f26522 size=4 face=宋体><strong>2、长期使用<code>配置文件</code>||<code>~\.ssh\config</code>：</strong></font></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Host tiaoban1    <span class="comment"># 代表跳板机 1</span></span><br><span class="line">    HostName 跳板机 1 的 IP</span><br><span class="line">    Port 22    <span class="comment"># ssh 连接端口</span></span><br><span class="line">    User username1    <span class="comment"># 跳板机 1 的用户名</span></span><br><span class="line"></span><br><span class="line">Host tiaoban2    <span class="comment"># 代表跳板机 2</span></span><br><span class="line">    HostName 跳板机 2 的 IP</span><br><span class="line">    Port 22    <span class="comment"># ssh 连接端口</span></span><br><span class="line">    User username2    <span class="comment"># 跳板机 2 的用户名</span></span><br><span class="line"></span><br><span class="line">Host target    <span class="comment"># 代表目标机器的名字</span></span><br><span class="line">    HostName 目标机器 IP    <span class="comment"># 这个是目标机器的 IP</span></span><br><span class="line">    Port 22    <span class="comment"># 目标机器 ssh 的端口</span></span><br><span class="line">    User username_target    <span class="comment"># 目标机器的用户名</span></span><br><span class="line">    ProxyJump tiaoban1,tiaoban2</span><br><span class="line"></span><br><span class="line">Host 10.10.0.*    <span class="comment"># 使用通配符 * 代表 10.10.0.1 - 10.10.0.255</span></span><br><span class="line">    Port 22    <span class="comment"># 服务器端口</span></span><br><span class="line">    User username    <span class="comment"># 服务器用户名</span></span><br><span class="line">    ProxyJump tiaoban1,tiaoban2</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><font color=#f26522 size=4 face=宋体><strong>3、使用方法：</strong></font></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ssh tiaoban1   <span class="comment"># 连接到跳板机 1</span></span><br><span class="line"></span><br><span class="line">ssh target   <span class="comment"># 连接到目标机器</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><font color=#00b2c2 size=5 face=宋体><strong>三、安装<code>expect</code>交互</strong></font></p>
+<p> 本节内容参考自：<a target="_blank" rel="noopener" href="https://blog.csdn.net/zhangjikuan/article/details/51105166">Shell脚本交互之：自动输入密码</a></p>
+<p><font color=red size=4 face=宋体><strong>PS：</strong></font><font color=#b0171f size=3 face=宋体><strong>用于与控制台交互，如果上面的内容无法 免密登录服务器，可以用这种方法</strong></font></p>
+<ul>
+<li><p><font color=#f26522 size=4 face=宋体><strong>1、安装 <code>expect</code>：</strong></font></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">ubuntu or debian</span></span><br><span class="line">sudo apt-get install expect</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">centos7</span></span><br><span class="line">yum install expect</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">mac os  // 没有brew 去搜一下，怎么安装 brew</span></span><br><span class="line">brew install expect</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><font color=#f26522 size=4 face=宋体><strong>2、语法：</strong></font></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/usr/bin/expect -f</span></span><br><span class="line"><span class="comment"># #!/bin/expect   //原文此处是错误，导致 no such file or directory  正确的写法是 #!/usr/bin/expect -f</span></span><br><span class="line"><span class="built_in">set</span> <span class="built_in">timeout</span> 30</span><br><span class="line">spawn ssh -l jikuan.zjk 10.125.25.189</span><br><span class="line">expect <span class="string">&quot;password:&quot;</span></span><br><span class="line">send <span class="string">&quot;zjk123\r&quot;</span></span><br><span class="line">interact</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><font color=#f26522 size=4 face=宋体><strong>3、说明：</strong></font></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">在运行脚本时候要expect  file，不能sh file了</span><br><span class="line">上面语句第一句是设定超时时间为30s，spawn是expect的语句，执行命令前都要加这句</span><br><span class="line">expect &quot;password：&quot;这句意思是交互获取是否返回password：关键字，因为在执行ssh时会返回输入password的提示：jikuan.zjk@10.125.25.189&#x27;s password:</span><br><span class="line">send就是将密码zjk123发送过去</span><br><span class="line">interact代表执行完留在远程控制台，不加这句执行完后返回本地控制台</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2024/04/03/Python-%E6%89%93%E5%8C%85%E6%8A%A5%E9%94%99-PyInstaller-exceptions-PythonLibraryNotFoundError-Python-library-not-found/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -3812,135 +3914,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/12/29/AI-%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89-01-9-9%E4%B9%98%E6%B3%95%E8%A1%A8-%E9%9A%8F%E6%9C%BA%E6%95%B0%E7%94%9F%E6%88%90%E4%B8%8E%E6%8E%92%E5%BA%8F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/452794135.jpg">
-      <meta itemprop="name" content="Kanoc Ge">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/12/29/AI-%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89-01-9-9%E4%B9%98%E6%B3%95%E8%A1%A8-%E9%9A%8F%E6%9C%BA%E6%95%B0%E7%94%9F%E6%88%90%E4%B8%8E%E6%8E%92%E5%BA%8F/" class="post-title-link" itemprop="url">AI_计算机视觉_01_9*9乘法表&随机数生成与排序</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-12-29 22:05:57" itemprop="dateCreated datePublished" datetime="2023-12-29T22:05:57+08:00">2023-12-29</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-14 16:38:09" itemprop="dateModified" datetime="2024-03-14T16:38:09+08:00">2024-03-14</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/" itemprop="url" rel="index"><span itemprop="name">计算机视觉</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><font color=#00b2c2 size=5 face=宋体><strong>AI_计算机视觉_01： 9*9乘法表&amp;随机数生成与排序：</strong></font></p>
-<p><font color=#f26522 size=4 face=宋体><strong></strong></font></p>
-<p><font color=#b0171f size=2 face=宋体><strong></strong></font></p>
-<ul>
-<li><p><font color=#f26522 size=4 face=宋体><strong>Python Number 数据类型用于存储数值，包括int、long、float、double、complex</strong></font></p>
-</li>
-<li><p><font color=#f26522 size=4 face=宋体><strong>Python 中数学运算常用的函数基本都在math模块</strong></font></p>
-</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> math</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(math.ceil(<span class="number">4.1</span>))    <span class="comment"># 返回数字的上入整数   5</span></span><br><span class="line"><span class="built_in">print</span>(math.floor(<span class="number">4.9</span>))   <span class="comment"># 返回数字的下舍整数   4</span></span><br><span class="line"><span class="built_in">print</span>(math.fabs(-<span class="number">10</span>))    <span class="comment"># 返回数字的绝对值     10.0</span></span><br><span class="line"><span class="built_in">print</span>(math.sqrt(<span class="number">9</span>))      <span class="comment"># 返回数字的平方根     3.0</span></span><br><span class="line"><span class="built_in">print</span>(math.exp(<span class="number">1</span>))       <span class="comment"># 返回e的x次幂        2.718281828459045</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>2、<font color=#f26522 size=4 face=宋体><strong>Python 中随机数：</strong></font></p>
-<ul>
-<li><p><font color=#b0171f size=2 face=宋体><strong>随机生成一个［0,1）范围内的实数</strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line">ran = random.random()</span><br><span class="line"><span class="built_in">print</span>(rar)</span><br><span class="line"></span><br><span class="line"><span class="number">0.39523871821810574</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p><font color=#b0171f size=2 face=宋体><strong>随机生成一个［1,20）范围内的整数</strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line">ran = random.randint(<span class="number">1</span>,<span class="number">20</span>)</span><br><span class="line"><span class="built_in">print</span>(ran)</span><br><span class="line"></span><br><span class="line"><span class="number">14</span></span><br></pre></td></tr></table></figure></li>
-<li><p><font color=#b0171f size=2 face=宋体><strong>当使用random.seed（x）设定好种子之后，random（）生成的随机数将会是同一个。</strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;--设置种子 seed-------＂）</span></span><br><span class="line"><span class="string">random.seed(10)</span></span><br><span class="line"><span class="string">print(&quot;</span>Random number <span class="keyword">with</span> seed <span class="number">10</span>:<span class="string">&quot;, random.random())</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># 生成同一个随机数</span></span><br><span class="line"><span class="string">print(&quot;</span>Random number <span class="keyword">with</span> seed <span class="number">10</span>:<span class="string">&quot;, random.random())</span></span><br><span class="line"><span class="string">      </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># 设置种子 seed</span></span><br><span class="line"><span class="string"># Random number with seed 10: 0.5714025946899135</span></span><br><span class="line"><span class="string"># Random number with seed 10: 0.5714025946899135</span></span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li><p>3、<font color=#f26522 size=4 face=宋体><strong>列表的元素添加、合并：</strong></font></p>
-<ul>
-<li><p><font color=#b0171f size=2 face=宋体><strong>extend(): 合并列表: </strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">girls = [<span class="string">&quot;杨超越&quot;</span>]</span><br><span class="line">models = [<span class="string">&quot;刘雯&quot;</span>, <span class="string">&quot;奚梦瑶&quot;</span>］</span><br><span class="line">girls.extend(models)</span><br><span class="line"></span><br><span class="line">[<span class="string">&quot;杨超越&quot;</span>, <span class="string">&quot;刘雯&quot;</span>, <span class="string">&quot;奚梦瑶&quot;</span>]</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><font color=#b0171f size=2 face=宋体><strong>insert(): 在指定位置添加: </strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">girle.insert(<span class="number">1</span>, <span class="string">&quot;虞书欣&quot;</span>)</span><br><span class="line"></span><br><span class="line">[<span class="string">&quot;杨超越&quot;</span>, <span class="string">&quot;虞书欣&quot;</span>, <span class="string">&quot;刘雯&quot;</span>, <span class="string">&quot;奚梦瑶&quot;</span>]</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li><p>4、<font color=#f26522 size=4 face=宋体><strong>列表删除：</strong></font></p>
-<ul>
-<li><p><font color=#b0171f size=2 face=宋体><strong>del():  </strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">words = [<span class="string">&#x27;cat&#x27;</span>, <span class="string">&#x27;hello&#x27;</span> , <span class="string">&#x27;pen&#x27;</span>, <span class="string">&#x27;pencil&#x27;</span>, <span class="string">&#x27;ruler&#x27;</span>]</span><br><span class="line"><span class="keyword">del</span> words[<span class="number">1</span>]</span><br><span class="line"><span class="built_in">print</span>(words)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><font color=#b0171f size=2 face=宋体><strong>remove():  </strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">words = [<span class="string">&#x27;cat&#x27;</span>, <span class="string">&#x27;hello&#x27;</span> , <span class="string">&#x27;pen&#x27;</span>, <span class="string">&#x27;pencil&#x27;</span>, <span class="string">&#x27;ruler&#x27;</span>]</span><br><span class="line">words.remove(<span class="string">&quot;cat&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(words)</span><br></pre></td></tr></table></figure>
-<ul>
-<li><font color=#b0171f size=2 face=宋体><strong>pop():  </strong></font></li>
-</ul>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">words = [<span class="string">&#x27;cat&#x27;</span>, <span class="string">&#x27;hello&#x27;</span> , <span class="string">&#x27;pen&#x27;</span>, <span class="string">&#x27;pencil&#x27;</span>, <span class="string">&#x27;ruler&#x27;</span>]</span><br><span class="line">words.remove(<span class="number">1</span>)</span><br><span class="line"><span class="built_in">print</span>(words)</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li><p>5、<font color=#f26522 size=4 face=宋体><strong>os基础库：</strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">path = <span class="string">&quot;/home/mypath/python_learn&quot;</span></span><br><span class="line">os.path.exists(path)   <span class="comment"># 判断括号里的文件是否存在，括号内可以是文件路径。返回布尔型。</span></span><br><span class="line"></span><br><span class="line">os.path.split(path)   <span class="comment"># 判断括号里的文件是否存在，括号内可以是文件路径。返回布尔型。</span></span><br><span class="line">[<span class="string">&quot;/home/mypath&quot;</span>, <span class="string">&quot;python_learn&quot;</span>]</span><br><span class="line"></span><br><span class="line">os.path.splitext(path)   <span class="comment"># 将path的文件名和扩展名分开。</span></span><br><span class="line">[<span class="string">&quot;python&quot;</span>, <span class="string">&quot;py&quot;</span>]</span><br><span class="line"></span><br><span class="line">os.path.isdir(path)  <span class="comment"># 判断是否是文件夹 </span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 文件操作：</span></span><br><span class="line">os.listdir(path)  <span class="comment"># 列出路径下所有文件,将路径下所有文件存到list中。</span></span><br><span class="line">os.mkdir(path, mode)  <span class="comment"># 创建目录  path为要创建的目录。mode为目录设置的数字权限。</span></span><br><span class="line">os.makedirs(path, mode)   <span class="comment"># 递归创建目录  path为需要递归创建的目录。</span></span><br><span class="line"></span><br><span class="line">os.walk（） <span class="comment"># 显示指定目录， 返回三个元素</span></span><br><span class="line">	- root   <span class="comment"># 所指的是当前正在遍历的这个文件夹本身的路径；</span></span><br><span class="line">  - dirs   <span class="comment"># 是一个列表，内容是该文件夹中所有文件夹的名字（不包括子目录）</span></span><br><span class="line">  - files  <span class="comment"># 列表，内容是该文件夹中所有文件的名字（不包括子目录）</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 文件重命名</span></span><br><span class="line">os.rename(src, dst)  <span class="comment"># 用于命名文件或目录，从src到dst，如果dst是一个存在的目录，将抛出OSError。</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="https://s2.loli.net/2023/12/29/aVjNvDOsCZQBpRA.png" alt="shutil_os拓展库"></p>
-</li>
-</ul>
-<p><img src="https://s2.loli.net/2023/12/29/LmAIporOdlPtNbT.png" alt="shutil_os拓展库"></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -4007,18 +3984,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">300</span>
+          <span class="site-state-item-count">301</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">47</span>
+        <span class="site-state-item-count">48</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">178</span>
+        <span class="site-state-item-count">179</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
