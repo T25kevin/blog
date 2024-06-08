@@ -198,6 +198,79 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2024/06/08/goquery%E7%9A%84%E4%BD%BF%E7%94%A8-%E7%B1%BB%E4%BC%BC%E4%BA%8EPython%E7%9A%84lxml%E5%BA%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/452794135.jpg">
+      <meta itemprop="name" content="Kanoc Ge">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/06/08/goquery%E7%9A%84%E4%BD%BF%E7%94%A8-%E7%B1%BB%E4%BC%BC%E4%BA%8EPython%E7%9A%84lxml%E5%BA%93/" class="post-title-link" itemprop="url">goquery的使用-类似于Python的lxml库</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-06-08 17:43:59 / 修改时间：17:56:16" itemprop="dateCreated datePublished" datetime="2024-06-08T17:43:59+08:00">2024-06-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/go/" itemprop="url" rel="index"><span itemprop="name">go</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/go/%E7%88%AC%E8%99%AB/" itemprop="url" rel="index"><span itemprop="name">爬虫</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="goquery的使用-类似于Python的lxml库："><a href="#goquery的使用-类似于Python的lxml库：" class="headerlink" title="goquery的使用-类似于Python的lxml库："></a><font color=#00b2c2 size=5 face=宋体><strong>goquery的使用-类似于Python的lxml库：</strong></font></h3><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">// goquery 常规用法</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// strings.NewReader(html)：将字符串html转换为一个Reader接口，这样goquery可以从这个字符串中读取HTML内容。</span></span><br><span class="line"><span class="comment">// goquery.NewDocumentFromReader(...)：使用goquery库从提供的Reader接口中解析HTML，并创建一个新的goquery文档对象。这个函数返回两个值，第一个是解析后的文档对象，第二个是可能出现的错误。在这里，错误值被忽略（使用_）。</span></span><br><span class="line">dom, _ := goquery.NewDocumentFromReader(strings.NewReader(html))</span><br><span class="line"></span><br><span class="line"><span class="comment">// om.Find(&quot;tr&quot;)：在解析后的HTML文档中查找所有的&lt;tr&gt;元素。</span></span><br><span class="line"><span class="comment">// EachWithBreak(...)：对找到的每一个&lt;tr&gt;元素执行一个函数。这个函数可以返回一个布尔值来决定是否继续迭代。如果返回false，则停止迭代。</span></span><br><span class="line">dom.Find(<span class="string">&quot;tr&quot;</span>).EachWithBreak(<span class="function"><span class="keyword">func</span><span class="params">(i <span class="type">int</span>, s *goquery.Selection)</span></span> <span class="type">bool</span> &#123;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// s.Find(&quot;a&quot;)：在当前&lt;tr&gt;元素内查找所有的&lt;a&gt;标签。</span></span><br><span class="line">  <span class="comment">// .Eq(0)：选择第一个找到的&lt;a&gt;标签。</span></span><br><span class="line">  <span class="comment">// .Text()：获取该&lt;a&gt;标签的文本内容，并将其赋值给_title。</span></span><br><span class="line">   _title := s.Find(<span class="string">&quot;a&quot;</span>).Eq(<span class="number">0</span>).Text()</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// s.Find(&quot;td&quot;)：在当前&lt;tr&gt;元素内查找所有的&lt;td&gt;元素。</span></span><br><span class="line">  <span class="comment">// .Eq(2)：选择第三个&lt;td&gt;元素（索引从0开始）。</span></span><br><span class="line">  <span class="comment">// .Text()：获取该&lt;td&gt;元素的文本内容，并将其赋值给_author。</span></span><br><span class="line">   _author := s.Find(<span class="string">&quot;td&quot;</span>).Eq(<span class="number">2</span>).Text()</span><br><span class="line">  </span><br><span class="line">  <span class="comment">//判断当前&lt;tr&gt;元素中的标题（&lt;a&gt;标签的文本）是否等于name，并且作者（第三个&lt;td&gt;元素的文本）是否等于author</span></span><br><span class="line">   <span class="keyword">if</span> _title == name &amp;&amp; _author == author &#123;</span><br><span class="line">     </span><br><span class="line">     <span class="comment">// 获取当前&lt;tr&gt;元素中第一个&lt;a&gt;标签的href属性。url是属性的值，exists是一个布尔值，表示该属性是否存在。</span></span><br><span class="line">      url, exists := s.Find(<span class="string">&quot;a&quot;</span>).Eq(<span class="number">0</span>).Attr(<span class="string">&quot;href&quot;</span>)</span><br><span class="line">     </span><br><span class="line">     <span class="comment">// 如果href属性不存在，则执行括号内的代码。但注意，这里的逻辑可能有些问题，因为当href不存在时，程序会记录一个致命错误并退出，这可能不是预期的行为。通常，我们可能只想跳过当前循环或记录一个非致命的错误。</span></span><br><span class="line">      <span class="keyword">if</span> !exists &#123;</span><br><span class="line">         Err = <span class="literal">nil</span></span><br><span class="line">         log.Fatal(exists)</span><br><span class="line">      &#125;</span><br><span class="line">     </span><br><span class="line">     <span class="comment">// 如果找到了匹配的标题和作者，且&lt;a&gt;标签有href属性，则将url赋值给targetUrl</span></span><br><span class="line">      targetUrl = url</span><br><span class="line">   &#125;</span><br><span class="line">  <span class="comment">//在EachWithBreak的回调函数结束时返回true，表示继续迭代下一个&lt;tr&gt;元素。如果想在某个条件下停止迭代，可以返回false</span></span><br><span class="line">   <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2024/06/08/go-%E5%8F%91%E8%B5%B7%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -223,7 +296,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2024-06-08 17:18:30 / 修改时间：17:41:28" itemprop="dateCreated datePublished" datetime="2024-06-08T17:18:30+08:00">2024-06-08</time>
+              <time title="创建时间：2024-06-08 17:18:30 / 修改时间：17:46:51" itemprop="dateCreated datePublished" datetime="2024-06-08T17:18:30+08:00">2024-06-08</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -235,7 +308,7 @@
                 </span>
                   ，
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/go/web/" itemprop="url" rel="index"><span itemprop="name">web</span></a>
+                  <a href="/categories/go/%E7%88%AC%E8%99%AB/" itemprop="url" rel="index"><span itemprop="name">爬虫</span></a>
                 </span>
             </span>
 
@@ -3681,108 +3754,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2024/04/15/%E7%A7%BB%E5%8A%A8%E5%85%89%E7%8C%AB-%E5%90%89%E6%AF%94%E7%89%B9-H3-1S-H3-2S%E8%8E%B7%E5%8F%96%E8%B6%85%E7%BA%A7%E5%AF%86%E7%A0%81%E6%96%B9%E6%B3%95-%E4%BA%B2%E6%B5%8B%E5%8F%AF%E7%94%A8%EF%BC%81%EF%BC%81/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/452794135.jpg">
-      <meta itemprop="name" content="Kanoc Ge">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/04/15/%E7%A7%BB%E5%8A%A8%E5%85%89%E7%8C%AB-%E5%90%89%E6%AF%94%E7%89%B9-H3-1S-H3-2S%E8%8E%B7%E5%8F%96%E8%B6%85%E7%BA%A7%E5%AF%86%E7%A0%81%E6%96%B9%E6%B3%95-%E4%BA%B2%E6%B5%8B%E5%8F%AF%E7%94%A8%EF%BC%81%EF%BC%81/" class="post-title-link" itemprop="url">移动光猫-吉比特 H3-1S H3-2S获取超级密码方法(亲测可用！！)</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-04-15 19:56:17" itemprop="dateCreated datePublished" datetime="2024-04-15T19:56:17+08:00">2024-04-15</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-06-08 17:41:29" itemprop="dateModified" datetime="2024-06-08T17:41:29+08:00">2024-06-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><font color=#00b2c2 size=5 face=宋体><strong><strong>移动光猫-吉比特 H3-1S H3-2S获取超级密码方法</strong>:</strong></font></p>
-<p><font color=#f26522 size=4 face=宋体><strong>1.使用光猫背后的普通用户名登录进光猫，浏览器复制以下链接打开</strong></font></p>
-<p><a target="_blank" rel="noopener" href="http://192.168.1.1/usr=CMCCAdmin&psw=aDm8H%MdA&cmd=1&telnet.gch">http://192.168.1.1/usr=CMCCAdmin ... md=1&telnet.gch</a></p>
-<p><font color=#f26522 size=4 face=宋体><strong>2.电脑启用 telnet</strong></font></p>
-<p><img src="https://s2.loli.net/2024/05/09/uKpnNMcji45sfxv.png" alt="开启telnet成功"></p>
-<p><font color=#f26522 size=4 face=宋体><strong>3.通过telnet进入光猫</strong></font></p>
-<p>输入：</p>
-<p><code>telnet 192.168.1.1</code></p>
-<p>用户名、密码如下：<br><code>CMCCAdmin</code><br><code>aDm8H%MdA</code></p>
-<p><font color=red size=3 face=宋体><strong>注意：密码默认不显示 不需要重复输入</strong></font></p>
-<p><img src="https://s2.loli.net/2024/05/09/4riCBgt57fanybh.png" alt="连接状态"><br><font color=#f26522 size=4 face=宋体><strong>4.查看一下登陆信息,可以看到账号密码全部进行了加密</strong></font></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sidbg 1 DB p DevAuthInfo</span><br></pre></td></tr></table></figure>
-
-<p>输入上面的命令后将会显示下面的内容：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&lt;Tbl name=<span class="string">&quot;DevAuthInfo&quot;</span> RowCount=<span class="string">&quot;2&quot;</span>&gt;</span><br><span class="line">&lt;Row No=<span class="string">&quot;0&quot;</span>&gt;</span><br><span class="line">&lt;DM name=<span class="string">&quot;ViewName&quot;</span> val=<span class="string">&quot;IGD.AU1&quot;</span>/&gt;</span><br><span class="line">&lt;DM name=<span class="string">&quot;Enable&quot;</span> val=<span class="string">&quot;1&quot;</span>/&gt;</span><br><span class="line">&lt;DM name=<span class="string">&quot;IsOnline&quot;</span> val=<span class="string">&quot;0&quot;</span>/&gt;</span><br><span class="line">&lt;DM name=<span class="string">&quot;AppID&quot;</span> val=<span class="string">&quot;1&quot;</span>/&gt;</span><br><span class="line">&lt;DM name=<span class="string">&quot;User&quot;</span> val=<span class="string">&quot;******&quot;</span>/&gt;</span><br><span class="line">&lt;DM name=<span class="string">&quot;Pass&quot;</span> val=<span class="string">&quot;******&quot;</span>/&gt;</span><br><span class="line">&lt;DM name=<span class="string">&quot;Level&quot;</span> val=<span class="string">&quot;1&quot;</span>/&gt;</span><br><span class="line">&lt;DM name=<span class="string">&quot;Extra&quot;</span> val=<span class="string">&quot;&quot;</span>/&gt;</span><br><span class="line">&lt;DM name=<span class="string">&quot;ExtraInt&quot;</span> val=<span class="string">&quot;0&quot;</span>/&gt;</span><br><span class="line">&lt;/Row&gt;</span><br><span class="line">&lt;Row No=<span class="string">&quot;1&quot;</span>&gt;</span><br><span class="line">&lt;DM name=<span class="string">&quot;ViewName&quot;</span> val=<span class="string">&quot;IGD.AU2&quot;</span>/&gt;</span><br><span class="line">&lt;DM name=<span class="string">&quot;Enable&quot;</span> val=<span class="string">&quot;1&quot;</span>/&gt;</span><br><span class="line">&lt;DM name=<span class="string">&quot;IsOnline&quot;</span> val=<span class="string">&quot;0&quot;</span>/&gt;</span><br><span class="line">&lt;DM name=<span class="string">&quot;AppID&quot;</span> val=<span class="string">&quot;1&quot;</span>/&gt;</span><br><span class="line">&lt;DM name=<span class="string">&quot;User&quot;</span> val=<span class="string">&quot;******&quot;</span>/&gt;</span><br><span class="line">&lt;DM name=<span class="string">&quot;Pass&quot;</span> val=<span class="string">&quot;******&quot;</span>/&gt;</span><br><span class="line">&lt;DM name=<span class="string">&quot;Level&quot;</span> val=<span class="string">&quot;2&quot;</span>/&gt;</span><br><span class="line">&lt;DM name=<span class="string">&quot;Extra&quot;</span> val=<span class="string">&quot;&quot;</span>/&gt;</span><br><span class="line">&lt;DM name=<span class="string">&quot;ExtraInt&quot;</span> val=<span class="string">&quot;0&quot;</span>/&gt;</span><br><span class="line">&lt;/Row&gt;</span><br><span class="line">&lt;/Tbl&gt; </span><br></pre></td></tr></table></figure>
-
-
-
-<p><font color=#f26522 size=4 face=宋体><strong>5.修改CMCCAdmin用户的登录密码</strong></font></p>
-<p>输入下面的命令更改CMCCAdmin的密码：</p>
-<p>sidbg 1 DB set DevAuthInfo 0 Pass admin</p>
-<p>Pass后面是CMCCAdmin的登录密码</p>
-<p>再输入下面的命令保存即可</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sidbg 1 DB save</span><br></pre></td></tr></table></figure>
-
-
-
-<p>完成后即可使用CMCCAdmin+更改后的密码即可登录光猫后台。</p>
-<p>祝各位使用愉快！</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -3853,7 +3824,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">303</span>
+          <span class="site-state-item-count">304</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -3864,7 +3835,7 @@
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">179</span>
+        <span class="site-state-item-count">181</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
