@@ -198,6 +198,203 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/03/19/ubuntu%E6%90%AD%E5%BB%BAhexo%E5%8D%9A%E5%AE%A2%E6%95%99%E7%A8%8B-gitee%E7%89%88%E6%9C%AC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/452794135.jpg">
+      <meta itemprop="name" content="Kanoc Ge">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/03/19/ubuntu%E6%90%AD%E5%BB%BAhexo%E5%8D%9A%E5%AE%A2%E6%95%99%E7%A8%8B-gitee%E7%89%88%E6%9C%AC/" class="post-title-link" itemprop="url">ubuntu搭建hexo博客教程(gitee版本)</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-03-19 19:47:48" itemprop="dateCreated datePublished" datetime="2023-03-19T19:47:48+08:00">2023-03-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-06-08 17:41:28" itemprop="dateModified" datetime="2024-06-08T17:41:28+08:00">2024-06-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%8D%9A%E5%AE%A2/" itemprop="url" rel="index"><span itemprop="name">博客</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="系统-ubuntu-20-04："><a href="#系统-ubuntu-20-04：" class="headerlink" title="系统:ubuntu 20.04："></a><font color=#00b2c2 size=5 face=宋体><strong><strong>系统:ubuntu 20.04：</strong></strong></font></h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 安装nodejs npm</span><br><span class="line">sudo apt update</span><br><span class="line">sudo apt install nodejs npm</span><br><span class="line"></span><br><span class="line"># 查看版本</span><br><span class="line">nodejs --version</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2023/02/14/SZ1iWgvyFUYn9t2.png"></p>
+<p><font color=#00b2c2 size=5 face=宋体><strong><strong>1、我们将会安装 Node.js 版本 14.x:</strong></strong></font></p>
+<p><font color=#f26522 size=3 face=宋体><strong><strong>1）以 sudo 用户身份运行下面的命令，下载并执行 NodeSource 安装脚本：</strong></strong></font></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -</span><br></pre></td></tr></table></figure>
+
+<p><font color=#f26522 size=3 face=宋体><strong><strong>这个脚本将会添加 NodeSource 的签名 key 到你的系统，创建一个 apt 源文件，安装必备的软件包，并且刷新 apt 缓存。</strong></strong></font></p>
+<p><font color=#f26522 size=3 face=宋体><strong><strong>如果你需要另外的 Node.js 版本，例如<code>12.x</code>，将<code>setup_14.x</code>修改为<code>setup_12.x</code></strong></strong></font></p>
+<p><font color=#f26522 size=3 face=宋体><strong><strong>2）NodeSource 源启用成功后，安装 Node.js 和 npm:</strong></strong></font></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo apt install nodejs</span><br></pre></td></tr></table></figure>
+
+<p><font color=#f26522 size=3 face=宋体><strong><strong>nodejs 软件包同时包含<code>node</code>和<code>npm</code>二进制包。</strong></strong></font></p>
+<p><font color=#f26522 size=3 face=宋体><strong><strong>3）验证 Node.js 和 npm 是否正确安装。打印它们的版本号：</strong></strong></font></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">node --version</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2023/02/14/WEa4s2cqZ8PVyBu.png" alt="image-20230214204628631"></p>
+<p><font color=#00b2c2 size=5 face=宋体><strong><strong>2、运行 Git Bash 并切换淘宝镜像。</strong></strong></font></p>
+<p><font color=#f26522 size=3 face=宋体><strong><strong>如果不需要切换源，则可跳过此步骤：</strong></strong></font></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 全局切换命令：</span><br><span class="line">npm config set registry http://registry.npm.taobao.org/</span><br><span class="line"></span><br><span class="line"># 查看版本命令：</span><br><span class="line">npm get registry</span><br><span class="line"></span><br><span class="line"># 切回官方镜像：</span><br><span class="line">npm config set registry http://www.npmjs.org</span><br></pre></td></tr></table></figure>
+
+<p><font color=#00b2c2 size=5 face=宋体><strong><strong>3、安装HEXO程序</strong></strong></font></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install -g hexo</span><br><span class="line"></span><br><span class="line"># 查看版本：</span><br><span class="line">hexo v</span><br></pre></td></tr></table></figure>
+
+<p><font color=#00b2c2 size=5 face=宋体><strong><strong>4、创建 hexo 文件夹</strong></strong></font></p>
+<p><font color=#f26522 size=3 face=宋体><strong><strong>hexo 文件夹，是未来博客运转的目标文件夹，写文、主题安装等等都在这里完成。</strong></strong></font></p>
+<p><font color=#f26522 size=3 face=宋体><strong><strong>请在指定路径新建文件夹（英文名），右键空白处，选择 Git Bash here，输入指令：</strong></strong></font></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo init</span><br></pre></td></tr></table></figure>
+
+<p><font color=#00b2c2 size=5 face=宋体><strong><strong>5、安装主题</strong></strong></font></p>
+<p><font color=#f26522 size=3 face=宋体><strong><strong>现在这个是必须过程了，反正自带的主题也没人用不是么？</strong></strong></font></p>
+<p><font color=#f26522 size=3 face=宋体><strong><strong>6.1 在 theme 文件夹下，建立你要使用的主题的同名文件夹，比如 theme&#x2F;next</strong></strong></font></p>
+<p><font color=#f26522 size=3 face=宋体><strong><strong>6.2 cd 到 theme 文件夹，或者直接在 theme 文件夹里右键运行 Git Bash。</strong></strong></font></p>
+<p><font color=#f26522 size=3 face=宋体><strong><strong>6.3 输入获取主题的命令：</strong></strong></font></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git clone -b theme https://github.com/niemingzhao/niemingzhao.github.io.git themes/default</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2023/02/14/vC7O9xZuoVTRJht.png" alt="img"></p>
+<p><font color=red size=4 face=宋体><strong><strong>注意：在修改模板的时候，除了需要到主配置下添加模板名以外，还需要将主题下的配置文件修改为 _config.yml</strong></strong></font></p>
+<p><font color=#00b2c2 size=5 face=宋体><strong><strong>6、Hexo 主要命令</strong></strong></font></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo clean：清除 public 静态目录</span><br><span class="line">hexo s：本地启动默认指定 4000 端口预览 (s 是 server 是缩写 也就是启动 hexo 服务)</span><br><span class="line">hexo g：生成 public 静态目录</span><br><span class="line">hexo d： 部署</span><br></pre></td></tr></table></figure>
+
+<p><font color=#00b2c2 size=5 face="宋体"><strong><strong>7、Hexo 插件安装</strong></strong></font></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install hexo-generator-search --save</span><br><span class="line"><span class="comment"># 评论插件</span></span><br><span class="line">npm i --save gitalk</span><br><span class="line"></span><br><span class="line"><span class="comment"># RSS插件</span></span><br><span class="line">npm install --save hexo-generator-feed</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装 文章转换二维码插件</span></span><br><span class="line">npm install --save hexo-helper-qrcode</span><br><span class="line"></span><br><span class="line"><span class="comment"># gitee版本插件安装</span></span><br><span class="line">npm install --save gitment</span><br></pre></td></tr></table></figure>
+
+<p>8、关于</p>
+<p><img src="https://s2.loli.net/2023/03/20/KEzIYXph6gvs1iN.png" alt="image-20230320031831877"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/03/19/Git-%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C%E6%89%8B%E5%86%8C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/452794135.jpg">
+      <meta itemprop="name" content="Kanoc Ge">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/03/19/Git-%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C%E6%89%8B%E5%86%8C/" class="post-title-link" itemprop="url">Git 基础操作手册</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-03-19 19:37:15" itemprop="dateCreated datePublished" datetime="2023-03-19T19:37:15+08:00">2023-03-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-06-08 17:41:28" itemprop="dateModified" datetime="2024-06-08T17:41:28+08:00">2024-06-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/git/" itemprop="url" rel="index"><span itemprop="name">git</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">用户信息</span></span><br><span class="line">git config --global user.name &quot;tttvin&quot;</span><br><span class="line">git config --global user.email &quot;xxxxxx@qq.com&quot;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">gitee</span></span><br><span class="line">git config --global user.name &quot;tttvin&quot;</span><br><span class="line">git config --global user.email &quot;tttvin@qq.com&quot;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">创建本地ssh key</span></span><br><span class="line">ssh-keygen -t rsa -C &quot;tttvin@qq.com&quot;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">初始化仓库</span></span><br><span class="line">git init </span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">添加文件到暂存区</span></span><br><span class="line">git add . </span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">将暂存区内容添加到仓库中。</span></span><br><span class="line">git commit</span><br><span class="line">git commit -m fix</span><br><span class="line">git commit -m &quot;init&quot;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">关于每次push 都需要输入密码的问题</span></span><br><span class="line">git config --global credential.helper store</span><br><span class="line">git pull /git push (这里需要输入用户名和密码，以后就不用啦)</span><br></pre></td></tr></table></figure>
+
+<p>部署ssh公钥</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t ed25519 -C &quot;xxxxxxxx@qq.com&quot;</span><br><span class="line"></span><br><span class="line">cat ~/.ssh/id_ed25519.pub</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/03/05/Frp%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -229,7 +426,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-14 16:38:09" itemprop="dateModified" datetime="2024-03-14T16:38:09+08:00">2024-03-14</time>
+                <time title="修改时间：2024-06-08 17:41:28" itemprop="dateModified" datetime="2024-06-08T17:41:28+08:00">2024-06-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -347,13 +544,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">301</span>
+          <span class="site-state-item-count">303</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">48</span>
+        <span class="site-state-item-count">51</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">

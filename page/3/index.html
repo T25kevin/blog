@@ -198,6 +198,253 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2024/01/14/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%93%8D%E4%BD%9C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/452794135.jpg">
+      <meta itemprop="name" content="Kanoc Ge">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/01/14/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%93%8D%E4%BD%9C/" class="post-title-link" itemprop="url">字符串的操作</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-01-14 02:01:20" itemprop="dateCreated datePublished" datetime="2024-01-14T02:01:20+08:00">2024-01-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-06-08 17:41:29" itemprop="dateModified" datetime="2024-06-08T17:41:29+08:00">2024-06-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="字符串的操作："><a href="#字符串的操作：" class="headerlink" title="字符串的操作："></a>字符串的操作：</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">## 字符串转义</span></span><br><span class="line"><span class="string">&quot;\n&quot;</span>     <span class="comment"># 换行符号</span></span><br><span class="line"><span class="string">&quot;\&#x27;&quot;</span>     <span class="comment"># 表示单引号</span></span><br><span class="line"><span class="string">&#x27;\&quot;&#x27;</span>     <span class="comment"># 表示双引号</span></span><br><span class="line"><span class="string">&quot;\\&quot;</span>     <span class="comment"># 反斜杠</span></span><br><span class="line"><span class="string">&quot;\t&quot;</span>     <span class="comment"># 制表符</span></span><br><span class="line"><span class="string">&quot;\r&quot;</span>     <span class="comment"># 回车符</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## 字符串的格式化输出</span></span><br><span class="line">name = <span class="string">&quot;小明&quot;</span></span><br><span class="line">age = <span class="number">19</span></span><br><span class="line"><span class="comment"># 方式1:</span></span><br><span class="line">	<span class="built_in">print</span>(<span class="string">&quot;我的名字是：%s, 今年%d&quot;</span> % (name, age))</span><br><span class="line"><span class="comment"># 方式2:</span></span><br><span class="line">	<span class="comment"># python3.6版本+ 解释器可用</span></span><br><span class="line">	<span class="built_in">print</span>(<span class="string">f&quot;我的名字是：<span class="subst">&#123;name&#125;</span>, 今年<span class="subst">&#123;age&#125;</span>&quot;</span>)</span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">str_ = <span class="string">&quot;hello world&quot;</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">len</span>(str_))    `<span class="comment"># 字符串长度  输出: 11</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="字符串的内置函数："><a href="#字符串的内置函数：" class="headerlink" title="字符串的内置函数："></a>字符串的内置函数：</h3><table>
+<thead>
+<tr>
+<th><strong>方法</strong></th>
+<th><strong>作用</strong></th>
+<th><strong>示例</strong></th>
+<th><strong>输出</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>upper</td>
+<td>全部大写</td>
+<td>“Hello”.upper()</td>
+<td>“HELLO”</td>
+</tr>
+<tr>
+<td>lower</td>
+<td>全部小写</td>
+<td>“Hello”.lower()</td>
+<td>“hello”</td>
+</tr>
+<tr>
+<td>startswith()</td>
+<td>是否以a开头</td>
+<td>“张三”.startswith(“张”)</td>
+<td>True</td>
+</tr>
+<tr>
+<td>endswith()</td>
+<td>是否以a结尾</td>
+<td>“meinv.png”.endswith(“.jpg”)</td>
+<td>False</td>
+</tr>
+<tr>
+<td>isdigit()</td>
+<td>是否全数字</td>
+<td>‘123’.isdigit()</td>
+<td>True</td>
+</tr>
+<tr>
+<td>strip()</td>
+<td>去两边空格</td>
+<td>“ hi yuan  \n”.strip()</td>
+<td>“hi yuan”</td>
+</tr>
+<tr>
+<td>join()</td>
+<td>将多个字符串连接在一起</td>
+<td>“-”.join([‘北京’, ‘上海’, ‘深圳’])</td>
+<td>“北京-上海-深圳”</td>
+</tr>
+<tr>
+<td>split()</td>
+<td>按某字符分割字符串，默认按空格分隔</td>
+<td>“北京-上海-深圳”.split(“-“)</td>
+<td>[‘北京’, ‘上海’, ‘深圳’]</td>
+</tr>
+<tr>
+<td>find()</td>
+<td>搜索指定字符串，没有返回-1</td>
+<td>“hello yuan”.find(“yuan”)</td>
+<td>6</td>
+</tr>
+<tr>
+<td>index()</td>
+<td>同上，但是找不到会报错</td>
+<td>“hello yuan”.index(“yuan”)</td>
+<td>6</td>
+</tr>
+<tr>
+<td>count()</td>
+<td>统计指定的字符串出现的次数</td>
+<td>“hello world”.count(“l”)</td>
+<td>3</td>
+</tr>
+<tr>
+<td>replace()</td>
+<td>替换old为new</td>
+<td>hello world’.replace(‘world’,‘python’)</td>
+<td>“hello python”</td>
+</tr>
+</tbody></table>
+<p><img src="https://s2.loli.net/2024/01/14/t8sCS2kbD4QTBvJ.png" alt="image-20240114001507783"></p>
+<p><img src="https://s2.loli.net/2024/01/14/aEjk71MpCwGNefb.png" alt="image-20240114001542239"></p>
+<p><img src="https://s2.loli.net/2024/01/14/ISas9KCBZw1YReo.png" alt="image-20240114001800127"></p>
+<p><img src="https://s2.loli.net/2024/01/14/zvaBIZyG4gf6ePp.png" alt="image-20240114001853053"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2024/01/14/python-socket%E6%A8%A1%E5%9D%97%E7%9A%84%E7%AE%80%E5%8D%95%E5%BA%94%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/452794135.jpg">
+      <meta itemprop="name" content="Kanoc Ge">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/01/14/python-socket%E6%A8%A1%E5%9D%97%E7%9A%84%E7%AE%80%E5%8D%95%E5%BA%94%E7%94%A8/" class="post-title-link" itemprop="url">python socket模块的简单应用</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-01-14 01:55:09" itemprop="dateCreated datePublished" datetime="2024-01-14T01:55:09+08:00">2024-01-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-06-08 17:41:28" itemprop="dateModified" datetime="2024-06-08T17:41:28+08:00">2024-06-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/django/" itemprop="url" rel="index"><span itemprop="name">django</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><font color=#00b2c2 size=5 face=宋体><strong>python socket模块的简单应用：</strong></font></p>
+<p><font color=#f26522 size=4 face=宋体><strong>server端：</strong></font></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"></span><br><span class="line"><span class="comment"># 网络三要素： IP PORT 协议（TCP，UDP）</span></span><br><span class="line">sock = socket.socket()</span><br><span class="line">sock.bind((<span class="string">&quot;127.0.0.1&quot;</span>, <span class="number">8899</span>))</span><br><span class="line">sock.listen(<span class="number">5</span>)     <span class="comment"># 最大连接数</span></span><br><span class="line"></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    sock 是一个socket对象。</span></span><br><span class="line"><span class="string">    listen 是socket对象的一个方法，用于使socket对象开始监听进入的连接请求。</span></span><br><span class="line"><span class="string">    5 是listen方法的参数，表示在接受新的连接请求之前，该socket可以排队的最大连接数。</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#  等待客户端链接</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;server is waiting....&quot;</span>)</span><br><span class="line">conn, addr = sock.accept()    <span class="comment"># conn：连接  addr：端口</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;conn&quot;</span>, conn)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;addr&quot;</span>, addr)</span><br><span class="line"></span><br><span class="line">data = conn.recv(<span class="number">1024</span>)       <span class="comment"># 最大接收字节 1024</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;data&quot;</span>, data)</span><br><span class="line">conn.send(<span class="string">b&quot;message has received&quot;</span>)    <span class="comment"># 回消息</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><font color=#f26522 size=4 face=宋体><strong>客户端：</strong></font></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"></span><br><span class="line">sock = socket.socket()</span><br><span class="line"></span><br><span class="line">sock.connect((<span class="string">&quot;127.0.0.1&quot;</span>, <span class="number">8899</span>))</span><br><span class="line">sock.send(<span class="string">b&quot;hello world&quot;</span>)</span><br><span class="line"></span><br><span class="line">res = sock.recv(<span class="number">1024</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;服务端响应数据：&quot;</span>,res.decode())</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/12/29/AI-%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89-01-9-9%E4%B9%98%E6%B3%95%E8%A1%A8-%E9%9A%8F%E6%9C%BA%E6%95%B0%E7%94%9F%E6%88%90%E4%B8%8E%E6%8E%92%E5%BA%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -229,7 +476,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-14 16:38:09" itemprop="dateModified" datetime="2024-03-14T16:38:09+08:00">2024-03-14</time>
+                <time title="修改时间：2024-06-08 17:41:28" itemprop="dateModified" datetime="2024-06-08T17:41:28+08:00">2024-06-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -354,7 +601,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-14 16:38:09" itemprop="dateModified" datetime="2024-03-14T16:38:09+08:00">2024-03-14</time>
+                <time title="修改时间：2024-06-08 17:41:28" itemprop="dateModified" datetime="2024-06-08T17:41:28+08:00">2024-06-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -445,7 +692,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-14 16:38:09" itemprop="dateModified" datetime="2024-03-14T16:38:09+08:00">2024-03-14</time>
+                <time title="修改时间：2024-06-08 17:41:28" itemprop="dateModified" datetime="2024-06-08T17:41:28+08:00">2024-06-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -555,7 +802,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-14 16:38:09" itemprop="dateModified" datetime="2024-03-14T16:38:09+08:00">2024-03-14</time>
+                <time title="修改时间：2024-06-08 17:41:28" itemprop="dateModified" datetime="2024-06-08T17:41:28+08:00">2024-06-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -665,7 +912,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-14 16:38:09" itemprop="dateModified" datetime="2024-03-14T16:38:09+08:00">2024-03-14</time>
+                <time title="修改时间：2024-06-08 17:41:28" itemprop="dateModified" datetime="2024-06-08T17:41:28+08:00">2024-06-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -738,7 +985,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-14 16:38:09" itemprop="dateModified" datetime="2024-03-14T16:38:09+08:00">2024-03-14</time>
+                <time title="修改时间：2024-06-08 17:41:28" itemprop="dateModified" datetime="2024-06-08T17:41:28+08:00">2024-06-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -877,7 +1124,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-14 16:38:09" itemprop="dateModified" datetime="2024-03-14T16:38:09+08:00">2024-03-14</time>
+                <time title="修改时间：2024-06-08 17:41:28" itemprop="dateModified" datetime="2024-06-08T17:41:28+08:00">2024-06-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1091,7 +1338,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-05-18 17:20:21" itemprop="dateModified" datetime="2024-05-18T17:20:21+08:00">2024-05-18</time>
+                <time title="修改时间：2024-06-08 17:41:28" itemprop="dateModified" datetime="2024-06-08T17:41:28+08:00">2024-06-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1239,7 +1486,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-14 16:38:10" itemprop="dateModified" datetime="2024-03-14T16:38:10+08:00">2024-03-14</time>
+                <time title="修改时间：2024-06-08 17:41:29" itemprop="dateModified" datetime="2024-06-08T17:41:29+08:00">2024-06-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1329,7 +1576,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-14 16:38:10" itemprop="dateModified" datetime="2024-03-14T16:38:10+08:00">2024-03-14</time>
+                <time title="修改时间：2024-06-08 17:41:29" itemprop="dateModified" datetime="2024-06-08T17:41:29+08:00">2024-06-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1516,7 +1763,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-14 16:38:09" itemprop="dateModified" datetime="2024-03-14T16:38:09+08:00">2024-03-14</time>
+                <time title="修改时间：2024-06-08 17:41:28" itemprop="dateModified" datetime="2024-06-08T17:41:28+08:00">2024-06-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1710,7 +1957,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-14 16:38:09" itemprop="dateModified" datetime="2024-03-14T16:38:09+08:00">2024-03-14</time>
+                <time title="修改时间：2024-06-08 17:41:28" itemprop="dateModified" datetime="2024-06-08T17:41:28+08:00">2024-06-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1789,7 +2036,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-14 16:38:10" itemprop="dateModified" datetime="2024-03-14T16:38:10+08:00">2024-03-14</time>
+                <time title="修改时间：2024-06-08 17:41:28" itemprop="dateModified" datetime="2024-06-08T17:41:28+08:00">2024-06-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1903,7 +2150,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-14 16:38:10" itemprop="dateModified" datetime="2024-03-14T16:38:10+08:00">2024-03-14</time>
+                <time title="修改时间：2024-06-08 17:41:29" itemprop="dateModified" datetime="2024-06-08T17:41:29+08:00">2024-06-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1999,7 +2246,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-14 16:38:09" itemprop="dateModified" datetime="2024-03-14T16:38:09+08:00">2024-03-14</time>
+                <time title="修改时间：2024-06-08 17:41:28" itemprop="dateModified" datetime="2024-06-08T17:41:28+08:00">2024-06-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -2116,7 +2363,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-14 16:38:09" itemprop="dateModified" datetime="2024-03-14T16:38:09+08:00">2024-03-14</time>
+                <time title="修改时间：2024-06-08 17:41:28" itemprop="dateModified" datetime="2024-06-08T17:41:28+08:00">2024-06-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -2228,7 +2475,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-14 16:38:10" itemprop="dateModified" datetime="2024-03-14T16:38:10+08:00">2024-03-14</time>
+                <time title="修改时间：2024-06-08 17:41:29" itemprop="dateModified" datetime="2024-06-08T17:41:29+08:00">2024-06-08</time>
               </span>
 
           
@@ -2295,7 +2542,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-14 16:38:09" itemprop="dateModified" datetime="2024-03-14T16:38:09+08:00">2024-03-14</time>
+                <time title="修改时间：2024-06-08 17:41:28" itemprop="dateModified" datetime="2024-06-08T17:41:28+08:00">2024-06-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -2304,6 +2551,10 @@
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/go/" itemprop="url" rel="index"><span itemprop="name">go</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/go/%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">基础</span></a>
                 </span>
             </span>
 
@@ -2370,7 +2621,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-14 16:38:09" itemprop="dateModified" datetime="2024-03-14T16:38:09+08:00">2024-03-14</time>
+                <time title="修改时间：2024-06-08 17:41:28" itemprop="dateModified" datetime="2024-06-08T17:41:28+08:00">2024-06-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -2379,6 +2630,10 @@
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/go/" itemprop="url" rel="index"><span itemprop="name">go</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/go/%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">基础</span></a>
                 </span>
             </span>
 
@@ -2448,7 +2703,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-14 16:38:09" itemprop="dateModified" datetime="2024-03-14T16:38:09+08:00">2024-03-14</time>
+                <time title="修改时间：2024-06-08 17:41:28" itemprop="dateModified" datetime="2024-06-08T17:41:28+08:00">2024-06-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -2457,6 +2712,10 @@
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/go/" itemprop="url" rel="index"><span itemprop="name">go</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/go/%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">基础</span></a>
                 </span>
             </span>
 
@@ -2524,7 +2783,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-14 16:38:09" itemprop="dateModified" datetime="2024-03-14T16:38:09+08:00">2024-03-14</time>
+                <time title="修改时间：2024-06-08 17:41:28" itemprop="dateModified" datetime="2024-06-08T17:41:28+08:00">2024-06-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -2533,6 +2792,10 @@
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/go/" itemprop="url" rel="index"><span itemprop="name">go</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/go/%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">基础</span></a>
                 </span>
             </span>
 
@@ -2600,7 +2863,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-14 16:38:09" itemprop="dateModified" datetime="2024-03-14T16:38:09+08:00">2024-03-14</time>
+                <time title="修改时间：2024-06-08 17:41:28" itemprop="dateModified" datetime="2024-06-08T17:41:28+08:00">2024-06-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -2609,6 +2872,10 @@
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/go/" itemprop="url" rel="index"><span itemprop="name">go</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/go/%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/" itemprop="url" rel="index"><span itemprop="name">错误处理</span></a>
                 </span>
             </span>
 
@@ -2682,7 +2949,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-14 16:38:09" itemprop="dateModified" datetime="2024-03-14T16:38:09+08:00">2024-03-14</time>
+                <time title="修改时间：2024-06-08 17:41:28" itemprop="dateModified" datetime="2024-06-08T17:41:28+08:00">2024-06-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -2691,6 +2958,10 @@
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/go/" itemprop="url" rel="index"><span itemprop="name">go</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/go/%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">基础</span></a>
                 </span>
             </span>
 
@@ -2757,7 +3028,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-14 16:38:09" itemprop="dateModified" datetime="2024-03-14T16:38:09+08:00">2024-03-14</time>
+                <time title="修改时间：2024-06-08 17:41:28" itemprop="dateModified" datetime="2024-06-08T17:41:28+08:00">2024-06-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -2766,6 +3037,10 @@
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/go/" itemprop="url" rel="index"><span itemprop="name">go</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/go/%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">基础</span></a>
                 </span>
             </span>
 
@@ -2832,7 +3107,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-14 16:38:09" itemprop="dateModified" datetime="2024-03-14T16:38:09+08:00">2024-03-14</time>
+                <time title="修改时间：2024-06-08 17:41:28" itemprop="dateModified" datetime="2024-06-08T17:41:28+08:00">2024-06-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -2841,6 +3116,10 @@
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/go/" itemprop="url" rel="index"><span itemprop="name">go</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/go/%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">基础</span></a>
                 </span>
             </span>
 
@@ -2907,7 +3186,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-14 16:38:09" itemprop="dateModified" datetime="2024-03-14T16:38:09+08:00">2024-03-14</time>
+                <time title="修改时间：2024-06-08 17:41:28" itemprop="dateModified" datetime="2024-06-08T17:41:28+08:00">2024-06-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -3000,7 +3279,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-14 16:38:09" itemprop="dateModified" datetime="2024-03-14T16:38:09+08:00">2024-03-14</time>
+                <time title="修改时间：2024-06-08 17:41:28" itemprop="dateModified" datetime="2024-06-08T17:41:28+08:00">2024-06-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -3099,7 +3378,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-05-25 01:36:25" itemprop="dateModified" datetime="2024-05-25T01:36:25+08:00">2024-05-25</time>
+                <time title="修改时间：2024-06-08 17:41:28" itemprop="dateModified" datetime="2024-06-08T17:41:28+08:00">2024-06-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -3137,178 +3416,6 @@
 <p><font color=#b0171f size=2 face=宋体><strong>Node.JS软件包同时包含<code>node</code>和<code>npm</code>二进制文件。可以运行命令<code>node --version</code>，<code>npm --version</code>打印其版本来验证Node.js和npm是否已成功安装。</strong></font></p>
 <p><font color=#b0171f size=2 face=宋体><strong>如果你使用的yarn不是npm，可以运行命令<code>sudo corepack enable yarn</code>安装yarn。然后运行命令<code>yarn -v</code>打印yarn版本号。</strong></font></p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo yum install -y nodejs</span><br><span class="line">corepack enable yarn npm</span><br><span class="line">node --version</span><br><span class="line">npm --version</span><br><span class="line">yarn -v</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/09/16/centos%E4%B8%8B%E4%BD%BF%E7%94%A8nvm%E5%AE%89%E8%A3%85nodejs/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/452794135.jpg">
-      <meta itemprop="name" content="Kanoc Ge">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/09/16/centos%E4%B8%8B%E4%BD%BF%E7%94%A8nvm%E5%AE%89%E8%A3%85nodejs/" class="post-title-link" itemprop="url">centos下使用nvm安装nodejs</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-09-16 03:06:16" itemprop="dateCreated datePublished" datetime="2023-09-16T03:06:16+08:00">2023-09-16</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-14 16:38:09" itemprop="dateModified" datetime="2024-03-14T16:38:09+08:00">2024-03-14</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/nodejs/" itemprop="url" rel="index"><span itemprop="name">nodejs</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><font color=#00b2c2 size=5 face=宋体><strong>centos下使用nvm安装nodejs：</strong></font></p>
-<p><font color=#f26522 size=4 face=宋体><strong>之前安装nodejs的时候，怎么安装怎么报错</strong></font></p>
-<ul>
-<li>报错内容(yum安装)</li>
-</ul>
-<figure class="highlight txt"><table><tr><td class="code"><pre><span class="line">node: relocation error: /lib64/libnode.so.93: symbol FIPS_selftest, version OPENSSL_1_1_0g not defined in file libcrypto.so.1.1 with link time reference</span><br></pre></td></tr></table></figure>
-
-<p><font color=#f26522 size=4 face=宋体><strong>然后…更改 nvm安装！ 完美解决，还傻瓜式</strong></font></p>
-<hr>
-<h3 id="1、安装-git"><a href="#1、安装-git" class="headerlink" title="1、安装 git"></a><font color=red size=5 face=宋体><strong>1、安装 git</strong></font></h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">yum -y install git</span><br></pre></td></tr></table></figure>
-
-<h3 id="2、拉取nvm"><a href="#2、拉取nvm" class="headerlink" title="2、拉取nvm"></a><font color=#00b2c2 size=5 face=宋体><strong>2、拉取nvm</strong></font></h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git clone https://github.com/creationix/nvm.git ~/.nvm</span><br></pre></td></tr></table></figure>
-
-<h3 id="3、生效环境"><a href="#3、生效环境" class="headerlink" title="3、生效环境"></a><font color=red size=5 face=宋体><strong>3、生效环境</strong></font></h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">source ~/.nvm/nvm.sh</span><br></pre></td></tr></table></figure>
-
-<h3 id="4、如果第3步-无效，请执行这里"><a href="#4、如果第3步-无效，请执行这里" class="headerlink" title="4、如果第3步 无效，请执行这里"></a><font color=#00b2c2 size=5 face=宋体><strong>4、如果第3步 无效，请执行这里</strong></font></h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#添加环境变量</span></span><br><span class="line">vim /root/.bashrc</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将下面内容 复制到文本中</span></span><br><span class="line"><span class="built_in">export</span> NVM_DIR=<span class="string">&quot;<span class="variable">$HOME</span>/.nvm&quot;</span></span><br><span class="line">[ -s <span class="string">&quot;<span class="variable">$NVM_DIR</span>/nvm.sh&quot;</span> ] &amp;&amp; \. <span class="string">&quot;<span class="variable">$NVM_DIR</span>/nvm.sh&quot;</span>  <span class="comment"># This loads nvm</span></span><br><span class="line">[ -s <span class="string">&quot;<span class="variable">$NVM_DIR</span>/bash_completion&quot;</span> ] &amp;&amp; \. <span class="string">&quot;<span class="variable">$NVM_DIR</span>/bash_completion&quot;</span>  <span class="comment"># This loads nvm bash_completion</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 保存</span></span><br><span class="line">esc &gt; : &gt; wq  <span class="comment">#保存退出</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 立即生效</span></span><br><span class="line"><span class="built_in">source</span> /root/.bashrc</span><br></pre></td></tr></table></figure>
-
-<h3 id="5、查看node版本"><a href="#5、查看node版本" class="headerlink" title="5、查看node版本"></a><font color=red size=5 face=宋体><strong>5、查看node版本</strong></font></h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">node --version</span><br></pre></td></tr></table></figure>
-
-<p><font color=#00b2c2 size=5 face=宋体><strong>6、nvm相关命令</strong></font></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 查看可安装版本</span></span><br><span class="line">nvm list</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装</span></span><br><span class="line">nvm install v16.20.2</span><br><span class="line"></span><br><span class="line"><span class="comment"># 切换 使用版本</span></span><br><span class="line">nvm use v16.20.2</span><br><span class="line"></span><br><span class="line"><span class="comment"># 卸载</span></span><br><span class="line">nvm uninstall v16.20.2</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/09/15/python-aiohttp-%E8%B6%85%E6%97%B6%E8%AE%BE%E7%BD%AE/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/452794135.jpg">
-      <meta itemprop="name" content="Kanoc Ge">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/09/15/python-aiohttp-%E8%B6%85%E6%97%B6%E8%AE%BE%E7%BD%AE/" class="post-title-link" itemprop="url">python aiohttp 超时设置</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-09-15 00:27:46" itemprop="dateCreated datePublished" datetime="2023-09-15T00:27:46+08:00">2023-09-15</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-14 16:38:10" itemprop="dateModified" datetime="2024-03-14T16:38:10+08:00">2024-03-14</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/python-%E5%BC%82%E6%AD%A5/" itemprop="url" rel="index"><span itemprop="name">python_异步</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><font color=#00b2c2 size=5 face=宋体><strong>python aiohttp 超时设置：</strong></font></p>
-<p><font color=#b0171f size=2 face=宋体><strong>aiohttp模块下不能使用timeout来做超时设置，下面是正确的设置方法</strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">RunSqlFindMain</span>(<span class="params">list_data</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    :状态码返回值 0  False   数据不存在</span></span><br><span class="line"><span class="string">    :状态码返回值 1  True   数据存在</span></span><br><span class="line"><span class="string">    :状态码返回值 400  True   请求超时</span></span><br><span class="line"><span class="string">    :return:</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    timeout = aiohttp.ClientTimeout(total=<span class="number">7</span>)</span><br><span class="line">    <span class="keyword">async</span> <span class="keyword">with</span> aiohttp.ClientSession() <span class="keyword">as</span> session:</span><br><span class="line">        tasks = [asyncio.create_task(fetch(session, data, timeout)) <span class="keyword">for</span> data <span class="keyword">in</span> list_data]</span><br><span class="line">        <span class="keyword">await</span> asyncio.wait(tasks)</span><br><span class="line">        s_ = [i.result() <span class="keyword">for</span> i <span class="keyword">in</span> tasks]</span><br><span class="line">        <span class="keyword">return</span> s_</span><br></pre></td></tr></table></figure>
 
 
       
@@ -3395,13 +3502,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">301</span>
+          <span class="site-state-item-count">303</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">48</span>
+        <span class="site-state-item-count">51</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
