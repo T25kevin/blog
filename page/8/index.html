@@ -198,6 +198,106 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/05/18/MongoDB-%E5%88%9B%E5%BB%BA%E8%B6%85%E7%BA%A7%E7%AE%A1%E7%90%86%E5%91%98%E8%B4%A6%E6%88%B7%E5%AF%86%E7%A0%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/452794135.jpg">
+      <meta itemprop="name" content="Kanoc Ge">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/05/18/MongoDB-%E5%88%9B%E5%BB%BA%E8%B6%85%E7%BA%A7%E7%AE%A1%E7%90%86%E5%91%98%E8%B4%A6%E6%88%B7%E5%AF%86%E7%A0%81/" class="post-title-link" itemprop="url">MongoDB 创建超级管理员账户密码</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-05-18 18:29:48" itemprop="dateCreated datePublished" datetime="2023-05-18T18:29:48+08:00">2023-05-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-06-08 17:41:28" itemprop="dateModified" datetime="2024-06-08T17:41:28+08:00">2024-06-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><font color=#00b2c2 size=5 face=宋体><strong>MongoDB 创建超级管理员账户密码：</strong></font></p>
+<br>
+
+<hr>
+<br>
+
+<p><font color=#f26522 size=4 face=宋体><strong>1. 进入数据库：</strong></font></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">use admin   # 进入数据库超级用户库</span><br><span class="line">db.<span class="title function_">createUser</span>(&#123;<span class="attr">user</span>:<span class="string">&#x27;root&#x27;</span>, <span class="attr">pwd</span>:<span class="string">&#x27;123456&#x27;</span>, <span class="attr">roles</span>:[<span class="string">&#x27;root&#x27;</span>]&#125;)      # 创建管理员账号密码     #   创建一个root的用户名， 密码是<span class="number">123456</span>， 他的角色是root用户超级管理员</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<hr>
+<br>
+
+<p><font color=#f26522 size=4 face=宋体><strong>2. 登录：</strong></font></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">use admin   # 进入admin库</span><br><span class="line">db.<span class="title function_">auth</span>(<span class="string">&#x27;root&#x27;</span>, <span class="string">&#x27;123456&#x27;</span>)    # 登录超级用户root     # db.<span class="title function_">auth</span>(<span class="string">&#x27;用户名&#x27;</span>, <span class="string">&#x27;密码&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2022/06/09/7apYgE28fGiWvl5.png"></p>
+<p><font color=red size=2 face=宋体><strong>对于非root用户的权限设置：</strong></font></p>
+<p><img src="https://s2.loli.net/2022/06/09/4uUMhNvGLy9SqKV.png"></p>
+<br>
+
+<br>
+
+<br>
+
+<hr>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/05/18/MongoDB-%E5%85%B3%E4%BA%8Epython%E4%B8%8B%E4%BD%BF%E7%94%A8mongodb%E7%9A%84-id%E5%80%BC%E6%9F%A5%E8%AF%A2%E6%95%B0%E6%8D%AE%E5%9D%91/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -3072,113 +3172,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/03/20/Sublime-Text-4-%E6%BF%80%E6%B4%BB%E7%A0%81%E4%BA%8E%E6%B1%89%E5%8C%96%E6%95%99%E7%A8%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/452794135.jpg">
-      <meta itemprop="name" content="Kanoc Ge">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/03/20/Sublime-Text-4-%E6%BF%80%E6%B4%BB%E7%A0%81%E4%BA%8E%E6%B1%89%E5%8C%96%E6%95%99%E7%A8%8B/" class="post-title-link" itemprop="url">Sublime Text 4 激活码于汉化教程</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-03-20 19:34:47" itemprop="dateCreated datePublished" datetime="2023-03-20T19:34:47+08:00">2023-03-20</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-06-08 17:41:28" itemprop="dateModified" datetime="2024-06-08T17:41:28+08:00">2024-06-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Sublime-Text-4-激活码于汉化教程："><a href="#Sublime-Text-4-激活码于汉化教程：" class="headerlink" title="Sublime Text 4 激活码于汉化教程："></a><font color=#00b2c2 size=5 face=宋体><strong>Sublime Text 4 激活码于汉化教程：</strong></font></h1><p><font color=#f26522 size=4 face=宋体><strong>2021年5月20日 Sublime Text 4 稳定版终于正式发布了！7月14日 Sublime Text 4 又更新了一版</strong></font></p>
-<p><font color=red size=4 face=宋体><strong><strong>1. 大版亮点：</strong></strong></font></p>
-<p><font color=#b0171f size=2 face=宋体><strong>1、许可证更改：Sublime Text License 密钥（注册码）不再与独立的主要版本绑定，而是对购买后 3 年内的所有更新均有效，不过使用更新的版本需要升级 License。</strong></font></p>
-<p><font color=#b0171f size=2 face=宋体><strong>2、支持多 tab 选项卡：方便分割视图，支持通过界面或内置命令行使用。</strong></font></p>
-<p><font color=#b0171f size=2 face=宋体><strong>3、支持 Apple Silicon 和 Linux ARM64：Sublime Text for Mac 包含对 Apple Silicon 处理器的原生支持，Linux ARM64 builds 在树莓派等设备中可用。<br>4、全新的 UI 界面</strong></font></p>
-<p><font color=#b0171f size=2 face=宋体><strong>5、语境感知自动补全：该版本重写了自动补全引擎，使之能够基于项目中的已有代码提供智能补全。</strong></font></p>
-<p><font color=#b0171f size=2 face=宋体><strong>6、支持 TypeScript、JSX 和 TSX</strong></font></p>
-<p><font color=#b0171f size=2 face=宋体><strong>7、语法定义升级：语法高亮引擎全新升级，能够处理非确定性语法、多行语句、lazy embed 和语法继承。此外，内存使用降低，加载速度更快。</strong></font></p>
-<p><font color=#b0171f size=2 face=宋体><strong>8、GPU 渲染：Sublime Text 4 稳定版在渲染界面时，能够在 Linux、Mac 和 Windows 系统中利用 GPU，从而带来流畅的 UI 界面，分辨率最高可达 8K，且消耗的能源更少。</strong></font></p>
-<p><font color=#b0171f size=2 face=宋体><strong>9、Python API 升级：Sublime Text 新版本 API 升级至 Python 3.8，同时具备对 Sublime Text 3 软件包的向后兼容性。Python API 新增了许多特性，如允许 LSP 等插件更好地运行。</strong></font></p>
-<p><font color=#b0171f size=2 face=宋体><strong>10、兼容性：Sublime Text 4 完全兼容 Sublime Text 3，可以自动接收旧版本的会话和配置。Sublime Text 还支持 3、4 版本的分开运行。</strong></font></p>
-<br>
-
-<p><font color=#f26522 size=4 face=宋体><strong>官网下载地址：<a target="_blank" rel="noopener" href="https://www.sublimetext.com/download"><code>点击下载</code></a></strong></font><br><font color=#f26522 size=4 face=宋体><strong>BDyun-直链下载：</strong></font><br><font color=#f26522 size=4 face=宋体><strong>版本信息(Sublime Text4)：Build 4126</strong></font></p>
-<p><font color=#00b2c2 size=4 face=宋体><strong>Mac版：<a target="_blank" rel="noopener" href="https://bd.bcebos.com/v1/xly-icafe/sublime_text_build_4126_mac-20220215070420-foetmn.zip"><code>点击下载</code></a></strong></font></p>
-<p><font color=#00b2c2 size=4 face=宋体><strong>Windos版：<a target="_blank" rel="noopener" href="https://bd.bcebos.com/v1/xly-icafe/sublime_text_build_4126_x64_setup-20220215070548-f5atsv.exe"><code>点击下载</code></a></strong></font></p>
-<p><font color=#00b2c2 size=4 face=宋体><strong>Linux版：<a target="_blank" rel="noopener" href="https://bd.bcebos.com/v1/xly-icafe/sublime_text_build_4126_x64.tar-20220215070629-mdmt8r.xz"><code>X86点击下载</code></a>、<a target="_blank" rel="noopener" href="https://bd.bcebos.com/v1/xly-icafe/sublime_text_build_4126_arm64.tar-20220215070654-dgee3e.xz"><code>ARM64点击下载</code></a></strong></font></p>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>软件激活：</strong></strong></font></p>
-<p><font color=#b0171f size=2 face=宋体><strong>安装完如果弹窗需要输入授权，直接复制下面注册码粘贴点击 Use License，</strong></font></p>
-<p><font color=#b0171f size=2 face=宋体><strong>如果没有有弹窗，点击菜单栏的『Help -&gt; Enter License』弹出激活窗口，输入下面的注册码然后点击「Use License」</strong></font></p>
-<p><font color=#00b2c2 size=5 face=宋体><strong><strong>1.1. 注册码（全部需要复制粘贴）：</strong></strong></font></p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">—– BEGIN LICENSE —–</span><br><span class="line"></span><br><span class="line">Mifeng User</span><br><span class="line"></span><br><span class="line">Single User License</span><br><span class="line"></span><br><span class="line">EA7E-1184812</span><br><span class="line"></span><br><span class="line">C0DAA9CD 6BE825B5 FF935692 1750523A</span><br><span class="line"></span><br><span class="line">EDF59D3F A3BD6C96 F8D33866 3F1CCCEA</span><br><span class="line"></span><br><span class="line">1C25BE4D 25B1C4CC 5110C20E 5246CC42</span><br><span class="line"></span><br><span class="line">D232C83B C99CCC42 0E32890C B6CBF018</span><br><span class="line"></span><br><span class="line">B1D4C178 2F9DDB16 ABAA74E5 95304BEF</span><br><span class="line"></span><br><span class="line">9D0CCFA9 8AF8F8E2 1E0A955E 4771A576</span><br><span class="line"></span><br><span class="line">50737C65 325B6C32 817DCB83 A7394DFA</span><br><span class="line"></span><br><span class="line">27B7E747 736A1198 B3865734 0B434AA5</span><br><span class="line"></span><br><span class="line">—— END LICENSE ——</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://s2.loli.net/2022/06/09/x9pVQDIPgUZ5Wtn.jpg" alt="激活码"></p>
-<hr>
-<br>
-
-<p><font color=#00b2c2 size=5 face=宋体><strong><strong>软件汉化：</strong></strong></font></p>
-<ul>
-<li><font color=#b0171f size=2 face=宋体><strong>1、点击 Tools—Install Package Control，（安装包控件比较慢，并且没有反应，等待数分钟后会有弹窗）</strong></font></li>
-<li><font color=#b0171f size=2 face=宋体><strong>2、点击确定按钮</strong></font></li>
-<li><font color=#b0171f size=2 face=宋体><strong>3、菜单点击Preferences – Package Control，选择 Install Package</strong></font></li>
-<li><font color=#b0171f size=2 face=宋体><strong>4、输入 ChineseLocalzations 可见中文包！选中即可安装！</strong></font><br><img src="https://s2.loli.net/2022/06/09/M7lZUskgtYI6TQO.jpg" alt="1630993909-d1be2f8c031ea28"></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -3249,7 +3242,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">304</span>
+          <span class="site-state-item-count">305</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

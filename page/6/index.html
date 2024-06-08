@@ -198,6 +198,107 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/05/22/%E7%8C%AB%E8%80%B3FM%EF%BC%88MissEvan%EF%BC%89%E5%8A%A0%E5%AF%86%E5%8F%82%E6%95%B0%E7%A0%B4%E8%A7%A3%E4%BB%A3%E7%A0%81%E5%8F%8A%E6%8E%A5%E5%8F%A3%E6%B1%87%E6%80%BB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/452794135.jpg">
+      <meta itemprop="name" content="Kanoc Ge">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/05/22/%E7%8C%AB%E8%80%B3FM%EF%BC%88MissEvan%EF%BC%89%E5%8A%A0%E5%AF%86%E5%8F%82%E6%95%B0%E7%A0%B4%E8%A7%A3%E4%BB%A3%E7%A0%81%E5%8F%8A%E6%8E%A5%E5%8F%A3%E6%B1%87%E6%80%BB/" class="post-title-link" itemprop="url">猫耳FM（MissEvan）加密参数破解代码及接口汇总</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-05-22 22:59:48" itemprop="dateCreated datePublished" datetime="2023-05-22T22:59:48+08:00">2023-05-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-06-08 17:41:29" itemprop="dateModified" datetime="2024-06-08T17:41:29+08:00">2024-06-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%80%86%E5%90%91-APP/" itemprop="url" rel="index"><span itemprop="name">逆向_APP</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><font color=#00b2c2 size=5 face=宋体><strong>猫耳FM（MissEvan）加密参数破解代码及接口汇总</strong></font></p>
+<p>这次找了个简单的app来练练手，小众app逆向起来还是简单的，猫耳的app既没有壳有没有native层，仅仅只有一个加密参数，这里就直接上代码了。</p>
+<h1 id="通用headers："><a href="#通用headers：" class="headerlink" title="通用headers："></a>通用headers：</h1><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">header = &#123;</span><br><span class="line">  <span class="string">&#x27;user-agent&#x27;</span>: <span class="string">&#x27;MissEvanApp/5.5.0 (Android;5.1.1;Android OPPO R17 Pro shamu)&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;channel&#x27;</span>: <span class="string">&#x27;missevan_huawei&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;Content-Type&#x27;</span>:<span class="string">&#x27;application/json; charset=UTF-8&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;Accept&#x27;</span>:<span class="string">&#x27;application/json&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;cookie&#x27;</span>: <span class="string">&#x27;token=xxx; equip_id=xxx&#x27;</span>,<span class="comment">// token为账号的标识（没有则去除），equip_id为deviceid</span></span><br><span class="line">  <span class="string">&#x27;authorization&#x27;</span>: <span class="string">&#x27;&#x27;</span>,<span class="comment">//这个就是加密参数，生成代码看下面</span></span><br><span class="line">  <span class="string">&#x27;x-m-date&#x27;</span>: <span class="string">&#x27;2021-03-23T16:08:44Z&#x27;</span>,<span class="comment">// 时间，可传空字符串</span></span><br><span class="line">  <span class="string">&#x27;x-m-nonce&#x27;</span>: <span class="string">&#x27;62271935-318e-4ff1-ba91-685579a9cdbc&#x27;</span><span class="comment">// nonce，可传空字符串</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="authorization参数生成代码（python）："><a href="#authorization参数生成代码（python）：" class="headerlink" title="authorization参数生成代码（python）："></a>authorization参数生成代码（python）：</h1><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 此方法的实参为url，请求方法（GET与POST），请求头与请求体（是GET可不传）</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">fun</span>(<span class="params">url,method,header,body</span>):</span><br><span class="line">  data = <span class="string">&#x27;&#x27;</span></span><br><span class="line">  qs = url.split(<span class="string">&#x27;?&#x27;</span>)[<span class="number">1</span>] <span class="keyword">if</span> <span class="built_in">len</span>(url.split(<span class="string">&#x27;?&#x27;</span>)) &gt; <span class="number">1</span> <span class="keyword">else</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line">  url = urllib.parse.quote(url.split(<span class="string">&#x27;?&#x27;</span>)[<span class="number">0</span>])</span><br><span class="line">  equip_id = re.findall(<span class="string">r&#x27;equip_id=(\S+?);&#x27;</span>,header[<span class="string">&#x27;cookie&#x27;</span>])[<span class="number">0</span>] <span class="keyword">if</span> re.findall(<span class="string">r&#x27;equip_id=(\S+?);&#x27;</span>,header[<span class="string">&#x27;cookie&#x27;</span>]) <span class="keyword">else</span> re.findall(<span class="string">r&#x27;equip_id=(\S+?)$codeholder_1#39;,header[&#x27;</span>cookie<span class="string">&#x27;])[0]</span></span><br><span class="line"><span class="string">  token = re.findall(r&#x27;</span>token=(\S+?);<span class="string">&#x27;,header[&#x27;</span>cookie<span class="string">&#x27;]) if re.findall(r&#x27;</span>token=(\S+?);<span class="string">&#x27;,header[&#x27;</span>cookie<span class="string">&#x27;]) else re.findall(r&#x27;</span>token=(\S+?)$codeholder_1<span class="comment">#39;,header[&#x27;cookie&#x27;])</span></span><br><span class="line">  token = token[<span class="number">0</span>] <span class="keyword">if</span> <span class="built_in">len</span>(token) <span class="keyword">else</span> <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">  data += method + <span class="string">&#x27;\n&#x27;</span></span><br><span class="line">  data += url + <span class="string">&#x27;\n&#x27;</span></span><br><span class="line">  data += qs + <span class="string">&#x27;\n&#x27;</span></span><br><span class="line">  data += <span class="string">&#x27;equip_id:&#x27;</span> + equip_id + <span class="string">&#x27;\n&#x27;</span></span><br><span class="line">  <span class="keyword">if</span> token != <span class="literal">None</span>:</span><br><span class="line">    data += <span class="string">&#x27;token:&#x27;</span> + token + <span class="string">&#x27;\n&#x27;</span></span><br><span class="line">  data += <span class="string">&#x27;x-m-date:&#x27;</span> + header[<span class="string">&#x27;x-m-date&#x27;</span>] + <span class="string">&#x27;\n&#x27;</span></span><br><span class="line">  data += <span class="string">&#x27;x-m-nonce:&#x27;</span> + header[<span class="string">&#x27;x-m-nonce&#x27;</span>] + <span class="string">&#x27;\n&#x27;</span></span><br><span class="line">  <span class="keyword">if</span> method == <span class="string">&#x27;POST&#x27;</span>:</span><br><span class="line">    sha = sha256()</span><br><span class="line">    sha.update(body.encode(<span class="string">&#x27;utf-8&#x27;</span>))</span><br><span class="line">    body = base64.b64encode(sha.digest()).decode(<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line">    data += body + <span class="string">&#x27;\n&#x27;</span></span><br><span class="line"></span><br><span class="line">  signature = base64.b64encode(hmac.new(appsecret.encode(<span class="string">&#x27;utf-8&#x27;</span>), data.encode(<span class="string">&#x27;utf-8&#x27;</span>), digestmod=sha256).digest())</span><br><span class="line">  <span class="comment"># 这里直接将参数传进请求头中</span></span><br><span class="line">  header[<span class="string">&#x27;authorization&#x27;</span>] = <span class="string">&#x27;MissEvan &#x27;</span>+signature.decode(<span class="string">&#x27;utf-8&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="接口："><a href="#接口：" class="headerlink" title="接口："></a>接口：</h1><p>1.<a target="_blank" rel="noopener" href="https://app.missevan.com/sound/sound?sound_id=xxx">https://app.missevan.com/sound/sound?sound_id=xxx</a></p>
+<p>获取音频资源地址，sound_id参数为音频的id</p>
+<p>2.<a target="_blank" rel="noopener" href="https://app.missevan.com/you-might-like/get-recommends?persona_id=xxx">https://app.missevan.com/you-might-like/get-recommends?persona_id=xxx</a></p>
+<p>”猜你喜欢“列表，persona_id参数意义不明，不过不同数字返回不同列表</p>
+<p>3.<a target="_blank" rel="noopener" href="https://app.missevan.com/drama/get-drama-by-sound?sound_id=xxx">https://app.missevan.com/drama/get-drama-by-sound?sound_id=xxx</a></p>
+<p>音频相关信息，sound_id参数为音频的id</p>
+<p>4.<a target="_blank" rel="noopener" href="https://app.missevan.com/message/get-comments?order=1&type=1&e_id=xxx&page=1&page_size=20&recommend=1&recommend_page_size=10">https://app.missevan.com/message/get-comments?order=1&amp;type=1&amp;e_id=xxx&amp;page=1&amp;page_size=20&amp;recommend=1&amp;recommend_page_size=10</a></p>
+<p>音频评论列表，e_id参数为音频的id,page与page_size参数指定列表页数与大小</p>
+<p>5.<a target="_blank" rel="noopener" href="https://app.missevan.com/sound/recommend?sound_id=1226753">https://app.missevan.com/sound/recommend?sound_id=1226753</a></p>
+<p>音频相关推荐列表，sound_id参数为音频的id</p>
+<p>6.<a target="_blank" rel="noopener" href="https://app.missevan.com/member/login">https://app.missevan.com/member/login</a></p>
+<p>登录，此api为post方法，请求体为如下字符串：</p>
+<p>account&#x3D;xxx&amp;password&#x3D;xxx</p>
+<p>account为你的手机号，password为密码，会返回token以及用户信息，将token加入cookie中则可使用账号访问</p>
+<p>7.<a target="_blank" rel="noopener" href="https://app.missevan.com/person/get-user-info?user_id=5922770">https://app.missevan.com/person/get-user-info?user_id=5922770</a></p>
+<p>用户信息1，user_id参数为用户id</p>
+<p>8.<a target="_blank" rel="noopener" href="https://app.missevan.com/person/homepage?user_id=5922770">https://app.missevan.com/person/homepage?user_id=5922770</a></p>
+<p>用户信息2，user_id参数为用户id</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/05/22/%E9%80%86%E5%90%91app%E8%AE%B0%E5%BD%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -4135,143 +4236,6 @@ db.c1.insert(&#123;_id:5,name:"e",sex:2,age:5&#125;)
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/05/22/centos%E3%80%81kali%E9%95%9C%E5%83%8F%E4%B8%8B%E8%BD%BD/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/452794135.jpg">
-      <meta itemprop="name" content="Kanoc Ge">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/05/22/centos%E3%80%81kali%E9%95%9C%E5%83%8F%E4%B8%8B%E8%BD%BD/" class="post-title-link" itemprop="url">centos、kali镜像下载</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-05-22 21:07:11" itemprop="dateCreated datePublished" datetime="2023-05-22T21:07:11+08:00">2023-05-22</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-06-08 17:41:28" itemprop="dateModified" datetime="2024-06-08T17:41:28+08:00">2024-06-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E9%95%9C%E5%83%8F/" itemprop="url" rel="index"><span itemprop="name">镜像</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><font color=#00b2c2 size=6 face="宋体"><strong>centos_7</strong></font></p>
-<ul>
-<li>版本号：7（发布时间：2009）<ul>
-<li>x86_64-DVD<ul>
-<li><font color=#000080 size=2 face="宋体"><strong>标准版 下载链接：</strong></font><a class="wp-editor-md-post-content-link" target="_blank" rel="noopener" href="https://mirrors.ustc.edu.cn/centos/7/isos/x86_64/CentOS-7-x86_64-DVD-2009.iso">点击下载</a></li>
-<li><font color=#000080 size=2 face="宋体"><strong>完整版 下载链接：</strong></font><a class="wp-editor-md-post-content-link" target="_blank" rel="noopener" href="https://mirrors.ustc.edu.cn/centos/7/isos/x86_64/CentOS-7-x86_64-Everything-2009.iso">点击下载</a></li>
-<li><font color=#000080 size=2 face="宋体"><strong>最小安装版 下载链接：</strong></font><a class="wp-editor-md-post-content-link" target="_blank" rel="noopener" href="https://mirrors.ustc.edu.cn/centos/7/isos/x86_64/CentOS-7-x86_64-Minimal-2009.iso">点击下载</a></li>
-<li><font color=#000080 size=2 face="宋体"><strong>联网版 下载链接：</strong></font><a class="wp-editor-md-post-content-link" target="_blank" rel="noopener" href="https://mirrors.ustc.edu.cn/centos/7/isos/x86_64/CentOS-7-x86_64-NetInstall-2009.iso">点击下载</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p><font color=#00b2c2 size=6 face="宋体"><strong>centos_8</strong></font></p>
-<ul>
-<li>版本号：8（发布时间：不详）<ul>
-<li>aarch64-DVD<ul>
-<li><font color=#000080 size=2 face="宋体"><strong>标准版 下载链接：</strong></font><a class="wp-editor-md-post-content-link" target="_blank" rel="noopener" href="https://mirrors.ustc.edu.cn/centos/8/isos/aarch64/CentOS-8.4.2105-aarch64-dvd1.iso">点击下载</a></li>
-</ul>
-</li>
-<li>x86_64-DVD<ul>
-<li><font color=#000080 size=2 face="宋体"><strong>标准版 下载链接：</strong></font><a class="wp-editor-md-post-content-link" target="_blank" rel="noopener" href="https://mirrors.ustc.edu.cn/centos/8/isos/x86_64/CentOS-8.4.2105-x86_64-dvd1.iso">点击下载</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p><font color=#00b2c2 size=6 face="宋体"><strong>kali</strong></font></p>
-<ul>
-<li>版本号：镜像安装版kali-2020.4（发布时间：2020.4）<ul>
-<li>amd64_iso(就是x86_64位)<ul>
-<li><font color=#000080 size=2 face="宋体"><strong>标准版 下载链接：</strong></font><a class="wp-editor-md-post-content-link" target="_blank" rel="noopener" href="https://mirrors.ustc.edu.cn/kali-images/kali-2020.4/kali-linux-2020.4-installer-amd64.iso">点击下载</a></li>
-<li><font color=#000080 size=2 face="宋体"><strong>联网版 下载链接：</strong></font><a class="wp-editor-md-post-content-link" target="_blank" rel="noopener" href="https://mirrors.ustc.edu.cn/kali-images/kali-2020.4/kali-linux-2020.4-installer-netinst-amd64.iso">点击下载</a></li>
-</ul>
-</li>
-<li>i386_iso(就是x86_32位)<ul>
-<li><font color=#000080 size=2 face="宋体"><strong>标准版 下载链接：</strong></font><a class="wp-editor-md-post-content-link" target="_blank" rel="noopener" href="https://mirrors.ustc.edu.cn/kali-images/kali-2020.4/kali-linux-2020.4-installer-i386.iso">点击下载</a></li>
-<li><font color=#000080 size=2 face="宋体"><strong>联网版 下载链接：</strong></font><a class="wp-editor-md-post-content-link" target="_blank" rel="noopener" href="https://mirrors.ustc.edu.cn/kali-images/kali-2020.4/kali-linux-2020.4-installer-netinst-i386.iso">点击下载</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li>版本号：镜像安装版kali-2021.3（发布时间：2021.3）<ul>
-<li>amd64_iso(就是x86_64位)<ul>
-<li><font color=#000080 size=2 face="宋体"><strong>标准版 下载链接：</strong></font><a class="wp-editor-md-post-content-link" target="_blank" rel="noopener" href="https://mirrors.ustc.edu.cn/kali-images/kali-2021.3/kali-linux-2021.3-installer-amd64.iso">点击下载</a></li>
-<li><font color=#000080 size=2 face="宋体"><strong>live版 下载链接：</strong></font><a class="wp-editor-md-post-content-link" target="_blank" rel="noopener" href="https://mirrors.ustc.edu.cn/kali-images/kali-2021.3/kali-linux-2021.3-live-amd64.iso">点击下载</a></li>
-<li><font color=#000080 size=2 face="宋体"><strong>联网版 下载链接：</strong></font><a class="wp-editor-md-post-content-link" target="_blank" rel="noopener" href="https://mirrors.ustc.edu.cn/kali-images/kali-2021.3/kali-linux-2021.3-installer-netinst-amd64.iso">点击下载</a></li>
-</ul>
-</li>
-<li>i386_iso(就是x86_32位)<ul>
-<li><font color=#000080 size=2 face="宋体"><strong>标准版 下载链接：</strong></font><a class="wp-editor-md-post-content-link" target="_blank" rel="noopener" href="https://mirrors.ustc.edu.cn/kali-images/kali-2021.3/kali-linux-2021.3-installer-i386.iso">点击下载</a></li>
-<li><font color=#000080 size=2 face="宋体"><strong>live版 下载链接：</strong></font><a class="wp-editor-md-post-content-link" target="_blank" rel="noopener" href="https://mirrors.ustc.edu.cn/kali-images/kali-2021.3/kali-linux-2021.3-live-i386.iso">点击下载</a></li>
-<li><font color=#000080 size=2 face="宋体"><strong>联网版 下载链接：</strong></font><a class="wp-editor-md-post-content-link" target="_blank" rel="noopener" href="https://mirrors.ustc.edu.cn/kali-images/kali-2021.3/kali-linux-2021.3-installer-netinst-i386.iso">点击下载</a></li>
-</ul>
-</li>
-<li>arm64_iso(就是x86_32位)<ul>
-<li><font color=#000080 size=2 face="宋体"><strong>标准版 下载链接：</strong></font><a class="wp-editor-md-post-content-link" target="_blank" rel="noopener" href="https://mirrors.ustc.edu.cn/kali-images/kali-2021.3/kali-linux-2021.3-installer-arm64.iso">点击下载</a></li>
-<li><font color=#000080 size=2 face="宋体"><strong>live版 下载链接：</strong></font><a class="wp-editor-md-post-content-link" target="_blank" rel="noopener" href="https://mirrors.ustc.edu.cn/kali-images/kali-2021.3/kali-linux-2021.3-live-arm64.iso">点击下载</a></li>
-<li><font color=#000080 size=2 face="宋体"><strong>联网版 下载链接：</strong></font><a class="wp-editor-md-post-content-link" target="_blank" rel="noopener" href="https://mirrors.ustc.edu.cn/kali-images/kali-2021.3/kali-linux-2021.3-installer-netinst-arm64.iso">点击下载</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -4342,7 +4306,7 @@ db.c1.insert(&#123;_id:5,name:"e",sex:2,age:5&#125;)
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">304</span>
+          <span class="site-state-item-count">305</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
