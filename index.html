@@ -198,6 +198,116 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2024/06/11/%E5%9C%A8CentOS-7%E4%B8%8A%E5%AE%89%E8%A3%85Go-1-22/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/452794135.jpg">
+      <meta itemprop="name" content="Kanoc Ge">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/06/11/%E5%9C%A8CentOS-7%E4%B8%8A%E5%AE%89%E8%A3%85Go-1-22/" class="post-title-link" itemprop="url">在CentOS-7上安装Go-1.22</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-06-11 04:01:46 / 修改时间：04:06:54" itemprop="dateCreated datePublished" datetime="2024-06-11T04:01:46+08:00">2024-06-11</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/go/" itemprop="url" rel="index"><span itemprop="name">go</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/go/%E5%AE%89%E8%A3%85/" itemprop="url" rel="index"><span itemprop="name">安装</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="在CentOS-7上安装Go-1-22："><a href="#在CentOS-7上安装Go-1-22：" class="headerlink" title="在CentOS 7上安装Go 1.22："></a><font color=#00b2c2 size=5 face=宋体><strong>在CentOS 7上安装Go 1.22：</strong></font></h2><h3 id="在CentOS-7上安装Go-1-22-2的步骤如下："><a href="#在CentOS-7上安装Go-1-22-2的步骤如下：" class="headerlink" title="在CentOS 7上安装Go 1.22.2的步骤如下："></a>在CentOS 7上安装Go 1.22.2的步骤如下：</h3><h4 id="一、准备工作"><a href="#一、准备工作" class="headerlink" title="一、准备工作"></a>一、准备工作</h4><ol>
+<li><p>确保你的<code>CentOS 7</code>系统已经更新到最新状态，可以通过以下命令进行更新：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo yum update</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>检查系统是否已安装<code>Go</code>的旧版本，如果有，则先卸载：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo yum remove golang</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="二、下载并安装Go-1-22-2"><a href="#二、下载并安装Go-1-22-2" class="headerlink" title="二、下载并安装Go 1.22.2"></a>二、下载并安装Go 1.22.2</h4><ol>
+<li><p>访问Go的官方网站或使用提供的下载链接来获取<code>Go 1.22.2</code>的<code>Linux-amd64</code>版本。你可以直接通过<code>wget</code>命令下载：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/local/src  </span><br><span class="line">wget https://golang.google.cn/dl/go1.22.2.linux-amd64.tar.gz</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>解压下载的Go压缩包到<code>/usr/local</code>目录下：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo tar -zxvf go1.22.2.linux-amd64.tar.gz -C /usr/local/</span><br></pre></td></tr></table></figure>
+
+<p>这将把Go的安装文件解压到<code>/usr/local/go</code>目录下。</p>
+</li>
+</ol>
+<h4 id="三、配置环境变量"><a href="#三、配置环境变量" class="headerlink" title="三、配置环境变量"></a>三、配置环境变量</h4><ol>
+<li><p>打开<code>/etc/profile</code>文件，并在文件末尾添加以下配置：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">export</span> GOROOT=/usr/local/go  </span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$GOROOT</span>/bin  </span><br><span class="line"><span class="built_in">export</span> GOPATH=/opt/go  <span class="comment"># 或者你可以设置为其他目录，作为你的工作区  </span></span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$GOPATH</span>/bin</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>应用更改：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">source</span> /etc/profile</span><br></pre></td></tr></table></figure>
+
+<p>或者使用<code>su -</code>命令重新登录shell会话。</p>
+</li>
+</ol>
+<h4 id="四、验证安装"><a href="#四、验证安装" class="headerlink" title="四、验证安装"></a>四、验证安装</h4><ol>
+<li><p>在终端中输入<code>go version</code>来检查Go的版本：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">go version</span><br></pre></td></tr></table></figure>
+
+<p>如果安装成功，你应该看到类似于<code>go version go1.22.2 linux/amd64</code>的输出。</p>
+</li>
+</ol>
+<h4 id="五、解决依赖下载速度过慢的问题（可选）"><a href="#五、解决依赖下载速度过慢的问题（可选）" class="headerlink" title="五、解决依赖下载速度过慢的问题（可选）"></a>五、解决依赖下载速度过慢的问题（可选）</h4><p>如果你的网络环境中Go依赖包的下载速度过慢，你可以设置<code>GOPROXY</code>环境变量来使用国内的代理服务器，如<code>Goproxy.cn</code>：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">go <span class="built_in">env</span> -w GO111MODULE=on  </span><br><span class="line">go <span class="built_in">env</span> -w GOPROXY=https://goproxy.cn,direct</span><br></pre></td></tr></table></figure>
+
+<p>这样设置后，Go的依赖包将会从指定的代理服务器下载，通常会有更快的下载速度。</p>
+<p>以上就是在<code>CentOS 7</code>上安装<code>Go 1.22.2</code>的详细步骤。请注意，Go的最新版本可能已经更新，但上述步骤对于安装任何版本的Go都是通用的，只需将版本号替换为你要安装的版本即可。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2024/06/10/go-json%E4%BC%98%E9%9B%85%E7%9A%84%E5%8F%96%E5%80%BC/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -3533,159 +3643,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2024/04/23/python%E6%93%8D%E4%BD%9CMinIO/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/452794135.jpg">
-      <meta itemprop="name" content="Kanoc Ge">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/04/23/python%E6%93%8D%E4%BD%9CMinIO/" class="post-title-link" itemprop="url">python操作MinIO</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-04-23 23:34:16" itemprop="dateCreated datePublished" datetime="2024-04-23T23:34:16+08:00">2024-04-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-06-08 17:41:28" itemprop="dateModified" datetime="2024-06-08T17:41:28+08:00">2024-06-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MinIO/" itemprop="url" rel="index"><span itemprop="name">MinIO</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><font color=#00b2c2 size=5 face=宋体><strong><strong>python操作minio</strong></strong></font></p>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>python版本：3.7</p>
-<p>minio版本：5.0.5</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 使用pip安装</span><br><span class="line">pip install minio</span><br><span class="line"></span><br><span class="line"># 使用源码安装</span><br><span class="line">git clone https://github.com/minio/minio-py</span><br><span class="line">cd minio-py</span><br><span class="line">python setup.py install</span><br></pre></td></tr></table></figure>
-
-<p>参考文档：</p>
-<p>快速入门：<a target="_blank" rel="noopener" href="https://docs.min.io/cn/python-client-quickstart-guide.html">https://docs.min.io/cn/python-client-quickstart-guide.html</a></p>
-<p>完整文档：<a target="_blank" rel="noopener" href="https://docs.min.io/cn/python-client-api-reference.html">https://docs.min.io/cn/python-client-api-reference.html</a></p>
-<p>API示例：<a target="_blank" rel="noopener" href="https://github.com/minio/minio-py/tree/master/examples">https://github.com/minio/minio-py/tree/master/examples</a></p>
-<h2 id="初始化MinIO-Client"><a href="#初始化MinIO-Client" class="headerlink" title="初始化MinIO Client"></a>初始化MinIO Client</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> minio <span class="keyword">import</span> Minio</span><br><span class="line"><span class="keyword">from</span> minio.error <span class="keyword">import</span> ResponseError</span><br><span class="line"></span><br><span class="line">minioClient = Minio(endpoint=<span class="string">&#x27;play.min.io&#x27;</span>,</span><br><span class="line">                  access_key=<span class="string">&#x27;Q3AM3UQ867SPQQA43P2F&#x27;</span>,</span><br><span class="line">                  secret_key=<span class="string">&#x27;zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG&#x27;</span>,</span><br><span class="line">                  secure=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
-
-<h2 id="操作存储桶"><a href="#操作存储桶" class="headerlink" title="操作存储桶"></a>操作存储桶</h2><h3 id="创建一个存储桶"><a href="#创建一个存储桶" class="headerlink" title="创建一个存储桶"></a>创建一个存储桶</h3><p>make_bucket(bucket_name, location&#x3D;’us-east-1’) -&gt; None</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    minioClient.make_bucket(bucket_name=<span class="string">&quot;mybucket&quot;</span>, location=<span class="string">&quot;us-east-1&quot;</span>)</span><br><span class="line"><span class="keyword">except</span> MaxRetryError <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;connect minio server fail, %s&quot;</span> % err)</span><br><span class="line">    <span class="keyword">raise</span></span><br><span class="line"><span class="keyword">except</span> ResponseError <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;minio server response fail, %s&quot;</span> % err)</span><br><span class="line">    <span class="keyword">raise</span></span><br><span class="line"><span class="keyword">except</span> (BucketAlreadyOwnedByYou, BucketAlreadyExists) <span class="keyword">as</span> err:</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"><span class="keyword">except</span> InvalidBucketError <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(err)</span><br><span class="line"><span class="keyword">except</span> Exception <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(err)</span><br></pre></td></tr></table></figure>
-
-<h3 id="列出所有的存储桶"><a href="#列出所有的存储桶" class="headerlink" title="列出所有的存储桶"></a>列出所有的存储桶</h3><p>list_buckets() -&gt; list</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    buckets = minioClient.list_buckets()</span><br><span class="line">    <span class="keyword">for</span> bucket <span class="keyword">in</span> buckets:</span><br><span class="line">        <span class="built_in">print</span>(bucket.name, bucket.creation_date)</span><br><span class="line"><span class="keyword">except</span> MaxRetryError <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;connect minio server fail, %s&quot;</span> % err)</span><br><span class="line">    <span class="keyword">raise</span></span><br><span class="line"><span class="keyword">except</span> ResponseError <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;minio server response fail, %s&quot;</span> % err)</span><br><span class="line">    <span class="keyword">raise</span></span><br><span class="line"><span class="keyword">except</span> Exception <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(err)</span><br></pre></td></tr></table></figure>
-
-<h3 id="检查存储桶是否存在"><a href="#检查存储桶是否存在" class="headerlink" title="检查存储桶是否存在"></a>检查存储桶是否存在</h3><p>bucket_exists(bucket_name) -&gt; bool</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    result = minioClient.bucket_exists(bucket_name=<span class="string">&quot;mybucket&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(result)</span><br><span class="line"><span class="keyword">except</span> MaxRetryError <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;connect minio server fail, %s&quot;</span> % err)</span><br><span class="line">    <span class="keyword">raise</span></span><br><span class="line"><span class="keyword">except</span> ResponseError <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;minio server response fail, %s&quot;</span> % err)</span><br><span class="line">    <span class="keyword">raise</span></span><br><span class="line"><span class="keyword">except</span> InvalidBucketError <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(err)</span><br><span class="line"><span class="keyword">except</span> Exception <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(err)</span><br></pre></td></tr></table></figure>
-
-<h3 id="删除存储桶"><a href="#删除存储桶" class="headerlink" title="删除存储桶"></a>删除存储桶</h3><p>remove_bucket(bucket_name) -&gt; None</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    minioClient.remove_bucket(bucket_name=<span class="string">&quot;mybucket&quot;</span>)</span><br><span class="line"><span class="keyword">except</span> MaxRetryError <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;connect minio server fail, %s&quot;</span> % err)</span><br><span class="line">    <span class="keyword">raise</span></span><br><span class="line"><span class="keyword">except</span> ResponseError <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;minio server response fail, %s&quot;</span> % err)</span><br><span class="line">    <span class="keyword">raise</span></span><br><span class="line"><span class="keyword">except</span> InvalidBucketError <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(err)</span><br><span class="line"><span class="keyword">except</span> NoSuchBucket <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(err)</span><br><span class="line"><span class="keyword">except</span> Exception <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(err)</span><br></pre></td></tr></table></figure>
-
-<h3 id="列出存储桶中所有对象"><a href="#列出存储桶中所有对象" class="headerlink" title="列出存储桶中所有对象"></a>列出存储桶中所有对象</h3><p>list_objects(bucket_name, prefix&#x3D;None, recursive&#x3D;False) -&gt; Iterator</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    objects = minioClient.list_objects(<span class="string">&quot;mybucket&quot;</span>)</span><br><span class="line">    <span class="keyword">for</span> obj <span class="keyword">in</span> objects:</span><br><span class="line">        <span class="built_in">print</span>(obj.bucket_name, obj.object_name.encode(<span class="string">&#x27;utf-8&#x27;</span>), obj.is_dir,</span><br><span class="line">              obj.size, obj.etag, obj.last_modified, obj.content_type,</span><br><span class="line">              obj.metadata)</span><br><span class="line"><span class="keyword">except</span> MaxRetryError <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;connect minio server fail, %s&quot;</span> % err)</span><br><span class="line">    <span class="keyword">raise</span></span><br><span class="line"><span class="keyword">except</span> ResponseError <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;minio server response fail, %s&quot;</span> % err)</span><br><span class="line">    <span class="keyword">raise</span></span><br><span class="line"><span class="keyword">except</span> InvalidBucketError <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(err)</span><br><span class="line"><span class="keyword">except</span> Exception <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(err)</span><br></pre></td></tr></table></figure>
-
-<h3 id="列出存储桶中未完整上传的对象"><a href="#列出存储桶中未完整上传的对象" class="headerlink" title="列出存储桶中未完整上传的对象"></a>列出存储桶中未完整上传的对象</h3><p>list_incomplete_uploads(bucket_name, prefix, recursive&#x3D;False) -&gt; Iterator</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="comment"># List all object paths in bucket that begin with my-prefixname.</span></span><br><span class="line">    uploads = minioClient.list_incomplete_uploads(<span class="string">&#x27;mybucket&#x27;</span>, </span><br><span class="line">                                                  prefix=<span class="string">&#x27;my-prefixname&#x27;</span>,</span><br><span class="line">                                                  recursive=<span class="literal">True</span>)</span><br><span class="line">    <span class="keyword">for</span> obj <span class="keyword">in</span> uploads:</span><br><span class="line">        <span class="built_in">print</span>(obj.bucket_name, obj.object_name, obj.upload_id, obj.size)</span><br><span class="line"><span class="keyword">except</span> MaxRetryError <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;connect minio server fail, %s&quot;</span> % err)</span><br><span class="line">    <span class="keyword">raise</span></span><br><span class="line"><span class="keyword">except</span> ResponseError <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;minio server response fail, %s&quot;</span> % err)</span><br><span class="line">    <span class="keyword">raise</span></span><br><span class="line"><span class="keyword">except</span> InvalidBucketError <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(err)</span><br><span class="line"><span class="keyword">except</span> Exception <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(err)</span><br></pre></td></tr></table></figure>
-
-<h3 id="获取存储桶的当前策略"><a href="#获取存储桶的当前策略" class="headerlink" title="获取存储桶的当前策略"></a>获取存储桶的当前策略</h3><p>get_bucket_policy(bucket_name, prefix) -&gt; Policy枚举</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># Get current policy of all object paths in bucket that begin with my-prefixname.</span><br><span class="line">policy = minioClient.get_bucket_policy(&#x27;mybucket&#x27;,</span><br><span class="line">                                       &#x27;my-prefixname&#x27;)</span><br><span class="line">print(policy)</span><br></pre></td></tr></table></figure>
-
-<h3 id="给指定的存储桶设置存储桶策略"><a href="#给指定的存储桶设置存储桶策略" class="headerlink" title="给指定的存储桶设置存储桶策略"></a>给指定的存储桶设置存储桶策略</h3><p>set_bucket_policy(bucket_name, prefix, policy) -&gt; Policy枚举</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Set policy Policy.READ_ONLY to all object paths in bucket that begin with my-prefixname.</span></span><br><span class="line">minioClient.set_bucket_policy(<span class="string">&#x27;mybucket&#x27;</span>,</span><br><span class="line">                              <span class="string">&#x27;my-prefixname&#x27;</span>,</span><br><span class="line">                              Policy.READ_ONLY)</span><br></pre></td></tr></table></figure>
-
-<h3 id="获取存储桶上的通知配置"><a href="#获取存储桶上的通知配置" class="headerlink" title="获取存储桶上的通知配置"></a>获取存储桶上的通知配置</h3><p>get_bucket_notification(bucket_name) -&gt; dict</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Get the notifications configuration for a bucket.</span></span><br><span class="line">notification = minioClient.get_bucket_notification(<span class="string">&#x27;mybucket&#x27;</span>)</span><br><span class="line"><span class="comment"># If no notification is present on the bucket:</span></span><br><span class="line"><span class="comment"># notification == &#123;&#125;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="给存储桶设置通知配置"><a href="#给存储桶设置通知配置" class="headerlink" title="给存储桶设置通知配置"></a>给存储桶设置通知配置</h3><p>set_bucket_notification(bucket_name, notification) -&gt;</p>
-<h3 id="删除存储桶上配置的所有通知"><a href="#删除存储桶上配置的所有通知" class="headerlink" title="删除存储桶上配置的所有通知"></a>删除存储桶上配置的所有通知</h3><p>remove_all_bucket_notification(bucket_name)</p>
-<h3 id="监听存储桶上的通知，可以额外提供前缀、后缀和时间类型来进行过滤"><a href="#监听存储桶上的通知，可以额外提供前缀、后缀和时间类型来进行过滤" class="headerlink" title="监听存储桶上的通知，可以额外提供前缀、后缀和时间类型来进行过滤"></a>监听存储桶上的通知，可以额外提供前缀、后缀和时间类型来进行过滤</h3><p>listen_bucket_notification(bucket_name, prefix, suffix, events)</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Put a file with default content-type.</span></span><br><span class="line">events = minioClient.listen_bucket_notification(<span class="string">&#x27;my-bucket&#x27;</span>, <span class="string">&#x27;my-prefix/&#x27;</span>,</span><br><span class="line">                                                <span class="string">&#x27;.my-suffix&#x27;</span>,</span><br><span class="line">                                                [<span class="string">&#x27;s3:ObjectCreated:*&#x27;</span>,</span><br><span class="line">                                                 <span class="string">&#x27;s3:ObjectRemoved:*&#x27;</span>,</span><br><span class="line">                                                 <span class="string">&#x27;s3:ObjectAccessed:*&#x27;</span>])</span><br><span class="line"><span class="keyword">for</span> event <span class="keyword">in</span> events:</span><br><span class="line">    <span class="built_in">print</span> event</span><br></pre></td></tr></table></figure>
-
-<h2 id="操作对象"><a href="#操作对象" class="headerlink" title="操作对象"></a>操作对象</h2><h3 id="下载一个对象"><a href="#下载一个对象" class="headerlink" title="下载一个对象"></a>下载一个对象</h3><p>get_object(bucket_name, object_name, request_headers&#x3D;None)</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Get a full object.</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    data = minioClient.get_object(<span class="string">&#x27;mybucket&#x27;</span>, <span class="string">&#x27;myobject&#x27;</span>)</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;my-testfile&#x27;</span>, <span class="string">&#x27;wb&#x27;</span>) <span class="keyword">as</span> file_data:</span><br><span class="line">        <span class="keyword">for</span> d <span class="keyword">in</span> data.stream(<span class="number">32</span>*<span class="number">1024</span>):</span><br><span class="line">            file_data.write(d)</span><br><span class="line"><span class="keyword">except</span> ResponseError <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(err)</span><br></pre></td></tr></table></figure>
-
-<h3 id="下载一个对象的指定区间的字节数组"><a href="#下载一个对象的指定区间的字节数组" class="headerlink" title="下载一个对象的指定区间的字节数组"></a>下载一个对象的指定区间的字节数组</h3><p>get_partial_object(bucket_name, object_name, offset&#x3D;0, length&#x3D;0, request_headers&#x3D;None)</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Offset the download by 2 bytes and retrieve a total of 4 bytes.</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    data = minioClient.get_partial_object(<span class="string">&#x27;mybucket&#x27;</span>, <span class="string">&#x27;myobject&#x27;</span>, <span class="number">2</span>, <span class="number">4</span>)</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;my-testfile&#x27;</span>, <span class="string">&#x27;wb&#x27;</span>) <span class="keyword">as</span> file_data:</span><br><span class="line">        <span class="keyword">for</span> d <span class="keyword">in</span> data:</span><br><span class="line">            file_data.write(d)</span><br><span class="line"><span class="keyword">except</span> ResponseError <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(err)</span><br></pre></td></tr></table></figure>
-
-<h3 id="下载并将文件保存到本地"><a href="#下载并将文件保存到本地" class="headerlink" title="下载并将文件保存到本地"></a>下载并将文件保存到本地</h3><p>get_object(bucket_name, object_name, file_path, request_headers&#x3D;None)</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Get a full object and prints the original object stat information.</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="built_in">print</span>(minioClient.fget_object(<span class="string">&#x27;mybucket&#x27;</span>, <span class="string">&#x27;myobject&#x27;</span>, <span class="string">&#x27;/tmp/myobject&#x27;</span>))</span><br><span class="line"><span class="keyword">except</span> ResponseError <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(err)</span><br></pre></td></tr></table></figure>
-
-<h3 id="拷贝对象存储服务上的源对象到一个新对象"><a href="#拷贝对象存储服务上的源对象到一个新对象" class="headerlink" title="拷贝对象存储服务上的源对象到一个新对象"></a>拷贝对象存储服务上的源对象到一个新对象</h3><p>copy_object(bucket_name, object_name, object_source, copy_conditions&#x3D;None, metadata&#x3D;None)</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime</span><br><span class="line"><span class="keyword">from</span> minio <span class="keyword">import</span> CopyConditions</span><br><span class="line"></span><br><span class="line">copy_conditions = CopyConditions()</span><br><span class="line"><span class="comment"># Set modified condition, copy object modified since 2014 April.</span></span><br><span class="line">t = (<span class="number">2014</span>, <span class="number">4</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line">mod_since = datetime.utcfromtimestamp(time.mktime(t))</span><br><span class="line">copy_conditions.set_modified_since(mod_since)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Set unmodified condition, copy object unmodified since 2014 April.</span></span><br><span class="line">copy_conditions.set_unmodified_since(mod_since)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Set matching ETag condition, copy object which matches the following ETag.</span></span><br><span class="line">copy_conditions.set_match_etag(<span class="string">&quot;31624deb84149d2f8ef9c385918b653a&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Set matching ETag except condition, copy object which does not match the following ETag.</span></span><br><span class="line">copy_conditions.set_match_etag_except(<span class="string">&quot;31624deb84149d2f8ef9c385918b653a&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Set metadata</span></span><br><span class="line">metadata = &#123;<span class="string">&quot;test-key&quot;</span>: <span class="string">&quot;test-data&quot;</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    copy_result = minioClient.copy_object(<span class="string">&quot;mybucket&quot;</span>, <span class="string">&quot;myobject&quot;</span>,</span><br><span class="line">                                          <span class="string">&quot;/my-sourcebucketname/my-sourceobjectname&quot;</span>,</span><br><span class="line">                                          copy_conditions,metadata=metadata)</span><br><span class="line">    <span class="built_in">print</span>(copy_result)</span><br><span class="line"><span class="keyword">except</span> ResponseError <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(err)</span><br></pre></td></tr></table></figure>
-
-<h3 id="添加一个新的对象到对象存储服务"><a href="#添加一个新的对象到对象存储服务" class="headerlink" title="添加一个新的对象到对象存储服务"></a>添加一个新的对象到对象存储服务</h3><p>put_object(bucket_name, object_name, data, length, content_type&#x3D;’application&#x2F;octet-stream’, metadata&#x3D;None)</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="comment"># Put a file with default content-type, upon success prints the etag identifier computed by server.</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;my-testfile&#x27;</span>, <span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> file_data:</span><br><span class="line">        file_stat = os.stat(<span class="string">&#x27;my-testfile&#x27;</span>)</span><br><span class="line">        <span class="built_in">print</span>(minioClient.put_object(<span class="string">&#x27;mybucket&#x27;</span>, <span class="string">&#x27;myobject&#x27;</span>,</span><br><span class="line">                               file_data, file_stat.st_size))</span><br><span class="line"><span class="keyword">except</span> ResponseError <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(err)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Put a file with &#x27;application/csv&#x27;.</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;my-testfile.csv&#x27;</span>, <span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> file_data:</span><br><span class="line">        file_stat = os.stat(<span class="string">&#x27;my-testfile.csv&#x27;</span>)</span><br><span class="line">        minioClient.put_object(<span class="string">&#x27;mybucket&#x27;</span>, <span class="string">&#x27;myobject.csv&#x27;</span>, file_data,</span><br><span class="line">                    file_stat.st_size, content_type=<span class="string">&#x27;application/csv&#x27;</span>)</span><br><span class="line"><span class="keyword">except</span> ResponseError <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(err)</span><br></pre></td></tr></table></figure>
-
-<h3 id="通过文件上传到对象中"><a href="#通过文件上传到对象中" class="headerlink" title="通过文件上传到对象中"></a>通过文件上传到对象中</h3><p>fput_object(bucket_name, object_name, file_path, content_type&#x3D;’application&#x2F;octet-stream’, metadata&#x3D;None)</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Put an object &#x27;myobject&#x27; with contents from &#x27;/tmp/otherobject&#x27;, upon success prints the etag identifier computed by server.</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="built_in">print</span>(minioClient.fput_object(<span class="string">&#x27;mybucket&#x27;</span>, <span class="string">&#x27;myobject&#x27;</span>, <span class="string">&#x27;/tmp/otherobject&#x27;</span>))</span><br><span class="line"><span class="keyword">except</span> ResponseError <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(err)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Put on object &#x27;myobject.csv&#x27; with contents from</span></span><br><span class="line"><span class="comment"># &#x27;/tmp/otherobject.csv&#x27; as &#x27;application/csv&#x27;.</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="built_in">print</span>(minioClient.fput_object(<span class="string">&#x27;mybucket&#x27;</span>, <span class="string">&#x27;myobject.csv&#x27;</span>,</span><br><span class="line">                             <span class="string">&#x27;/tmp/otherobject.csv&#x27;</span>,</span><br><span class="line">                             content_type=<span class="string">&#x27;application/csv&#x27;</span>))</span><br><span class="line"><span class="keyword">except</span> ResponseError <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(err)</span><br></pre></td></tr></table></figure>
-
-<h3 id="获取对象的元数据"><a href="#获取对象的元数据" class="headerlink" title="获取对象的元数据"></a>获取对象的元数据</h3><p>stat_object(bucket_name, object_name)</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Fetch stats on your object.</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="built_in">print</span>(minioClient.stat_object(<span class="string">&#x27;mybucket&#x27;</span>, <span class="string">&#x27;myobject&#x27;</span>))</span><br><span class="line"><span class="keyword">except</span> ResponseError <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(err)</span><br></pre></td></tr></table></figure>
-
-<h3 id="删除一个对象"><a href="#删除一个对象" class="headerlink" title="删除一个对象"></a>删除一个对象</h3><p>remove_object(bucket_name, object_name)</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Remove an object.</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    minioClient.remove_object(<span class="string">&#x27;mybucket&#x27;</span>, <span class="string">&#x27;myobject&#x27;</span>)</span><br><span class="line"><span class="keyword">except</span> ResponseError <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(err)</span><br></pre></td></tr></table></figure>
-
-<h3 id="删除存储桶中的多个对象"><a href="#删除存储桶中的多个对象" class="headerlink" title="删除存储桶中的多个对象"></a>删除存储桶中的多个对象</h3><p>remove_objects(bucket_name, objects_iter)</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Remove multiple objects in a single library call.</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    objects_to_delete = [<span class="string">&#x27;myobject-1&#x27;</span>, <span class="string">&#x27;myobject-2&#x27;</span>, <span class="string">&#x27;myobject-3&#x27;</span>]</span><br><span class="line">    <span class="comment"># force evaluation of the remove_objects() call by iterating over</span></span><br><span class="line">    <span class="comment"># the returned value.</span></span><br><span class="line">    <span class="keyword">for</span> del_err <span class="keyword">in</span> minioClient.remove_objects(<span class="string">&#x27;mybucket&#x27;</span>, objects_to_delete):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Deletion Error: &#123;&#125;&quot;</span>.<span class="built_in">format</span>(del_err))</span><br><span class="line"><span class="keyword">except</span> ResponseError <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(err)</span><br></pre></td></tr></table></figure>
-
-<h3 id="删除一个未完整上传的对象"><a href="#删除一个未完整上传的对象" class="headerlink" title="删除一个未完整上传的对象"></a>删除一个未完整上传的对象</h3><p>remove_incomplete_upload(bucket_name, object_name)</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Remove an partially uploaded object.</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    minioClient.remove_incomplete_upload(<span class="string">&#x27;mybucket&#x27;</span>, <span class="string">&#x27;myobject&#x27;</span>)</span><br><span class="line"><span class="keyword">except</span> ResponseError <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(err)</span><br></pre></td></tr></table></figure>
-
-<h2 id="Presigned操作"><a href="#Presigned操作" class="headerlink" title="Presigned操作"></a>Presigned操作</h2><h3 id="生成一个用于HTTP-GET操作的presigned-URL"><a href="#生成一个用于HTTP-GET操作的presigned-URL" class="headerlink" title="生成一个用于HTTP GET操作的presigned URL"></a>生成一个用于HTTP GET操作的presigned URL</h3><p>presigned_get_object(bucket_name, object_name, expiry&#x3D;timedelta(days&#x3D;7))</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> timedelta</span><br><span class="line"></span><br><span class="line"><span class="comment"># presigned get object URL for object name, expires in 2 days.</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="built_in">print</span>(minioClient.presigned_get_object(<span class="string">&#x27;mybucket&#x27;</span>, <span class="string">&#x27;myobject&#x27;</span>, expires=timedelta(days=<span class="number">2</span>)))</span><br><span class="line"><span class="comment"># Response error is still possible since internally presigned does get bucket location.</span></span><br><span class="line"><span class="keyword">except</span> ResponseError <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(err)</span><br></pre></td></tr></table></figure>
-
-<h3 id="生成一个用于HTTP-PUT操作的presigned-URL"><a href="#生成一个用于HTTP-PUT操作的presigned-URL" class="headerlink" title="生成一个用于HTTP PUT操作的presigned URL"></a>生成一个用于HTTP PUT操作的presigned URL</h3><p>presigned_put_object(bucket_name, object_name, expires&#x3D;timedelta(days&#x3D;7))</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> timedelta</span><br><span class="line"></span><br><span class="line"><span class="comment"># presigned Put object URL for an object name, expires in 3 days.</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="built_in">print</span>(minioClient.presigned_put_object(<span class="string">&#x27;mybucket&#x27;</span>,</span><br><span class="line">                                      <span class="string">&#x27;myobject&#x27;</span>,</span><br><span class="line">                                      expires=timedelta(days=<span class="number">3</span>)))</span><br><span class="line"><span class="comment"># Response error is still possible since internally presigned does get</span></span><br><span class="line"><span class="comment"># bucket location.</span></span><br><span class="line"><span class="keyword">except</span> ResponseError <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(err)</span><br></pre></td></tr></table></figure>
-
-<h3 id="允许给POST操作的presigned-URL设置策略条件"><a href="#允许给POST操作的presigned-URL设置策略条件" class="headerlink" title="允许给POST操作的presigned URL设置策略条件"></a>允许给POST操作的presigned URL设置策略条件</h3><p>presigned_post_policy(PostPolicy)</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -3756,13 +3713,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">308</span>
+          <span class="site-state-item-count">309</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">52</span>
+        <span class="site-state-item-count">53</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">

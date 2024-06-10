@@ -198,6 +198,109 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/05/22/Linux-blkid-%E7%A3%81%E7%9B%98%E4%BF%A1%E6%81%AF%E6%9F%A5%E8%AF%A2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/452794135.jpg">
+      <meta itemprop="name" content="Kanoc Ge">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/05/22/Linux-blkid-%E7%A3%81%E7%9B%98%E4%BF%A1%E6%81%AF%E6%9F%A5%E8%AF%A2/" class="post-title-link" itemprop="url">Linux_blkid 磁盘信息查询</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-05-22 23:17:45" itemprop="dateCreated datePublished" datetime="2023-05-22T23:17:45+08:00">2023-05-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-06-08 17:41:28" itemprop="dateModified" datetime="2024-06-08T17:41:28+08:00">2024-06-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Linux-blkid-磁盘信息查询"><a href="#Linux-blkid-磁盘信息查询" class="headerlink" title="Linux_blkid 磁盘信息查询"></a><font color=#00b2c2 size=5 face=宋体><strong>Linux_blkid 磁盘信息查询</strong></font></h1><h1 id="blkid"><a href="#blkid" class="headerlink" title="blkid"></a>blkid</h1><p>查看块设备的文件系统类型、LABEL、UUID等信息</p>
+<h2 id="补充说明"><a href="#补充说明" class="headerlink" title="补充说明"></a>补充说明</h2><p>在Linux下可以使用 <strong>blkid命令</strong> 对查询设备上所采用文件系统类型进行查询。blkid主要用来对系统的块设备（包括交换分区）所使用的文件系统类型、LABEL、UUID等信息进行查询。要使用这个命令必须安装e2fsprogs软件包。</p>
+<h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">blkid -L | -U</span><br><span class="line">blkid [-c ] [-ghlLv] [-o] [-s ][-t ] -[w ] [ ...]</span><br><span class="line">blkid -p [-s ] [-O ] [-S ][-o] ...</span><br><span class="line">blkid -i [-s ] [-o] ...</span><br></pre></td></tr></table></figure>
+
+<h3 id="选项"><a href="#选项" class="headerlink" title="选项"></a>选项</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">-c &lt;file&gt;   # 指定cache文件(default: /etc/blkid.tab, /dev/null = none)</span><br><span class="line">-d          # don&#x27;t encode non-printing characters</span><br><span class="line">-h          # 显示帮助信息</span><br><span class="line">-g          # garbage collect the blkid cache</span><br><span class="line">-o &lt;format&gt; # 指定输出格式</span><br><span class="line">-k          # list all known filesystems/RAIDs and exit</span><br><span class="line">-s &lt;tag&gt;    # 显示指定信息，默认显示所有信息</span><br><span class="line">-t &lt;token&gt;  # find device with a specific token (NAME=value pair)</span><br><span class="line">-l          # look up only first device with token specified by -t</span><br><span class="line">-L &lt;label&gt;  # convert LABEL to device name</span><br><span class="line">-U &lt;uuid&gt;   # convert UUID to device name</span><br><span class="line">-v          # 显示版本信息</span><br><span class="line">-w &lt;file&gt;   # write cache to different file (/dev/null = no write)</span><br><span class="line">&lt;dev&gt;       # specify device(s) to probe (default: all devices)</span><br><span class="line">Low-level probing options:</span><br><span class="line">-p          # low-level superblocks probing (bypass cache)</span><br><span class="line">-i          # gather information about I/O limits</span><br><span class="line">-S &lt;size&gt;   # overwrite device size</span><br><span class="line">-O &lt;offset&gt; # probe at the given offset</span><br><span class="line">-u &lt;list&gt;   # filter by &quot;usage&quot; (e.g. -u filesystem,raid)</span><br><span class="line">-n &lt;list&gt;   # filter by filesystem type (e.g. -n vfat,ext3)</span><br></pre></td></tr></table></figure>
+
+<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><p>1、列出当前系统中所有已挂载文件系统的类型：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo blkid</span><br></pre></td></tr></table></figure>
+
+<p>2、显示指定设备 UUID：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo blkid -s UUID /dev/sda5</span><br></pre></td></tr></table></figure>
+
+<p>3、显示所有设备 UUID：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo blkid -s UUID</span><br></pre></td></tr></table></figure>
+
+<p>4、显示指定设备 LABEL：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo blkid -s LABEL /dev/sda5</span><br></pre></td></tr></table></figure>
+
+<p>5、显示所有设备 LABEL：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo blkid -s LABEL</span><br></pre></td></tr></table></figure>
+
+<p>6、显示所有设备文件系统：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo blkid -s TYPE</span><br></pre></td></tr></table></figure>
+
+<p>7、显示所有设备：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo blkid -o device</span><br></pre></td></tr></table></figure>
+
+<p>8、以列表方式查看详细信息：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo blkid -o list</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/05/22/FFmpeg-%E8%A7%86%E9%A2%91%E6%B7%BB%E5%8A%A0%E6%B0%B4%E5%8D%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -4102,82 +4205,6 @@ db.c1.insert(&#123;_id:5,name:"e",sex:2,age:5&#125;)
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/05/22/C%E8%AF%AD%E8%A8%80%E2%80%94-%E6%8E%A7%E5%88%B6%E8%AF%AD%E5%8F%A5/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/452794135.jpg">
-      <meta itemprop="name" content="Kanoc Ge">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/05/22/C%E8%AF%AD%E8%A8%80%E2%80%94-%E6%8E%A7%E5%88%B6%E8%AF%AD%E5%8F%A5/" class="post-title-link" itemprop="url">C语言—_控制语句</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-05-22 21:21:03" itemprop="dateCreated datePublished" datetime="2023-05-22T21:21:03+08:00">2023-05-22</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-06-08 17:41:28" itemprop="dateModified" datetime="2024-06-08T17:41:28+08:00">2024-06-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/c%E8%AF%AD%E8%A8%80/" itemprop="url" rel="index"><span itemprop="name">c语言</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><font color=#00b2c2 size=5 face=宋体><strong>C语言—_控制语句：</strong></font></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">if 、else、break、continue、for、while、do、switch case、goto、default</span><br><span class="line">  条件语句：</span><br><span class="line">      if语句：if 、 else</span><br><span class="line">      switch语句： switch case、 default</span><br><span class="line">  循环控制语句：</span><br><span class="line">      for、while、 do、 goto</span><br><span class="line">  辅助控制语句：</span><br><span class="line">      break、continue</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -4248,13 +4275,13 @@ db.c1.insert(&#123;_id:5,name:"e",sex:2,age:5&#125;)
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">308</span>
+          <span class="site-state-item-count">309</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">52</span>
+        <span class="site-state-item-count">53</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
