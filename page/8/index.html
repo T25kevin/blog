@@ -198,6 +198,115 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/05/18/Linux%E4%B8%8B%E6%8C%82%E8%BD%BD%E7%A3%81%E7%9B%98or%E7%BD%91%E7%BB%9C%E7%A3%81%E7%9B%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/452794135.jpg">
+      <meta itemprop="name" content="Kanoc Ge">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/05/18/Linux%E4%B8%8B%E6%8C%82%E8%BD%BD%E7%A3%81%E7%9B%98or%E7%BD%91%E7%BB%9C%E7%A3%81%E7%9B%98/" class="post-title-link" itemprop="url">Linux下挂载磁盘or网络磁盘</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-05-18 19:15:25" itemprop="dateCreated datePublished" datetime="2023-05-18T19:15:25+08:00">2023-05-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-06-08 17:41:28" itemprop="dateModified" datetime="2024-06-08T17:41:28+08:00">2024-06-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><font color=#00b2c2 size=5 face=宋体><strong>Linux下挂载磁盘or网络磁盘：</strong></font></p>
+<br>
+
+<hr>
+<p><br><font color=#f26522 size=4 face=宋体><strong>前言：</strong></font></p>
+<ul>
+<li><font color=#b0171f size=2 face=宋体><strong>磁盘自动化挂载</strong></font></li>
+<li><font color=#b0171f size=2 face=宋体><strong>网络共享挂载</strong></font></li>
+</ul>
+<br>
+
+<hr>
+<br>
+
+<p><font color=#f26522 size=4 face=宋体><strong>直接挂载</strong></font></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看磁盘信息</span></span><br><span class="line">lsblk</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">这个样子就是没有挂载</span></span><br><span class="line">mkdir /home/&lt;用户名&gt;/share  # 在指定用户名下创建一个share文件夹来转载磁盘</span><br><span class="line">mount /dev/sda /home/&lt;用户名&gt;/share    # 将sda硬盘挂载到/home/&lt;用户名&gt;/share 这个目录下</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2022/06/09/O5tfZRacdP2UGK9.png"></p>
+<br>
+
+<hr>
+<br>
+
+<p><font color=#f26522 size=4 face=宋体><strong><strong>UUID挂载：</strong></strong></font></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mount -U  76c825c3-1f61-463f-a229-f2294e605eb3 /media/usb</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<hr>
+<br>
+
+<p><font color=#f26522 size=4 face=宋体><strong><strong>网络磁盘挂载：</strong></strong></font></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mount -t cifs -o username=&lt;用户&gt;,password=&lt;用户密码&gt;,uid=1000 //192.168.33.133/&lt;共享的文件夹&gt; &lt;本地承载挂载过来的文件夹目录路径&gt;</span><br></pre></td></tr></table></figure>
+
+<p><br><br><br></p>
+<hr>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/05/18/linux%E4%B8%8Bsmb%E5%85%B1%E4%BA%AB%E6%96%87%E4%BB%B6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -3177,86 +3286,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/05/17/python3-%E5%AE%89%E8%A3%85CV-2%E5%BA%93%E6%8A%A5%E9%94%99%E7%9A%84%E9%97%AE%E9%A2%98/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/452794135.jpg">
-      <meta itemprop="name" content="Kanoc Ge">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/05/17/python3-%E5%AE%89%E8%A3%85CV-2%E5%BA%93%E6%8A%A5%E9%94%99%E7%9A%84%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">python3_安装CV_2库报错的问题</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-05-17 20:21:09" itemprop="dateCreated datePublished" datetime="2023-05-17T20:21:09+08:00">2023-05-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-06-08 17:41:28" itemprop="dateModified" datetime="2024-06-08T17:41:28+08:00">2024-06-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><font color=#00b2c2 size=5 face=宋体><strong>python3_安装CV_2库报错的问题</strong></font></p>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>在使用python CV2 库的时候，一直显示报错，报错信息如下</strong></strong></font></p>
-<p><img src="https://s2.loli.net/2022/06/09/WmyjrAQKgw8Be5x.png"></p>
-<hr>
-<p><font color=#00b2c2 size=5 face=宋体><strong>解决方案：</strong></font><font color=#f26522 size=4 face=宋体><strong>指定安装版本，安装旧版本时，我是过了！这里你也可以尝试以下。</strong></font></p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pip3 install opencv-python==4.2.0.34</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">mac 能匹配的库 为 4.4.0.46</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">opencv-python-4.4.0.46</span></span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -3327,7 +3356,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">307</span>
+          <span class="site-state-item-count">308</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -3338,7 +3367,7 @@
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">184</span>
+        <span class="site-state-item-count">185</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
