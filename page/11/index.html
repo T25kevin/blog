@@ -198,6 +198,192 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/03/20/python-%E5%BC%82%E6%AD%A5aiomysql%E6%95%B0%E6%8D%AE%E5%BA%93%E6%93%8D%E4%BD%9C%E6%8C%87%E5%8D%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/452794135.jpg">
+      <meta itemprop="name" content="Kanoc Ge">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/03/20/python-%E5%BC%82%E6%AD%A5aiomysql%E6%95%B0%E6%8D%AE%E5%BA%93%E6%93%8D%E4%BD%9C%E6%8C%87%E5%8D%97/" class="post-title-link" itemprop="url">python_异步aiomysql数据库操作指南</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-03-20 04:38:15" itemprop="dateCreated datePublished" datetime="2023-03-20T04:38:15+08:00">2023-03-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-06-08 17:41:28" itemprop="dateModified" datetime="2024-06-08T17:41:28+08:00">2024-06-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python-%E5%BC%82%E6%AD%A5-%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">python_异步-数据库</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><font color=#00b2c2 size=5 face=宋体><strong><strong>python_异步aiomysql数据库操作指南</strong></strong></font></p>
+<p><font color=#f26522 size=4 face=宋体><strong><strong>其实一般数据库 使用pymysql操作数据库就行，但是那种超大型的数据库执行操作，pymysql就显得有点力不从心了。</strong></strong></font></p>
+<p><font color=#f26522 size=4 face=宋体><strong><strong>所以我们需要一个可以异步操作mysql数据库的模块，特此记录一下 异步mysql数据库操作</strong></strong></font></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> asyncio</span><br><span class="line"><span class="keyword">import</span> aiomysql</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MySql</span>:</span><br><span class="line">    <span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">select</span>(<span class="params">self, loop, sql, pool</span>):</span><br><span class="line">        <span class="keyword">async</span> <span class="keyword">with</span> pool.acquire() <span class="keyword">as</span> conn:</span><br><span class="line">            <span class="keyword">async</span> <span class="keyword">with</span> conn.cursor() <span class="keyword">as</span> cur:</span><br><span class="line">                <span class="keyword">await</span> cur.execute(sql)</span><br><span class="line">                <span class="comment"># r = await cur.fetchone()</span></span><br><span class="line">                <span class="comment"># print(r)</span></span><br><span class="line">                <span class="keyword">try</span>:</span><br><span class="line">                    res = cur.description</span><br><span class="line">                    columns_name = [i[<span class="number">0</span>] <span class="keyword">for</span> i <span class="keyword">in</span> res]</span><br><span class="line">                    <span class="comment"># print(columns_name)  # [&#x27;city&#x27;, &#x27;prcp&#x27;]</span></span><br><span class="line">                    res = <span class="keyword">await</span> cur.fetchall()</span><br><span class="line">                    res_dict = [<span class="built_in">dict</span>(<span class="built_in">zip</span>(columns_name, row_value)) <span class="keyword">for</span> row_value <span class="keyword">in</span> res]</span><br><span class="line">                    <span class="keyword">return</span> res_dict</span><br><span class="line">                <span class="keyword">except</span>:</span><br><span class="line">                    r = <span class="keyword">await</span> cur.fetchone()</span><br><span class="line">                    <span class="keyword">return</span> r</span><br><span class="line"></span><br><span class="line">    <span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">insert</span>(<span class="params">self, loop, sql, pool</span>):</span><br><span class="line">        <span class="keyword">async</span> <span class="keyword">with</span> pool.acquire() <span class="keyword">as</span> conn:</span><br><span class="line">            <span class="keyword">async</span> <span class="keyword">with</span> conn.cursor() <span class="keyword">as</span> cur:</span><br><span class="line">                <span class="keyword">await</span> cur.execute(sql)</span><br><span class="line">                <span class="keyword">await</span> conn.commit()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">main</span>(<span class="params">self, loop, sql_str, key_s=<span class="string">&#x27;find&#x27;</span></span>):</span><br><span class="line">        pool = <span class="keyword">await</span> aiomysql.create_pool(</span><br><span class="line">            host=<span class="string">&#x27;192.168.700.200&#x27;</span>,</span><br><span class="line">            port=<span class="number">3306</span>,</span><br><span class="line">            user=<span class="string">&#x27;cores&#x27;</span>,</span><br><span class="line">            password=<span class="string">&#x27;hJ3TsdrA&#x27;</span>,</span><br><span class="line">            db=<span class="string">&#x27;cores&#x27;</span>,</span><br><span class="line">            autocommit=<span class="literal">True</span>,</span><br><span class="line">            loop=loop)</span><br><span class="line">        <span class="keyword">if</span> key_s == <span class="string">&#x27;find&#x27;</span>:</span><br><span class="line">            c1 = MySql().select(loop=loop, sql=sql_str, pool=pool)</span><br><span class="line">        <span class="comment"># c2 = MySql().insert(loop=loop, sql=&quot;insert into minifw (name) values (&#x27;hello&#x27;)&quot;, pool=pool)</span></span><br><span class="line">        <span class="comment"># c2 = MySql().select(loop=loop, sql=f&quot;select * from web_comic where title=&#x27;先交往后恋爱&#x27;&quot;, pool=pool)</span></span><br><span class="line">            tasks = [asyncio.ensure_future(c1)]</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">await</span> asyncio.gather(*tasks)</span><br><span class="line">        <span class="keyword">if</span> key_s == <span class="string">&#x27;insert&#x27;</span>:</span><br><span class="line">            c2 = MySql().insert(loop=loop, sql=sql_str, pool=pool)</span><br><span class="line">            tasks = [asyncio.ensure_future(c2)]</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">await</span> asyncio.gather(*tasks)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">run_loop</span>(<span class="params">self, sql_str, key_s=<span class="string">&#x27;find&#x27;</span></span>):    <span class="comment"># find == 查询操作     “insert” == 写入操作</span></span><br><span class="line">        cur_loop = asyncio.get_event_loop()</span><br><span class="line">        azz = cur_loop.run_until_complete(MySql().main(cur_loop, sql_str, key_s=key_s))</span><br><span class="line">        <span class="keyword">if</span> azz == <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> azz[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    man_status = MySql().run_loop(<span class="string">f&quot;select * from wemic where title=&#x27;测试数据&#x27;&quot;</span>)   <span class="comment"># 执行查询操作</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/03/20/%E5%AE%89%E8%A3%85chrome-%E4%BD%BF%E7%94%A8selenium/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/452794135.jpg">
+      <meta itemprop="name" content="Kanoc Ge">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/03/20/%E5%AE%89%E8%A3%85chrome-%E4%BD%BF%E7%94%A8selenium/" class="post-title-link" itemprop="url">安装chrome_ 使用selenium</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-03-20 04:34:07" itemprop="dateCreated datePublished" datetime="2023-03-20T04:34:07+08:00">2023-03-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-06-08 17:41:29" itemprop="dateModified" datetime="2024-06-08T17:41:29+08:00">2024-06-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%80%86%E5%90%91-%E5%8F%8D%E7%88%AC/" itemprop="url" rel="index"><span itemprop="name">逆向_反爬</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="安装chrome-使用selenium"><a href="#安装chrome-使用selenium" class="headerlink" title="安装chrome_ 使用selenium"></a><font color=#00b2c2 size=5 face=宋体><strong><strong>安装chrome_ 使用selenium</strong></strong></font></h1><h1 id="1、查看-chrome-版本"><a href="#1、查看-chrome-版本" class="headerlink" title="1、查看 chrome 版本"></a><font color=#f26522 size=4 face=宋体><strong><strong>1、查看 chrome 版本</strong></strong></font></h1><ul>
+<li>chrome_历史版本下载 &#x3D;&gt; <a target="_blank" rel="noopener" href="https://chromium.cypress.io/linux/">适用于 Linux 的最新版本 (cypress.io)</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/China_hdy/article/details/126739461">CentOS7安装chrome和chromedriver_centos chromedriver-CSDN博客</a></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">google-chrome --version</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">centos7  selenium 版本更新</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">执行 wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm下载最新Linux的chrome</span></span><br><span class="line">wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">下载之后执行sudo yum localinstall google-chrome-stable_current_x86_64.rpm安装本地的rpm包则会替换之前版本的chrome</span></span><br><span class="line">sudo yum localinstall google-chrome-stable_current_x86_64.rpm</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><font color=#f26522 size=4 face=宋体><strong><strong>2、更新 || 禁止自动更新chrome</strong></strong></font></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">禁止自动更新</span></span><br><span class="line">echo &#x27;exclude=google-chrome-stable&#x27; &gt;&gt; /etc/yum.conf</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">更新 chrome</span></span><br><span class="line">sudo yum update google-chrome-stable</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<p><font color=#f26522 size=4 face=宋体><strong><strong>3、安装chrome</strong></strong></font></p>
+<p><font color=#b0171f size=3 face=宋体><strong>首先安装google的epel源</strong></font></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">vi /etc/yum.repos.d/google.repo</span><br><span class="line"></span><br><span class="line">[google]</span><br><span class="line">name=Google-x86_64</span><br><span class="line">baseurl=http://dl.google.com/linux/rpm/stable/x86_64</span><br><span class="line">enabled=<span class="number">1</span></span><br><span class="line">gpgcheck=<span class="number">0</span></span><br><span class="line">gpgkey=https://dl-ssl.google.com/linux/linux_signing_key.pub </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">yum update  <span class="comment"># 更新</span></span><br><span class="line">yum install google-chrome-stable  <span class="comment"># 安装</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><font color=#f26522 size=4 face=宋体><strong><strong>4、chromedriver下载</strong></strong></font></p>
+<p><a target="_blank" rel="noopener" href="https://npm.taobao.org/mirrors/chromedriver/">淘宝源 下载</a><br><a target="_blank" rel="noopener" href="http://chromedriver.storage.googleapis.com/index.html">官方源 下载</a></p>
+<p><a target="_blank" rel="noopener" href="https://googlechromelabs.github.io/chrome-for-testing/">chromedriver新版本(116+)</a></p>
+<p>找到chrome对应的chromedriver 版本，并下载</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">wget https://chromedriver.storage.googleapis.com/74.0.3729.6/chromedriver_linux64.zip</span><br></pre></td></tr></table></figure>
+
+<p>将下载的chromedriver 放到脚本同级目录调用</p>
+<hr>
+<p><font color=#f26522 size=4 face=宋体><strong><strong>5 、为chromedriver授权</strong></strong></font></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">chmod 755 chromedriver</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><font color=#f26522 size=4 face=宋体><strong><strong>6、测试代码 ts.py</strong></strong></font></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line"><span class="keyword">from</span> selenium.webdriver.chrome.options <span class="keyword">import</span> Options</span><br><span class="line"></span><br><span class="line">chrome_options = Options()</span><br><span class="line">chrome_options.add_argument(<span class="string">&quot;--headless&quot;</span>)</span><br><span class="line">chrome_options.add_argument(<span class="string">&#x27;--disable-gpu&#x27;</span>)</span><br><span class="line">chrome_options.add_argument(<span class="string">&#x27;--no-sandbox&#x27;</span>)    <span class="comment"># 禁止沙箱模式，否则肯能会报错遇到chrome异常</span></span><br><span class="line">url=<span class="string">&quot;https://www.west.cn/login.asp&quot;</span></span><br><span class="line">brower=webdriver.Chrome(executable_path=<span class="string">&quot;./chromedriver&quot;</span>, chrome_options=chrome_options)</span><br><span class="line">brower.get(url)</span><br><span class="line"><span class="built_in">print</span>(brower.current_url)</span><br><span class="line">brower.get(<span class="string">&quot;https://www.west.cn/Manager/&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(brower.current_url)</span><br><span class="line">brower.quit()</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><font color=#f26522 size=4 face=宋体><strong><strong>7、测试结果</strong></strong></font></p>
+<p><img src="https://s2.loli.net/2022/10/23/gGApHus5ODlxSTi.png" alt="img"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/03/20/python-base64%E5%9B%BE%E7%89%87-%E7%BC%96%E7%A0%81%E3%80%81%E8%A7%A3%E7%A0%81/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1173,18 +1359,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">310</span>
+          <span class="site-state-item-count">312</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">54</span>
+        <span class="site-state-item-count">56</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">185</span>
+        <span class="site-state-item-count">186</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
