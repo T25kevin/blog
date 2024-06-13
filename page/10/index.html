@@ -229,7 +229,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-06-08 17:41:28" itemprop="dateModified" datetime="2024-06-08T17:41:28+08:00">2024-06-08</time>
+                <time title="修改时间：2024-06-13 22:03:05" itemprop="dateModified" datetime="2024-06-13T22:03:05+08:00">2024-06-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -252,39 +252,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="javascript-DOM基本操作（二）："><a href="#javascript-DOM基本操作（二）：" class="headerlink" title="javascript_DOM基本操作（二）："></a><font color=#00b2c2 size=5 face=宋体><strong><strong>javascript_DOM基本操作（二）：</strong></strong></font></h1><p><font color=#f26522 size=4 face=宋体><strong><strong>操作元素的内容：</strong></strong></font></p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 元素.innerText  会覆盖式的修改</span></span><br><span class="line"><span class="comment">// 元素.innerHTML  会连标签一起渲染</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="https://s2.loli.net/2022/06/29/34RQ28UxDXcroCY.png" alt="img"></p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 操作元素的内容</span></span><br><span class="line"><span class="comment">// 操作内容</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 文本内容</span></span><br><span class="line"><span class="comment">//获取元素</span></span><br><span class="line"><span class="keyword">var</span> ele = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;div&#x27;</span>)</span><br><span class="line"><span class="keyword">var</span> btn = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;button&#x27;</span>)</span><br><span class="line"><span class="comment">//获取元素的文本内容</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(ele.<span class="property">innerText</span>)</span><br><span class="line">btn.<span class="property">onclick</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    ele.<span class="property">innerText</span> = <span class="string">&#x27;the fucking new text&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//输出一下文本</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(ele.<span class="property">innerHTML</span>)</span><br><span class="line">btn.<span class="property">onclick</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    ele.<span class="property">innerHTML</span> = <span class="string">&#x27;&lt;span&gt; the fucking new text &lt;/span&gt;&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">    </span><br></pre></td></tr></table></figure>
-
-<p><font color=#f26522 size=4 face=宋体><strong><strong>操作元素属性：</strong></strong></font></p>
-<p><img src="https://s2.loli.net/2022/06/29/g1BZXQFzqnIy8Df.png" alt="img"></p>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>获取元素属性、修改属性（原生属性）：</strong></strong></font></p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 操作元素属性</span></span><br><span class="line"><span class="comment">// 操作属性</span></span><br><span class="line"><span class="comment">// div 标签</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//获取元素</span></span><br><span class="line"><span class="keyword">var</span> box = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;div&#x27;</span>)</span><br><span class="line"><span class="keyword">var</span> inp = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;input&#x27;</span>)</span><br><span class="line"><span class="keyword">var</span> btn = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;button&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//获取元素属性</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(box.<span class="property">id</span>)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(inp.<span class="property">type</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//给按钮绑定点击事件</span></span><br><span class="line">btn.<span class="property">onclick</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="comment">//修改属性值</span></span><br><span class="line">    box.<span class="property">id</span> = <span class="string">&#x27;content&#x27;</span></span><br><span class="line">    inp.<span class="property">type</span> = <span class="string">&#x27;checkbox&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line">    </span><br></pre></td></tr></table></figure>
-
-<p><font color=#f26522 size=4 face=宋体><strong><strong>获取元素属性、修改属性（自定义属性）：</strong></strong></font></p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 操作元素属性</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 操作属性</span></span><br><span class="line"><span class="comment">// div 标签</span></span><br><span class="line">    </span><br><span class="line"><span class="comment">//获取元素属性</span></span><br><span class="line"><span class="keyword">var</span> box = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;div&#x27;</span>)</span><br><span class="line"><span class="keyword">var</span> btn = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;button&#x27;</span>)</span><br><span class="line"><span class="comment">//获取自定义属性</span></span><br><span class="line"><span class="keyword">var</span> res = box.<span class="title function_">getAttribute</span>(<span class="string">&#x27;hello&#x27;</span>)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(res)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 给按钮绑定点击事件</span></span><br><span class="line">btn.<span class="property">onclick</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="comment">//修改自定义属性</span></span><br><span class="line">    box.<span class="title function_">setAttribute</span>(<span class="string">&#x27;hello&#x27;</span>, <span class="string">&#x27;新来的&#x27;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 给按钮 绑定点击事件</span></span><br><span class="line">btn.<span class="property">onclick</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="comment">//修改自定义属性</span></span><br><span class="line">    box.<span class="title function_">removeAttribute</span>(<span class="string">&#x27;hello&#x27;</span>)</span><br><span class="line">&#125;</span><br><span class="line">    </span><br></pre></td></tr></table></figure>
-
-<p><font color=#f26522 size=4 face=宋体><strong><strong>操作元素类名：</strong></strong></font></p>
-<p><img src="https://s2.loli.net/2022/06/29/QxDwsNdifG9gIjZ.png" alt="img"></p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 操作元素类名</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 操作类名</span></span><br><span class="line"><span class="comment">// div 标签</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//获取袁术</span></span><br><span class="line"><span class="keyword">var</span> box = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;div&#x27;</span>)</span><br><span class="line"><span class="keyword">var</span> btn = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;button&#x27;</span>)</span><br><span class="line"><span class="comment">//获取类名</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>( box.<span class="property">className</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//给按钮绑定点击事件</span></span><br><span class="line">btn.<span class="property">onclick</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    box.<span class="property">className</span> = <span class="string">&#x27;这是一个新元素&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><font color=#f26522 size=4 face=宋体><strong><strong>操作元素行内样式：</strong></strong></font></p>
-<p><img src="https://s2.loli.net/2022/06/29/Ho8Qwreyus6VvIx.png" alt="img"></p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 操作元素的行内样式</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 操作行内样式</span></span><br><span class="line"><span class="comment">// 返回行内样式</span></span><br><span class="line"><span class="comment">// 文本内容</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//获取元素</span></span><br><span class="line"><span class="keyword">var</span> box = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;div&#x27;</span>)</span><br><span class="line"><span class="keyword">var</span> btn1 = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;btn1&#x27;</span>)</span><br><span class="line"><span class="keyword">var</span> btn2 = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;btn2&#x27;</span>)</span><br><span class="line"><span class="comment">//输出行内样式</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(box.<span class="property">style</span>.<span class="property">width</span>)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(box.<span class="property">style</span>.<span class="property">height</span>)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(box.<span class="property">style</span>.<span class="property">backgroundColor</span>)    <span class="comment">//有下划线的时候  需要使用驼峰命名法</span></span><br><span class="line">btn1.<span class="property">onclick</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    box.<span class="property">style</span>.<span class="property">width</span> = <span class="string">&#x27;200px&#x27;</span>;</span><br><span class="line">    box.<span class="property">style</span>.<span class="property">height</span> = <span class="string">&#x27;400px&#x27;</span>;</span><br><span class="line">    box.<span class="property">style</span>.<span class="property">backgroundColor</span> = <span class="string">&#x27;red&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line">btn2.<span class="property">onclick</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    box.<span class="property">style</span>.<span class="property">width</span> = <span class="string">&#x27;100px&#x27;</span>;</span><br><span class="line">    box.<span class="property">style</span>.<span class="property">height</span> = <span class="string">&#x27;100px&#x27;</span>;</span><br><span class="line">    box.<span class="property">style</span>.<span class="property">backgroundColor</span> = <span class="string">&#x27;pink&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><font color=#f26522 size=4 face=宋体><strong><strong>获取元素非行内样式：</strong></strong></font></p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">前端是没有办法操作非行内样式的，只能获取</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://s2.loli.net/2022/06/29/tafyHgjLrwsX6Vv.png" alt="img"></p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 操作元素的行内样式</span></span><br><span class="line"></span><br><span class="line">div &#123;</span><br><span class="line">    font-<span class="attr">size</span>: 20px;</span><br><span class="line">&#125;</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line"><span class="comment">// 操作行内样式</span></span><br><span class="line"><span class="comment">// 文本内容</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> box = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;div&#x27;</span>)</span><br><span class="line"><span class="keyword">var</span> btn = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;button&#x27;</span>)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">window</span>.<span class="title function_">getComputedStyle</span>(box).<span class="property">width</span>)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">window</span>.<span class="title function_">getComputedStyle</span>(box).<span class="property">height</span>)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">window</span>.<span class="title function_">getComputedStyle</span>(box).<span class="property">backgroundColor</span>)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">window</span>.<span class="title function_">getComputedStyle</span>(box).<span class="property">fontSize</span>)</span><br></pre></td></tr></table></figure>
-
-<p><font color=#f26522 size=4 face=宋体><strong><strong>总结：</strong></strong></font></p>
-<p><img src="https://s2.loli.net/2022/06/29/tTEYvFSLGWo6Ngi.png" alt="img"></p>
-<p><img src="https://s2.loli.net/2022/06/29/oie6V8hp3ju4UJS.png" alt="img"></p>
-<p><img src="https://s2.loli.net/2022/06/29/32svhlbVPm4pW6r.png" alt="img"></p>
-
+          <h1 id="javascript-DOM基本操作（二）："><a href="#javascript-DOM基本操作（二）：" class="headerlink" title="javascript_DOM基本操作（二）："></a><font color=#00b2c2 size=5 face=宋体><strong><strong>javascript_DOM基本操作（二）：</strong></strong></font></h1>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/03/20/javascript-DOM%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C%EF%BC%88%E4%BA%8C%EF%BC%89/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -334,7 +310,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-06-08 17:41:28" itemprop="dateModified" datetime="2024-06-08T17:41:28+08:00">2024-06-08</time>
+                <time title="修改时间：2024-06-13 22:03:22" itemprop="dateModified" datetime="2024-06-13T22:03:22+08:00">2024-06-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -357,9 +333,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="javascript-if-else-if-语句："><a href="#javascript-if-else-if-语句：" class="headerlink" title="javascript_if else if 语句："></a><font color=#00b2c2 size=5 face=宋体><strong><strong>javascript_if else if 语句：</strong></strong></font></h1><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> money = <span class="number">3000</span></span><br><span class="line"><span class="comment">//满足哪一个if的条件   就执行哪一个条件后面的 &#123;&#125;</span></span><br><span class="line"><span class="comment">//前面的如果满足了  就不去考虑后面的内容了</span></span><br><span class="line"><span class="keyword">if</span> (money &gt;= <span class="number">5000</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;吃米其林三星&#x27;</span>)</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (money &gt;= <span class="number">500</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;吃快餐吧&#x27;</span>)</span><br><span class="line">&#125; <span class="keyword">else</span> (money &lt; <span class="number">500</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;吃个屁，你连500块都没有&#x27;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
+          <h1 id="javascript-if-else-if-语句："><a href="#javascript-if-else-if-语句：" class="headerlink" title="javascript_if else if 语句："></a><font color=#00b2c2 size=5 face=宋体><strong><strong>javascript_if else if 语句：</strong></strong></font></h1>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/03/20/javascript-if-else-if-%E8%AF%AD%E5%8F%A5/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -409,7 +391,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-06-08 17:41:28" itemprop="dateModified" datetime="2024-06-08T17:41:28+08:00">2024-06-08</time>
+                <time title="修改时间：2024-06-13 22:03:25" itemprop="dateModified" datetime="2024-06-13T22:03:25+08:00">2024-06-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -432,10 +414,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="javascript-switch语句："><a href="#javascript-switch语句：" class="headerlink" title="javascript_switch语句："></a><font color=#00b2c2 size=5 face=宋体><strong><strong>javascript_switch语句：</strong></strong></font></h1><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//switch 会穿透代码，执行所有case 中的代码</span></span><br><span class="line">    <span class="comment">//定义一个变量， 当做一直条件</span></span><br><span class="line"><span class="keyword">var</span> foot = <span class="number">37</span></span><br><span class="line"><span class="comment">// 使用 switch 语句进行选择</span></span><br><span class="line"><span class="keyword">switch</span> (foot) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">37</span>:</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;买一双 37 码的鞋子&#x27;</span>)</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">case</span> <span class="number">38</span>:</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;买一双 37 码的鞋子&#x27;</span>)</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    <span class="comment">// 当所有条件都不满足的时候， 默认执行default语句</span></span><br><span class="line">    <span class="attr">default</span>:</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;没有合适的鞋子，算了！不买了&#x27;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://s2.loli.net/2022/06/30/chQOoR7fsAYpUPa.png" alt="img"></p>
-
+          <h1 id="javascript-switch语句："><a href="#javascript-switch语句：" class="headerlink" title="javascript_switch语句："></a><font color=#00b2c2 size=5 face=宋体><strong><strong>javascript_switch语句：</strong></strong></font></h1>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/03/20/javascript-switch%E8%AF%AD%E5%8F%A5/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -485,7 +472,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-06-08 17:41:28" itemprop="dateModified" datetime="2024-06-08T17:41:28+08:00">2024-06-08</time>
+                <time title="修改时间：2024-06-13 22:03:30" itemprop="dateModified" datetime="2024-06-13T22:03:30+08:00">2024-06-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -509,20 +496,14 @@
 
       
           <p><font color=#00b2c2 size=5 face=宋体><strong><strong>javascript_while 和 do while语句：</strong></strong></font></p>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>while循环：</strong></strong></font></p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//定义初始变量n</span></span><br><span class="line"><span class="keyword">var</span> n = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">while</span> (n &lt; <span class="number">3</span>) &#123;</span><br><span class="line">    <span class="comment">//一段重复的代码</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;走过了一个石板&#x27;</span>)</span><br><span class="line">    <span class="comment">//改变初始值</span></span><br><span class="line">    n++</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//后续代码</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;继续走后面的路&#x27;</span>)</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://s2.loli.net/2022/06/30/gd1EQnlbBGu3s2W.png" alt="img"></p>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>案例练习：</strong></strong></font></p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// while循环案例</span></span><br><span class="line"><span class="keyword">var</span> n = <span class="number">1</span></span><br><span class="line"><span class="keyword">var</span> total = <span class="number">1</span></span><br><span class="line"><span class="keyword">while</span> (n &lt;= <span class="number">10</span>) &#123;</span><br><span class="line">    total *= n</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;这是total x &#x27;</span>, n.<span class="title function_">toString</span>(), <span class="string">&#x27;的值 ==&gt; &#x27;</span>, total.<span class="title function_">toString</span>())</span><br><span class="line">    n ++</span><br><span class="line">&#125;</span><br><span class="line">    </span><br></pre></td></tr></table></figure>
-
-<p><font color=#f26522 size=4 face=宋体><strong><strong>do while循环：</strong></strong></font></p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//定义初始变量n</span></span><br><span class="line"><span class="keyword">var</span> n = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">do</span> &#123;</span><br><span class="line">    <span class="comment">//一段重复的代码</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;走过了一个石板&#x27;</span>)</span><br><span class="line">    <span class="comment">//改变初始值</span></span><br><span class="line">    n++</span><br><span class="line">&#125; <span class="keyword">while</span> (n &lt; <span class="number">3</span>)</span><br><span class="line"><span class="comment">//后续代码</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;继续走后面的路&#x27;</span>)</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://s2.loli.net/2022/06/30/dTMpEvShkZ5Lqsf.png" alt="img"></p>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>案例练习：</strong></strong></font></p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// do while循环</span></span><br><span class="line"><span class="comment">// //在浏览器弹出输入框</span></span><br><span class="line"><span class="comment">// var result = prompt(&#x27;你爱不爱我 ？&#x27;)</span></span><br><span class="line"><span class="comment">// console.log(result)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//在do while 中体现   先执行一次，当答案不正确或者不是我们想要的  会再次弹出输入框</span></span><br><span class="line"><span class="keyword">do</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> result = <span class="title function_">prompt</span>(<span class="string">&#x27;你爱不爱我 ？&#x27;</span>)</span><br><span class="line">&#125; <span class="keyword">while</span> (result !== <span class="string">&#x27;爱&#x27;</span>)</span><br><span class="line"><span class="variable language_">document</span>.<span class="title function_">write</span>(<span class="string">&#x27;我特么谢谢你 &#x27;</span>, result, <span class="string">&#x27; 我&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//我特么谢谢你 爱 我</span></span><br></pre></td></tr></table></figure>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/03/20/javascript-while-%E5%92%8C-do-while%E8%AF%AD%E5%8F%A5/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -572,7 +553,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-06-08 17:41:28" itemprop="dateModified" datetime="2024-06-08T17:41:28+08:00">2024-06-08</time>
+                <time title="修改时间：2024-06-13 22:03:16" itemprop="dateModified" datetime="2024-06-13T22:03:16+08:00">2024-06-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -595,13 +576,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="javascript-for-循环语句："><a href="#javascript-for-循环语句：" class="headerlink" title="javascript_for 循环语句："></a><font color=#00b2c2 size=5 face=宋体><strong><strong>javascript_for 循环语句：</strong></strong></font></h1><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> (定义初始变量; 条件判断; 改变初始变量) &#123;</span><br><span class="line">    重复执行的代码</span><br><span class="line">    ....</span><br><span class="line">&#125;</span><br><span class="line">        <span class="comment">//for 循环结构语句</span></span><br><span class="line">        <span class="comment">// for (定义初始变量; 条件判断; 改变初始变量)</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;<span class="number">3</span>; i++) &#123;</span><br><span class="line">            <span class="comment">// 重复执行的代码</span></span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;这是第&#x27;</span>, i, <span class="string">&#x27;次执行&#x27;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//循环语句结束后  执行的代码</span></span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;你还要继续走接下来的路&#x27;</span>)</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://s2.loli.net/2022/06/30/W62su7ViKHAkmwE.png" alt="img"></p>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>案例练习：</strong></strong></font></p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"># <span class="keyword">for</span> 循环</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">1</span>; i&lt;=<span class="number">100</span>; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (i % <span class="number">3</span> === <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(i)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">    </span><br></pre></td></tr></table></figure>
-
-
+          <h1 id="javascript-for-循环语句："><a href="#javascript-for-循环语句：" class="headerlink" title="javascript_for 循环语句："></a><font color=#00b2c2 size=5 face=宋体><strong><strong>javascript_for 循环语句：</strong></strong></font></h1>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/03/20/javascript-for-%E5%BE%AA%E7%8E%AF%E8%AF%AD%E5%8F%A5/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -651,7 +634,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-06-08 17:41:28" itemprop="dateModified" datetime="2024-06-08T17:41:28+08:00">2024-06-08</time>
+                <time title="修改时间：2024-06-13 22:02:58" itemprop="dateModified" datetime="2024-06-13T22:02:58+08:00">2024-06-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -674,69 +657,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="javascript-数组的常用方法："><a href="#javascript-数组的常用方法：" class="headerlink" title="javascript_数组的常用方法："></a><font color=#00b2c2 size=5 face=宋体><strong><strong>javascript_数组的常用方法：</strong></strong></font></h1><p><img src="https://s2.loli.net/2022/06/30/FjRgShmaDV4QMO7.png" alt="img"></p>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>1. push()方法：将数据追加到数组的末尾：</strong></strong></font></p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="number">1.</span><span class="title function_">push</span>()</span><br><span class="line">    语法：数组.<span class="title function_">push</span>(数据)</span><br><span class="line">    作用：将数据 &lt;追加&gt; 到数组的 &lt;末尾&gt;</span><br><span class="line">    返回值：追加数据后数组的 &lt;最新的长度&gt;</span><br><span class="line"></span><br><span class="line">例如：</span><br><span class="line">    <span class="keyword">var</span> arr = [<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>, <span class="number">400</span>]   <span class="comment">//准备一个原始数组</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(arr)   <span class="comment">//第一次输出arr </span></span><br><span class="line">    res = arr.<span class="title function_">push</span>(<span class="string">&#x27;追加的&#x27;</span>)   <span class="comment">//使用方法push</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(arr)   <span class="comment">//第二次输出arr</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(res)   <span class="comment">//输出res</span></span><br><span class="line"></span><br><span class="line">输出结果：</span><br><span class="line">    第一次<span class="attr">arr</span>: [<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>, <span class="number">400</span>]</span><br><span class="line">    第二次<span class="attr">arr</span>: [<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>, <span class="number">400</span>, <span class="string">&#x27;追加的&#x27;</span>]</span><br><span class="line">    res返回值: <span class="number">5</span></span><br></pre></td></tr></table></figure>
-
-<hr>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>2. pop()方法：删除数组的最后一个数据：</strong></strong></font></p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="number">2.</span><span class="title function_">pop</span>()</span><br><span class="line">    语法：数组.<span class="title function_">pop</span>()    <span class="comment">//可以不用传递参数</span></span><br><span class="line">    作用：删除数组的 &lt;最后一个&gt; 数据</span><br><span class="line">    返回值：被删除的数据</span><br><span class="line"></span><br><span class="line">例如：</span><br><span class="line">    <span class="keyword">var</span> arr = [<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>, <span class="number">400</span>]     <span class="comment">//准备一个原始数组</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(arr)   <span class="comment">//第一次输出arr </span></span><br><span class="line">    res = arr.<span class="title function_">pop</span>()    <span class="comment">//使用方法pop</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(arr)   <span class="comment">//第二次输出arr</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(res)    <span class="comment">//输出res</span></span><br><span class="line">输出结果：</span><br><span class="line">    第一次<span class="attr">arr</span>: [<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>, <span class="number">400</span>]</span><br><span class="line">    第二次<span class="attr">arr</span>: [<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>]</span><br><span class="line">    res返回值: <span class="number">400</span></span><br></pre></td></tr></table></figure>
-
-<hr>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>3. unshift()方法： 将数据添加到数组的 &lt;最前面&gt; ：</strong></strong></font></p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="number">3.</span><span class="title function_">unshift</span>()</span><br><span class="line">    语法：数组.<span class="title function_">unshift</span>(数据)</span><br><span class="line">    作用：将数据 &lt;添加&gt; 到数组的 &lt;最前&gt;</span><br><span class="line">    返回值：添加数据后数组的  &lt;最新长度&gt;</span><br><span class="line"></span><br><span class="line">例如：</span><br><span class="line">    <span class="keyword">var</span> arr = [<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>, <span class="number">400</span>]     <span class="comment">//准备一个原始数组</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(arr)   <span class="comment">//第一次输出arr </span></span><br><span class="line">    res = arr.<span class="title function_">unshift</span>(<span class="string">&#x27;添加的&#x27;</span>)   <span class="comment">//使用方法unshift</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(arr)   <span class="comment">//第二次输出arr</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(res)    <span class="comment">//输出res</span></span><br><span class="line"></span><br><span class="line">输出结果：</span><br><span class="line">    第一次<span class="attr">arr</span>: [<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>, <span class="number">400</span>]</span><br><span class="line">    第二次<span class="attr">arr</span>: [<span class="string">&#x27;添加的&#x27;</span>,<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>, <span class="number">400</span>]</span><br><span class="line">    res返回值: <span class="number">5</span></span><br></pre></td></tr></table></figure>
-
-<hr>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>4. shift()方法： 删除数组 &lt;最前一个&gt; 数据：</strong></strong></font></p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="number">4.</span><span class="title function_">shift</span>()</span><br><span class="line">    语法：数组.<span class="title function_">shift</span>()</span><br><span class="line">    作用: 删除数组 最前一个 数据</span><br><span class="line">    返回值 ：被删除的数据</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">例如：</span><br><span class="line">    <span class="keyword">var</span> arr = [<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>, <span class="number">400</span>]       <span class="comment">//准备一个原始数组</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(arr)     <span class="comment">//第一次输出arr </span></span><br><span class="line">    res = arr.<span class="title function_">shift</span>()   <span class="comment">//使用方法shift</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(arr)   <span class="comment">//第二次输出arr</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(res)    <span class="comment">//输出res</span></span><br><span class="line"></span><br><span class="line">输出结果：</span><br><span class="line">    第一次<span class="attr">arr</span>: [<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>, <span class="number">400</span>]</span><br><span class="line">    第二次<span class="attr">arr</span>: [<span class="number">200</span>, <span class="number">300</span>, <span class="number">400</span>]</span><br><span class="line">    res返回值: <span class="number">100</span></span><br></pre></td></tr></table></figure>
-
-<hr>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>5. reverse()方法： 反转数组：</strong></strong></font></p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="number">5.</span><span class="title function_">shift</span>()</span><br><span class="line">    语法：数组.<span class="title function_">reverse</span>()</span><br><span class="line">    作用: 将数组反转</span><br><span class="line">    返回值 ：反转后的数组</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">例如：</span><br><span class="line">    <span class="keyword">var</span> arr = [<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>, <span class="number">400</span>]       <span class="comment">//准备一个原始数组</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(arr)     <span class="comment">//第一次输出arr </span></span><br><span class="line">    res = arr.<span class="title function_">reverse</span>()    <span class="comment">//使用方法reverse</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(arr)   <span class="comment">//第二次输出arr</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(res)    <span class="comment">//输出res</span></span><br><span class="line"></span><br><span class="line">输出结果：</span><br><span class="line">    第一次<span class="attr">arr</span>: [<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>, <span class="number">400</span>]</span><br><span class="line">    第二次<span class="attr">arr</span>: [<span class="number">400</span>, <span class="number">300</span>, <span class="number">200</span>, <span class="number">100</span>]</span><br><span class="line">    res返回值: [<span class="number">400</span>, <span class="number">300</span>, <span class="number">200</span>, <span class="number">100</span>]</span><br></pre></td></tr></table></figure>
-
-<hr>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>6. splice()方法： 删除 数组中若干数据，并选择是否插入新的数据：</strong></strong></font></p>
-<p><img src="https://s2.loli.net/2022/06/30/9SMX2eRNO7gsjVU.png" alt="img"></p>
-<hr>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>7. sort()方法： 对数组排序：</strong></strong></font></p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="number">7.</span><span class="title function_">sort</span>()</span><br><span class="line">    语法：数组.<span class="title function_">sort</span>()</span><br><span class="line">         数组.<span class="title function_">sort</span>( <span class="keyword">function</span> (<span class="params">a,b</span>) &#123; <span class="keyword">return</span> a - b &#125; )  升序</span><br><span class="line">         数组.<span class="title function_">sort</span>( <span class="keyword">function</span> (<span class="params">a,b</span>) &#123; <span class="keyword">return</span> b - a &#125; )  降序</span><br><span class="line">    作用: 将数组进行 排序</span><br><span class="line">    返回值 ：排序好的 新数组</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">例如：</span><br><span class="line">    <span class="keyword">var</span> arr = [<span class="number">11</span>, <span class="number">1</span>, <span class="number">22</span>, <span class="number">13</span>, <span class="number">45</span>, <span class="number">32</span>, <span class="number">2</span>]       <span class="comment">//准备一个原始数组</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(arr)     <span class="comment">//第一次输出arr </span></span><br><span class="line">    res = arr.<span class="title function_">sort</span>()    <span class="comment">//使用方法reverse</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(arr)   <span class="comment">//第二次输出arr</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(res)    <span class="comment">//输出res</span></span><br><span class="line"></span><br><span class="line">输出结果：</span><br><span class="line">    第一次<span class="attr">arr</span>: [<span class="number">11</span>, <span class="number">1</span>, <span class="number">22</span>, <span class="number">13</span>, <span class="number">45</span>, <span class="number">32</span>, <span class="number">2</span>]</span><br><span class="line">    第二次<span class="attr">arr</span>: [<span class="number">1</span>, <span class="number">11</span>, <span class="number">13</span>, <span class="number">2</span>, <span class="number">22</span>, <span class="number">32</span>, <span class="number">45</span>]</span><br><span class="line">    res返回值: [<span class="number">1</span>, <span class="number">11</span>, <span class="number">13</span>, <span class="number">2</span>, <span class="number">22</span>, <span class="number">32</span>, <span class="number">45</span>]</span><br></pre></td></tr></table></figure>
-
-<hr>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>8. join()方法： 将数组链接成字符串：</strong></strong></font></p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="number">8.</span><span class="title function_">join</span>()</span><br><span class="line">    语法：数组.<span class="title function_">join</span>(连接符)</span><br><span class="line">    作用: 将数组用 &lt;连接符&gt;  链接成为一个 &lt;字符串&gt;</span><br><span class="line">    返回值 ：链接好的 字符串</span><br></pre></td></tr></table></figure>
-
-<hr>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>9. concat()方法： 将数组链接成字符串：</strong></strong></font></p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="number">9.</span><span class="title function_">concat</span>()</span><br><span class="line">    语法：数组.<span class="title function_">concat</span>(其他数组)</span><br><span class="line">    作用: 将其他数组和数组  &lt;拼接&gt;  在一起  </span><br><span class="line">    返回值 ：拼接好的  新数组</span><br><span class="line"></span><br><span class="line">例如：</span><br><span class="line">    <span class="keyword">var</span> arr = [<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>, <span class="number">400</span>]       <span class="comment">//准备一个原始数组</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(arr)     <span class="comment">//第一次输出arr </span></span><br><span class="line">    <span class="keyword">var</span> res = arr.<span class="title function_">concat</span>( [<span class="number">500</span>, <span class="number">600</span>] )</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(arr)   <span class="comment">//第二次输出arr</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(res)    <span class="comment">//输出res</span></span><br><span class="line"></span><br><span class="line">输出结果：</span><br><span class="line">    第一次<span class="attr">arr</span>: [<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>, <span class="number">400</span>]   </span><br><span class="line">    第二次<span class="attr">arr</span>: [<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>, <span class="number">400</span>]   原始数据不发生变化</span><br><span class="line">    res返回值: [<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>, <span class="number">400</span>, <span class="number">500</span>, <span class="number">600</span>]   返回值  新拼接好的数组</span><br></pre></td></tr></table></figure>
-
-<hr>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>10. slice()方法： 截取数组：</strong></strong></font></p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="number">10.</span><span class="title function_">slice</span>()</span><br><span class="line">    语法：数组.<span class="title function_">slice</span>(开始索引, 结束索引)   <span class="comment">//当不传递参数，默认返回所有数据   当传递一个参数 默认是从第几个数据开始截取</span></span><br><span class="line">        开始索引: 默认是<span class="number">0</span>,</span><br><span class="line">        结束索引: 默认是 数组长度</span><br><span class="line">    作用:  &lt;截取&gt; 数组中的某些数据</span><br><span class="line">    返回值 ：以 &lt;新数组&gt; 的形式返回截取出来的数据</span><br><span class="line"></span><br><span class="line">例如：</span><br><span class="line">    <span class="keyword">var</span> arr = [<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>, <span class="number">400</span>]       <span class="comment">//准备一个原始数组</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(arr)     <span class="comment">//第一次输出arr </span></span><br><span class="line">    <span class="keyword">var</span> res = arr.<span class="title function_">slice</span>( <span class="number">1</span>, <span class="number">3</span>)</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(arr)   <span class="comment">//第二次输出arr</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(res)    <span class="comment">//输出res</span></span><br><span class="line"></span><br><span class="line">输出结果：</span><br><span class="line">    第一次<span class="attr">arr</span>: [<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>, <span class="number">400</span>]   </span><br><span class="line">    第二次<span class="attr">arr</span>: [<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>, <span class="number">400</span>]   原始数据不发生变化</span><br><span class="line">    res返回值: [<span class="number">200</span>, <span class="number">300</span>]   <span class="comment">// 返回值  截取后的新数组  </span></span><br></pre></td></tr></table></figure>
-
-<hr>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>11. indexOf()方法： 查找 &lt;数据&gt; 在数据中的索引位置：</strong></strong></font></p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="number">11.</span><span class="title function_">indexOf</span>()</span><br><span class="line">    语法：数组.<span class="title function_">indexOF</span>(数据)</span><br><span class="line">    作用: 查找 &lt;数据&gt; 在数组中的 &lt;索引&gt; 位置 </span><br><span class="line">    返回值 ：</span><br><span class="line">        有该数据， 返回 &lt;第一次出现&gt; 的索引位置</span><br><span class="line">        没有该数据， 返回 -<span class="number">1</span></span><br><span class="line"></span><br><span class="line">例如：</span><br><span class="line">    <span class="keyword">var</span> arr = [<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>, <span class="number">200</span>]       <span class="comment">//准备一个原始数组</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(arr)     <span class="comment">//第一次输出arr </span></span><br><span class="line">    <span class="keyword">var</span> res = arr.<span class="title function_">indexOf</span>( <span class="number">200</span> )</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(arr)   <span class="comment">//第二次输出arr</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(res)    <span class="comment">//输出res</span></span><br><span class="line"></span><br><span class="line">输出结果：</span><br><span class="line">    第一次<span class="attr">arr</span>: [<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>, <span class="number">200</span>]   </span><br><span class="line">    第二次<span class="attr">arr</span>: [<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>, <span class="number">200</span>]   原始数据不发生变化</span><br><span class="line">    res返回值: <span class="number">1</span>   返回值  返回该数据在列表中的索引位置</span><br></pre></td></tr></table></figure>
-
-<hr>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>12. forEach()方法： 将数组链接成字符串：</strong></strong></font></p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="number">12.</span><span class="title function_">forEach</span>()</span><br><span class="line">    语法：数组.<span class="title function_">forEach</span>( <span class="keyword">function</span> (<span class="params">item, index, arr</span>) &#123;&#125;)</span><br><span class="line">        数组.<span class="title function_">forEach</span>( <span class="keyword">function</span> (<span class="params">数据, 索引， 数组</span>) &#123;执行内容&#125;)</span><br><span class="line">    作用: 遍历数组</span><br><span class="line">    返回值 ：没有返回值</span><br><span class="line"></span><br><span class="line">例如：</span><br><span class="line">    <span class="keyword">var</span> arr = [<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>, <span class="number">400</span>]       <span class="comment">//准备一个原始数组</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(arr)     <span class="comment">//第一次输出arr </span></span><br><span class="line">    arr.<span class="title function_">forEach</span>( <span class="keyword">function</span> (<span class="params">item, index, arr</span>) &#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(item);  <span class="comment">//输出数据</span></span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(index);  <span class="comment">// 输出索引</span></span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(arr);  <span class="comment">//输出列表</span></span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;------------------------------&#x27;</span>)</span><br><span class="line">        &#125;)</span><br></pre></td></tr></table></figure>
-
-<hr>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>13.map()方法： 映射数组</strong></strong></font></p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="number">13.</span><span class="title function_">map</span>()</span><br><span class="line">    语法：数组.<span class="title function_">map</span>( <span class="keyword">function</span> (<span class="params">item, index, arr</span>) &#123;&#125;)</span><br><span class="line">    作用: 映射数组</span><br><span class="line">    返回值 ：映射后的 &lt;新数组&gt;</span><br><span class="line"></span><br><span class="line">例如：</span><br><span class="line">    <span class="keyword">var</span> arr = [<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>, <span class="number">400</span>]       <span class="comment">//准备一个原始数组</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(arr)     <span class="comment">//第一次输出arr </span></span><br><span class="line">    <span class="keyword">var</span> res = arr.<span class="title function_">map</span>( <span class="keyword">function</span> (<span class="params">item, index, arr</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> item*<span class="number">10</span>    <span class="comment">//每一项都 乘以 10</span></span><br><span class="line">        &#125;)</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(res)</span><br><span class="line"></span><br><span class="line">输出结果：</span><br><span class="line">    第一次<span class="attr">arr</span>: [<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>, <span class="number">400</span>]   </span><br><span class="line"></span><br><span class="line">    res返回值: [<span class="number">1000</span>, <span class="number">2000</span>, <span class="number">3000</span>, <span class="number">4000</span>]   返回值  新拼接好的数组</span><br></pre></td></tr></table></figure>
-
-<hr>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>14.fileter()方法： 过滤 数组：</strong></strong></font></p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="number">14.</span><span class="title function_">fileter</span>()</span><br><span class="line">    语法：数组.<span class="title function_">fileter</span>( <span class="keyword">function</span> (<span class="params">item, index, arr</span>) &#123;&#125; )</span><br><span class="line">    作用: 过滤数组</span><br><span class="line">    返回值 ：过滤后的 新数组</span><br><span class="line"></span><br><span class="line">例如：</span><br><span class="line">    <span class="keyword">var</span> arr = [<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>, <span class="number">400</span>]       <span class="comment">//准备一个原始数组</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(arr)     <span class="comment">//第一次输出arr </span></span><br><span class="line">    <span class="keyword">var</span> res = arr.<span class="title function_">filter</span>( <span class="keyword">function</span> (<span class="params">item, index, arr</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> item &gt; <span class="number">150</span></span><br><span class="line">        &#125;)</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(res)</span><br><span class="line"></span><br><span class="line">输出结果：</span><br><span class="line">    第一次<span class="attr">arr</span>: [<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>, <span class="number">400</span>]   </span><br><span class="line">    res返回值: [<span class="number">200</span>, <span class="number">300</span>, <span class="number">400</span>]   返回值  所有满足 大于<span class="number">150</span>的项 列表</span><br></pre></td></tr></table></figure>
-
-<hr>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>15. every()方法： 判断数是不是 每一项 都满足条件：</strong></strong></font></p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="number">15.</span><span class="title function_">every</span>()</span><br><span class="line">    语法：数组.<span class="title function_">every</span>( <span class="keyword">function</span> (<span class="params">item, index, arr</span>) &#123;&#125; )</span><br><span class="line">    作用: 判断数是不是 每一项 都满足条件</span><br><span class="line">    返回值 ：一个布尔值</span><br><span class="line"></span><br><span class="line">例如：</span><br><span class="line">    <span class="keyword">var</span> arr = [<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>, <span class="number">400</span>]       <span class="comment">//准备一个原始数组</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(arr)     <span class="comment">//第一次输出arr </span></span><br><span class="line">    <span class="keyword">var</span> res = arr.<span class="title function_">every</span>( <span class="keyword">function</span> (<span class="params">item, index, arr</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> item &gt; <span class="number">150</span></span><br><span class="line">        &#125;)</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(res)</span><br><span class="line"></span><br><span class="line">输出结果：</span><br><span class="line">    第一次<span class="attr">arr</span>: [<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>, <span class="number">400</span>]   </span><br><span class="line">    res返回值: <span class="literal">false</span>   <span class="comment">// 返回值  布尔值   数组里面不是每一项都大于150</span></span><br></pre></td></tr></table></figure>
-
-<hr>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>16. some()方法： 判断数组中是不是有某一项满足条件：</strong></strong></font></p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="number">15.</span><span class="title function_">every</span>()</span><br><span class="line">    语法：数组.<span class="title function_">every</span>( <span class="keyword">function</span> (<span class="params">item, index, arr</span>) &#123;&#125; )</span><br><span class="line">    作用: 判断数组中 是不是有 某一项 满足条件</span><br><span class="line">    返回值 ：一个布尔值</span><br><span class="line"></span><br><span class="line">例如：</span><br><span class="line">    <span class="keyword">var</span> arr = [<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>, <span class="number">400</span>]       <span class="comment">//准备一个原始数组</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(arr)     <span class="comment">//第一次输出arr </span></span><br><span class="line">    <span class="keyword">var</span> res = arr.<span class="title function_">some</span>( <span class="keyword">function</span> (<span class="params">item, index, arr</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> item &gt; <span class="number">150</span></span><br><span class="line">        &#125;)</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(res)</span><br><span class="line"></span><br><span class="line">输出结果：</span><br><span class="line">    第一次<span class="attr">arr</span>: [<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>, <span class="number">400</span>]   </span><br><span class="line">    res返回值: <span class="literal">true</span>   <span class="comment">// 返回值  布尔值   数组里面不是每一项都大于150</span></span><br></pre></td></tr></table></figure>
-
+          <h1 id="javascript-数组的常用方法："><a href="#javascript-数组的常用方法：" class="headerlink" title="javascript_数组的常用方法："></a><font color=#00b2c2 size=5 face=宋体><strong><strong>javascript_数组的常用方法：</strong></strong></font></h1>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/03/20/javascript-%E6%95%B0%E7%BB%84%E7%9A%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -786,7 +715,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-06-08 17:41:28" itemprop="dateModified" datetime="2024-06-08T17:41:28+08:00">2024-06-08</time>
+                <time title="修改时间：2024-06-13 22:03:01" itemprop="dateModified" datetime="2024-06-13T22:03:01+08:00">2024-06-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -809,10 +738,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="javascript-字符串的常用方法："><a href="#javascript-字符串的常用方法：" class="headerlink" title="javascript_字符串的常用方法："></a><font color=#00b2c2 size=5 face=宋体><strong><strong>javascript_字符串的常用方法：</strong></strong></font></h1><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="number">1.</span> <span class="title function_">charAt</span>()</span><br><span class="line">    语法：字符串.<span class="title function_">charAt</span>(索引)</span><br><span class="line">    作用：获取对应索引位置的字符</span><br><span class="line">    返回值： 对应索引位置的字符</span><br><span class="line"></span><br><span class="line"><span class="number">2.</span><span class="title function_">toLowerCase</span>() 方法</span><br><span class="line">    语法：字符串.<span class="title function_">toLowerCase</span>()</span><br><span class="line">    作用：将字符串内的字母全部转换成  小写</span><br><span class="line">    返回值： 转换后的字符串</span><br><span class="line"></span><br><span class="line"><span class="number">3.</span><span class="title function_">toUpperCase</span>()</span><br><span class="line">    语法：字符串.<span class="title function_">toUpperCase</span>()</span><br><span class="line">    作用：将字符串内的字母全部转换成大写</span><br><span class="line">    返回值： 转换后的字符串</span><br><span class="line"></span><br><span class="line"><span class="number">4.</span><span class="title function_">replace</span>()</span><br><span class="line">    语法：字符串.<span class="title function_">replace</span>(替换前内容，替换后内容)</span><br><span class="line">    作用：将字符串内的 第一个 满足换下内容的片段，替换成换上的内容</span><br><span class="line">    返回值：替换后的字符串</span><br><span class="line"></span><br><span class="line"><span class="number">5.</span><span class="title function_">trim</span>()</span><br><span class="line">    语法：字符串.<span class="title function_">trim</span>()   <span class="comment">//不需要传递参数</span></span><br><span class="line">    作用： 去除字符串 首尾 的空格</span><br><span class="line">    返回值： 去除空格后的字符串</span><br><span class="line"></span><br><span class="line"><span class="number">6.</span><span class="title function_">split</span>()</span><br><span class="line">    语法：字符串.<span class="title function_">split</span>(分隔符)</span><br><span class="line">    作用：按照分隔符将字符串切割成一个数组</span><br><span class="line">    返回值：切割后的数组</span><br><span class="line"></span><br><span class="line"><span class="number">7.</span><span class="title function_">substr</span>()、<span class="title function_">substring</span>()、<span class="title function_">slice</span>()</span><br><span class="line">    语法：字符串.<span class="title function_">substr</span>()、字符串.<span class="title function_">substring</span>()、字符串.<span class="title function_">slice</span>()</span><br><span class="line">    作用：<span class="attr">substr</span>: 从索引截取几个内容， 例如（<span class="number">1</span>，<span class="number">6</span>） 从索引<span class="number">1</span> 往后截取<span class="number">6</span>个内容</span><br><span class="line">         substring： 从索引截取到索引   例如（<span class="number">1</span>，<span class="number">6</span>）  从索引<span class="number">1</span> 截取到索引<span class="number">6</span>   包前不包后</span><br><span class="line">         slice： 从索引截取到索引   例如（<span class="number">1</span>，<span class="number">6</span>）  从索引<span class="number">1</span> 截取到索引<span class="number">6</span>   包前不包后</span><br><span class="line">    返回值：切割后的数组</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://s2.loli.net/2022/07/01/WEX5RrqdV32kbJm.png" alt="img"></p>
-
+          <h1 id="javascript-字符串的常用方法："><a href="#javascript-字符串的常用方法：" class="headerlink" title="javascript_字符串的常用方法："></a><font color=#00b2c2 size=5 face=宋体><strong><strong>javascript_字符串的常用方法：</strong></strong></font></h1>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/03/20/javascript-%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -862,7 +796,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-06-08 17:41:29" itemprop="dateModified" datetime="2024-06-08T17:41:29+08:00">2024-06-08</time>
+                <time title="修改时间：2024-06-13 22:11:10" itemprop="dateModified" datetime="2024-06-13T22:11:10+08:00">2024-06-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -885,12 +819,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="关于Jet-Brains历史版本获取："><a href="#关于Jet-Brains历史版本获取：" class="headerlink" title="关于Jet Brains历史版本获取："></a><font color=#00b2c2 size=5 face=宋体><strong><strong>关于Jet Brains历史版本获取：</strong></strong></font></h1><p><font color=#b0171f size=4 face=宋体><strong><strong>官网给出的下载链接永远是最新的，但是最新的往往是需要收费的，所以以下链接可以直接定位到官网的历史版本下载地址，然后就可以尽情的去嗨皮了：</strong></strong></font></p>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>pycharm历史版本下载地址:      <a target="_blank" rel="noopener" href="https://www.jetbrains.com/zh-cn/pycharm/download/other.html">点击下载</a></strong></strong></font></p>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>idea历史版本下载地址:     <a target="_blank" rel="noopener" href="https://www.jetbrains.com/zh-cn/idea/download/other.html">点击下载</a></strong></strong></font></p>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>WebStorm历史版本下载地址:      <a target="_blank" rel="noopener" href="https://www.jetbrains.com/zh-cn/webstorm/download/other.html">点击下载</a></strong></strong></font></p>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>Pycharm激活教程:      <a target="_blank" rel="noopener" href="https://www.yuque.com/lanchuan-vm6pi/buhvby/irtn6mlnmt1vuzgx?singleDoc">点击进入</a></strong></strong></font></p>
-
+          <h1 id="关于Jet-Brains历史版本获取："><a href="#关于Jet-Brains历史版本获取：" class="headerlink" title="关于Jet Brains历史版本获取："></a><font color=#00b2c2 size=5 face=宋体><strong><strong>关于Jet Brains历史版本获取：</strong></strong></font></h1>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/03/20/%E5%85%B3%E4%BA%8EJet-Brains%E5%8E%86%E5%8F%B2%E7%89%88%E6%9C%AC%E8%8E%B7%E5%8F%96/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -940,7 +877,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-06-08 17:41:28" itemprop="dateModified" datetime="2024-06-08T17:41:28+08:00">2024-06-08</time>
+                <time title="修改时间：2024-06-13 22:09:34" itemprop="dateModified" datetime="2024-06-13T22:09:34+08:00">2024-06-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -963,11 +900,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="shell下链接mongodb加载跟多数据"><a href="#shell下链接mongodb加载跟多数据" class="headerlink" title="shell下链接mongodb加载跟多数据"></a><font color=#00b2c2 size=5 face=宋体><strong><strong>shell下链接mongodb加载跟多数据</strong></strong></font></h1><p><font color=#f26522 size=4 face=宋体><strong><strong>mongodb type it for more</strong></strong></font></p>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>当使用mongodb shell的时候 ，需要查看更多的数据时候，系统提示 type it for more</strong></strong></font></p>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>可以设置系统参数 DBQuery.shellBatchSize &#x3D; 300</strong></strong></font></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 进入mongodb数据库后</span><br><span class="line">DBQuery.shellBatchSize = 300</span><br><span class="line"># 则可以查看更多300条数据的数据</span><br></pre></td></tr></table></figure>
-
+          <h1 id="shell下链接mongodb加载跟多数据"><a href="#shell下链接mongodb加载跟多数据" class="headerlink" title="shell下链接mongodb加载跟多数据"></a><font color=#00b2c2 size=5 face=宋体><strong><strong>shell下链接mongodb加载跟多数据</strong></strong></font></h1>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/03/20/shell%E4%B8%8B%E9%93%BE%E6%8E%A5mongodb%E5%8A%A0%E8%BD%BD%E8%B7%9F%E5%A4%9A%E6%95%B0%E6%8D%AE/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1017,7 +958,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-06-08 17:41:29" itemprop="dateModified" datetime="2024-06-08T17:41:29+08:00">2024-06-08</time>
+                <time title="修改时间：2024-06-13 22:11:21" itemprop="dateModified" datetime="2024-06-13T22:11:21+08:00">2024-06-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1040,13 +981,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="来自程序员的情人节礼物！"><a href="#来自程序员的情人节礼物！" class="headerlink" title="来自程序员的情人节礼物！"></a><font color=#00b2c2 size=5 face=宋体><strong><strong>来自程序员的情人节礼物！</strong></strong></font></h1><p><font color=#f26522 size=4 face=宋体><strong><strong>Linux复制:</strong></strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">python3 <span class="comment"># 点击copy  打开终端 粘贴剪贴板 即可！8秒之后自动关闭</span></span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;\n&#x27;</span>.join([<span class="string">&#x27;&#x27;</span>.join([(<span class="string">&#x27;love&#x27;</span>[(x-y) % <span class="built_in">len</span>(<span class="string">&#x27;love&#x27;</span>)] <span class="keyword">if</span> ((x*<span class="number">0.05</span>)**<span class="number">2</span>+(y*<span class="number">0.1</span>)**<span class="number">2</span>-<span class="number">1</span>)**<span class="number">3</span>-(x*<span class="number">0.05</span>)**<span class="number">2</span>*(y*<span class="number">0.1</span>)**<span class="number">3</span> &lt;= <span class="number">0</span> <span class="keyword">else</span> <span class="string">&#x27; &#x27;</span>)<span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(-<span class="number">120</span>, <span class="number">30</span>)])<span class="keyword">for</span> y <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">30</span>, -<span class="number">30</span>, -<span class="number">1</span>)]))</span><br><span class="line">time.sleep(<span class="number">8</span>)</span><br><span class="line">exit()</span><br><span class="line">exit</span><br></pre></td></tr></table></figure>
-
-<p><font color=#f26522 size=4 face=宋体><strong><strong>Windos下cmd复制:</strong></strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">python &amp;::点击copy  打开终端 粘贴剪贴板 即可！<span class="number">8</span>秒之后自动关闭</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;\n&#x27;</span>.join([<span class="string">&#x27;&#x27;</span>.join([(<span class="string">&#x27;love&#x27;</span>[(x-y) % <span class="built_in">len</span>(<span class="string">&#x27;love&#x27;</span>)] <span class="keyword">if</span> ((x*<span class="number">0.05</span>)**<span class="number">2</span>+(y*<span class="number">0.1</span>)**<span class="number">2</span>-<span class="number">1</span>)**<span class="number">3</span>-(x*<span class="number">0.05</span>)**<span class="number">2</span>*(y*<span class="number">0.1</span>)**<span class="number">3</span> &lt;= <span class="number">0</span> <span class="keyword">else</span> <span class="string">&#x27; &#x27;</span>)<span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(-<span class="number">120</span>, <span class="number">30</span>)])<span class="keyword">for</span> y <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">30</span>, -<span class="number">30</span>, -<span class="number">1</span>)]))</span><br><span class="line">time.sleep(<span class="number">8</span>)</span><br><span class="line">exit()</span><br><span class="line">exit</span><br></pre></td></tr></table></figure>
-
-
+          <h1 id="来自程序员的情人节礼物！"><a href="#来自程序员的情人节礼物！" class="headerlink" title="来自程序员的情人节礼物！"></a><font color=#00b2c2 size=5 face=宋体><strong><strong>来自程序员的情人节礼物！</strong></strong></font></h1>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/03/20/%E6%9D%A5%E8%87%AA%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%83%85%E4%BA%BA%E8%8A%82%E7%A4%BC%E7%89%A9%EF%BC%81/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1096,7 +1039,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-06-08 17:41:28" itemprop="dateModified" datetime="2024-06-08T17:41:28+08:00">2024-06-08</time>
+                <time title="修改时间：2024-06-13 22:05:44" itemprop="dateModified" datetime="2024-06-13T22:05:44+08:00">2024-06-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1120,11 +1063,14 @@
 
       
           <p><font color=#00b2c2 size=5 face=宋体><strong><strong>mongodb随机返回N条结果：</strong></strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">用$sample (aggregation)方法，具体命令为：</span><br><span class="line">db.&lt;数据库&gt;.aggregate( [ &#123; $sample: &#123; size: N &#125; &#125; ] ) N为条数</span><br></pre></td></tr></table></figure>
-
-<p><font color=#f26522 size=4 face=宋体><strong><strong>异步携程查询</strong></strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Image_Pust_</span>():</span><br><span class="line">    <span class="comment">####  文档地址  https://www.cnblogs.com/aduner/p/13532504.html</span></span><br><span class="line">    client = motor.motor_asyncio.AsyncIOMotorClient(<span class="string">&#x27;数据库链接&#x27;</span>)  <span class="comment"># 使用链接访问</span></span><br><span class="line">    sss = client.sss    <span class="comment"># client.数据库集合</span></span><br><span class="line">    test1 = sss.test1    <span class="comment"># 数据库</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">Rand_find</span>(<span class="params">self, document=<span class="literal">None</span></span>):</span><br><span class="line">        c = Image_Pust_().sss.test1</span><br><span class="line">        <span class="comment"># async for document in c.find():</span></span><br><span class="line">        <span class="comment">#     print(document)</span></span><br><span class="line">        a = c.aggregate([&#123;<span class="string">&quot;$sample&quot;</span>: &#123;<span class="string">&quot;size&quot;</span>: <span class="number">15</span>&#125;&#125;])   <span class="comment"># 查询15条数据</span></span><br><span class="line">        <span class="keyword">return</span> [i <span class="keyword">async</span> <span class="keyword">for</span> i <span class="keyword">in</span> a]     <span class="comment">#  返回数据</span></span><br></pre></td></tr></table></figure>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/03/20/mongodb%E9%9A%8F%E6%9C%BA%E8%BF%94%E5%9B%9EN%E6%9D%A1%E7%BB%93%E6%9E%9C/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1174,7 +1120,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-06-08 17:41:29" itemprop="dateModified" datetime="2024-06-08T17:41:29+08:00">2024-06-08</time>
+                <time title="修改时间：2024-06-13 22:13:18" itemprop="dateModified" datetime="2024-06-13T22:13:18+08:00">2024-06-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1197,19 +1143,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="正则表达式-基础语法"><a href="#正则表达式-基础语法" class="headerlink" title="正则表达式(基础语法)"></a><font color=#00b2c2 size=5 face=宋体><strong><strong>正则表达式(基础语法)</strong></strong></font></h1><p><font color=#f26522 size=4 face=宋体><strong><strong>Regular Expression,正则表达式，一种使用表达式的方式对字符串进行匹配的语法规则</strong></strong></font></p>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>我们抓取到页面源代码本质上就是一个超长的字符串，想从里面提取内容，用正则再合适不过了。</strong></strong></font></p>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>正则的有点：速度快、效率高、准确性高。</strong></strong></font></p>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>正则的缺点：新手上手难度高</strong></strong></font></p>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>不过只要掌握了正则编写的逻辑关系，写出一个提取页面内容的正则其实并不复杂</strong></strong></font></p>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>正则的语法：使用元字符进行排列组合用来匹配字符串 在线测试正则表达式：<a target="_blank" rel="noopener" href="https://tool,oschina.net/regex/">https://tool,oschina.net/regex/</a></strong></strong></font></p>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>元字符：具体固定意义的特殊字符</strong></strong></font></p>
-<p><font color=#00b2c2 size=5 face=宋体><strong><strong>常用元字符：</strong></strong></font></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">.       匹配除 换行符 以外的 任意字符</span><br><span class="line">\w     匹配 字母 或 数字 或 下划线</span><br><span class="line">\s      匹配任意的空白符</span><br><span class="line">\d     匹配数字</span><br><span class="line">\n      匹配一个换行符</span><br><span class="line">\t     匹配一个制表符</span><br><span class="line"></span><br><span class="line">^       匹配字符串的开始</span><br><span class="line">$      匹配字符串的结尾</span><br><span class="line"></span><br><span class="line">\W      匹配 非字母 或 数字 或 下划线</span><br><span class="line">\D     匹配非数字</span><br><span class="line">\S      匹配非空白字符</span><br><span class="line">a|b    匹配 字符a 或 字符b  # 优先前面的</span><br><span class="line">()      匹配括号内的表达式，也表示一个组</span><br><span class="line">[...]  匹配字符组中的字符    #例如   [a-zA-Z0-9]</span><br><span class="line">[^...]  匹配除了字符组中的所有字符</span><br></pre></td></tr></table></figure>
-
-<p><font color=#00b2c2 size=5 face=宋体><strong><strong>量词：控制前面的元字符出现的次数</strong></strong></font></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">*  重复0次 或 多次</span><br><span class="line">+  至少重复一次 或 多次</span><br><span class="line">?  重复0次  或 多次</span><br><span class="line">&#123;n&#125;  重复 n 次</span><br><span class="line">&#123;n,&#125;  重复n次 或更多次</span><br><span class="line">&#123;n,m&#125;   重复n到m次</span><br></pre></td></tr></table></figure>
-
+          <h1 id="正则表达式-基础语法"><a href="#正则表达式-基础语法" class="headerlink" title="正则表达式(基础语法)"></a><font color=#00b2c2 size=5 face=宋体><strong><strong>正则表达式(基础语法)</strong></strong></font></h1>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/03/20/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F-%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1259,7 +1201,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-06-08 17:41:28" itemprop="dateModified" datetime="2024-06-08T17:41:28+08:00">2024-06-08</time>
+                <time title="修改时间：2024-06-13 22:08:08" itemprop="dateModified" datetime="2024-06-13T22:08:08+08:00">2024-06-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1283,13 +1225,14 @@
 
       
           <p><font color=#00b2c2 size=5 face=宋体><strong><strong>python_Re模块的使用：</strong></strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># findall: 匹配字符串中所有的符合正则的内容  返回一个列表</span></span><br><span class="line">lst = re.findall(<span class="string">r&quot;\d+&quot;</span>, <span class="string">&quot;我的电话是：10086，你妈妈的电话是：10010&quot;</span>)</span><br><span class="line">prind(lst)</span><br><span class="line"></span><br><span class="line"><span class="comment">#  结果 [&#x27;10086&#x27;, &#x27;10010&#x27;]</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># finditer: 匹配字符串中的所有内容 (返回一个迭代器)   从迭代器中拿到内容  需要.group()</span></span><br><span class="line">it = re.finditer(<span class="string">r&quot;\d+&quot;</span>, <span class="string">&quot;我的电话是：10086，你妈妈的电话是：10010&quot;</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> it:</span><br><span class="line">    <span class="built_in">print</span>(i.group())    <span class="comment"># 从迭代器中拿数据</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># search: 全文匹配正则数据，返回第一个匹配到的数据   （返回对象match） 拿数据  需要.group()</span></span><br><span class="line">sea = re.search(<span class="string">r&quot;\d+&quot;</span>, <span class="string">&quot;我的电话是：10086，你妈妈的电话是：10010&quot;</span>)</span><br><span class="line">sea.group()</span><br><span class="line"><span class="comment">#  结果 &#x27;10086&#x27;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># match: 从开始匹配数据   （返回对象match） 拿数据  需要.group()</span></span><br><span class="line">sea = re.<span class="keyword">match</span>(<span class="string">r&quot;\d+&quot;</span>, <span class="string">&quot;我的电话是：10086，你妈妈的电话是：10010&quot;</span>)</span><br><span class="line">sea.group()</span><br><span class="line"><span class="comment">#  结果  无法匹配到</span></span><br><span class="line"></span><br><span class="line">sea = re.search(<span class="string">r&quot;(?P&lt;call&gt;\d+)&quot;</span>, <span class="string">&quot;我的电话是：10086，你妈妈的电话是：10010&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<p><font color=#f26522 size=4 face=宋体><strong><strong>预加载正则表达式：</strong></strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">obj = re.<span class="built_in">compile</span>(<span class="string">r&quot;\d+&quot;</span>)</span><br><span class="line">res = obj.findall(<span class="string">&quot;我的电话是：10086，你妈妈的电话是：10010&quot;</span>)</span><br><span class="line"><span class="comment"># 结果: [&#x27;10086&#x27;,&#x27;&#x27;]</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="https://s2.loli.net/2022/07/13/vZBRxOeAcM34u1k.png" alt="img"></p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/03/20/python-Re%E6%A8%A1%E5%9D%97%E7%9A%84%E4%BD%BF%E7%94%A8/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1339,7 +1282,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-06-08 17:41:28" itemprop="dateModified" datetime="2024-06-08T17:41:28+08:00">2024-06-08</time>
+                <time title="修改时间：2024-06-13 22:09:16" itemprop="dateModified" datetime="2024-06-13T22:09:16+08:00">2024-06-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1362,16 +1305,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="scrapy框架-创建与运行"><a href="#scrapy框架-创建与运行" class="headerlink" title="scrapy框架_创建与运行"></a><font color=#00b2c2 size=5 face=宋体><strong><strong>scrapy框架_创建与运行</strong></strong></font></h1><h2 id="scrapy框架："><a href="#scrapy框架：" class="headerlink" title="scrapy框架："></a><font color=#f26522 size=4 face=宋体><strong><strong>scrapy框架：</strong></strong></font></h2><p><img src="https://s2.loli.net/2022/07/16/DulfvFrnzBwIxXo.png" alt="img"></p>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>创建scrapy工程：</strong></strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 到达指定目录之后</span></span><br><span class="line">scrapy startproject s_projetc    <span class="comment"># 创建一个 名叫 s_projetc  的scrapy 工程</span></span><br></pre></td></tr></table></figure>
-
-<p><font color=#f26522 size=4 face=宋体><strong><strong>创建爬虫文件：</strong></strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 进入到指定scrapy目录下</span></span><br><span class="line">scrapy genspider first www.baidu.com    <span class="comment"># 在scrapy项目下 创建一个名叫  first 的爬虫文件 起始网址是www.baidu.com</span></span><br><span class="line"></span><br><span class="line">执行scrapy 工程</span><br><span class="line"></span><br><span class="line">scrapy crawl first   <span class="comment"># 执行scrapy工程中的 first 文件</span></span><br><span class="line"></span><br><span class="line">scrapy crawl first --nolog   <span class="comment">#不推荐做法 执行first文件  不打印log </span></span><br><span class="line"></span><br><span class="line"><span class="comment"># settings.py中设置 </span></span><br><span class="line"><span class="comment"># 显示指定类型的日志信息</span></span><br><span class="line">LOG_LEVEL = <span class="string">&#x27;ERROR&#x27;</span>    <span class="comment"># 忽略日志信息，只打印错误日志信息</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 在scrapy中  可以直接对返回数据进行xpath解析</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">parse</span>(<span class="params">self, response</span>):</span><br><span class="line">    div_list = response.xapth(<span class="string">&#x27;//*/div&#x27;</span>)</span><br><span class="line">    <span class="keyword">for</span> div <span class="keyword">in</span> div_list:</span><br><span class="line">        <span class="comment"># 返回xpath列表, 但是列表袁术一定是Selector类型的对象</span></span><br><span class="line">        <span class="comment"># extract 可以将selector对象中的data参数存储的字符串提取出来</span></span><br><span class="line">        author = div.xpath(<span class="string">&#x27;./div[1]/a/text()&#x27;</span>)[<span class="number">0</span>].extract()</span><br><span class="line">        <span class="comment">#列表调用了extract之后, 则表示将列表中的每一个Selector对象中的data对应的字符串提取了出来</span></span><br><span class="line">        content = div.xpath(<span class="string">&#x27;./a[1]/div/text()&#x27;</span>).extract()</span><br><span class="line">        content = <span class="string">&#x27;&#x27;</span>.join(content)</span><br><span class="line">        <span class="built_in">print</span>(author, content)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 重点</span></span><br><span class="line">        <span class="comment"># text = response.body.decode(response.encoding)</span></span><br><span class="line">        text = response.text   <span class="comment"># 等同于  response.body.decode(response.encoding)</span></span><br><span class="line">        <span class="built_in">print</span>(text)</span><br><span class="line"></span><br><span class="line">        url = response.url    <span class="comment"># 返回请求地址   url</span></span><br><span class="line">        <span class="built_in">print</span>(url)</span><br><span class="line"></span><br><span class="line">        status = response.status    <span class="comment">#  返回请求状态</span></span><br><span class="line">        <span class="built_in">print</span>(status)</span><br><span class="line"></span><br><span class="line">        headers = response.headers    <span class="comment"># 返回  headers</span></span><br><span class="line">        <span class="built_in">print</span>(headers)</span><br></pre></td></tr></table></figure>
-
-
+          <h1 id="scrapy框架-创建与运行"><a href="#scrapy框架-创建与运行" class="headerlink" title="scrapy框架_创建与运行"></a><font color=#00b2c2 size=5 face=宋体><strong><strong>scrapy框架_创建与运行</strong></strong></font></h1>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/03/20/scrapy%E6%A1%86%E6%9E%B6-%E5%88%9B%E5%BB%BA%E4%B8%8E%E8%BF%90%E8%A1%8C/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1421,7 +1363,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-06-08 17:41:28" itemprop="dateModified" datetime="2024-06-08T17:41:28+08:00">2024-06-08</time>
+                <time title="修改时间：2024-06-13 22:09:18" itemprop="dateModified" datetime="2024-06-13T22:09:18+08:00">2024-06-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1445,27 +1387,14 @@
 
       
           <p><font color=#00b2c2 size=5 face=宋体><strong><strong>scrapy框架持久化存储：</strong></strong></font></p>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>—、基于终端指令 的持久化</strong></strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 要求：只可以将parse方法的返回值存储到本地的文本文件中</span></span><br><span class="line"><span class="comment"># 存储格式限定：json、jsonlines、jl、csv、xml、marshal、pickle</span></span><br><span class="line"><span class="comment"># 指令: scrapy crawl &lt;爬虫入口文件&gt; -o &lt;保存路径&gt;</span></span><br><span class="line">终端指令  ==&gt;  scrapy crawl top_main -o ./ks.csv</span><br><span class="line"></span><br><span class="line"><span class="comment"># 优点： 简介 高效 便捷</span></span><br><span class="line"><span class="comment"># 缺点： 局限性比较墙（数据只可以存储到指定的 后缀 文本文件中）</span></span><br></pre></td></tr></table></figure>
-
-<p><font color=#f26522 size=4 face=宋体><strong><strong>例如：</strong></strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> scrapy</span><br><span class="line"></span><br><span class="line"><span class="comment"># 基于终端的持久化存储范本</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">TopMainSpider</span>(scrapy.Spider):</span><br><span class="line">    name = <span class="string">&#x27;top_main&#x27;</span></span><br><span class="line">    <span class="comment"># allowed_domains = [&#x27;www.toptoon.net&#x27;]</span></span><br><span class="line">    <span class="comment"># start_urls = [&#x27;https://www.qiushibaike.com&#x27;]</span></span><br><span class="line">    start_urls = [<span class="string">&#x27;https://www.xiurenb.com/&#x27;</span>]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">parse</span>(<span class="params">self, response</span>):</span><br><span class="line">        li_list = response.xpath(<span class="string">&#x27;/html/body/div[3]/div/div[2]/ul/li&#x27;</span>)</span><br><span class="line">        images = []</span><br><span class="line">        <span class="keyword">for</span> li <span class="keyword">in</span> li_list:</span><br><span class="line">            girl_name = <span class="string">&#x27;&#x27;</span>.join(li.xpath(<span class="string">&#x27;a/div/span/text()&#x27;</span>).extract())</span><br><span class="line">            page_img = <span class="string">f&quot;https://www.xiurenb.com<span class="subst">&#123;<span class="string">&#x27;&#x27;</span>.join(li.xpath(<span class="string">&#x27;a/img/@src&#x27;</span>).extract())&#125;</span>&quot;</span></span><br><span class="line">            images_o = &#123;</span><br><span class="line">                <span class="string">&#x27;girl&#x27;</span>: girl_name,</span><br><span class="line">                <span class="string">&#x27;img&#x27;</span>: page_img</span><br><span class="line">            &#125;</span><br><span class="line">            images.append(images_o)</span><br><span class="line">        <span class="keyword">return</span> images</span><br><span class="line"></span><br><span class="line"><span class="comment"># 终端运行命令 scrapy crawl &lt;爬虫入口文件&gt; -o &lt;保存路径&gt;   即可保存到本地持久化</span></span><br></pre></td></tr></table></figure>
-
-<p><font color=#00b2c2 size=5 face=宋体><strong><strong>二、基于管道 持久化</strong></strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>、数据解析</span><br><span class="line"><span class="number">2</span>、在items.py 中定义数据名   <span class="comment"># 例如 ： girl_name = scrapy.Field()</span></span><br></pre></td></tr></table></figure>
-
-<p><font color=#f26522 size=4 face=宋体><strong><strong>2、 设置封装爬虫文件中的提交管道数据</strong></strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> scrapy</span><br><span class="line"><span class="keyword">from</span> xiuren.items <span class="keyword">import</span> XiurenItem    <span class="comment"># 导入items 下的管道类</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">TopMainSpider</span>(scrapy.Spider):</span><br><span class="line">    name = <span class="string">&#x27;top_main&#x27;</span></span><br><span class="line">    <span class="comment"># allowed_domains = [&#x27;www.xiurenb.com&#x27;]</span></span><br><span class="line">    start_urls = [<span class="string">&#x27;https://www.xiurenb.com/&#x27;</span>]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">parse</span>(<span class="params">self, response</span>):</span><br><span class="line">        li_list = response.xpath(<span class="string">&#x27;/html/body/div[3]/div/div[2]/ul/li&#x27;</span>)</span><br><span class="line">        images = []</span><br><span class="line">        <span class="keyword">for</span> li <span class="keyword">in</span> li_list:</span><br><span class="line">            girl_name = <span class="string">&#x27;&#x27;</span>.join(li.xpath(<span class="string">&#x27;a/div/span/text()&#x27;</span>).extract())</span><br><span class="line">            page_img = <span class="string">f&quot;https://www.xiurenb.com<span class="subst">&#123;<span class="string">&#x27;&#x27;</span>.join(li.xpath(<span class="string">&#x27;a/img/@src&#x27;</span>).extract())&#125;</span>&quot;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            item = ToptoonItem()   <span class="comment"># 实例化导入的类</span></span><br><span class="line"></span><br><span class="line">            <span class="comment"># 开始封装字段</span></span><br><span class="line">            item[<span class="string">&#x27;girl_name&#x27;</span>] = girl_name</span><br><span class="line">            item[<span class="string">&#x27;page_img&#x27;</span>] = page_img</span><br><span class="line"></span><br><span class="line">            <span class="keyword">yield</span> item   <span class="comment"># 将item 以迭代器的方式 提交给管道</span></span><br></pre></td></tr></table></figure>
-
-<p><font color=#f26522 size=4 face=宋体><strong><strong>3、items.py 下设置:</strong></strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> scrapy</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">XiurenItem</span>(scrapy.Item):</span><br><span class="line">    <span class="comment"># define the fields for your item here like:</span></span><br><span class="line">    <span class="comment"># name = scrapy.Field()</span></span><br><span class="line">    <span class="comment"># </span></span><br><span class="line">    girl_name = scrapy.Field()</span><br><span class="line">    page_img = scrapy.Field()</span><br></pre></td></tr></table></figure>
-
-<p><font color=#f26522 size=4 face=宋体><strong><strong>4、 pipelines.py设置</strong></strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#  在该文件夹下可以执行数据的存储 写入数据库等等</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> itemadapter <span class="keyword">import</span> ItemAdapter</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">XiurenPipeline</span>:</span><br><span class="line">    fq = <span class="literal">None</span></span><br><span class="line">    <span class="comment"># 开始的时候执行一次</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">open_spider</span>(<span class="params">self, spider</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;开始爬虫 ==&gt;&quot;</span>)</span><br><span class="line">        <span class="comment"># 在当前文件夹下打开_text_xiuren.txt</span></span><br><span class="line">        self.fq = <span class="built_in">open</span>(<span class="string">&#x27;_text_xiuren.txt&#x27;</span>, <span class="string">&#x27;a+&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">process_item</span>(<span class="params">self, item, spider</span>):</span><br><span class="line">        page_img = item[<span class="string">&#x27;page_img&#x27;</span>]</span><br><span class="line">        girl_name = item[<span class="string">&#x27;girl_name&#x27;</span>]</span><br><span class="line">        self.fq.write(<span class="string">f&quot;<span class="subst">&#123;girl_name&#125;</span> ==&gt; <span class="subst">&#123;page_img&#125;</span>\n&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span> item</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 爬虫结束的时候 执行一次</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">close_spider</span>(<span class="params">self, spider</span>):</span><br><span class="line">        <span class="comment"># 该函数下 并不局限任何参数</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;结束爬虫&quot;</span>)</span><br><span class="line">        self.fq.close()</span><br></pre></td></tr></table></figure>
-
-<p><font color=#f26522 size=4 face=宋体><strong><strong>5、settings.py 下开启管道（不开启 无法使用）</strong></strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 管道可以多个，但是需要在settings.py中配置每个管道</span></span><br><span class="line"></span><br><span class="line">ITEM_PIPELINES = &#123;</span><br><span class="line">   <span class="string">&#x27;toptoon.pipelines.ToptoonPipeline&#x27;</span>: <span class="number">300</span>,</span><br><span class="line">    <span class="comment"># 300表示的是优先级  数值越小  优先级就越高</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/03/20/scrapy%E6%A1%86%E6%9E%B6%E6%8C%81%E4%B9%85%E5%8C%96%E5%AD%98%E5%82%A8/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1515,7 +1444,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-06-08 17:41:28" itemprop="dateModified" datetime="2024-06-08T17:41:28+08:00">2024-06-08</time>
+                <time title="修改时间：2024-06-13 22:06:19" itemprop="dateModified" datetime="2024-06-13T22:06:19+08:00">2024-06-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1539,24 +1468,14 @@
 
       
           <p><font color=#00b2c2 size=5 face=宋体><strong><strong>Nginx跨域解决方案：</strong></strong></font></p>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>Access-Control-Allow-Origin 轻松解决宝塔 Nginx 跨域问题</strong></strong></font></p>
-<p><font color=#00b2c2 size=5 face=宋体><strong><strong>概述：</strong></strong></font></p>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>出于浏览器的同源策略限制。同源策略（Sameoriginpolicy）是一种约定，它是浏览器最核心也最基本的安全功能，如果缺少了同源策略，则浏览器的正常功能可能都会受到影响。可以说 Web 是构建在同源策略基础之上的，浏览器只是针对同源策略的一种实现。同源策略会阻止一个域的 javascript 脚本和另外一个域的内容进行交互。所谓同源（即指在同一个域）就是两个页面具有相同的协议（protocol），主机（host）和端口号（port）。</strong></strong></font></p>
-<p><font color=#00b2c2 size=5 face=宋体><strong><strong>疑问：</strong></strong></font></p>
-<ul>
-<li><font color=#f26522 size=4 face=宋体><strong><strong>提问 1：什么是跨域？</strong></strong></font></li>
-<li><font color=#f26522 size=4 face=宋体><strong><strong>提问 2：如何解决跨域问题？</strong></strong></font></li>
-</ul>
-<h2 id="解答："><a href="#解答：" class="headerlink" title="解答："></a><font color=#00b2c2 size=5 face=宋体><strong><strong>解答：</strong></strong></font></h2><ul>
-<li><font color=#f26522 size=4 face=宋体><strong><strong>回答 1：a 页面想获取 b 页面的资源，如果 a、b 页面的协议、域名、端口、子域名不同，所进行的访问行动都是跨域的，而浏览器为了安全问题一般都限制了跨域访问，也就是不允许跨域请求资源。比如我们在使用 CDN 时就经常会遇到跨域问题。</strong></strong></font></li>
-<li><font color=#f26522 size=4 face=宋体><strong><strong>回答 2：以宝塔 Nginx 环境来说，我们只要把下面的 Header 头指令添加到网站 b 宝塔面板「网站」&#x3D;&#x3D;&gt;「设置」&#x3D;&#x3D;&gt;「配置文件」&#x3D;&#x3D;&gt;「倒数第三行」当中保存并重载 Nginx 配置即可。</strong></strong></font></li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">add_header Access-Control-Allow-Origin *;</span><br><span class="line">add_header Access-Control-Allow-Headers &quot;Origin, X-Requested-With, Content-Type, Accept&quot;;</span><br><span class="line">add_header Access-Control-Allow-Methods &quot;GET, POST, OPTIONS&quot;;</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://s2.loli.net/2022/07/27/4hyM7asOkUq8CDE.png" alt="img"></p>
-<h2 id="验证："><a href="#验证：" class="headerlink" title="验证："></a><font color=#00b2c2 size=5 face=宋体><strong><strong>验证：</strong></strong></font></h2><p><font color=#f26522 size=4 face=宋体><strong><strong>如果你已经按照上面的方法在 b 网站宝塔面板 Nginx 配置文件中添加了 Header 头指令 ，那么现在你可以访问 a 网站按F12 查看元素检查是否还存在跨域错误提示。</strong></strong></font></p>
-<h2 id="最后："><a href="#最后：" class="headerlink" title="最后："></a><font color=#00b2c2 size=5 face=宋体><strong><strong>最后：</strong></strong></font></h2><p><font color=#f26522 size=4 face=宋体><strong><strong>注意：在实际中 Access-Control-Allow-Origin 尽量不要指定为 * ，最好设置为允许访问的域名，比如：<a target="_blank" rel="noopener" href="https://www.a.com/">https://www.a.com</a> 。</strong></strong></font></p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/03/20/Nginx%E8%B7%A8%E5%9F%9F%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1606,7 +1525,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-06-08 17:41:29" itemprop="dateModified" datetime="2024-06-08T17:41:29+08:00">2024-06-08</time>
+                <time title="修改时间：2024-06-13 22:13:12" itemprop="dateModified" datetime="2024-06-13T22:13:12+08:00">2024-06-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1629,18 +1548,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="在CentOS7下安装部署ffmpeg："><a href="#在CentOS7下安装部署ffmpeg：" class="headerlink" title="在CentOS7下安装部署ffmpeg："></a><font color=#00b2c2 size=5 face=宋体><strong><strong>在CentOS7下安装部署ffmpeg：</strong></strong></font></h1><p><font color=#f26522 size=4 face=宋体><strong><strong><a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=FFmpeg&spm=1001.2101.3001.7020">FFmpeg</a>是一个开源免费的多媒记录、转换数字音频、视频，并能将flv、mov等。</strong></strong></font></p>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>我们的开发人员在分析视频流数据时，也会经常用到这款工具。比如：</strong></strong></font></p>
-<p><font color=#b0171f size=3 face=宋体><strong><strong>录制：采集–&gt;编码–&gt;封装—&gt;生成文件</strong></strong></font></p>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>段落引用视频裁剪：输入音视频文件—&gt;解复用得到视频流—&gt;视频流解码–&gt;视频帧画面–&gt;图像帧裁剪–&gt;编码—&gt;封装–&gt;生成文件</strong></strong></font></p>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>段落引用分辨率修改：输入音视频文件—&gt;解复用得到视频流—&gt;视频流解码–&gt;视频帧画面–&gt;图像帧修改分辨率–&gt;编码—&gt;封装–&gt;生成文件</strong></strong></font></p>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>段落引用文件格式转码：输入MP4文件–&gt;解复用封装得到解码数据包–&gt;复用封装格式成FLV—&gt;输出文件</strong></strong></font><br><img src="https://s2.loli.net/2022/07/27/CuVJHTw6dLsmUfv.jpg" alt="img"></p>
-<p><font color=#00b2c2 size=5 face=宋体><strong><strong>今天和大家分享一下如何在CentOS7下安装部署ffmpeg。</strong></strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 安装epel-release，因为安装需要使用其他的repo源，所以需要epel支持：</span></span><br><span class="line">yum install -y epel-release rpm</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装Nux-Dextop源：</span></span><br><span class="line">rpm --<span class="keyword">import</span> http://li.nux.ro/download/nux/RPM-GPG-KEY-nux.ro</span><br><span class="line">rpm -Uvh http://li.nux.ro/download/nux/dextop/el7/x86_64/nux-dextop-release-<span class="number">0</span>-<span class="number">1.</span>el7.nux.noarch.rpm</span><br><span class="line">yum repolist</span><br><span class="line"></span><br><span class="line"><span class="comment"># 开始安装</span></span><br><span class="line">yum install -y ffmpeg</span><br></pre></td></tr></table></figure>
-
-<p><font color=red size=5 face=宋体><strong><strong>这样ffmpeg就正常安装完成了。</strong></strong></font></p>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>FFmpeg具有非常强大的功能，包括视频采集、视频格式转换、视频抓图、给视频加水印等，同时还能兼容行转换，并使用高质量的多相滤波器动态调整视频大小。</strong></strong></font></p>
-
+          <h1 id="在CentOS7下安装部署ffmpeg："><a href="#在CentOS7下安装部署ffmpeg：" class="headerlink" title="在CentOS7下安装部署ffmpeg："></a><font color=#00b2c2 size=5 face=宋体><strong><strong>在CentOS7下安装部署ffmpeg：</strong></strong></font></h1>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/03/20/%E5%9C%A8CentOS7%E4%B8%8B%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2ffmpeg/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1690,7 +1606,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-06-08 17:41:28" itemprop="dateModified" datetime="2024-06-08T17:41:28+08:00">2024-06-08</time>
+                <time title="修改时间：2024-06-13 22:05:19" itemprop="dateModified" datetime="2024-06-13T22:05:19+08:00">2024-06-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1717,31 +1633,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="Mako模板创建流程："><a href="#Mako模板创建流程：" class="headerlink" title="Mako模板创建流程："></a><font color=#00b2c2 size=5 face=宋体><strong><strong>Mako模板创建流程：</strong></strong></font></h1><p><font color=red size=3 face=宋体><strong>官方文档地址 ： <a target="_blank" rel="noopener" href="https://docs.makotemplates.org/en/latest/">https://docs.makotemplates.org/en/latest/</a></strong></font></p>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>1.安装Django包：</strong></strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 安装django项目</span></span><br><span class="line"></span><br><span class="line">pip3 install virtualenv   <span class="comment"># 安装virtualenv</span></span><br><span class="line">python3 -m venv django_venv   <span class="comment"># 创建venv虚拟环境</span></span><br><span class="line">source ./django_venv/<span class="built_in">bin</span>/activate    <span class="comment"># 进入虚拟环境</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 下载django</span></span><br><span class="line">pip3 install django  <span class="comment"># 直接安装</span></span><br><span class="line">pip3 install django==<span class="number">2.2</span> -i https://pypi.douban.com/simple    <span class="comment"># 指定安装版本 和安装源</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建工程  </span></span><br><span class="line">django-admin startproject mysite    <span class="comment">#  创建一个名叫mysite的django工程</span></span><br><span class="line">python manage.py startapp app     <span class="comment"># 创建一个名叫app的子应用</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 运行命令 </span></span><br><span class="line">python3 manage.py runserver <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span>:<span class="number">8000</span>   <span class="comment"># 指定运行到 8000 端口</span></span><br></pre></td></tr></table></figure>
-
-<p><font color=#f26522 size=4 face=宋体><strong><strong>2.配置settings：</strong></strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># pip install mako    在虚拟环境中安装mako 包</span></span><br><span class="line">ALLOWED_HOSTS = [<span class="string">&quot;*&quot;</span>]    <span class="comment"># 允许所有ip访问</span></span><br><span class="line"></span><br><span class="line">INSTALLED_APPS = [</span><br><span class="line">    <span class="string">&#x27;django.contrib.admin&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;django.contrib.auth&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;django.contrib.contenttypes&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;django.contrib.sessions&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;django.contrib.messages&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;django.contrib.staticfiles&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;app&#x27;</span>,          <span class="comment"># 以上是默认系统生成， 此处添加子应用名称，在这里添加了才可以使用</span></span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">TEMPLATES = [    <span class="comment"># temolates 模板配置</span></span><br><span class="line"></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">&#x27;BACKEND&#x27;</span>: <span class="string">&#x27;django.template.backends.django.DjangoTemplates&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;DIRS&#x27;</span>: [os.path.join(BASE_DIR, <span class="string">&#x27;templates&#x27;</span>)],     <span class="comment">#  自动生成修改</span></span><br><span class="line">        <span class="string">&#x27;APP_DIRS&#x27;</span>: <span class="literal">True</span>,</span><br><span class="line">        <span class="string">&#x27;OPTIONS&#x27;</span>: &#123;</span><br><span class="line">            <span class="string">&#x27;context_processors&#x27;</span>: [</span><br><span class="line">                <span class="string">&#x27;django.template.context_processors.debug&#x27;</span>,</span><br><span class="line">                <span class="string">&#x27;django.template.context_processors.request&#x27;</span>,</span><br><span class="line">                <span class="string">&#x27;django.contrib.auth.context_processors.auth&#x27;</span>,</span><br><span class="line">                <span class="string">&#x27;django.contrib.messages.context_processors.messages&#x27;</span>,</span><br><span class="line">            ],</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#  固定写法</span></span><br><span class="line">LANGUAGE_CODE = <span class="string">&#x27;zh-hans&#x27;</span></span><br><span class="line">TIME_ZONE = <span class="string">&#x27;Asia/Shanghai&#x27;</span></span><br><span class="line">USE_I18N = <span class="literal">True</span></span><br><span class="line">USE_I10N = <span class="literal">True</span></span><br><span class="line">USE_TZ = <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">STATIC_URL = <span class="string">&#x27;/static/&#x27;</span></span><br><span class="line">STATICFILES_DIRS = [</span><br><span class="line">    os.path.join(BASE_DIR, <span class="string">&#x27;static&#x27;</span>)</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-
-<p><font color=#f26522 size=4 face=宋体><strong><strong>3.配置主路由urls内容：</strong></strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> django.contrib <span class="keyword">import</span> admin</span><br><span class="line"><span class="keyword">from</span> django.urls <span class="keyword">import</span> path, include    <span class="comment"># 导入include包</span></span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">    path(<span class="string">&#x27;admin/&#x27;</span>, admin.site.urls),    <span class="comment"># 固定写法 系统自动生成</span></span><br><span class="line">    path(<span class="string">&#x27;&#x27;</span>, include(<span class="string">&#x27;app.urls&#x27;</span>))     <span class="comment"># 添加子路由</span></span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-
-<p><font color=#f26522 size=4 face=宋体><strong><strong>4.配置子路由urls内容（mako模板版本）：</strong></strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> django.urls <span class="keyword">import</span> path</span><br><span class="line"><span class="keyword">from</span> .views <span class="keyword">import</span> mako   <span class="comment"># 导入mako包</span></span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">    path(<span class="string">&#x27;&#x27;</span>, mako.as_view())     <span class="comment"># 指向mako模板</span></span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-
-<p><font color=#f26522 size=4 face=宋体><strong><strong>5.创建mako模板py（app &gt; base_render.py）文件：</strong></strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> mako.lookup <span class="keyword">import</span> TemplateLookup</span><br><span class="line"><span class="keyword">from</span> django.template <span class="keyword">import</span> RequestContext</span><br><span class="line"><span class="keyword">from</span> django.conf <span class="keyword">import</span> settings</span><br><span class="line"><span class="keyword">from</span> django.template.context <span class="keyword">import</span> Context</span><br><span class="line"><span class="keyword">from</span> django.http <span class="keyword">import</span> HttpResponse</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">render_to_response</span>(<span class="params">request, template, data=<span class="literal">None</span></span>):</span><br><span class="line">    context_instance = RequestContext(request)   <span class="comment">#  实例化方法</span></span><br><span class="line">    path = settings.TEMPLATES[<span class="number">0</span>][<span class="string">&#x27;DIRS&#x27;</span>][<span class="number">0</span>]     <span class="comment"># 去settings中取 template路径</span></span><br><span class="line">    lookup = TemplateLookup(                    <span class="comment"># mako包中的方法 实例化  并指定输入  输出 编码为  &quot;utf-8&quot;</span></span><br><span class="line">        directories=[path],                     <span class="comment"># 默认的模板路径 替换成mako路径</span></span><br><span class="line">        output_encoding=<span class="string">&#x27;utf-8&#x27;</span>,</span><br><span class="line">        input_encoding=<span class="string">&#x27;utf-8&#x27;</span>,</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    mako_template = lookup.get_template(template)       <span class="comment"># lookup下的方法get_template 传入主函数导入进来的 template</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> data:    <span class="comment"># 判断传过来的data是否有值   如果没有值  就给一个默认的空字典</span></span><br><span class="line">        data = &#123;&#125;</span><br><span class="line">    <span class="keyword">if</span> context_instance:</span><br><span class="line">        context_instance.update(data)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        context_instance = Context(data)</span><br><span class="line">    result = &#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> d <span class="keyword">in</span> context_instance:</span><br><span class="line">        result.update(d)</span><br><span class="line">    result[<span class="string">&#x27;csrf_token&#x27;</span>] = <span class="string">&#x27;&#x27;</span>.<span class="built_in">format</span>(request.META.get(<span class="string">&#x27;CSRF_COOKIE&#x27;</span>, <span class="string">&#x27;&#x27;</span>))   <span class="comment"># 固定写法 csrf_token 验证</span></span><br><span class="line">    <span class="keyword">return</span> HttpResponse(mako_template.render(**result))   <span class="comment"># 返回HttpResponse mako_template下的render方法    因为result 是字典 所有需要加两个*</span></span><br><span class="line">    <span class="comment"># return HttpResponse(content, content_type=&#x27;text/csv&#x27;)  # 可以指定 content_type类型</span></span><br></pre></td></tr></table></figure>
-
-<p><font color=#f26522 size=4 face=宋体><strong><strong>6.配置views.py：</strong></strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> .base_render <span class="keyword">import</span> render_to_response</span><br><span class="line"><span class="keyword">from</span> django.views.generic <span class="keyword">import</span> View</span><br><span class="line"><span class="comment"># Create your views here.</span></span><br><span class="line"><span class="keyword">from</span> django.shortcuts <span class="keyword">import</span> render</span><br><span class="line"><span class="keyword">from</span> django.http <span class="keyword">import</span> HttpResponse</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">mako</span>(<span class="title class_ inherited__">View</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">get</span>(<span class="params">self, request</span>):</span><br><span class="line">        data = &#123;<span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;coocoo&#x27;</span>, <span class="string">&#x27;age&#x27;</span>: <span class="number">20</span>&#125;</span><br><span class="line">        <span class="keyword">return</span> render_to_response(request, <span class="string">&#x27;index.html&#x27;</span>, data=data)</span><br></pre></td></tr></table></figure>
-
-<p><font color=#f26522 size=4 face=宋体><strong><strong>7.创建 templates &gt; index.html：</strong></strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">//该内容是mako模板下的html</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    Title</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#123;name&#125;&#123;age&#125;</span><br><span class="line">    &lt;%!</span><br><span class="line">        <span class="keyword">from</span> django.conf <span class="keyword">import</span> settings</span><br><span class="line">        <span class="keyword">import</span> requests</span><br><span class="line">        res_a = requests.get(<span class="string">&#x27;https://www.baidu.com&#x27;</span>)</span><br><span class="line">        res_a.encoding = <span class="string">&#x27;utf-8&#x27;</span></span><br><span class="line">    %&gt;</span><br><span class="line">&#123;<span class="comment">#    &#123;settings.TEMPLATES[0][&#x27;DIRS&#x27;][0]&#125;#&#125;&#123;res_a.text&#125;</span></span><br></pre></td></tr></table></figure>
-
-<p><font color=#f26522 size=4 face=宋体><strong><strong>8.Mako基本语法</strong></strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">$&#123;name&#125;   <span class="comment"># 拿取变量 name    方式为 $&#123;&#125;</span></span><br><span class="line">&lt;%! <span class="keyword">import</span> requests %&gt;    <span class="comment"># 执行python代码 代码内容用 &lt;%! 开始  %&gt;结尾</span></span><br></pre></td></tr></table></figure>
-
+          <h1 id="Mako模板创建流程："><a href="#Mako模板创建流程：" class="headerlink" title="Mako模板创建流程："></a><font color=#00b2c2 size=5 face=宋体><strong><strong>Mako模板创建流程：</strong></strong></font></h1>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/03/20/Mako%E6%A8%A1%E6%9D%BF%E5%88%9B%E5%BB%BA%E6%B5%81%E7%A8%8B/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1791,7 +1691,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-06-08 17:41:28" itemprop="dateModified" datetime="2024-06-08T17:41:28+08:00">2024-06-08</time>
+                <time title="修改时间：2024-06-13 22:03:43" itemprop="dateModified" datetime="2024-06-13T22:03:43+08:00">2024-06-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1819,33 +1719,14 @@
 
       
           <p><font color=#00b2c2 size=5 face=宋体><strong><strong>Jinja2模板创建流程：</strong></strong></font></p>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>1.安装Django包：</strong></strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 安装django项目</span></span><br><span class="line"></span><br><span class="line">pip3 install virtualenv   <span class="comment"># 安装virtualenv</span></span><br><span class="line">python3 -m venv django_venv   <span class="comment"># 创建venv虚拟环境</span></span><br><span class="line">source ./django_venv/<span class="built_in">bin</span>/activate    <span class="comment"># 进入虚拟环境</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 下载django</span></span><br><span class="line">pip3 install django  <span class="comment"># 直接安装</span></span><br><span class="line">pip3 install django==<span class="number">2.2</span> -i https://pypi.douban.com/simple    <span class="comment"># 指定安装版本 和安装源</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建工程  </span></span><br><span class="line">django-admin startproject mysite    <span class="comment">#  创建一个名叫mysite的django工程</span></span><br><span class="line">python manage.py startapp app     <span class="comment"># 创建一个名叫app的子应用</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 运行命令 </span></span><br><span class="line">python3 manage.py runserver <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span>:<span class="number">8000</span>   <span class="comment"># 指定运行到 8000 端口</span></span><br></pre></td></tr></table></figure>
-
-<p><font color=#f26522 size=4 face=宋体><strong><strong>2.配置settings：</strong></strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># pip install jinja2    在虚拟环境中安装mako 包</span></span><br><span class="line">ALLOWED_HOSTS = [<span class="string">&quot;*&quot;</span>]    <span class="comment"># 允许所有ip访问</span></span><br><span class="line"></span><br><span class="line">INSTALLED_APPS = [</span><br><span class="line">    <span class="string">&#x27;django.contrib.admin&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;django.contrib.auth&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;django.contrib.contenttypes&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;django.contrib.sessions&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;django.contrib.messages&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;django.contrib.staticfiles&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;app&#x27;</span>,          <span class="comment"># 以上是默认系统生成， 此处添加子应用名称，在这里添加了才可以使用</span></span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">TEMPLATES = [    <span class="comment"># temolates 模板配置</span></span><br><span class="line"></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">&#x27;BACKEND&#x27;</span>: <span class="string">&#x27;django.template.backends.django.DjangoTemplates&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;DIRS&#x27;</span>: [os.path.join(BASE_DIR, <span class="string">&#x27;templates&#x27;</span>)],     <span class="comment">#  自动生成修改</span></span><br><span class="line">        <span class="string">&#x27;APP_DIRS&#x27;</span>: <span class="literal">True</span>,</span><br><span class="line">        <span class="string">&#x27;OPTIONS&#x27;</span>: &#123;</span><br><span class="line">            <span class="string">&#x27;context_processors&#x27;</span>: [</span><br><span class="line">                <span class="string">&#x27;django.template.context_processors.debug&#x27;</span>,</span><br><span class="line">                <span class="string">&#x27;django.template.context_processors.request&#x27;</span>,</span><br><span class="line">                <span class="string">&#x27;django.contrib.auth.context_processors.auth&#x27;</span>,</span><br><span class="line">                <span class="string">&#x27;django.contrib.messages.context_processors.messages&#x27;</span>,</span><br><span class="line">            ],</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#  固定写法</span></span><br><span class="line">LANGUAGE_CODE = <span class="string">&#x27;zh-hans&#x27;</span></span><br><span class="line">TIME_ZONE = <span class="string">&#x27;Asia/Shanghai&#x27;</span></span><br><span class="line">USE_I18N = <span class="literal">True</span></span><br><span class="line">USE_I10N = <span class="literal">True</span></span><br><span class="line">USE_TZ = <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">STATIC_URL = <span class="string">&#x27;/static/&#x27;</span></span><br><span class="line">STATICFILES_DIRS = [</span><br><span class="line">    os.path.join(BASE_DIR, <span class="string">&#x27;static&#x27;</span>)</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-
-<p><font color=#f26522 size=4 face=宋体><strong><strong>3.配置主路由urls内容：</strong></strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> django.contrib <span class="keyword">import</span> admin</span><br><span class="line"><span class="keyword">from</span> django.urls <span class="keyword">import</span> path, include    <span class="comment"># 导入include包</span></span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">    path(<span class="string">&#x27;admin/&#x27;</span>, admin.site.urls),    <span class="comment"># 固定写法 系统自动生成</span></span><br><span class="line">    path(<span class="string">&#x27;&#x27;</span>, include(<span class="string">&#x27;app.urls&#x27;</span>))     <span class="comment"># 添加子路由</span></span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-
-<p><font color=#f26522 size=4 face=宋体><strong><strong>4.配置子路由urls内容（mako模板版本）：</strong></strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> django.urls <span class="keyword">import</span> path</span><br><span class="line"><span class="keyword">from</span> .views <span class="keyword">import</span> mako   <span class="comment"># 导入mako包</span></span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">    path(<span class="string">&#x27;&#x27;</span>, mako.as_view())     <span class="comment"># 指向mako模板</span></span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-
-<p><font color=#f26522 size=4 face=宋体><strong><strong>5.创建jinja2模板py（app &gt; base_jinja2.py）文件：</strong></strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> jinja2 <span class="keyword">import</span> Environment</span><br><span class="line"><span class="keyword">from</span> django.contrib.staticfiles.storage <span class="keyword">import</span> staticfiles_storage</span><br><span class="line"><span class="keyword">from</span> django.urls <span class="keyword">import</span> reverse</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">environment</span>(<span class="params">**options</span>):</span><br><span class="line">    env = Environment(**options)</span><br><span class="line">    env.<span class="built_in">globals</span>.update(&#123;</span><br><span class="line">        <span class="string">&#x27;static&#x27;</span>: staticfiles_storage.url,</span><br><span class="line">        <span class="string">&#x27;url&#x27;</span>: reverse</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">return</span> env</span><br></pre></td></tr></table></figure>
-
-<p><font color=#f26522 size=4 face=宋体><strong><strong>6.配置views.py：</strong></strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> .base_render <span class="keyword">import</span> render_to_response</span><br><span class="line"><span class="keyword">from</span> django.views.generic <span class="keyword">import</span> View</span><br><span class="line"><span class="comment"># Create your views here.</span></span><br><span class="line"><span class="keyword">from</span> django.shortcuts <span class="keyword">import</span> render</span><br><span class="line"><span class="keyword">from</span> django.http <span class="keyword">import</span> HttpResponse</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">mako</span>(<span class="title class_ inherited__">View</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">get</span>(<span class="params">self, request</span>):</span><br><span class="line">        data = &#123;<span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;coocoo&#x27;</span>, <span class="string">&#x27;age&#x27;</span>: <span class="number">20</span>&#125;</span><br><span class="line">        <span class="keyword">return</span> render(request, <span class="string">&#x27;index.html&#x27;</span>, data=data)</span><br></pre></td></tr></table></figure>
-
-<p><font color=#f26522 size=4 face=宋体><strong><strong>7.创建 templates &gt; index.html：</strong></strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">//该内容是mako模板下的html</span><br><span class="line">    </span><br><span class="line">    Title</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#123;name&#125;&#123;age&#125;</span><br><span class="line">    &lt;%!</span><br><span class="line">        <span class="keyword">from</span> django.conf <span class="keyword">import</span> settings</span><br><span class="line">        <span class="keyword">import</span> requests</span><br><span class="line">        res_a = requests.get(<span class="string">&#x27;https://www.baidu.com&#x27;</span>)</span><br><span class="line">        res_a.encoding = <span class="string">&#x27;utf-8&#x27;</span></span><br><span class="line">    %&gt;</span><br><span class="line">&#123;<span class="comment">#    &#123;settings.TEMPLATES[0][&#x27;DIRS&#x27;][0]&#125;#&#125;&#123;res_a.text&#125;</span></span><br></pre></td></tr></table></figure>
-
-<p><font color=#f26522 size=4 face=宋体><strong><strong>8.Mako基本语法：</strong></strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">变量被 &#123;&#123; 和 &#125;&#125; 包围，如下所示：</span><br><span class="line">My first name <span class="keyword">is</span> &#123;&#123; first_name &#125;&#125;. My last name <span class="keyword">is</span> &#123;&#123; last_name &#125;&#125;.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">字典查找，属性查找和列表索引查找均以点符号实现：</span><br><span class="line">&#123;&#123; my_dict.key &#125;&#125;</span><br><span class="line">&#123;&#123; my_object.attribute &#125;&#125;</span><br><span class="line">&#123;&#123; my_list<span class="number">.0</span> &#125;&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">标签在渲染过程中提供了任意逻辑。</span><br><span class="line">这个定义是故意含糊的。例如，标签可以输出内容，或用作控制结构如 “<span class="keyword">if</span>” 语句和 “<span class="keyword">for</span>” 循环，或从数据库中抓取内容，甚至可以访问其他模板标签。</span><br><span class="line">标签被 &#123;% 和 %&#125; 包围，如下所示：</span><br><span class="line"></span><br><span class="line">标签被 &#123;% 和 %&#125; 包围，如下所示：</span><br><span class="line">&#123;% csrf_token %&#125;</span><br><span class="line"></span><br><span class="line">大多数标签都接受参数：</span><br><span class="line">&#123;% cycle <span class="string">&#x27;odd&#x27;</span> <span class="string">&#x27;even&#x27;</span> %&#125;</span><br><span class="line"></span><br><span class="line">一些标签需要开始和结束标签：</span><br><span class="line">&#123;% <span class="keyword">if</span> user.is_authenticated %&#125;Hello, &#123;&#123; user.username &#125;&#125;.&#123;% endif %&#125;</span><br></pre></td></tr></table></figure>
-
-<p><font color=#f26522 size=4 face=宋体><strong><strong>9、jinja2基本语法：</strong></strong></font></p>
-<p><img src="https://s2.loli.net/2022/06/21/VmLFau3lHsfKrYp.png" alt="img"></p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/03/20/Jinja2%E6%A8%A1%E6%9D%BF%E5%88%9B%E5%BB%BA%E6%B5%81%E7%A8%8B/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1895,7 +1776,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-06-08 17:41:28" itemprop="dateModified" datetime="2024-06-08T17:41:28+08:00">2024-06-08</time>
+                <time title="修改时间：2024-06-13 22:04:39" itemprop="dateModified" datetime="2024-06-13T22:04:39+08:00">2024-06-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1923,18 +1804,14 @@
 
       
           <p><font color=#00b2c2 size=5 face=宋体><strong><strong>Linux下Django关于安装mysqlclient报错的问题：</strong></strong></font></p>
-<hr>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>错误提示：</strong></strong></font></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ERROR: Command errored out with exit status 1: python setup.py egg_info Check the logs for full command output.</span><br></pre></td></tr></table></figure>
-
-<p><font color=#f26522 size=4 face=宋体><strong><strong>解决办法：</strong></strong></font></p>
-<p><font color=#b0171f size=3 face=宋体><strong><strong>我这边是因为缺少库导致的安装失败（PYTHON&#x3D;3.81，DJANGO&#x3D;4.0.6）</strong></strong></font></p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo apt-get install libmysqlclient-dev</span><br><span class="line">pip3 install wheel</span><br></pre></td></tr></table></figure>
-
-<p><font color=#b0171f size=3 face=宋体><strong><strong>最后在执行mysqlclient的安装</strong></strong></font></p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pip3 install mysqlclient</span><br></pre></td></tr></table></figure>
-
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/03/20/Linux%E4%B8%8BDjango%E5%85%B3%E4%BA%8E%E5%AE%89%E8%A3%85mysqlclient%E6%8A%A5%E9%94%99%E7%9A%84%E9%97%AE%E9%A2%98/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1984,7 +1861,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-06-08 17:41:28" itemprop="dateModified" datetime="2024-06-08T17:41:28+08:00">2024-06-08</time>
+                <time title="修改时间：2024-06-13 22:06:24" itemprop="dateModified" datetime="2024-06-13T22:06:24+08:00">2024-06-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -2008,25 +1885,14 @@
 
       
           <p><font color=#00b2c2 size=5 face=宋体><strong><strong>背景：</strong></strong></font></p>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>在nvidia ngc平台下载docker image，根据实验要求在环境里安装opencv。因为当前实验tensorflow要求代码，还是使用尽可能新的环境，则可以避免大部分环境问题。</strong></strong></font></p>
-<p><font color=#00b2c2 size=5 face=宋体><strong><strong>问题：</strong></strong></font></p>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>通过pip安装opencv，指令如下：</strong></strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">pip install opencv-python</span><br></pre></td></tr></table></figure>
-
-<p><font color=#f26522 size=4 face=宋体><strong><strong>安装过程的输出：</strong></strong></font></p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">Collecting opencv-python</span><br><span class="line">  Downloading https://files.pythonhosted.org/packages/77/f5/49f034f8d109efcf9b7e98fbc051878b83b2f02a1c73f92bbd37f317288e/opencv-python-4.4.0.42.tar.gz (88.9MB)</span><br><span class="line">    100% |████████████████████████████████| 88.9MB 919kB/s</span><br><span class="line">  Installing build dependencies ... done</span><br><span class="line">  Getting requirements to build wheel ... done</span><br><span class="line">    Preparing wheel metadata ... done</span><br><span class="line">Requirement already satisfied: numpy&gt;=1.13.1 in /usr/local/lib/python3.5/dist-packages (from opencv-python) (1.14.5)</span><br><span class="line">Building wheels for collected packages: opencv-python</span><br><span class="line">  Building wheel for opencv-python (PEP 517) ...</span><br></pre></td></tr></table></figure>
-
-<p><font color=red size=4 face=宋体><strong><strong>PEP 517信息出现后，过了很长时间，出现报错信息：</strong></strong></font></p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">Configuring Project</span><br><span class="line">    Working directory:</span><br><span class="line">      /tmp/pip-install-zujf20md/opencv-python/_skbuild/linux-x86_64-3.6/cmake-build</span><br><span class="line">    Command:</span><br><span class="line">      cmake /tmp/pip-install-zujf20md/opencv-python/opencv -G &#x27;Unix Makefiles&#x27; -DCMAKE_INSTALL_PREFIX:PATH=/tmp/pip-install-zujf20md/opencv-python/_skbuild/linux-x86_64-3.6/cmake-install -DPYTHON_EXECUTABLE:FILEPATH=/usr/bin/python -DPYTHON_VERSION_STRING:STRING=3.6.8 -DPYTHON_INCLUDE_DIR:PATH=/usr/include/python3.6m -DPYTHON_LIBRARY:FILEPATH=/usr/lib/x86_64-linux-gnu/libpython3.6m.so -DSKBUILD:INTERNAL=TRUE -DCMAKE_MODULE_PATH:PATH=/tmp/pip-build-env-tr73ewqw/overlay/lib/python3.6/site-packages/skbuild/resources/cmake -DPYTHON3_EXECUTABLE=/usr/bin/python -DPYTHON3_INCLUDE_DIR=/usr/include/python3.6m -DPYTHON3_LIBRARY=/usr/lib/x86_64-linux-gnu/libpython3.6m.so -DBUILD_opencv_python3=ON -DBUILD_opencv_python2=OFF -DBUILD_opencv_java=OFF -DOPENCV_PYTHON3_INSTALL_PATH=python -DINSTALL_CREATE_DISTRIB=ON -DBUILD_opencv_apps=OFF -DBUILD_opencv_freetype=OFF -DBUILD_SHARED_LIBS=OFF -DBUILD_TESTS=OFF -DBUILD_PERF_TESTS=OFF -DBUILD_DOCS=OFF -DCMAKE_BUILD_TYPE:STRING=Release</span><br><span class="line"></span><br><span class="line">  Copying files from CMake output</span><br><span class="line">  Traceback (most recent call last):</span><br><span class="line">    File &quot;/usr/local/lib/python3.6/dist-packages/pip/_vendor/pep517/_in_process.py&quot;, line 207, in </span><br><span class="line">      main()</span><br><span class="line">    File &quot;/usr/local/lib/python3.6/dist-packages/pip/_vendor/pep517/_in_process.py&quot;, line 197, in main</span><br><span class="line">      json_out[&#x27;return_val&#x27;] = hook(**hook_input[&#x27;kwargs&#x27;])</span><br><span class="line">    File &quot;/usr/local/lib/python3.6/dist-packages/pip/_vendor/pep517/_in_process.py&quot;, line 141, in build_wheel</span><br><span class="line">      metadata_directory)</span><br><span class="line">    File &quot;/usr/local/lib/python3.6/dist-packages/setuptools/build_meta.py&quot;, line 209, in build_wheel</span><br><span class="line">      wheel_directory, config_settings)</span><br><span class="line">    File &quot;/usr/local/lib/python3.6/dist-packages/setuptools/build_meta.py&quot;, line 194, in _build_with_temp_dir</span><br><span class="line">      self.run_setup()</span><br><span class="line">    File &quot;/usr/local/lib/python3.6/dist-packages/setuptools/build_meta.py&quot;, line 237, in run_setup</span><br><span class="line">      self).run_setup(setup_script=setup_script)</span><br><span class="line">    File &quot;/usr/local/lib/python3.6/dist-packages/setuptools/build_meta.py&quot;, line 142, in run_setup</span><br><span class="line">      exec(compile(code, __file__, &#x27;exec&#x27;), locals())</span><br><span class="line">    File &quot;setup.py&quot;, line 496, in </span><br><span class="line">      main()</span><br><span class="line">    File &quot;setup.py&quot;, line 289, in main</span><br><span class="line">      cmake_source_dir=cmake_source_dir,</span><br><span class="line">    File &quot;/tmp/pip-build-env-tr73ewqw/overlay/lib/python3.6/site-packages/skbuild/setuptools_wrap.py&quot;, line 629, in setup</span><br><span class="line">      cmake_source_dir, skbuild_kw[&#x27;cmake_install_dir&#x27;])</span><br><span class="line">    File &quot;setup.py&quot;, line 381, in _classify_installed_files_override</span><br><span class="line">      with open(&#x27;scripts/__init__.py&#x27;, &#x27;r&#x27;) as custom_init:</span><br><span class="line">  FileNotFoundError: [Errno 2] No such file or directory: &#x27;scripts/__init__.py&#x27;</span><br><span class="line">  ----------------------------------------</span><br><span class="line">  ERROR: Failed building wheel for opencv-python</span><br><span class="line">  Running setup.py clean for opencv-python</span><br><span class="line">Failed to build opencv-python</span><br><span class="line">ERROR: Could not build wheels for opencv-python which use PEP 517 and cannot be installed directly</span><br></pre></td></tr></table></figure>
-
-<p><font color=#00b2c2 size=5 face=宋体><strong><strong>解决方案：</strong></strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">pip install --upgrade pip setuptools wheel</span><br></pre></td></tr></table></figure>
-
-<p><font color=#f26522 size=4 face=宋体><strong><strong>重试安装：</strong></strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">pip install opencv-python</span><br></pre></td></tr></table></figure>
-
-<p><font color=#f26522 size=4 face=宋体><strong><strong>问题解决啦~！</strong></strong></font></p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/03/20/Package-%E8%A7%A3%E5%86%B3-Could-not-build-wheels-for-opencv-python-which-use-PEP-517-and-cannot-be-installed/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -2076,7 +1942,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-06-08 17:41:28" itemprop="dateModified" datetime="2024-06-08T17:41:28+08:00">2024-06-08</time>
+                <time title="修改时间：2024-06-13 22:16:47" itemprop="dateModified" datetime="2024-06-13T22:16:47+08:00">2024-06-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -2104,16 +1970,14 @@
 
       
           <p><font color=#00b2c2 size=5 face=宋体><strong><strong>django设置debug设为False,前端样式出现错乱或静态文件404问题。</strong></strong></font></p>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>django部署到生产环境中遇到的坑大部分都是引用静态文件带来的，</strong></strong></font></p>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>setting设置里面debug设为False，</strong></strong></font></p>
-<p><font color=#b0171f size=3 face=宋体><strong><strong>需要配置如下:</strong></strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">ALLOWED_HOSTS=[<span class="string">&quot;服务器ip&quot;</span>]</span><br><span class="line">STATIC_ROOT = os.path.join(BASE_DIR, <span class="string">&#x27;static&#x27;</span>)</span><br></pre></td></tr></table></figure>
-
-<p><font color=#f26522 size=4 face=宋体><strong><strong>然后执行python manage.py collectstatic将静态文件全部复制到根目录下static里。</strong></strong></font></p>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>这时候在开发环境下是不能处理一些静态文件了，需要在运行时强制Django处理静态文件：</strong></strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">python manage.py runserver <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span>:<span class="number">8000</span> --insecure</span><br></pre></td></tr></table></figure>
-
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/03/20/django%E8%AE%BE%E7%BD%AEdebug%E8%AE%BE%E4%B8%BAFalse-%E5%89%8D%E7%AB%AF%E6%A0%B7%E5%BC%8F%E5%87%BA%E7%8E%B0%E9%94%99%E4%B9%B1%E6%88%96%E9%9D%99%E6%80%81%E6%96%87%E4%BB%B6404%E9%97%AE%E9%A2%98%E3%80%82/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -2163,7 +2027,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-06-08 17:41:28" itemprop="dateModified" datetime="2024-06-08T17:41:28+08:00">2024-06-08</time>
+                <time title="修改时间：2024-06-13 22:06:59" itemprop="dateModified" datetime="2024-06-13T22:06:59+08:00">2024-06-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -2187,9 +2051,14 @@
 
       
           <p><font color=#00b2c2 size=5 face=宋体><strong><strong>python_协程的基础用法：</strong></strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> aiohttp   <span class="comment"># pip3 install aiohttp   # 支持异步模式的网络请求模块</span></span><br><span class="line"><span class="keyword">import</span> asyncio</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">fetch</span>(<span class="params">session, url</span>):</span><br><span class="line">    a_ = time.time()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;发送请求： <span class="subst">&#123;a_&#125;</span>   <span class="subst">&#123;url&#125;</span>&quot;</span>)</span><br><span class="line">    <span class="keyword">async</span> <span class="keyword">with</span> session.get(url, verify_ssl=<span class="literal">False</span>) <span class="keyword">as</span> response:</span><br><span class="line">        content = <span class="keyword">await</span> response.content.read()</span><br><span class="line">        file_name = url.rsplit(<span class="string">&#x27;_&#x27;</span>)[-<span class="number">1</span>]</span><br><span class="line">        <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">f&quot;/home/x1/图片/<span class="subst">&#123;file_name&#125;</span>&quot;</span>, <span class="string">&#x27;wb&#x27;</span>) <span class="keyword">as</span> file_obj:</span><br><span class="line">            file_obj.write(content)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;下载完成了： <span class="subst">&#123;<span class="built_in">int</span>(time.time() - a_)&#125;</span>   <span class="subst">&#123;url&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">main</span>():</span><br><span class="line">    <span class="keyword">async</span> <span class="keyword">with</span> aiohttp.ClientSession() <span class="keyword">as</span> session:</span><br><span class="line">        url_list = [</span><br><span class="line">            <span class="string">&#x27;https://xxx1.jpg&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;https://xxx2.jpg&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;https://xxx3.jpg&#x27;</span>]</span><br><span class="line">        tasks = [asyncio.create_task(fetch(session, url)) <span class="keyword">for</span> url <span class="keyword">in</span> url_list]</span><br><span class="line">        <span class="keyword">await</span> asyncio.wait(tasks)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    asyncio.run(main())</span><br></pre></td></tr></table></figure>
-
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/03/20/python-%E5%8D%8F%E7%A8%8B%E7%9A%84%E5%9F%BA%E7%A1%80%E7%94%A8%E6%B3%95/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -2239,7 +2108,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-06-08 17:41:28" itemprop="dateModified" datetime="2024-06-08T17:41:28+08:00">2024-06-08</time>
+                <time title="修改时间：2024-06-13 22:09:47" itemprop="dateModified" datetime="2024-06-13T22:09:47+08:00">2024-06-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -2263,8 +2132,14 @@
 
       
           <p><font color=#f26522 size=5 face=宋体><strong><strong>ubuntu 安装 截图工具：</strong></strong></font></p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">安装火焰截图工具</span></span><br><span class="line">sudo apt-get install flameshot</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">添加快捷键命令</span></span><br><span class="line">flameshot gui   # 火焰截图</span><br><span class="line">gnome-screenshot -a   # ubuntu本身系统截图命令</span><br></pre></td></tr></table></figure>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/03/20/ubuntu-%E5%AE%89%E8%A3%85-%E6%88%AA%E5%9B%BE%E5%B7%A5%E5%85%B7/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -2314,7 +2189,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-06-08 17:41:28" itemprop="dateModified" datetime="2024-06-08T17:41:28+08:00">2024-06-08</time>
+                <time title="修改时间：2024-06-13 22:04:24" itemprop="dateModified" datetime="2024-06-13T22:04:24+08:00">2024-06-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -2338,50 +2213,14 @@
 
       
           <p><font color=#00b2c2 size=5 face=宋体><strong><strong>Linux查看硬件信息：</strong></strong></font></p>
-<hr>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>系统：</strong></strong></font></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># uname -a               # 查看内核/操作系统/CPU信息</span><br><span class="line"># head -n 1 /etc/issue   # 查看操作系统版本</span><br><span class="line"># cat /proc/cpuinfo      # 查看CPU信息</span><br><span class="line"># hostname               # 查看计算机名</span><br><span class="line"># lspci -tv              # 列出所有PCI设备（yum install pciutils）</span><br><span class="line"># lsusb -tv              # 列出所有USB设备</span><br><span class="line"># lsmod                  # 列出加载的内核模块</span><br><span class="line"># env                    # 查看环境变量</span><br></pre></td></tr></table></figure>
-
-<hr>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>资源：</strong></strong></font></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># free -m                # 查看内存使用量和交换区使用量</span><br><span class="line"># df -h                  # 查看各分区使用情况</span><br><span class="line"># du -sh &lt;目录名&gt;        # 查看指定目录的大小</span><br><span class="line"># grep MemTotal /proc/meminfo   # 查看内存总量</span><br><span class="line"># grep MemFree /proc/meminfo    # 查看空闲内存量</span><br><span class="line"># uptime                 # 查看系统运行时间、用户数、负载</span><br><span class="line"># cat /proc/loadavg      # 查看系统负载</span><br></pre></td></tr></table></figure>
-
-<hr>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>磁盘和分区：</strong></strong></font></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># mount | column -t      # 查看挂接的分区状态</span><br><span class="line"># fdisk -l               # 查看所有分区</span><br><span class="line"># swapon -s              # 查看所有交换分区</span><br><span class="line"># hdparm -i /dev/hda     # 查看磁盘参数(仅适用于IDE设备)</span><br><span class="line"># dmesg | grep IDE       # 查看启动时IDE设备检测状况</span><br></pre></td></tr></table></figure>
-
-<hr>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>网络：</strong></strong></font></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># ifconfig               # 查看所有网络接口的属性</span><br><span class="line"># iptables -L            # 查看防火墙设置</span><br><span class="line"># route -n               # 查看路由表</span><br><span class="line"># netstat -lntp          # 查看所有监听端口</span><br><span class="line"># netstat -antp          # 查看所有已经建立的连接</span><br><span class="line"># netstat -s             # 查看网络统计信息</span><br></pre></td></tr></table></figure>
-
-<hr>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>进程：</strong></strong></font></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># ps -ef                 # 查看所有进程</span><br><span class="line"># top                    # 实时显示进程状态</span><br></pre></td></tr></table></figure>
-
-<hr>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>用户：</strong></strong></font></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># w                      # 查看活动用户</span><br><span class="line"># id &lt;用户名&gt;            # 查看指定用户信息</span><br><span class="line"># last                   # 查看用户登录日志</span><br><span class="line"># cut -d: -f1 /etc/passwd   # 查看系统所有用户</span><br><span class="line"># cut -d: -f1 /etc/group    # 查看系统所有组</span><br><span class="line"># crontab -l             # 查看当前用户的计划任务</span><br></pre></td></tr></table></figure>
-
-<hr>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>服务：</strong></strong></font></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># chkconfig --list       # 列出所有系统服务</span><br><span class="line"># chkconfig --list | grep on    # 列出所有启动的系统服务</span><br></pre></td></tr></table></figure>
-
-<hr>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>程序：</strong></strong></font></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># rpm -qa                # 查看所有安装的软件包</span><br></pre></td></tr></table></figure>
-
-<hr>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>查看网卡型号：</strong></strong></font></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># lspci | grep Ethernet</span><br></pre></td></tr></table></figure>
-
-<hr>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>查看内存和cpu最直接最常用的命令：</strong></strong></font></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># free</span><br><span class="line"># cat /proc/cpuinfo</span><br></pre></td></tr></table></figure>
-
-<hr>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>查看硬盘信息（查看硬盘型号和硬盘序列号）：</strong></strong></font></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># df -h</span><br></pre></td></tr></table></figure>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/03/20/Linux%E6%9F%A5%E7%9C%8B%E7%A1%AC%E4%BB%B6%E4%BF%A1%E6%81%AF/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -2431,7 +2270,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-06-08 17:41:28" itemprop="dateModified" datetime="2024-06-08T17:41:28+08:00">2024-06-08</time>
+                <time title="修改时间：2024-06-13 22:04:52" itemprop="dateModified" datetime="2024-06-13T22:04:52+08:00">2024-06-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -2455,9 +2294,14 @@
 
       
           <p><font color=#00b2c2 size=5 face=宋体><strong>m3u8下载协议不在白名单：</strong></font></p>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>Protocol ‘https‘ not on whitelist ‘file,crypto‘ ——m3u8下载协议不在白名单，m3u8下载器推荐</strong></strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">ffmpeg -allowed_extensions ALL -protocol_whitelist concat,file,http,https,tcp,tls,crypto -t <span class="number">80</span> -i s_3.m3u8 -c copy ../v2.mp4</span><br></pre></td></tr></table></figure>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/03/20/m3u8%E4%B8%8B%E8%BD%BD%E5%8D%8F%E8%AE%AE%E4%B8%8D%E5%9C%A8%E7%99%BD%E5%90%8D%E5%8D%95/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -2507,7 +2351,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-06-08 17:41:28" itemprop="dateModified" datetime="2024-06-08T17:41:28+08:00">2024-06-08</time>
+                <time title="修改时间：2024-06-13 22:05:50" itemprop="dateModified" datetime="2024-06-13T22:05:50+08:00">2024-06-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -2531,11 +2375,14 @@
 
       
           <p><font color=#00b2c2 size=5 face=宋体><strong><strong>1、MTproxy_代理搭建:</strong></strong></font></p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">自建脚本操作</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">1、创建脚本路径</span></span><br><span class="line">mkdir /root/mtproxy</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">2、进入脚本文件夹</span></span><br><span class="line">cd /root/mtproxy</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">3、开始执行安装程序</span></span><br><span class="line">wget -N --no-check-certificate http://teadan.com/all_bash/mtproxy.sh &amp;&amp; chmod +x mtproxy.sh &amp;&amp; bash mtproxy.sh</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">备用通道与自建脚本自由第 3 步骤不同，请替换为以下脚本</span></span><br><span class="line">wget -N --no-check-certificate https://raw.githubusercontent.com/ToyoDAdoubiBackup/doubi/master/mtproxy.sh &amp;&amp; chmod +x mtproxy.sh &amp;&amp; bash mtproxy.sh</span><br></pre></td></tr></table></figure>
-
-<p><font color=#00b2c2 size=5 face=宋体><strong><strong>2、安装完成后续操作</strong></strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 创建软连接，以后启动该脚本就可以直接 mt 呼出脚本界面了</span></span><br><span class="line">ln -s /root/mtproxy/mtproxy.sh /usr/local/<span class="built_in">bin</span>/mt</span><br></pre></td></tr></table></figure>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/03/20/MTproxy-%E4%BB%A3%E7%90%86%E6%90%AD%E5%BB%BA/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -2585,7 +2432,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-06-08 17:41:28" itemprop="dateModified" datetime="2024-06-08T17:41:28+08:00">2024-06-08</time>
+                <time title="修改时间：2024-06-13 22:09:28" itemprop="dateModified" datetime="2024-06-13T22:09:28+08:00">2024-06-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -2609,9 +2456,14 @@
 
       
           <p><font color=#00b2c2 size=5 face=宋体><strong><strong>selenium 无头模式 使用方法：</strong></strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver   <span class="comment"># 导入selenium包</span></span><br><span class="line"><span class="keyword">from</span> selenium.webdriver.chrome.service <span class="keyword">import</span> Service    <span class="comment"># 无头模式</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_ck</span>():</span><br><span class="line">    chromeOptions = webdriver.ChromeOptions()   <span class="comment"># 实例化</span></span><br><span class="line">    chromeOptions.add_argument(<span class="string">&#x27;--user-agent=Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36&#x27;</span>)   <span class="comment"># 添加headers头文件</span></span><br><span class="line">    chromeOptions.add_argument(<span class="string">&#x27;--headless&#x27;</span>)</span><br><span class="line">    chromeOptions.add_argument(<span class="string">&#x27;--no-sandbox&#x27;</span>)</span><br><span class="line">    chromeOptions.add_argument(<span class="string">&#x27;--disable-gpu&#x27;</span>)</span><br><span class="line">    driver = webdriver.Chrome(service=Service(<span class="string">&quot;/usr/bin/chromedriver&quot;</span>), options=chromeOptions)      <span class="comment"># 设置文件路径</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 请求方式</span></span><br><span class="line">    drive.get(<span class="string">&quot;https://www.baidu.com&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 等待selenium加载完成js内容</span></span><br><span class="line">    driver.implicitly_wait(<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 获取text文本格式内容</span></span><br><span class="line">    driver.page_source</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 完成之后 退出chrome</span></span><br><span class="line">    driver.close()</span><br><span class="line">    driver.quit()</span><br></pre></td></tr></table></figure>
-
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/03/20/selenium-%E6%97%A0%E5%A4%B4%E6%A8%A1%E5%BC%8F-%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95%EF%BC%9A/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -2661,7 +2513,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-06-08 17:41:28" itemprop="dateModified" datetime="2024-06-08T17:41:28+08:00">2024-06-08</time>
+                <time title="修改时间：2024-06-13 22:09:11" itemprop="dateModified" datetime="2024-06-13T22:09:11+08:00">2024-06-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -2685,8 +2537,14 @@
 
       
           <p><font color=#00b2c2 size=5 face=宋体><strong><strong>requests模块 失败重试 方法记录</strong></strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> requests   <span class="comment"># pip install requests</span></span><br><span class="line"><span class="keyword">from</span> requests.adapters <span class="keyword">import</span> HTTPAdapter</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">session</span>():</span><br><span class="line">    session = requests.Session()   <span class="comment"># 实例化</span></span><br><span class="line">    session.mount(<span class="string">&#x27;http://&#x27;</span>, HTTPAdapter(max_retries=<span class="number">5</span>))   <span class="comment"># http重试最大5次</span></span><br><span class="line">    session.mount(<span class="string">&#x27;https://&#x27;</span>, HTTPAdapter(max_retries=<span class="number">5</span>))    <span class="comment"># https 重试最大5次</span></span><br><span class="line">    session.headers = &#123;</span><br><span class="line">        <span class="string">&#x27;User-Agent&#x27;</span>: <span class="string">&quot;Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.0.0 Safari/537.36&quot;</span>,</span><br><span class="line">        <span class="comment"># &#x27;User-Agent&#x27;: &#x27;PostmanRuntime/7.28.4&#x27;,</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> session</span><br></pre></td></tr></table></figure>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/03/20/requests%E6%A8%A1%E5%9D%97-%E5%A4%B1%E8%B4%A5%E9%87%8D%E8%AF%95-%E6%96%B9%E6%B3%95%E8%AE%B0%E5%BD%95/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -2736,7 +2594,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-06-08 17:41:29" itemprop="dateModified" datetime="2024-06-08T17:41:29+08:00">2024-06-08</time>
+                <time title="修改时间：2024-06-13 22:12:37" itemprop="dateModified" datetime="2024-06-13T22:12:37+08:00">2024-06-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -2760,42 +2618,14 @@
 
       
           <p><font color=#00b2c2 size=5 face=宋体><strong><strong>天虹小主机 z3735f原装windos8.1 修改装ubuntu</strong></strong></font></p>
-<hr>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>但如此低的配置，实在是…. 一言难尽！</strong></strong></font></p>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>配置如下：</strong></strong></font></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">- 2G 内存 、32G硬盘</span><br><span class="line">- 因特尔四核 Z3735</span><br><span class="line">- 这种配置.....它装个linux 系统   它不香么？  为什么非要上windos？</span><br><span class="line">- 于是. . . . 有了下面一出！</span><br></pre></td></tr></table></figure>
-
-<hr>
-<p><font color=#00b2c2 size=5 face=宋体><strong><strong>折腾开始!</strong></strong></font></p>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>盒子到手，开机，未激活的Win8.1，瞄了一眼容量，试了试浏览器开个网页，感觉比树莓派强好多。</strong></strong></font></p>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>于是找出了硬盘里积压多年的ubuntu16.04 server x64，开始了装机。</strong></strong></font></p>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>半分钟后，它愉快的滚进了Win8.1。</strong></strong></font></p>
-<p><font color=#f26522 size=4 face=宋体><strong><strong>没事看来是bios没换，于是进Bios，选MASS Stronger 闪退。</strong></strong></font></p>
-<hr>
-<p><font color=#00b2c2 size=5 face=宋体><strong><strong>然后. . . .进入正题：</strong></strong></font></p>
-<ul>
-<li>首先准备一个已经制作完成的ubuntu U盘，其他发行版的也行（但Linux的内核版本最好4.00以上）。</li>
-<li>拷贝<a target="_blank" rel="noopener" href="https://github.com/jfwells/linux-asus-t100ta/blob/master/boot/bootia32.efi">jfwells&#x2F;linux-asus-t100ta</a> &#x3D;&gt; <strong><a target="_blank" rel="noopener" href="https://github.com/jfwells/linux-asus-t100ta/raw/master/boot/bootia32.efi">点击下载</a></strong> 这个文件到U盘EFI&#x2F;BOOT目录<ul>
-<li>这里有个问题，因为ubuntu写入u盘的时候，是没有办法更改空间大小的，所以我把主意打到了iso镜像文件上。</li>
-<li>首先用UltraISO的读取然后把efi文件拖入 EFI&#x2F;BOOT 用 UltraISO 保存 然后在写入u盘 然后，就可以直接使用小主机安装ubuntu系统了</li>
-</ul>
-</li>
-<li><font color=#b0171f size=3 face=宋体><strong>接下来插入，就能引导进入grub引导页，完成正常安装步骤</strong></font></li>
-<li><font color=#b0171f size=3 face=宋体><strong>安装完后不要拔掉U盘，第二次继续引导U盘，对第一项按一下C键</strong></font></li>
-<li><font color=#b0171f size=3 face=宋体><strong>将里面的内容修改为（以你自己分区为准，善用TAB键自动补全），下面是我的结果</strong></font></li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">linux (hd1,gpt2)/boot/vmlinuz-4.15.0-45-generic root=/dev/mmcblk1p2</span><br><span class="line">initrd (hd1,gpt2)/boot/initrd.img-4.15.0-45-generic</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><font color=red size=3 face=宋体><strong>这时就可以进入刚刚安装好的系统，直接sudo su进超级用户</strong></font></li>
-<li>执行下列命令</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">apt update</span><br><span class="line">apt-get install grub-efi-ia32-bin</span><br><span class="line">grub-install --target=i386-efi --efi-directory=/boot/efi</span><br><span class="line">update-grub</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><font color=#00b2c2 size=3 face=宋体><strong>最后重启，就可以愉快的使用了</strong></font></li>
-</ul>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/03/20/%E5%A4%A9%E8%99%B9%E5%B0%8F%E4%B8%BB%E6%9C%BA-z3735f%E5%8E%9F%E8%A3%85windos8-1-%E4%BF%AE%E6%94%B9%E8%A3%85ubuntu/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -2886,7 +2716,7 @@
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">56</span>
+        <span class="site-state-item-count">59</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
