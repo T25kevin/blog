@@ -198,6 +198,97 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/07/17/go-%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82%E6%A8%A1%E5%9D%97%E5%B0%81%E8%A3%85-%E6%94%AF%E6%8C%81ja3%E6%8C%87%E7%BA%B9%E4%BF%AE%E6%94%B9/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/452794135.jpg">
+      <meta itemprop="name" content="Kanoc Ge">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/07/17/go-%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82%E6%A8%A1%E5%9D%97%E5%B0%81%E8%A3%85-%E6%94%AF%E6%8C%81ja3%E6%8C%87%E7%BA%B9%E4%BF%AE%E6%94%B9/" class="post-title-link" itemprop="url">go 网络请求模块封装(支持ja3指纹修改)</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-07-17 14:36:23" itemprop="dateCreated datePublished" datetime="2023-07-17T14:36:23+08:00">2023-07-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-06-08 17:45:30" itemprop="dateModified" datetime="2024-06-08T17:45:30+08:00">2024-06-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/go/" itemprop="url" rel="index"><span itemprop="name">go</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/go/%E7%88%AC%E8%99%AB/" itemprop="url" rel="index"><span itemprop="name">爬虫</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="go-网络请求模块封装-支持ja3指纹修改-："><a href="#go-网络请求模块封装-支持ja3指纹修改-：" class="headerlink" title="go 网络请求模块封装(支持ja3指纹修改)："></a><font color=#00b2c2 size=5 face=宋体><strong>go 网络请求模块封装(支持ja3指纹修改)：</strong></font></h1><h2 id="下载requests库"><a href="#下载requests库" class="headerlink" title="下载requests库:"></a>下载requests库:</h2><ul>
+<li>下载最新库</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">go get github.com/wangluozhe/requests</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>下载指定版</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">go get github.com/wangluozhe/requests@v1.0.4</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="封装代码示例："><a href="#封装代码示例：" class="headerlink" title="封装代码示例："></a><font color=#b0171f size=4 face=宋体><strong>封装代码示例：</strong></font></h2><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">	<span class="string">&quot;github.com/wangluozhe/requests&quot;</span></span><br><span class="line">	<span class="string">&quot;github.com/wangluozhe/requests/url&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	SText := get(<span class="string">&quot;https://xxx.com&quot;</span>)</span><br><span class="line">	fmt.Println(SText)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">get</span><span class="params">(url_string <span class="type">string</span>)</span></span> <span class="type">string</span> &#123;</span><br><span class="line">	req := url.NewRequest()</span><br><span class="line">	headers := url.NewHeaders()</span><br><span class="line">	headers.Set(<span class="string">&quot;User-Agent&quot;</span>, <span class="string">&quot;Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:87.0) Gecko/20100101 Firefox/87.0&quot;</span>)</span><br><span class="line">	req.Headers = headers</span><br><span class="line">	req.Ja3 = <span class="string">&quot;771,4865-4867-4866-49195-49199-52393-52392-49196-49200-49162-49161-49171-49172-51-57-47-53-10,0-23-65281-10-11-35-16-5-51-43-13-45-28-21,29-23-24-25-256-257,0&quot;</span></span><br><span class="line">	r, err := requests.Get(url_string, req)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		fmt.Println(err)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//fmt.Println(r.Text)</span></span><br><span class="line">	<span class="keyword">return</span> r.Text</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/07/17/go-requests%EF%BC%8Cgolang%E7%89%88http%E8%AF%B7%E6%B1%82%EF%BC%8C%E6%94%AF%E6%8C%81Ja3%E6%8C%87%E7%BA%B9%E4%BF%AE%E6%94%B9/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -3290,119 +3381,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/05/27/python%E4%B8%ADunicode%E7%BC%96%E7%A0%81%E8%BD%AC%E6%8D%A2%E4%B8%BA%E4%B8%AD%E6%96%87/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/452794135.jpg">
-      <meta itemprop="name" content="Kanoc Ge">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/05/27/python%E4%B8%ADunicode%E7%BC%96%E7%A0%81%E8%BD%AC%E6%8D%A2%E4%B8%BA%E4%B8%AD%E6%96%87/" class="post-title-link" itemprop="url">python中unicode编码转换为中文</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-05-27 17:20:12" itemprop="dateCreated datePublished" datetime="2023-05-27T17:20:12+08:00">2023-05-27</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-06-08 17:41:28" itemprop="dateModified" datetime="2024-06-08T17:41:28+08:00">2024-06-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%BC%96%E7%A0%81%E3%80%81%E8%A7%A3%E7%A0%81/" itemprop="url" rel="index"><span itemprop="name">编码、解码</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="python中unicode编码转换为中文："><a href="#python中unicode编码转换为中文：" class="headerlink" title="python中unicode编码转换为中文："></a><font color=#00b2c2 size=5 face=宋体><strong>python中unicode编码转换为中文：</strong></font></h1><p><font color=#b0171f size=2 face=宋体><strong>我们使用python中，遇到爬取网站情况，用到unicode编码，我们需要将它转换为中文，unicode编码转换为中文的方法有四种：使用unicode_escape 解码、使用encode()方法转换，再调用bytes.decode()转换为字符串形式、 使用json.loads 解码（为json 格式）、使用eval（遇到Unicode是通过requests在网上爬取的时候）。具体内容请看本文。</strong></font></p>
-<br>
-
-<hr>
-<br>
-
-<p><font color=#f26522 size=4 face=宋体><strong><strong>方法一：使用unicode_escape 解码：</strong></strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">unicode = <span class="string">b&#x27;\\u4f60\\u597d&#x27;</span></span><br><span class="line">re = unicode.decode(<span class="string">&quot;unicode_escape&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(re)</span><br><span class="line"></span><br><span class="line">返回：你好</span><br></pre></td></tr></table></figure>
-
-<br>
-
-<hr>
-<br>
-
-<p><font color=#f26522 size=4 face=宋体><strong><strong>方法二：使用encode()方法转换，再调用bytes.decode()转换为字符串形式：</strong></strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">s = <span class="string">r&#x27;\u4f60\u597d&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(s.encode().decode(<span class="string">&quot;unicode_escape&quot;</span>))</span><br></pre></td></tr></table></figure>
-
-<br>
-
-<hr>
-<br>
-
-<p><font color=#f26522 size=4 face=宋体><strong><strong>方法三： 使用json.loads 解码（为json 格式）：</strong></strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="built_in">str</span> = <span class="string">&#x27;\u4eac\u4e1c\u653e\u517b\u7684\u722c\u866b&#x27;</span></span><br><span class="line"> </span><br><span class="line"><span class="built_in">print</span> json.loads(<span class="string">&#x27;&quot;%s&quot;&#x27;</span> %<span class="built_in">str</span>)</span><br></pre></td></tr></table></figure>
-
-<br>
-
-<hr>
-<br>
-
-<p><font color=#f26522 size=4 face=宋体><strong><strong>方法四：使用eval（遇到Unicode是通过requests在网上爬取的时候）：</strong></strong></font></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">response = requests.get(url,headers=headers)</span><br><span class="line">re = <span class="built_in">eval</span>(<span class="string">&quot;u&quot;</span>+<span class="string">&quot;\&#x27;&quot;</span>+response.text+<span class="string">&quot;\&#x27;&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(re)</span><br></pre></td></tr></table></figure>
-
-<br>
-
-<br>
-
-<br>
-
-<hr>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -3473,7 +3451,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">312</span>
+          <span class="site-state-item-count">313</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
