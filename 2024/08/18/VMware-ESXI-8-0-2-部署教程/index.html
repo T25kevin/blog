@@ -113,7 +113,7 @@
 <meta property="og:image" content="https://s2.loli.net/2024/08/18/JLYzVI145RaEFMC.png">
 <meta property="og:image" content="https://s2.loli.net/2024/08/18/bEJdFVg6R1vIH4Y.png">
 <meta property="article:published_time" content="2024-08-17T16:57:17.000Z">
-<meta property="article:modified_time" content="2024-08-17T18:19:34.970Z">
+<meta property="article:modified_time" content="2024-08-23T19:33:14.668Z">
 <meta property="article:author" content="Kanoc Ge">
 <meta property="article:tag" content="标签1">
 <meta name="twitter:card" content="summary">
@@ -302,10 +302,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2024-08-18 00:57:17 / 修改时间：02:19:34" itemprop="dateCreated datePublished" datetime="2024-08-18T00:57:17+08:00">2024-08-18</time>
+              <time title="创建时间：2024-08-18 00:57:17" itemprop="dateCreated datePublished" datetime="2024-08-18T00:57:17+08:00">2024-08-18</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-08-24 03:33:14" itemprop="dateModified" datetime="2024-08-24T03:33:14+08:00">2024-08-24</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -368,7 +374,8 @@
 <p>直接下载需要安装的系统镜像放到 U 盘里就可以了。如果U盘够大的话，一些常用的镜像和工具都可以放到里面，以后各个系统装机都可以使用。不管是各版本的 Windows 系统还是 PE 系统甚至是 ubuntu 系统，只要想加载就直接将镜像文件拖入到Ventoy文件夹内即可。</p>
 <p><img src="https://s2.loli.net/2024/08/18/QwWfCriepYRgDhB.png" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
 <h2 id="二、下载-ESXi-8-0"><a href="#二、下载-ESXi-8-0" class="headerlink" title="二、下载 ESXi 8.0"></a>二、下载 ESXi 8.0</h2><h3 id="1-直链下载镜像"><a href="#1-直链下载镜像" class="headerlink" title="1. 直链下载镜像"></a>1. 直链下载镜像</h3><p><code>VMWare</code> 被博通收购后，私人已经无法像原来一样轻松的下载了，这里是我传到网盘的镜像，如果觉得不安全，可以自己去找其他的镜像。</p>
-<p><code>ESXi 8.0</code>下载传送门：<a target="_blank" rel="noopener" href="https://bd.bcebos.com/v1/xly-icafe/vmware-vmvisor-installer-8.0u3-24022510.x86_64-20240818021845-hszvto.iso">点击下载</a></p>
+<p><code>ESXi 8.0</code>下载传送门：<a target="_blank" rel="noopener" href="https://bd.bcebos.com/v1/xly-icafe/vmware-vmvisor-installer-8.0u3-24022510.x86_64-20240818021845-hszvto.iso">点击下载</a>  <font color=red size=3 face=宋体><strong>不支持螃蟹网卡</strong></font></p>
+<p><code>ESXi 6.7</code>下载传送门：<a target="_blank" rel="noopener" href="https://bd.bcebos.com/v1/xly-icafe/vmware-esxi-6.7.0-20191204001-rtl8111-20240824033216-q1ikk9.iso">点击下载</a>  <font color=red size=3 face=宋体><strong>已经封装螃蟹网卡<code>RTL8111</code>系列</strong></font></p>
 <h3 id="2-下载镜像"><a href="#2-下载镜像" class="headerlink" title="2.下载镜像"></a>2.下载镜像</h3><p>去<a target="_blank" rel="noopener" href="https://customerconnect.vmware.com/evalcenter?p=vsphere-eval-8">官网下载</a>，下载前，先注册一个 VMWare 的 customer connect 账号，注册登录完毕后，就可以下载 60 天试用版的 ESXI8.0 了，后面使用密钥激活一下即可，网上神秘代码很多，一搜一堆，这个就不多说了。</p>
 <p><img src="https://s2.loli.net/2024/08/18/d83LvRzqSxi7FCM.png" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
 <p>下载镜像文件，目前最新的版本是8.0-20513097</p>
