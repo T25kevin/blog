@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <style>
+    .category-all-page .category-list-item {
+      margin: 15px 10px 10px 10px;
+      list-style: none;
+      font-size: 20px;
+      }
+      .category-all-page .category-list-child {
+        list-style: none;
+        }
+  </style>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"kanoc.gitee.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="网络爬虫-cloudflare五秒等待验证逆向破解(js版)：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="网络爬虫-cloudflare五秒等待验证逆向破解(js版)">
+<meta property="og:url" content="https://kanoc.gitee.io/2023/11/21/%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB-cloudflare%E4%BA%94%E7%A7%92%E7%AD%89%E5%BE%85%E9%AA%8C%E8%AF%81%E9%80%86%E5%90%91%E7%A0%B4%E8%A7%A3-js%E7%89%88/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="网络爬虫-cloudflare五秒等待验证逆向破解(js版)：">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2023/11/21/QYDFC6rAJ2aZsyg.png">
+<meta property="og:image" content="https://s2.loli.net/2023/11/21/SdwycfnHIkhM5X3.png">
+<meta property="og:image" content="https://s2.loli.net/2023/11/21/YiPFzm6xlLtHo1X.png">
+<meta property="og:image" content="https://s2.loli.net/2023/11/21/lWGX3uKBSbs7ihT.png">
+<meta property="og:image" content="https://s2.loli.net/2023/11/21/5hvqEKnsz1MFYSy.png">
+<meta property="og:image" content="https://s2.loli.net/2023/11/21/Dbvn1ou4rJRGKTd.png">
+<meta property="og:image" content="https://s2.loli.net/2023/11/21/NOEjf2kBCJ1QeqL.png">
+<meta property="og:image" content="https://s2.loli.net/2023/11/21/Q7oM46vJYLlSrPn.png">
+<meta property="og:image" content="https://s2.loli.net/2023/11/21/6FM9S42kDWPK3Hi.png">
+<meta property="article:published_time" content="2023-11-20T19:21:23.000Z">
+<meta property="article:modified_time" content="2024-06-25T16:56:20.779Z">
+<meta property="article:author" content="Kanoc Ge">
+<meta property="article:tag" content="逆向">
+<meta property="article:tag" content="记录">
+<meta property="article:tag" content="Cloudflare">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2023/11/21/QYDFC6rAJ2aZsyg.png">
+
+<link rel="canonical" href="https://kanoc.gitee.io/2023/11/21/%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB-cloudflare%E4%BA%94%E7%A7%92%E7%AD%89%E5%BE%85%E9%AA%8C%E8%AF%81%E9%80%86%E5%90%91%E7%A0%B4%E8%A7%A3-js%E7%89%88/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>网络爬虫-cloudflare五秒等待验证逆向破解(js版) | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-首页-|-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页 | home</a>
+
+  </li>
+        <li class="menu-item menu-item-分类-|-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类 | categories</a>
+
+  </li>
+        <li class="menu-item menu-item-标签-|-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签 | tags</a>
+
+  </li>
+        <li class="menu-item menu-item-归档-|-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档 | archives</a>
+
+  </li>
+        <li class="menu-item menu-item-关于-|-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于 | about</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/11/21/%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB-cloudflare%E4%BA%94%E7%A7%92%E7%AD%89%E5%BE%85%E9%AA%8C%E8%AF%81%E9%80%86%E5%90%91%E7%A0%B4%E8%A7%A3-js%E7%89%88/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/452794135.jpg">
+      <meta itemprop="name" content="Kanoc Ge">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          网络爬虫-cloudflare五秒等待验证逆向破解(js版)
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-11-21 03:21:23" itemprop="dateCreated datePublished" datetime="2023-11-21T03:21:23+08:00">2023-11-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-06-26 00:56:20" itemprop="dateModified" datetime="2024-06-26T00:56:20+08:00">2024-06-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%80%86%E5%90%91-%E5%8F%8D%E7%88%AC/" itemprop="url" rel="index"><span itemprop="name">逆向_反爬</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><font color=#00b2c2 size=5 face=宋体><strong>网络爬虫-cloudflare五秒等待验证逆向破解(js版)：</strong></font></p>
+<span id="more"></span>
+
+<p>本文搬运自：<a target="_blank" rel="noopener" href="https://codeantenna.com/a/nyhfUFhv3H#">网络爬虫-cloudflare五秒等待验证逆向破解 - CodeAntenna</a></p>
+<h3 id="Cloudflare是国外的一家安全防护公司，最近在很多网站上也看到了他的身影，比较明显的特征就是让你等待5秒钟以验证你是否是真实的浏览器。"><a href="#Cloudflare是国外的一家安全防护公司，最近在很多网站上也看到了他的身影，比较明显的特征就是让你等待5秒钟以验证你是否是真实的浏览器。" class="headerlink" title="Cloudflare是国外的一家安全防护公司，最近在很多网站上也看到了他的身影，比较明显的特征就是让你等待5秒钟以验证你是否是真实的浏览器。"></a><font color=#b0171f size=2 face=宋体><strong>Cloudflare是国外的一家安全防护公司，最近在很多网站上也看到了他的身影，比较明显的特征就是让你等待5秒钟以验证你是否是真实的浏览器。</strong></font></h3><h4 id="以-https-www-biovision-com-为例"><a href="#以-https-www-biovision-com-为例" class="headerlink" title="以 https://www.biovision.com/ 为例"></a><font color=#f26522 size=4 face=宋体><strong>以 <a target="_blank" rel="noopener" href="https://www.biovision.com/">https://www.biovision.com/</a> 为例</strong></font></h4><h4 id=""><a href="#" class="headerlink" title=""></a><img src="https://s2.loli.net/2023/11/21/QYDFC6rAJ2aZsyg.png"></h4><h3 id="另一个明显的特征就是它的cookie里面会包含-cfduid-cf-clearance-这个两个字段。-如果你发现你访问的网站里有这些特征，那么毫无疑问他就是采用了-Cloudflare的安全防护了，我们这里讲他的初级防护，也就是等待5秒的js逆向分析。"><a href="#另一个明显的特征就是它的cookie里面会包含-cfduid-cf-clearance-这个两个字段。-如果你发现你访问的网站里有这些特征，那么毫无疑问他就是采用了-Cloudflare的安全防护了，我们这里讲他的初级防护，也就是等待5秒的js逆向分析。" class="headerlink" title="另一个明显的特征就是它的cookie里面会包含__cfduid, cf_clearance 这个两个字段。 如果你发现你访问的网站里有这些特征，那么毫无疑问他就是采用了 Cloudflare的安全防护了，我们这里讲他的初级防护，也就是等待5秒的js逆向分析。"></a><font color=#b0171f size=2 face=宋体><strong>另一个明显的特征就是它的cookie里面会包含__cfduid, cf_clearance 这个两个字段。 如果你发现你访问的网站里有这些特征，那么毫无疑问他就是采用了 Cloudflare的安全防护了，我们这里讲他的初级防护，也就是等待5秒的js逆向分析。</strong></font></h3><hr>
+<h3 id="首先访问网站，抓包分析。"><a href="#首先访问网站，抓包分析。" class="headerlink" title="首先访问网站，抓包分析。"></a><font color=#f26522 size=4 face=宋体><strong>首先访问网站，抓包分析。</strong></font></h3><p><img src="https://s2.loli.net/2023/11/21/SdwycfnHIkhM5X3.png" alt="在这里插入图片描述"><br><img src="https://s2.loli.net/2023/11/21/YiPFzm6xlLtHo1X.png" alt="在这里插入图片描述"><br><img src="https://s2.loli.net/2023/11/21/lWGX3uKBSbs7ihT.png" alt="在这里插入图片描述"></p>
+<h3 id="可以很清晰地看到，第一次请求访问该网站会503，然后给你一个-cfduid的cookie，带着这个cookie以及某几个参数-后面会讲到-去访问第二个url，会返回给你cf-clearance这个cookie-最后带着这俩cookie再次访问该网站即可正常拿到数据了。"><a href="#可以很清晰地看到，第一次请求访问该网站会503，然后给你一个-cfduid的cookie，带着这个cookie以及某几个参数-后面会讲到-去访问第二个url，会返回给你cf-clearance这个cookie-最后带着这俩cookie再次访问该网站即可正常拿到数据了。" class="headerlink" title="可以很清晰地看到，第一次请求访问该网站会503，然后给你一个__cfduid的cookie，带着这个cookie以及某几个参数(后面会讲到)去访问第二个url，会返回给你cf_clearance这个cookie,最后带着这俩cookie再次访问该网站即可正常拿到数据了。"></a><font color=#b0171f size=2 face=宋体><strong>可以很清晰地看到，第一次请求访问该网站会503，然后给你一个__cfduid的cookie，带着这个cookie以及某几个参数(后面会讲到)去访问第二个url，会返回给你cf_clearance这个cookie,最后带着这俩cookie再次访问该网站即可正常拿到数据了。</strong></font></h3><hr>
+<h3 id="接下来就是找第二个链接里面的params参数了，不难发现，前面三个参数都是直接在第一次访问网站时返回的静态html里面，用正则取出来即可，所以我们重点关注的是第四个参数jschl-answer，因为我们在源码里面没有发现他。"><a href="#接下来就是找第二个链接里面的params参数了，不难发现，前面三个参数都是直接在第一次访问网站时返回的静态html里面，用正则取出来即可，所以我们重点关注的是第四个参数jschl-answer，因为我们在源码里面没有发现他。" class="headerlink" title="接下来就是找第二个链接里面的params参数了，不难发现，前面三个参数都是直接在第一次访问网站时返回的静态html里面，用正则取出来即可，所以我们重点关注的是第四个参数jschl_answer，因为我们在源码里面没有发现他。"></a><font color=#b0171f size=2 face=宋体><strong>接下来就是找第二个链接里面的params参数了，不难发现，前面三个参数都是直接在第一次访问网站时返回的静态html里面，用正则取出来即可，所以我们重点关注的是第四个参数jschl_answer，因为我们在源码里面没有发现他。</strong></font></h3><p><img src="https://s2.loli.net/2023/11/21/5hvqEKnsz1MFYSy.png" alt="在这里插入图片描述"></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">_s = re.findall(<span class="string">&#x27;name=&quot;s&quot; value=&quot;(.*?)&quot;&#x27;</span>, r.text)[<span class="number">0</span>]</span><br><span class="line">_jschl_vc = re.findall(<span class="string">&#x27;name=&quot;jschl_vc&quot; value=&quot;(.*?)&quot;&#x27;</span>, r.text)[<span class="number">0</span>]</span><br><span class="line">_<span class="keyword">pass</span> = re.findall(<span class="string">&#x27;name=&quot;pass&quot; value=&quot;(.*?)&quot;&#x27;</span>, r.text)[<span class="number">0</span>]</span><br></pre></td></tr></table></figure>
+
+<p><font color=#b0171f size=2 face=宋体><strong>然后我们看第一次访问网站时返回给我们的html,可以发现里面有一大段很奇怪的js。</strong></font></p>
+<p><img src="https://s2.loli.net/2023/11/21/Dbvn1ou4rJRGKTd.png" alt="在这里插入图片描述"><br><img src="https://s2.loli.net/2023/11/21/NOEjf2kBCJ1QeqL.png" alt="在这里插入图片描述"></p>
+<p><font color=#b0171f size=2 face=宋体><strong>我们可以看到 这个a其实就是我们要的东西，a.value实际上就是我们需要找到的加密参数。接下来只需要用execjs把这段js运行出来，拿到a.value的值即可。</strong></font></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">r = s.get(<span class="string">&#x27;https://www.biovision.com/&#x27;</span>, headers=headers)</span><br><span class="line"><span class="built_in">print</span>(r.text)</span><br><span class="line"></span><br><span class="line">pattern = re.<span class="built_in">compile</span>(<span class="string">&#x27;setTimeout\(function\(\)\&#123;(.*?)f.action \+= location.hash;&#x27;</span>, re.S)</span><br><span class="line">code = pattern.findall(r.text)</span><br><span class="line">code = re.sub(<span class="string">&#x27;\s+(t = document.*?);\s+;&#x27;</span>, <span class="string">&#x27;&#x27;</span>, code[<span class="number">0</span>], flags=re.S)</span><br><span class="line">code = re.sub(<span class="string">&#x27;a.value&#x27;</span>, <span class="string">&#x27;value&#x27;</span>, code)</span><br><span class="line">code = re.sub(<span class="string">&#x27;t.length&#x27;</span>, <span class="string">&#x27;17&#x27;</span>, code)</span><br><span class="line">code = <span class="string">&#x27;function test()&#123;&#x27;</span> + code.strip() + <span class="string">&#x27;;return value;&#125;&#x27;</span></span><br><span class="line">s1 = execjs.<span class="built_in">compile</span>(code)</span><br><span class="line">t = s1.call(<span class="string">&#x27;test&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(t)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<h6 id="这里讲解一下t-length替换为17是怎么来的，以免有些同学一头雾水。直接拿源码中的js去浏览器运行，因为这个是固定值，所以我直接替换了，如下图："><a href="#这里讲解一下t-length替换为17是怎么来的，以免有些同学一头雾水。直接拿源码中的js去浏览器运行，因为这个是固定值，所以我直接替换了，如下图：" class="headerlink" title="这里讲解一下t.length替换为17是怎么来的，以免有些同学一头雾水。直接拿源码中的js去浏览器运行，因为这个是固定值，所以我直接替换了，如下图："></a><font color=#b0171f size=2 face=宋体><strong>这里讲解一下t.length替换为17是怎么来的，以免有些同学一头雾水。直接拿源码中的js去浏览器运行，因为这个是固定值，所以我直接替换了，如下图：</strong></font></h6></blockquote>
+<p><img src="https://s2.loli.net/2023/11/21/Q7oM46vJYLlSrPn.png"></p>
+<h3 id="然后我们可以拿fiddler抓包拿到的这段js去运行，看看生成的结果是否和抓包里的jschl-answer一致。"><a href="#然后我们可以拿fiddler抓包拿到的这段js去运行，看看生成的结果是否和抓包里的jschl-answer一致。" class="headerlink" title="然后我们可以拿fiddler抓包拿到的这段js去运行，看看生成的结果是否和抓包里的jschl_answer一致。"></a><font color=#b0171f size=2 face=宋体><font color=#f26522 size=4 face=宋体><strong>然后我们可以拿fiddler抓包拿到的这段js去运行，看看生成的结果是否和抓包里的jschl_answer一致。</strong></font></font></h3><p><img src="https://s2.loli.net/2023/11/21/6FM9S42kDWPK3Hi.png"></p>
+<h3 id="可以看到完全一致，至此逆向分析结束。"><a href="#可以看到完全一致，至此逆向分析结束。" class="headerlink" title="可以看到完全一致，至此逆向分析结束。"></a>可以看到完全一致，至此逆向分析结束。</h3><h5 id="OK-大功告成"><a href="#OK-大功告成" class="headerlink" title="OK 大功告成"></a>OK 大功告成</h5>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E9%80%86%E5%90%91/" rel="tag"># 逆向</a>
+              <a href="/tags/%E8%AE%B0%E5%BD%95/" rel="tag"># 记录</a>
+              <a href="/tags/Cloudflare/" rel="tag"># Cloudflare</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/11/21/%E9%BB%91%E5%AE%A2%E5%B7%A5%E5%85%B7%E4%B9%8BGoogle-Hacking%E7%9A%84%E7%AE%80%E5%8D%95%E7%94%A8%E6%B3%95/" rel="prev" title="黑客工具之Google Hacking的简单用法">
+      <i class="fa fa-chevron-left"></i> 黑客工具之Google Hacking的简单用法
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2023/11/21/8%E4%B8%AA%E5%85%8D%E8%B4%B9%E9%AB%98%E9%80%9F%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93%E5%B7%A5%E5%85%B7%EF%BC%8C%E8%AE%A9%E4%BD%A0%E5%BD%BB%E5%BA%95%E5%91%8A%E5%88%AB%E7%BD%91%E7%9B%98%E5%92%8C%E6%95%B0%E6%8D%AE%E7%BA%BF/" rel="next" title="8个免费高速文件传输工具，让你彻底告别网盘和数据线">
+      8个免费高速文件传输工具，让你彻底告别网盘和数据线 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Cloudflare%E6%98%AF%E5%9B%BD%E5%A4%96%E7%9A%84%E4%B8%80%E5%AE%B6%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E5%85%AC%E5%8F%B8%EF%BC%8C%E6%9C%80%E8%BF%91%E5%9C%A8%E5%BE%88%E5%A4%9A%E7%BD%91%E7%AB%99%E4%B8%8A%E4%B9%9F%E7%9C%8B%E5%88%B0%E4%BA%86%E4%BB%96%E7%9A%84%E8%BA%AB%E5%BD%B1%EF%BC%8C%E6%AF%94%E8%BE%83%E6%98%8E%E6%98%BE%E7%9A%84%E7%89%B9%E5%BE%81%E5%B0%B1%E6%98%AF%E8%AE%A9%E4%BD%A0%E7%AD%89%E5%BE%855%E7%A7%92%E9%92%9F%E4%BB%A5%E9%AA%8C%E8%AF%81%E4%BD%A0%E6%98%AF%E5%90%A6%E6%98%AF%E7%9C%9F%E5%AE%9E%E7%9A%84%E6%B5%8F%E8%A7%88%E5%99%A8%E3%80%82"><span class="nav-number">1.</span> <span class="nav-text">Cloudflare是国外的一家安全防护公司，最近在很多网站上也看到了他的身影，比较明显的特征就是让你等待5秒钟以验证你是否是真实的浏览器。</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%A5-https-www-biovision-com-%E4%B8%BA%E4%BE%8B"><span class="nav-number">1.1.</span> <span class="nav-text">以 https:&#x2F;&#x2F;www.biovision.com&#x2F; 为例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">1.2.</span> <span class="nav-text"></span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%A6%E4%B8%80%E4%B8%AA%E6%98%8E%E6%98%BE%E7%9A%84%E7%89%B9%E5%BE%81%E5%B0%B1%E6%98%AF%E5%AE%83%E7%9A%84cookie%E9%87%8C%E9%9D%A2%E4%BC%9A%E5%8C%85%E5%90%AB-cfduid-cf-clearance-%E8%BF%99%E4%B8%AA%E4%B8%A4%E4%B8%AA%E5%AD%97%E6%AE%B5%E3%80%82-%E5%A6%82%E6%9E%9C%E4%BD%A0%E5%8F%91%E7%8E%B0%E4%BD%A0%E8%AE%BF%E9%97%AE%E7%9A%84%E7%BD%91%E7%AB%99%E9%87%8C%E6%9C%89%E8%BF%99%E4%BA%9B%E7%89%B9%E5%BE%81%EF%BC%8C%E9%82%A3%E4%B9%88%E6%AF%AB%E6%97%A0%E7%96%91%E9%97%AE%E4%BB%96%E5%B0%B1%E6%98%AF%E9%87%87%E7%94%A8%E4%BA%86-Cloudflare%E7%9A%84%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E4%BA%86%EF%BC%8C%E6%88%91%E4%BB%AC%E8%BF%99%E9%87%8C%E8%AE%B2%E4%BB%96%E7%9A%84%E5%88%9D%E7%BA%A7%E9%98%B2%E6%8A%A4%EF%BC%8C%E4%B9%9F%E5%B0%B1%E6%98%AF%E7%AD%89%E5%BE%855%E7%A7%92%E7%9A%84js%E9%80%86%E5%90%91%E5%88%86%E6%9E%90%E3%80%82"><span class="nav-number">2.</span> <span class="nav-text">另一个明显的特征就是它的cookie里面会包含__cfduid, cf_clearance 这个两个字段。 如果你发现你访问的网站里有这些特征，那么毫无疑问他就是采用了 Cloudflare的安全防护了，我们这里讲他的初级防护，也就是等待5秒的js逆向分析。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A6%96%E5%85%88%E8%AE%BF%E9%97%AE%E7%BD%91%E7%AB%99%EF%BC%8C%E6%8A%93%E5%8C%85%E5%88%86%E6%9E%90%E3%80%82"><span class="nav-number">3.</span> <span class="nav-text">首先访问网站，抓包分析。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AF%E4%BB%A5%E5%BE%88%E6%B8%85%E6%99%B0%E5%9C%B0%E7%9C%8B%E5%88%B0%EF%BC%8C%E7%AC%AC%E4%B8%80%E6%AC%A1%E8%AF%B7%E6%B1%82%E8%AE%BF%E9%97%AE%E8%AF%A5%E7%BD%91%E7%AB%99%E4%BC%9A503%EF%BC%8C%E7%84%B6%E5%90%8E%E7%BB%99%E4%BD%A0%E4%B8%80%E4%B8%AA-cfduid%E7%9A%84cookie%EF%BC%8C%E5%B8%A6%E7%9D%80%E8%BF%99%E4%B8%AAcookie%E4%BB%A5%E5%8F%8A%E6%9F%90%E5%87%A0%E4%B8%AA%E5%8F%82%E6%95%B0-%E5%90%8E%E9%9D%A2%E4%BC%9A%E8%AE%B2%E5%88%B0-%E5%8E%BB%E8%AE%BF%E9%97%AE%E7%AC%AC%E4%BA%8C%E4%B8%AAurl%EF%BC%8C%E4%BC%9A%E8%BF%94%E5%9B%9E%E7%BB%99%E4%BD%A0cf-clearance%E8%BF%99%E4%B8%AAcookie-%E6%9C%80%E5%90%8E%E5%B8%A6%E7%9D%80%E8%BF%99%E4%BF%A9cookie%E5%86%8D%E6%AC%A1%E8%AE%BF%E9%97%AE%E8%AF%A5%E7%BD%91%E7%AB%99%E5%8D%B3%E5%8F%AF%E6%AD%A3%E5%B8%B8%E6%8B%BF%E5%88%B0%E6%95%B0%E6%8D%AE%E4%BA%86%E3%80%82"><span class="nav-number">4.</span> <span class="nav-text">可以很清晰地看到，第一次请求访问该网站会503，然后给你一个__cfduid的cookie，带着这个cookie以及某几个参数(后面会讲到)去访问第二个url，会返回给你cf_clearance这个cookie,最后带着这俩cookie再次访问该网站即可正常拿到数据了。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A5%E4%B8%8B%E6%9D%A5%E5%B0%B1%E6%98%AF%E6%89%BE%E7%AC%AC%E4%BA%8C%E4%B8%AA%E9%93%BE%E6%8E%A5%E9%87%8C%E9%9D%A2%E7%9A%84params%E5%8F%82%E6%95%B0%E4%BA%86%EF%BC%8C%E4%B8%8D%E9%9A%BE%E5%8F%91%E7%8E%B0%EF%BC%8C%E5%89%8D%E9%9D%A2%E4%B8%89%E4%B8%AA%E5%8F%82%E6%95%B0%E9%83%BD%E6%98%AF%E7%9B%B4%E6%8E%A5%E5%9C%A8%E7%AC%AC%E4%B8%80%E6%AC%A1%E8%AE%BF%E9%97%AE%E7%BD%91%E7%AB%99%E6%97%B6%E8%BF%94%E5%9B%9E%E7%9A%84%E9%9D%99%E6%80%81html%E9%87%8C%E9%9D%A2%EF%BC%8C%E7%94%A8%E6%AD%A3%E5%88%99%E5%8F%96%E5%87%BA%E6%9D%A5%E5%8D%B3%E5%8F%AF%EF%BC%8C%E6%89%80%E4%BB%A5%E6%88%91%E4%BB%AC%E9%87%8D%E7%82%B9%E5%85%B3%E6%B3%A8%E7%9A%84%E6%98%AF%E7%AC%AC%E5%9B%9B%E4%B8%AA%E5%8F%82%E6%95%B0jschl-answer%EF%BC%8C%E5%9B%A0%E4%B8%BA%E6%88%91%E4%BB%AC%E5%9C%A8%E6%BA%90%E7%A0%81%E9%87%8C%E9%9D%A2%E6%B2%A1%E6%9C%89%E5%8F%91%E7%8E%B0%E4%BB%96%E3%80%82"><span class="nav-number">5.</span> <span class="nav-text">接下来就是找第二个链接里面的params参数了，不难发现，前面三个参数都是直接在第一次访问网站时返回的静态html里面，用正则取出来即可，所以我们重点关注的是第四个参数jschl_answer，因为我们在源码里面没有发现他。</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%BF%99%E9%87%8C%E8%AE%B2%E8%A7%A3%E4%B8%80%E4%B8%8Bt-length%E6%9B%BF%E6%8D%A2%E4%B8%BA17%E6%98%AF%E6%80%8E%E4%B9%88%E6%9D%A5%E7%9A%84%EF%BC%8C%E4%BB%A5%E5%85%8D%E6%9C%89%E4%BA%9B%E5%90%8C%E5%AD%A6%E4%B8%80%E5%A4%B4%E9%9B%BE%E6%B0%B4%E3%80%82%E7%9B%B4%E6%8E%A5%E6%8B%BF%E6%BA%90%E7%A0%81%E4%B8%AD%E7%9A%84js%E5%8E%BB%E6%B5%8F%E8%A7%88%E5%99%A8%E8%BF%90%E8%A1%8C%EF%BC%8C%E5%9B%A0%E4%B8%BA%E8%BF%99%E4%B8%AA%E6%98%AF%E5%9B%BA%E5%AE%9A%E5%80%BC%EF%BC%8C%E6%89%80%E4%BB%A5%E6%88%91%E7%9B%B4%E6%8E%A5%E6%9B%BF%E6%8D%A2%E4%BA%86%EF%BC%8C%E5%A6%82%E4%B8%8B%E5%9B%BE%EF%BC%9A"><span class="nav-number">5.0.0.1.</span> <span class="nav-text">这里讲解一下t.length替换为17是怎么来的，以免有些同学一头雾水。直接拿源码中的js去浏览器运行，因为这个是固定值，所以我直接替换了，如下图：</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%84%B6%E5%90%8E%E6%88%91%E4%BB%AC%E5%8F%AF%E4%BB%A5%E6%8B%BFfiddler%E6%8A%93%E5%8C%85%E6%8B%BF%E5%88%B0%E7%9A%84%E8%BF%99%E6%AE%B5js%E5%8E%BB%E8%BF%90%E8%A1%8C%EF%BC%8C%E7%9C%8B%E7%9C%8B%E7%94%9F%E6%88%90%E7%9A%84%E7%BB%93%E6%9E%9C%E6%98%AF%E5%90%A6%E5%92%8C%E6%8A%93%E5%8C%85%E9%87%8C%E7%9A%84jschl-answer%E4%B8%80%E8%87%B4%E3%80%82"><span class="nav-number">6.</span> <span class="nav-text">然后我们可以拿fiddler抓包拿到的这段js去运行，看看生成的结果是否和抓包里的jschl_answer一致。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AF%E4%BB%A5%E7%9C%8B%E5%88%B0%E5%AE%8C%E5%85%A8%E4%B8%80%E8%87%B4%EF%BC%8C%E8%87%B3%E6%AD%A4%E9%80%86%E5%90%91%E5%88%86%E6%9E%90%E7%BB%93%E6%9D%9F%E3%80%82"><span class="nav-number">7.</span> <span class="nav-text">可以看到完全一致，至此逆向分析结束。</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#OK-%E5%A4%A7%E5%8A%9F%E5%91%8A%E6%88%90"><span class="nav-number">7.0.1.</span> <span class="nav-text">OK 大功告成</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Kanoc Ge"
+      src="/images/452794135.jpg">
+  <p class="site-author-name" itemprop="name">Kanoc Ge</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">358</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">85</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">218</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kanoc Ge</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

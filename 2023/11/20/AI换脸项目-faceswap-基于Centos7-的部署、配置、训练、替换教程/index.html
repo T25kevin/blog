@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <style>
+    .category-all-page .category-list-item {
+      margin: 15px 10px 10px 10px;
+      list-style: none;
+      font-size: 20px;
+      }
+      .category-all-page .category-list-child {
+        list-style: none;
+        }
+  </style>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"kanoc.gitee.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="AI换脸项目 - faceswap 基于Centos7 的部署、配置、训练、替换教程（原创）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AI换脸项目 - faceswap 基于Centos7 的部署、配置、训练、替换教程">
+<meta property="og:url" content="https://kanoc.gitee.io/2023/11/20/AI%E6%8D%A2%E8%84%B8%E9%A1%B9%E7%9B%AE-faceswap-%E5%9F%BA%E4%BA%8ECentos7-%E7%9A%84%E9%83%A8%E7%BD%B2%E3%80%81%E9%85%8D%E7%BD%AE%E3%80%81%E8%AE%AD%E7%BB%83%E3%80%81%E6%9B%BF%E6%8D%A2%E6%95%99%E7%A8%8B/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="AI换脸项目 - faceswap 基于Centos7 的部署、配置、训练、替换教程（原创）">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2023/11/20/OJeaRcV6mdgsIP2.png">
+<meta property="article:published_time" content="2023-11-20T01:03:24.000Z">
+<meta property="article:modified_time" content="2024-06-25T16:56:20.296Z">
+<meta property="article:author" content="Kanoc Ge">
+<meta property="article:tag" content="AI">
+<meta property="article:tag" content="换脸">
+<meta property="article:tag" content="教程">
+<meta property="article:tag" content="centos7">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2023/11/20/OJeaRcV6mdgsIP2.png">
+
+<link rel="canonical" href="https://kanoc.gitee.io/2023/11/20/AI%E6%8D%A2%E8%84%B8%E9%A1%B9%E7%9B%AE-faceswap-%E5%9F%BA%E4%BA%8ECentos7-%E7%9A%84%E9%83%A8%E7%BD%B2%E3%80%81%E9%85%8D%E7%BD%AE%E3%80%81%E8%AE%AD%E7%BB%83%E3%80%81%E6%9B%BF%E6%8D%A2%E6%95%99%E7%A8%8B/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>AI换脸项目 - faceswap 基于Centos7 的部署、配置、训练、替换教程 | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-首页-|-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页 | home</a>
+
+  </li>
+        <li class="menu-item menu-item-分类-|-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类 | categories</a>
+
+  </li>
+        <li class="menu-item menu-item-标签-|-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签 | tags</a>
+
+  </li>
+        <li class="menu-item menu-item-归档-|-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档 | archives</a>
+
+  </li>
+        <li class="menu-item menu-item-关于-|-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于 | about</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/11/20/AI%E6%8D%A2%E8%84%B8%E9%A1%B9%E7%9B%AE-faceswap-%E5%9F%BA%E4%BA%8ECentos7-%E7%9A%84%E9%83%A8%E7%BD%B2%E3%80%81%E9%85%8D%E7%BD%AE%E3%80%81%E8%AE%AD%E7%BB%83%E3%80%81%E6%9B%BF%E6%8D%A2%E6%95%99%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/452794135.jpg">
+      <meta itemprop="name" content="Kanoc Ge">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          AI换脸项目 - faceswap 基于Centos7 的部署、配置、训练、替换教程
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-11-20 09:03:24" itemprop="dateCreated datePublished" datetime="2023-11-20T09:03:24+08:00">2023-11-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-06-26 00:56:20" itemprop="dateModified" datetime="2024-06-26T00:56:20+08:00">2024-06-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <br>
+
+<hr>
+<br>
+
+<h3 id="AI换脸项目-faceswap-基于Centos7-的部署、配置、训练、替换教程（原创）"><a href="#AI换脸项目-faceswap-基于Centos7-的部署、配置、训练、替换教程（原创）" class="headerlink" title="AI换脸项目 - faceswap 基于Centos7 的部署、配置、训练、替换教程（原创）"></a><font color=#00b2c2 size=5 face=宋体><strong>AI换脸项目 - faceswap 基于Centos7 的部署、配置、训练、替换教程（原创）</strong></font></h3><span id="more"></span>
+
+<br>
+
+<hr>
+<br>
+
+<p><font color=#f26522 size=4 face=宋体><strong>知识拓展：</strong></font></p>
+<ul>
+<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Dust_Evc/article/details/125019266">【精选】Nvidia GPU 最新计算能力表（CUDA Compute Capability）_cuda计算能力排行_Dust_Evc的博客-CSDN博客</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/377418009">训练指南-deepfakes&#x2F;faceswap：训练Faceswap，模型恢复和分析，手把手教学，简单快速上手！ - 知乎 (zhihu.com)</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000042846780">python - faceswap换脸程序安装及使用 - 个人文章 - SegmentFault 思否</a></p>
+</li>
+</ul>
+<p><font color=#f26522 size=4 face=宋体><strong>环境说明：</strong></font></p>
+<ul>
+<li>系统：Centos7.9</li>
+<li>Intel(R) Xeon(R) CPU E5-2678 v3</li>
+<li>2部署方式：CPU</li>
+<li>指令集强制要求（CPU方式安装）：AVX</li>
+<li>软件：FFmpeg</li>
+<li>python版本：3.10（强制要求，非3.10，很多环境不支持）</li>
+</ul>
+<br>
+
+<hr>
+<br>
+
+<h4 id="1、编译安装-python-3-10-环境："><a href="#1、编译安装-python-3-10-环境：" class="headerlink" title="1、编译安装 python 3.10 环境："></a><font color=#00b2c2 size=5 face=宋体><strong>1、编译安装 python 3.10 环境：</strong></font></h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">cd /root</span><br><span class="line"></span><br><span class="line"><span class="comment">#只是将python3.11的安装包下载到 /root目录下</span></span><br><span class="line">wget https://www.python.org/ftp/python/<span class="number">3.10</span><span class="number">.9</span>/Python-<span class="number">3.10</span><span class="number">.9</span>.tgz</span><br><span class="line"></span><br><span class="line"><span class="comment">#下载最新的软件安装包</span></span><br><span class="line">tar -xzf Python-<span class="number">3.10</span><span class="number">.9</span>.tgz</span><br><span class="line"></span><br><span class="line"><span class="comment">#解压缩安装包</span></span><br><span class="line">yum -y install gcc zlib zlib-devel libffi libffi-devel</span><br><span class="line"></span><br><span class="line"><span class="comment">#安装源码编译需要的编译环境</span></span><br><span class="line">yum install readline-devel</span><br><span class="line"></span><br><span class="line"><span class="comment">#可以解决后期出现的方向键、删除键乱码问题，这里提前避免。</span></span><br><span class="line">yum install openssl-devel openssl11 openssl11-devel</span><br><span class="line"></span><br><span class="line"><span class="comment">#安装openssl11，后期的pip3安装网络相关模块需要用到ssl模块。</span></span><br><span class="line">export CFLAGS=$(pkg-config --cflags openssl11)</span><br><span class="line">export LDFLAGS=$(pkg-config --libs openssl11)</span><br><span class="line"></span><br><span class="line"><span class="comment">#设置编译FLAG，以便使用最新的openssl库</span></span><br><span class="line">cd /root/Python-<span class="number">3.10</span><span class="number">.9</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#进入刚解压缩的目录</span></span><br><span class="line">./configure --prefix=/usr/python --<span class="keyword">with</span>-ssl</span><br><span class="line"></span><br><span class="line"><span class="comment">#指定python3的安装目录为 /usr/python 并使用ssl模块，指定目录好处是</span></span><br><span class="line"><span class="comment">#后期删除此文件夹就可以完全删除软件了。</span></span><br><span class="line">make</span><br><span class="line">make install</span><br><span class="line"></span><br><span class="line"><span class="comment">#就是源码编译并安装了，时间会持续几分钟。</span></span><br><span class="line"><span class="comment"># 如果下面命令执行，提示已经存在/usr/bin/python3 和 /usr/bin/pip3， 可以删除。建议删除，后续会方便很多，也可以不删除，后续执行python3.10也可</span></span><br><span class="line"><span class="comment"># 删除命令：rm -rf /usr/bin/python3 /usr/bin/pip3  # 然后在执行下面的命令</span></span><br><span class="line">ln -s /usr/python/<span class="built_in">bin</span>/python3 /usr/<span class="built_in">bin</span>/python3</span><br><span class="line">ln -s /usr/python/<span class="built_in">bin</span>/pip3 /usr/<span class="built_in">bin</span>/pip3</span><br><span class="line"><span class="comment">#指定链接，此后我们系统的任何地方输入python3就是我们安装的</span></span><br></pre></td></tr></table></figure>
+
+<br>
+
+<hr>
+<p><br><font color=#00b2c2 size=5 face=宋体><strong>2、yum 安装 ffmpeg 环境：</strong></font></p>
+<ul>
+<li><font color=#b0171f size=2 face=宋体><strong>yum官方不支持ffmpeg，所以我们需要添加第三方源</strong></font></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 安装epel-release，因为安装需要使用其他的repo源，所以需要epel支持：</span></span><br><span class="line">yum install -y epel-release rpm</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装Nux-Dextop源：</span></span><br><span class="line">rpm --<span class="keyword">import</span> http://li.nux.ro/download/nux/RPM-GPG-KEY-nux.ro</span><br><span class="line">rpm -Uvh http://li.nux.ro/download/nux/dextop/el7/x86_64/nux-dextop-release-<span class="number">0</span>-<span class="number">1.</span>el7.nux.noarch.rpm</span><br><span class="line">yum repolist</span><br><span class="line"></span><br><span class="line"><span class="comment"># 开始安装</span></span><br><span class="line">yum install -y ffmpeg</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><font color=#b0171f size=2 face=宋体><strong>ffmpeg 相关常用命令：</strong></font></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 从视频input.mp4中，裁剪出从1分30秒开始的一分钟视频</span></span><br><span class="line">ffmpeg -ss <span class="number">0</span>:<span class="number">1</span>:<span class="number">30</span> -t <span class="number">0</span>:<span class="number">1</span>:<span class="number">0</span> -i <span class="built_in">input</span>.mp4 -vcodec copy -acodec copy out.mp4</span><br><span class="line"></span><br><span class="line"><span class="comment"># 视频转图片，-r:每秒钟提取的帧数，默认为30</span></span><br><span class="line">ffmpeg -i <span class="built_in">input</span>.mp4 -r <span class="number">10</span> output/video_%d.jpg</span><br><span class="line"></span><br><span class="line"><span class="comment"># 图片转视频，-b:v：控制视频码率，默认为200，所以合成的视频像素很低</span></span><br><span class="line">ffmpeg -i <span class="built_in">input</span>/video_%04d.jpg -b:v 5626k out.mp4</span><br><span class="line"></span><br><span class="line"><span class="comment"># 视频合成，分为两步，先把每个视频转成ts流，再合成一个视频</span></span><br><span class="line">ffmpeg -i input1.mp4 -vcodec copy -acodec copy -vbsf h264_mp4toannexb input1.ts</span><br><span class="line">ffmpeg -i input2.mp4 -vcodec copy -acodec copy -vbsf h264_mp4toannexb input2.ts</span><br><span class="line">ffmpeg -i <span class="string">&quot;concat:input1.ts|input2.ts&quot;</span> -acodec copy -vcodec copy -absf aac_adtstoasc concat.mp4</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<hr>
+<br>
+
+<p><font color=#00b2c2 size=5 face=宋体><strong>3、部署安装 faceswap， 基于 Centos7：</strong></font></p>
+<ul>
+<li>官方文档说明：<a target="_blank" rel="noopener" href="https://github.com/deepfakes/faceswap/blob/master/INSTALL.md">faceswap&#x2F;INSTALL.md at master · deepfakes&#x2F;faceswap · GitHub</a></li>
+<li>官方项目地址：<a target="_blank" rel="noopener" href="https://github.com/deepfakes/faceswap">GitHub - deepfakes&#x2F;faceswap: Deepfakes Software For All</a></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 进入root 根目录，创建一个 ai 文件夹 用来存放所有的ai文件</span></span><br><span class="line">cd /root</span><br><span class="line">mkdir ai</span><br><span class="line"></span><br><span class="line"><span class="comment"># 进入 ai 文件夹</span></span><br><span class="line">cd /root/ai</span><br><span class="line"></span><br><span class="line"><span class="comment"># 开始 clone 项目到本地</span></span><br><span class="line">git clone --depth <span class="number">1</span> https://github.com/deepfakes/faceswap.git</span><br><span class="line">cd faceswap</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装项目相关依赖  不报错，就说明没问题</span></span><br><span class="line">python3 install -r ./requirements/requirements_cpu.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装完成，执行初始化</span></span><br><span class="line">cd /root/ai/faceswap</span><br><span class="line">python3 faceswap.py -h</span><br><span class="line"></span><br><span class="line"><span class="comment"># 此时会跳出让你选择的界面，我们是cpu方式运行，就选择 cpu就好</span></span><br></pre></td></tr></table></figure>
+
+<br>
+
+<hr>
+<br>
+
+<p><font color=#00b2c2 size=5 face=宋体><strong>4、faceswap 项目运行：</strong></font></p>
+<ul>
+<li><p><font color=#f26522 size=4 face=宋体><strong>后期部署参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42370471/article/details/107448694">换脸开源项目faceswap在centos的实现-CSDN博客</a></strong></font></p>
+</li>
+<li><h3 id="工作流程-此处要把-gakki-的脸换成-刘亦菲-："><a href="#工作流程-此处要把-gakki-的脸换成-刘亦菲-：" class="headerlink" title="工作流程(此处要把 gakki 的脸换成 刘亦菲)："></a><font color=#f26522 size=4 face=宋体><strong>工作流程(此处要把 <strong>gakki</strong> 的脸换成 <strong>刘亦菲</strong>)：</strong></font></h3><ul>
+<li><font color=#b0171f size=2 face=宋体><strong>1、&#x2F;root&#x2F;ai&#x2F;AiSetFiles&#x2F;gakki：<code>要被换脸</code>的人原图，即从爬虫爬的图片</strong></font></li>
+<li><font color=#b0171f size=2 face=宋体><strong>2、&#x2F;root&#x2F;ai&#x2F;AiSetFiles&#x2F;gakki_video：<code>要被换脸</code>的人视频</strong></font></li>
+<li><font color=#b0171f size=2 face=宋体><strong>3、&#x2F;root&#x2F;ai&#x2F;AiSetFiles&#x2F;gakki_ready：<code>要被换脸</code>的人，原始图片&#x2F;视频进行脸部特征抽取后，放置的文件夹</strong></font></li>
+<li><font color=#b0171f size=2 face=宋体><strong>4、&#x2F;root&#x2F;ai&#x2F;AiSetFiles&#x2F;lyf：<code>要换成谁的脸</code>的人原图，即从爬虫爬的图片</strong></font></li>
+<li><font color=#b0171f size=2 face=宋体><strong>5、&#x2F;root&#x2F;ai&#x2F;AiSetFiles&#x2F;lyf_video：<code>要换成谁的脸</code> 的人视频</strong></font></li>
+<li><font color=#b0171f size=2 face=宋体><strong>6、&#x2F;root&#x2F;ai&#x2F;AiSetFiles&#x2F;lyf_ready：<code>要换成谁的脸</code>的人，原始图片&#x2F;视频进行脸部特征抽取后，放置的文件夹</strong></font></li>
+<li><font color=#b0171f size=2 face=宋体><strong>7、&#x2F;root&#x2F;ai&#x2F;AiSetFiles&#x2F;gakki_lyf_model：放置训练的模型文件</strong></font></li>
+<li><font color=#b0171f size=2 face=宋体><strong>8、&#x2F;root&#x2F;ai&#x2F;AiSetFiles&#x2F;convert：放置模型跑出来的最终结果，即已经换脸后的文件</strong></font></li>
+</ul>
+</li>
+<li><p><font color=#00b2c2 size=4 face=宋体><strong>1、抽取脸部特征：</strong></font></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 抽取图片的脸部特征，传入的是文件夹，会保留原本的格式，即jpg文件抽取后的图片依然是jpg</span></span><br><span class="line">python faceswap.py extract -i /root/ai/AiSetFiles/gakki -o /root/ai/AiSetFiles/gakki_ready</span><br><span class="line">python faceswap.py extract -i /root/ai/AiSetFiles/lyf -o /root/ai/AiSetFiles/lyf_ready</span><br><span class="line"><span class="comment"># 抽取视频里每帧图片的脸部特征，传入的是视频文件，默认保存为png格式</span></span><br><span class="line">python faceswap.py extract -i /root/ai/AiSetFiles/gakki_video/gakki.mp4 -o /root/ai/AiSetFiles/gakki_ready</span><br><span class="line">python faceswap.py extract -i /root/ai/AiSetFiles/lyf_video/lyf.mp4 -o /root/ai/AiSetFiles/lyf_ready</span><br><span class="line"></span><br><span class="line"><span class="comment"># 若是从网上下了多个短视频，可以使用上面的ffmpeg命令进行视频合并</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 若传入的是视频，则提取面部特征后的图片数量一般会比较巨大，若是想自己控制输出图片的数量，可以使用ffmpeg将视频切成图片，然后当作图片进行处理。不过我的ffmpeg无法操作png格式，只能转成jpg格式，会导致丢失很多信息。png格式的文件一般要比jpg格式文件大得多，模型的效果也要好些</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><font color=#00b2c2 size=4 face=宋体><strong>2、人工筛选：</strong></font></p>
+<ul>
+<li><font color=#b0171f size=2 face=宋体><strong>图片进行面部特征抽取后，会变成下面这种大头照。</strong></font></li>
+<li><font color=red size=2 face=宋体><strong>这时候就需要进行人工筛选了，这一步是最耗时的，因为最后入模型的就是这些图片，因此需要仔细的筛选。</strong></font></li>
+</ul>
+</li>
+</ul>
+<p><img src="https://s2.loli.net/2023/11/20/OJeaRcV6mdgsIP2.png" alt="面部特征抽取后.png"></p>
+<ul>
+<li><p><font color=#00b2c2 size=4 face=宋体><strong>3、训练模型：</strong></font></p>
+<ul>
+<li><font color=#b0171f size=2 face=宋体><strong>这里有个点要额外注意一下，我在使用<code>nohup</code>进行后台运行的时候，程序直接崩了，我也没搞清楚是什么问题，如果出现了这种情况，建议使用<code>jupyter-lab --port 9999 --allow-root</code>开启jupyter，然后在本地windows浏览器打开jupyter的终端，然后在这里进行模型训练。就不用担心关电脑后程序自动终止。</strong></font></li>
+<li><font color=#b0171f size=2 face=宋体><strong>模型训练没什么说的，这里的模型是手动停止的，自己觉得模型不再收敛，时间有差不多的时候，直接在命令行 <code>敲回车</code> 就可以直接停止了</strong></font></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># python3 faceswap.py train -A &lt;要被换掉人的脸的抽取面部特征的文件夹&gt; -B &lt;想要替换成谁的脸的面部特征文件夹&gt; -m &lt;训练后的model存放文件夹&gt;</span></span><br><span class="line">python3 faceswap.py train -A /root/ai/AiSetFiles/gakki_ready -B /root/ai/AiSetFiles/lyf_ready -m /root/ai/AiSetFiles/gakki_lyf_model/</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><font color=#00b2c2 size=4 face=宋体><strong>4、调用模型进行换脸：</strong></font></p>
+<ul>
+<li><font color=#f26522 size=3 face=宋体><strong>对图片进行换脸：</strong></font></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># python faceswap.py convert -i &lt;输入文件夹&gt; -o &lt;输出文件夹&gt; -m &lt;模型文件夹&gt;</span></span><br><span class="line">python faceswap.py convert -i /root/ai/AiSetFiles/gakki -o /root/ai/AiSetFiles/convert -m /root/ai/AiSetFiles/gakki_lyf_model/</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><font color=#f26522 size=3 face=宋体><strong>对视频进行换脸：</strong></font></p>
+<ul>
+<li>如果想对视频进行换脸，必须调用<code>ffmpeg</code>把视频切成图片，然后再调用上面的命令，最后再自己把图片拼成视频。涉及的<code>ffmpeg命令</code>都在上面。</li>
+<li>换脸后生成的文件是png格式，如果ffmpeg操作不了png格式图片，就需要先转成jpg</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line">img = Image.<span class="built_in">open</span>(<span class="string">&#x27;lyf_1.png&#x27;</span>)</span><br><span class="line">img.save(<span class="string">&#x27;lyf_1.jpg&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 直接将png格式读进去，然后保存为jpg即可，再配合os模块即可批量转换</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><font color=#00b2c2 size=5 face=宋体><strong>5、补充：</strong></font></p>
+<ul>
+<li><p><font color=#f26522 size=4 face=宋体><strong>使用频繁的linux命令：</strong></font></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 查看当前文件下的文件数量（仅文件）</span></span><br><span class="line">ls -l | grep <span class="string">&quot;^-&quot;</span> | wc -l</span><br><span class="line"><span class="comment"># 解压zip文件，可能会把一大堆文件直接解压在当前文件夹，建议在一个空文件夹内解压zip文件</span></span><br><span class="line">unzip lyf.<span class="built_in">zip</span></span><br><span class="line"><span class="comment"># 压缩文件夹lyf内的所有文件</span></span><br><span class="line">tar -zcvf lyf.tar.gz ./lyf</span><br><span class="line"><span class="comment"># 查看当前目录下所有的文件大小</span></span><br><span class="line">du -sh *</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/AI/" rel="tag"># AI</a>
+              <a href="/tags/%E6%8D%A2%E8%84%B8/" rel="tag"># 换脸</a>
+              <a href="/tags/%E6%95%99%E7%A8%8B/" rel="tag"># 教程</a>
+              <a href="/tags/centos7/" rel="tag"># centos7</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/11/19/centos7%E5%AE%89%E8%A3%85python3-10%E5%AE%8C%E6%95%B4%E6%95%99%E7%A8%8B/" rel="prev" title="centos7安装python3.10完整教程">
+      <i class="fa fa-chevron-left"></i> centos7安装python3.10完整教程
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2023/11/21/%E9%BB%91%E5%AE%A2%E5%B7%A5%E5%85%B7%E4%B9%8BGoogle-Hacking%E7%9A%84%E7%AE%80%E5%8D%95%E7%94%A8%E6%B3%95/" rel="next" title="黑客工具之Google Hacking的简单用法">
+      黑客工具之Google Hacking的简单用法 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#AI%E6%8D%A2%E8%84%B8%E9%A1%B9%E7%9B%AE-faceswap-%E5%9F%BA%E4%BA%8ECentos7-%E7%9A%84%E9%83%A8%E7%BD%B2%E3%80%81%E9%85%8D%E7%BD%AE%E3%80%81%E8%AE%AD%E7%BB%83%E3%80%81%E6%9B%BF%E6%8D%A2%E6%95%99%E7%A8%8B%EF%BC%88%E5%8E%9F%E5%88%9B%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">AI换脸项目 - faceswap 基于Centos7 的部署、配置、训练、替换教程（原创）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85-python-3-10-%E7%8E%AF%E5%A2%83%EF%BC%9A"><span class="nav-number">1.1.</span> <span class="nav-text">1、编译安装 python 3.10 环境：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B-%E6%AD%A4%E5%A4%84%E8%A6%81%E6%8A%8A-gakki-%E7%9A%84%E8%84%B8%E6%8D%A2%E6%88%90-%E5%88%98%E4%BA%A6%E8%8F%B2-%EF%BC%9A"><span class="nav-number">2.</span> <span class="nav-text">工作流程(此处要把 gakki 的脸换成 刘亦菲)：</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Kanoc Ge"
+      src="/images/452794135.jpg">
+  <p class="site-author-name" itemprop="name">Kanoc Ge</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">358</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">85</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">218</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kanoc Ge</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

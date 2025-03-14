@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <style>
+    .category-all-page .category-list-item {
+      margin: 15px 10px 10px 10px;
+      list-style: none;
+      font-size: 20px;
+      }
+      .category-all-page .category-list-child {
+        list-style: none;
+        }
+  </style>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"kanoc.gitee.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="DeepFaceLab3：视频换脸完整流程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DeepFaceLab3：视频换脸完整流程">
+<meta property="og:url" content="https://kanoc.gitee.io/2023/11/25/DeepFaceLab3%EF%BC%9A%E8%A7%86%E9%A2%91%E6%8D%A2%E8%84%B8%E5%AE%8C%E6%95%B4%E6%B5%81%E7%A8%8B/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="DeepFaceLab3：视频换脸完整流程">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426155730.jpg@!full">
+<meta property="og:image" content="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426155742.jpg@!full">
+<meta property="og:image" content="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426155754.jpg@!full">
+<meta property="og:image" content="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426155755.jpg@!full">
+<meta property="og:image" content="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426160224.jpg@!full">
+<meta property="og:image" content="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426160233.jpg@!full">
+<meta property="og:image" content="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426160244-1.jpg@!full">
+<meta property="og:image" content="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426160254.jpg@!full">
+<meta property="og:image" content="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426160310.jpg@!full">
+<meta property="og:image" content="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426160320.jpg@!full">
+<meta property="og:image" content="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426160335.jpg@!full">
+<meta property="og:image" content="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426160320-1.jpg@!full">
+<meta property="og:image" content="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426160344.jpg@!full">
+<meta property="og:image" content="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426160939.jpg@!full">
+<meta property="og:image" content="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426161011.jpg@!full">
+<meta property="og:image" content="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426161024.jpg@!full">
+<meta property="og:image" content="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426161034.jpg@!full">
+<meta property="og:image" content="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426161101.jpg@!full">
+<meta property="og:image" content="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426161116.jpg@!full">
+<meta property="og:image" content="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426161246.jpg@!full">
+<meta property="og:image" content="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426161315.jpg@!full">
+<meta property="og:image" content="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426161316.jpg@!full">
+<meta property="og:image" content="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426161413.jpg@!full">
+<meta property="og:image" content="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426161414.jpg@!full">
+<meta property="og:image" content="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426161515.jpg@!full">
+<meta property="og:image" content="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426161525.jpg@!full">
+<meta property="og:image" content="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426161536.jpg@!full">
+<meta property="og:image" content="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426161537.jpg@!full">
+<meta property="og:image" content="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426161538.jpg@!full">
+<meta property="og:image" content="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426161708.jpg@!full">
+<meta property="og:image" content="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426161719.jpg@!full">
+<meta property="article:published_time" content="2023-11-24T18:17:56.000Z">
+<meta property="article:modified_time" content="2024-06-25T16:56:20.328Z">
+<meta property="article:author" content="Kanoc Ge">
+<meta property="article:tag" content="AI">
+<meta property="article:tag" content="换脸">
+<meta property="article:tag" content="教程">
+<meta property="article:tag" content="windows10">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426155730.jpg@!full">
+
+<link rel="canonical" href="https://kanoc.gitee.io/2023/11/25/DeepFaceLab3%EF%BC%9A%E8%A7%86%E9%A2%91%E6%8D%A2%E8%84%B8%E5%AE%8C%E6%95%B4%E6%B5%81%E7%A8%8B/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>DeepFaceLab3：视频换脸完整流程 | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-首页-|-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页 | home</a>
+
+  </li>
+        <li class="menu-item menu-item-分类-|-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类 | categories</a>
+
+  </li>
+        <li class="menu-item menu-item-标签-|-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签 | tags</a>
+
+  </li>
+        <li class="menu-item menu-item-归档-|-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档 | archives</a>
+
+  </li>
+        <li class="menu-item menu-item-关于-|-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于 | about</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/11/25/DeepFaceLab3%EF%BC%9A%E8%A7%86%E9%A2%91%E6%8D%A2%E8%84%B8%E5%AE%8C%E6%95%B4%E6%B5%81%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/452794135.jpg">
+      <meta itemprop="name" content="Kanoc Ge">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          DeepFaceLab3：视频换脸完整流程
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-11-25 02:17:56" itemprop="dateCreated datePublished" datetime="2023-11-25T02:17:56+08:00">2023-11-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-06-26 00:56:20" itemprop="dateModified" datetime="2024-06-26T00:56:20+08:00">2024-06-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="DeepFaceLab3：视频换脸完整流程"><a href="#DeepFaceLab3：视频换脸完整流程" class="headerlink" title="DeepFaceLab3：视频换脸完整流程"></a>DeepFaceLab3：视频换脸完整流程</h1><span id="more"></span>
+
+<p>本文搬运自：<a target="_blank" rel="noopener" href="https://www.deepfaker.xyz/?p=2272">DeepFaceLab3：视频换脸完整流程 – DeepFake中文网 (deepfaker.xyz)</a></p>
+<p>对于刚入门的朋友来说，你给他直接上心法肯定没啥有，最直接的还是教招式。实操，才有感觉嘛！DeepFaceLab虽然版本一直在升级，但是整体步骤和执行逻辑并没有太大变化。所以老教程现在一样能用了。但是为了教程的完整性，我就全部重写一遍，稍作改进。</p>
+<h2 id="安装软件"><a href="#安装软件" class="headerlink" title="安装软件"></a>安装软件</h2><p>安装过程其实非常简单。一般发布的软件包都是.exe结尾，本质上其实就是一个用7z压缩的压缩包而已。所以安装只要双击就好了，大家都会的！</p>
+<p>安装的时候需要注意几个点。</p>
+<p>**第一：**杀毒软件可能会有木马警报，添加信任就好。杀毒软件可能会无警报删文件，导致执行的时候出现未知错误。这种情况可以先退杀毒软件，安装完了就不受影响。</p>
+<p><strong>第二</strong>：安装的时候记得选好路径</p>
+<p><img src="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426155730.jpg@!full" alt="img"></p>
+<p>路径并没有硬性要求，默认是解压到安装包所在路径。有不少人对路径并不是很敏感。比如通过QQ群文件下载的，就直接解压在路径超深的QQ缓存目录中，这样可能会出问题，而且不好找。最好是放在C盘外的其他盘的根目录。文件路径不强制英文，但是依旧不推荐中文。文件名不要用特殊字符，降低出错概率。</p>
+<p><strong>第三：</strong></p>
+<p>输入密码</p>
+<p><img src="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426155742.jpg@!full" alt="img"></p>
+<p>我发布的文件如果有密码，就都是deepfaker.xyz。不管哪个版本直接输入就好了。当然，你任性，也可以不输入。</p>
+<p><img src="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426155754.jpg@!full" alt="img"></p>
+<p>不输入就是上面这种结果。然后你点1，2，3，4每个步骤都点不动。因为不看英文或者大意，犯这个错误的也不少。</p>
+<p><img src="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426155755.jpg@!full" alt="img"></p>
+<p>正确的打开方式是这样的。里面会有_internal和workplace文件夹。前者放的是源代码和软件相关的内容，后者是工作目录，上一篇有讲过。除此之外还有一堆.bat结尾的文件。可以把这些称为脚本或者批处理文件。里面是一行行的DOS命令。</p>
+<p>批处理文件打开方式和EXE一模一样，Double kill ~~Double click  双击打开！每一个批处理文件都干一件事情，我们要做的就是按一定的顺序点击这些文件，就能完成换脸。是不是挺简单？</p>
+<h2 id="执行步骤"><a href="#执行步骤" class="headerlink" title="执行步骤"></a><strong>执行步骤</strong></h2><p>DFL换脸的思路是，想将视频转换成图，从图片中提取人脸，从人脸中学习特征。然后应用模型，先对图片进行换脸，然后把图片合成视频，同时带上原视频的音轨。</p>
+<p>具体来说可以分为如下几步：</p>
+<ul>
+<li>源视频转图片</li>
+<li>目标视频转图片</li>
+<li>提取源头像</li>
+<li>提取目标头像</li>
+<li>训练模型</li>
+<li>应用模型</li>
+<li>合成视频</li>
+</ul>
+<p>批处理文件步骤如下：</p>
+<ul>
+<li>源视频转图片 extract images from video data_src.bat</li>
+<li>目标视频转图片 extract images from video data_dst FULL FPS.bat</li>
+<li>提取源头像 data_src faceset extract.bat</li>
+<li>目标头像提取 data_dst faceset extract.bat</li>
+<li>训练轻量级模型 train Quick96.bat&#x2F;SAE&#x2F;AMP</li>
+<li>应用轻量级模型 merge Quick96.bat &#x2F;SAE&#x2F;AMP</li>
+<li>合成 MP4 视频 merged to mp4.bat</li>
+</ul>
+<p>杂七杂八交代清楚了就可以开始操作，本文会将每一个步骤截图说明。但是为了控制文章的体型，以操作为主。一些常见错误或者参数详解，会在后续文章中完成。关于操作，这里做一个重点提示：遇事不决按回车！</p>
+<h3 id="Step1：源视频转图片"><a href="#Step1：源视频转图片" class="headerlink" title="Step1：源视频转图片"></a>Step1：源视频转图片</h3><p>双击批处理文件源视频转图片 extract images from video data_src.bat</p>
+<p><img src="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426160224.jpg@!full" alt="img"></p>
+<p>跳出黑色窗口，输入10回车，然后输入jpg回车，就会自动开始将视频分解为图片。</p>
+<p>FPS：视频有一个指标叫帧率，常见有24，30，60等，代表一秒钟有几张。第一个参数输入10指的是一秒钟只取10张；不输入直接回车，默认帧率是30就取30张。因为很多影视剧画面相对固定，没必要全部取，否则后面会浪费大量提取时间，而且模型训练压力也会加大。</p>
+<p>Format:  图片格式，主要是jpg和png。png是无损格式，但是JPG能在保证画质的情况下减少巨量的空间。所以如果不是要求特别变态，一般都用jpg。这样可以减少空间，节省时间</p>
+<p><img src="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426160233.jpg@!full" alt="img"></p>
+<p>正常情况下，这个步骤执行非常快，出现“搞定&#x2F;done” 的字样就是执行完成了。完成后，workplace&#x2F;data_src下面就会出现很多图片，这就是从视频里分解出来的图片。文件名一般为0000x.jpg，其实这里面命名可以随意，没有强制要求。这里还有一个aligned的文件夹，是为后面步骤准备的。</p>
+<h3 id="Step2：目标视频转图片"><a href="#Step2：目标视频转图片" class="headerlink" title="Step2：目标视频转图片"></a>Step2：目标视频转图片</h3><p>双击批处理文件目标视频转图片 extract images from video data_dst FULL FPS.bat</p>
+<p><img src="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426160244-1.jpg@!full" alt="img"></p>
+<p>和上面的步骤类似，这次处理的是dst视频。因为dst必须一帧不落，所以没有FPS选项，只有图片格式这一个选项。</p>
+<p><img src="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426160254.jpg@!full" alt="img"></p>
+<p>处理完后的图片保存在workspace&#x2F;data_dst里面。</p>
+<h3 id="Step3：提取源头像"><a href="#Step3：提取源头像" class="headerlink" title="Step3：提取源头像"></a>Step3：提取源头像</h3><p>双击批处理文件提取源头像 data_src faceset extract.bat</p>
+<p><img src="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426160310.jpg@!full" alt="img"></p>
+<p>这一步的作用是提取源素材图片中的人脸。这里有六个参数，一般只需一路回车即可。第一次使用需要缓存GPU内核，需要稍微等一等。开始提取后底部有显示进度，当进度到100%，会显示图片数量和提取到的人脸数量，并出现“搞定！！！” 就证明已经出来成功并且处理完成。</p>
+<p><img src="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426160320.jpg@!full" alt="img"></p>
+<p>处理完成后，头像保存在data_src&#x2F;aligned下面。</p>
+<p>不少人在这个环节会遇到问题。</p>
+<p>常见问题是：</p>
+<ul>
+<li>驱动不够新，去官网下载更新到最新版本即可。</li>
+<li>软件不够新，deepfaker.xyz 上获取新版</li>
+<li>显卡软件不匹配， A卡用Directx12，不要用rtx3000版。</li>
+</ul>
+<p>提取完之后，如果src素材比较复杂，就需要做一些筛选。这个筛选可以写一篇很长的文章。这里简要说一下。主要是把一些不需要的素材删除：</p>
+<ul>
+<li>很模糊的可以直接删除</li>
+<li>不是目标人物的可以直接删除</li>
+<li>图片残缺的删除</li>
+<li>脸部有遮挡的删除</li>
+<li>脸部光照差异特别大的删除</li>
+<li>…..</li>
+</ul>
+<h3 id="Step4：提取目标头像"><a href="#Step4：提取目标头像" class="headerlink" title="Step4：提取目标头像"></a>Step4：提取目标头像</h3><p>双击批处理文件目标头像提取 data_dst faceset extract.bat</p>
+<p><img src="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426160335.jpg@!full" alt="img"></p>
+<p>这一步的作用是提取目标素材图片中的人脸。和上一步非常类似，这里就是少了一个“保存调试图片”的参数。其实也不是少了，而是默认就执行了。</p>
+<p><img src="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426160320-1.jpg@!full" alt="img"></p>
+<p>提取的头像保存在data_dst&#x2F;aligned的文件夹里。</p>
+<p>提取完之后也要对素材进行一个筛选。</p>
+<p>把不是目标人物的素材删掉，把头像旋转的图片删掉。一般来说文件名后缀_1的都可以删掉。dst的删除核心原则是要换的人脸留下，不要换的统统删掉。</p>
+<p><img src="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426160344.jpg@!full" alt="img"></p>
+<p>这些图标保存在aligned_debug里面</p>
+<p><img src="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426160939.jpg@!full" alt="img"></p>
+<p>大概其中一张图片，可以看到人脸上有三种颜色的线框。</p>
+<p><img src="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426161011.jpg@!full" alt="img"></p>
+<p>红色就是头像截取的区域，蓝色是面部区域，绿色是人脸轮廓，以及五官定位的点。其实就是人脸的landmark。通过debug你可以直观的看到人脸识别算法识别了哪些区域，有没有识别正确。</p>
+<h3 id="Step5：训练模型"><a href="#Step5：训练模型" class="headerlink" title="Step5：训练模型"></a>Step5：训练模型</h3><p>双击批处理文件 训练轻量级模型 train Quick96.bat</p>
+<p><img src="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426161024.jpg@!full" alt="img"></p>
+<p>这一步是训练模型，所有步骤中最重要，最难，也是最耗时间的部分。目前新版本中主要包含三类模型，分别是Quick96,SAEHD,AMP 。</p>
+<p>我把Quick96翻译为轻量级模型，优点是所需配置低，显存低，速度快，操作简单。缺点是不能自定义，像素比较低，合成效果差一些。</p>
+<p>这个模型很简单，所以也非常适合拿来入门。所以本文就用这个来举例。SAEHD和AMP模型和模型训练的知识会另起一篇文章来介绍。</p>
+<p><img src="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426161034.jpg@!full" alt="img"></p>
+<p>Quick96使用非常简单，双击批处理文件后，选择执行设备即可，这里一般都是选显卡，直接回车即可。设备选择完成之后，程序就会自动加载素材，并显示模型的参数，底部会有跳动的数字，然后会跳出一个预览窗口。</p>
+<p>先来说说底部的数字，总共五列，分别代表：模型保存时间，迭代次数，单次迭代时间，源损失，目标损失。迭代次数是越多越好，损失是越低越好，零就是无损了嘛~不过，不可能达到！</p>
+<p>下面来说说预览窗口</p>
+<p><img src="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426161101.jpg@!full" alt="img"></p>
+<p>预览窗口包含操作提示、loss曲线，人脸区域。人脸区域总共五列。第一列是src，第三列是dst。第二，四，五列为算法生成列，刚开始是纯色，啥头像都没有。随着训练的进行，会慢慢出现轮廓，鼻子，眼睛，然后慢慢变清晰。</p>
+<p>训练的过程就是等待这几列变清晰的过程，最后一列就是换脸后的效果。</p>
+<p>这一个步骤并不会自动结束，需要自己判断，然后手动结束。可以通过损失值和预览图来进行判断。一般来说损失值（loss）值到了0.1x就差不多了。但是素材质量和数量不一样，会影响这个指标的变化速度。比如素材特别少，这个值降的特别快，特别低。图片不是很清晰，这个值也降的特别快，特别低。反过来，图片质量高，数量多，这个就很难降低。但是这样情况下训练出来的模型更好。</p>
+<p><img src="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426161116.jpg@!full" alt="img"></p>
+<p>相比数字而已，通过预览图来判断就更加直观了。只要观察第二列是否无限接近第一列，第四列是否无限接近第三列。第五列的表情是否无限接近第四列。所有列的图片是否都足够清晰。如果答案是“Yes” ，那么按回车或者直接关闭窗口，进入下一步。</p>
+<p><img src="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426161246.jpg@!full" alt="img"></p>
+<p>正常情况下模型会过几十分钟保存一次，也可以手动按S直接保存。关闭后，可以重新点击批处理文件继续训练，不用担心丢失进度。当然，要防止意外关机和重启，可能会损坏模型。</p>
+<h3 id="Step6：应用模型"><a href="#Step6：应用模型" class="headerlink" title="Step6：应用模型"></a>Step6：应用模型</h3><p>双击批处理文件 应用轻量级模型 merge Quick96.bat</p>
+<p><img src="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426161315.jpg@!full" alt="img"></p>
+<p>这个步骤要做的是将图片进行换脸。应用Quick96模型也很简单。启动直接按回车选中或者输入对应的数字选中上一步已经训练好的模型。然后软件就会加载模型并显示模型参数。</p>
+<p>然后需要配置两个参数：</p>
+<p>一个是是否启用交互模式，直接回车，默认启用。</p>
+<p>一个是线程数量，输入小于等于8的数字，回车。注意，如果你核心特别多，默认回车会报错的！</p>
+<p>稍等一会儿会弹出帮助界面。</p>
+<p><img src="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426161316.jpg@!full" alt="img"></p>
+<p>这个界面并没有任何功能上的用处，只是显示了这个环节可以使用的快捷键。每个快捷键旁边都有中文注释，可以看个大概，具体的参数含义我会在后面的文章中做一个详细的介绍。</p>
+<p>点击这个界面，确保输入法为英文，按下键盘上的Tab，就可以进入合成预览界面</p>
+<p><img src="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426161413.jpg@!full" alt="img"></p>
+<p>进来后，默认情况下都会有人皮面具的感觉，这是正常现象。因为我们参数还没有调整！就这个素材来说，只要调整W&#x2F;S，E&#x2F;D 快捷键即可。调整后的效果如下：</p>
+<p><img src="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426161414.jpg@!full" alt="img"></p>
+<p>确认效果OK之后，按下快捷键shift+？（向后应用到所有帧） 然后再按下shift+&gt;（自动合成） 就开始自动合成了。也可以通过键盘上的&lt; 和 &gt;进行手动切换，查看前后帧的合成效果。</p>
+<p><img src="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426161515.jpg@!full" alt="img"></p>
+<p>黑色窗口会显示所有的合成参数，并且显示进度条，等100%完成之后，手动关闭窗口即可。</p>
+<p><img src="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426161525.jpg@!full" alt="img"></p>
+<p>此时，在data_dst下面已经多了两个文件，一个是merged，一个是merged_mask</p>
+<p><img src="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426161536.jpg@!full" alt="img"></p>
+<p>进入merged可以看到很多图，这些图片中的人脸已经完全换脸。</p>
+<p><img src="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426161537.jpg@!full" alt="img"></p>
+<p>进入merged_mask可以看到一些黑色的图片，中间有一个白色的区域。这些文件是为了方便后期制作。我们单纯使用DFL的不用太关心。</p>
+<h3 id="Step7：合成视频"><a href="#Step7：合成视频" class="headerlink" title="Step7：合成视频"></a>Step7：合成视频</h3><p>双击批处理文件 合成 MP4 视频 merged to mp4.bat</p>
+<p><img src="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426161538.jpg@!full" alt="img"></p>
+<p>这个步骤是将已经换好脸的图片转换成视频，并且会自动读取源视频的配置信息，包括帧率，音轨这些。这个环节只有一个输出码率的参数，常规来说3就够了。</p>
+<p>除了合成mp4之外，还可以合成无损视频，AVI ，MOV等格式，便于后期处理。</p>
+<p><img src="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426161708.jpg@!full" alt="img"></p>
+<p>执行完成后，workspace下面多了两个文件，分别是result.mp4 和 result_mask.mp4 。前者就是我们需要的最终视频，后者是遮罩视频，供后期使用。</p>
+<p><img src="https://deepfakescn.oss-cn-hongkong.aliyuncs.com/2021/10/20230426161719.jpg@!full" alt="img"></p>
+<p>双击打开视频，就可以看到最终效果啦。</p>
+<p>步骤其实不难，细节很多。有些是可以直接照搬别人经验的。有些需要自己不断摸索。这并不是什么傻瓜软件，要做出好的效果肯定是要花时间研究。就像即便送你PS，PR，你没有一定的学习积累不可能做出酷炫的效果。但是我可以保证，市面上几乎所有神乎其技的换脸视频都是基于DFL，有些可能专门准备了道具场景并使用了后期制作。</p>
+<p>DeepFaceLab3系列</p>
+<p><a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzIzODA3NDAxMg==&mid=2247485262&idx=1&sn=c9a68694d262259524014b2ea840ab6f&chksm=e93fa6bdde482fabd2b2bfac280cdc5ca83bc142a6be25e1368bb14dd837d58be22d9ca4c800&scene=21#wechat_redirect">DeepFaceLab3：软硬件以及系统要求</a></p>
+<p><a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzIzODA3NDAxMg==&mid=2247485268&idx=1&sn=78e823524647646f5999c3cebad9f6ee&chksm=e93fa6a7de482fb14162f919875c84c769f7473594c5ccd62328b12e2517e72801d372164af2&scene=21#wechat_redirect">DeepFaceLab3：工作目录和基本概念</a></p>
+<p><a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzIzODA3NDAxMg==&mid=2247485305&idx=1&sn=3df780a1f454f00044564fc22c148851&chksm=e93fa68ade482f9ca80ac3f70830f87bfd2b7df8dc8ef5be22eae00a8aadbbfb851ff11aec4c&scene=21#wechat_redirect">DeepFaceLab3：视频换脸完整流程详解！</a></p>
+<p><a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzIzODA3NDAxMg==&mid=2247485354&idx=1&sn=7dc90561bae425f879a19423de5603e8&chksm=e93fa659de482f4f4cdb96fd4c02d7ab68cc1a6330ea770a48c463e0f890b6245cfe54d08ec2&scene=21#wechat_redirect">DeepFaceLab3：模型的异同，选择，基础操作！</a></p>
+<p><strong><strong><strong><strong><strong><strong><strong><strong><strong>小尾巴</strong></strong></strong></strong></strong></strong></strong></strong></strong>***</p>
+<p><strong>申明：图文均由deepfakes 中文网原创，转发请注明出处，谢谢！本站仅分享技术，切勿用于非法用途</strong><br><strong>微信公众号：托尼不是塔克（TonyNoStark），学习各种AI黑科技！</strong></p>
+<p> 软件下载：<a target="_blank" rel="noopener" href="https://www.deepfaker.xyz/?page_id=24">点击进入</a><br> 入门教程：<a target="_blank" rel="noopener" href="https://www.deepfaker.xyz/?page_id=513">点击进入</a><br> 深入学习：<a target="_blank" rel="noopener" href="https://www.deepfaker.xyz/?p=2050">知识星球</a><br> 专业服务：<a target="_blank" rel="noopener" href="https://www.deepfaker.xyz/?page_id=1661">脸魔 F M</a> </p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/AI/" rel="tag"># AI</a>
+              <a href="/tags/%E6%8D%A2%E8%84%B8/" rel="tag"># 换脸</a>
+              <a href="/tags/%E6%95%99%E7%A8%8B/" rel="tag"># 教程</a>
+              <a href="/tags/windows10/" rel="tag"># windows10</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/11/21/8%E4%B8%AA%E5%85%8D%E8%B4%B9%E9%AB%98%E9%80%9F%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93%E5%B7%A5%E5%85%B7%EF%BC%8C%E8%AE%A9%E4%BD%A0%E5%BD%BB%E5%BA%95%E5%91%8A%E5%88%AB%E7%BD%91%E7%9B%98%E5%92%8C%E6%95%B0%E6%8D%AE%E7%BA%BF/" rel="prev" title="8个免费高速文件传输工具，让你彻底告别网盘和数据线">
+      <i class="fa fa-chevron-left"></i> 8个免费高速文件传输工具，让你彻底告别网盘和数据线
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2023/12/02/Faceswap%EF%BC%9AAI%E8%A7%86%E9%A2%91%E6%8D%A2%E8%84%B8%E6%95%99%E7%A8%8B-%E6%8D%A2%E8%84%B8%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B-Faceswap-for-windows/" rel="next" title="Faceswap：AI视频换脸教程, 换脸软件使用教程 Faceswap for windows">
+      Faceswap：AI视频换脸教程, 换脸软件使用教程 Faceswap for windows <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#DeepFaceLab3%EF%BC%9A%E8%A7%86%E9%A2%91%E6%8D%A2%E8%84%B8%E5%AE%8C%E6%95%B4%E6%B5%81%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">DeepFaceLab3：视频换脸完整流程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6"><span class="nav-number">1.1.</span> <span class="nav-text">安装软件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E6%AD%A5%E9%AA%A4"><span class="nav-number">1.2.</span> <span class="nav-text">执行步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Step1%EF%BC%9A%E6%BA%90%E8%A7%86%E9%A2%91%E8%BD%AC%E5%9B%BE%E7%89%87"><span class="nav-number">1.2.1.</span> <span class="nav-text">Step1：源视频转图片</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Step2%EF%BC%9A%E7%9B%AE%E6%A0%87%E8%A7%86%E9%A2%91%E8%BD%AC%E5%9B%BE%E7%89%87"><span class="nav-number">1.2.2.</span> <span class="nav-text">Step2：目标视频转图片</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Step3%EF%BC%9A%E6%8F%90%E5%8F%96%E6%BA%90%E5%A4%B4%E5%83%8F"><span class="nav-number">1.2.3.</span> <span class="nav-text">Step3：提取源头像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Step4%EF%BC%9A%E6%8F%90%E5%8F%96%E7%9B%AE%E6%A0%87%E5%A4%B4%E5%83%8F"><span class="nav-number">1.2.4.</span> <span class="nav-text">Step4：提取目标头像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Step5%EF%BC%9A%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.2.5.</span> <span class="nav-text">Step5：训练模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Step6%EF%BC%9A%E5%BA%94%E7%94%A8%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.2.6.</span> <span class="nav-text">Step6：应用模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Step7%EF%BC%9A%E5%90%88%E6%88%90%E8%A7%86%E9%A2%91"><span class="nav-number">1.2.7.</span> <span class="nav-text">Step7：合成视频</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Kanoc Ge"
+      src="/images/452794135.jpg">
+  <p class="site-author-name" itemprop="name">Kanoc Ge</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">358</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">85</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">218</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kanoc Ge</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

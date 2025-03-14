@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <style>
+    .category-all-page .category-list-item {
+      margin: 15px 10px 10px 10px;
+      list-style: none;
+      font-size: 20px;
+      }
+      .category-all-page .category-list-child {
+        list-style: none;
+        }
+  </style>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"kanoc.gitee.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="linux下smb共享文件：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux下smb共享文件">
+<meta property="og:url" content="https://kanoc.gitee.io/2023/05/18/linux%E4%B8%8Bsmb%E5%85%B1%E4%BA%AB%E6%96%87%E4%BB%B6/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="linux下smb共享文件：">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-05-18T11:08:12.000Z">
+<meta property="article:modified_time" content="2024-06-25T16:56:20.547Z">
+<meta property="article:author" content="Kanoc Ge">
+<meta property="article:tag" content="linux">
+<meta property="article:tag" content="系统">
+<meta property="article:tag" content="运维">
+<meta property="article:tag" content="命令">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://kanoc.gitee.io/2023/05/18/linux%E4%B8%8Bsmb%E5%85%B1%E4%BA%AB%E6%96%87%E4%BB%B6/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>linux下smb共享文件 | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-首页-|-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页 | home</a>
+
+  </li>
+        <li class="menu-item menu-item-分类-|-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类 | categories</a>
+
+  </li>
+        <li class="menu-item menu-item-标签-|-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签 | tags</a>
+
+  </li>
+        <li class="menu-item menu-item-归档-|-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档 | archives</a>
+
+  </li>
+        <li class="menu-item menu-item-关于-|-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于 | about</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/05/18/linux%E4%B8%8Bsmb%E5%85%B1%E4%BA%AB%E6%96%87%E4%BB%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/452794135.jpg">
+      <meta itemprop="name" content="Kanoc Ge">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          linux下smb共享文件
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-05-18 19:08:12" itemprop="dateCreated datePublished" datetime="2023-05-18T19:08:12+08:00">2023-05-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-06-26 00:56:20" itemprop="dateModified" datetime="2024-06-26T00:56:20+08:00">2024-06-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><font color=#00b2c2 size=5 face=宋体><strong>linux下smb共享文件：</strong></font></p>
+<span id="more"></span>
+
+<br>
+
+<hr>
+<p><br><font color=#f26522 size=4 face=宋体><strong>前言：</strong></font></p>
+<ul>
+<li><font color=#b0171f size=2 face=宋体><strong>平时的数据需要存放在特定的地方，以方便随拿随用。但随着多端、智能设备的普及，这种需求就更加迫切了。</strong></font></li>
+<li><font color=#b0171f size=2 face=宋体><strong><strong>但假如你有一个linux设备，就可以很好的解决这个问题，在家庭设备中添加一个linux设备，并不会像windos那样耗电，你可以像你家一年365天常开的电视盒子的功耗差不多。</strong></strong></font></li>
+<li><font color=#b0171f size=2 face=宋体><strong><strong>其实电视盒子就是一个内嵌的linux系统，但我并不推荐刚接触linux的人去魔改盒子，有很大几率让你的盒子变成砖。</strong></strong></font></li>
+<li><font color=#b0171f size=2 face=宋体><strong><strong>但你如果真的需要，可以去买一个矿渣。例如：老母鸡（玩客云）、猫盒. . . .</strong></strong></font></li>
+<li><font color=#b0171f size=2 face=宋体><strong><strong>这种东西几十块钱就可以搞定，只需要你稍微动下手，就完全OK的。</strong></strong></font></li>
+<li><font color=#b0171f size=2 face=宋体><strong><strong>即使是百兆网口，就基本能满足你的需求了。百兆网口的实际读写速度大概在20m&#x2F;s左右。</strong></strong></font></li>
+<li><font color=#b0171f size=2 face=宋体><strong><strong>好了，重点！linux共享文件服务——samba</strong></strong></font></li>
+<li><font color=#b0171f size=2 face=宋体><strong><strong>我相信，能够看到这篇博文的，应该都不需要在普及啥是samba了，咱们直接切入主题</strong></strong></font></li>
+</ul>
+<br>
+
+<hr>
+<br>
+
+<p><font color=#f26522 size=4 face=宋体><strong>安装samba服务：</strong></font></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 以下，我直接以debian命令安装</span></span><br><span class="line"><span class="comment"># 如果你的系统是centos ，可直接将apt ==&gt; yum 使用</span></span><br><span class="line"><span class="built_in">sudo</span> apt update  <span class="comment"># 更新系统源</span></span><br><span class="line"><span class="built_in">sudo</span> apt install samba  <span class="comment"># 安装samba服务</span></span><br></pre></td></tr></table></figure>
+
+<br>
+
+<hr>
+<br>
+
+<p><font color=#f26522 size=4 face=宋体><strong>创建共享目录：</strong></font></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> ~/share   <span class="comment"># 在当前用户目录下创建一个叫share的文件夹</span></span><br><span class="line"><span class="comment"># 当然你也可以指定用户目录下创建文件夹，例如：</span></span><br><span class="line"><span class="comment"># mkdir /home/xiaoxi/share   #  在用户xiaoxi的用户之下，创建一个share文件夹,前提是xiaoxi这个用户存在</span></span><br><span class="line"><span class="built_in">chmod</span> -R 777 ~/share   <span class="comment"># 赋予刚才创建的share文件夹，最高执行权限</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<br>
+
+<hr>
+<br>
+
+<p><font color=#f26522 size=4 face=宋体><strong>修改samba配置：</strong></font></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">vim /etc/samba/smb.conf   <span class="comment">#  编辑smb.conf 配置文件</span></span><br><span class="line"><span class="comment"># 假如提示vim未找到，直接使用 sudo apt install vim 安装以下即可</span></span><br><span class="line"><span class="comment"># 在global全局中添加一条</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line">guest account = root  <span class="comment"># 这一条很重要，意思就是所有登录的用户，都以root权限读写，如果没有这条命令，很可能，你分享之后，能拿出来，却把文件放不进去</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># 在smb.conf最后添加</span></span><br><span class="line">[share]  <span class="comment">#  分享后，在网络中显示的名字</span></span><br><span class="line">path = /home/xiaoxi/share   <span class="comment">#  本地你想要分享的文件夹路径，注意：这里的路径是绝对路径</span></span><br><span class="line">available = <span class="built_in">yes</span></span><br><span class="line">browseable = <span class="built_in">yes</span></span><br><span class="line">public = <span class="built_in">yes</span></span><br><span class="line">writable = <span class="built_in">yes</span></span><br></pre></td></tr></table></figure>
+
+<br>
+
+<hr>
+<br>
+
+<p><font color=#f26522 size=4 face=宋体><strong>samba命令：</strong></font></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 需要注意的是，安装完成后的服务，并不是samba，而是smbd</span></span><br><span class="line">service smbd status     <span class="comment">#  查看状态</span></span><br><span class="line">service smbd stop     <span class="comment">#  停止服务</span></span><br><span class="line">service smbd start     <span class="comment">#  启动服务</span></span><br><span class="line">service smbd restart    <span class="comment">#  重启服务</span></span><br></pre></td></tr></table></figure>
+
+<br>
+
+<hr>
+<p><br><font color=red size=5 face=宋体><strong>结语：</strong></font></p>
+<ul>
+<li><p><font color=#b0171f size=2 face=宋体><strong><strong>samba往往需要与自动挂载磁盘结合，达到开机自动启动挂载分享的目的。</strong></strong></font></p>
+</li>
+<li><p><font color=#b0171f size=2 face=宋体><strong><strong>有空在写自动挂载方法把</strong></strong></font></p>
+</li>
+<li><p><font color=#b0171f size=2 face=宋体><strong><strong>哟西！感觉又特么进了一步</strong></strong></font></p>
+</li>
+</ul>
+<p><br><br><br></p>
+<hr>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/linux/" rel="tag"># linux</a>
+              <a href="/tags/%E7%B3%BB%E7%BB%9F/" rel="tag"># 系统</a>
+              <a href="/tags/%E8%BF%90%E7%BB%B4/" rel="tag"># 运维</a>
+              <a href="/tags/%E5%91%BD%E4%BB%A4/" rel="tag"># 命令</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/05/18/Mogodb%E6%8E%92%E5%BA%8F%E5%88%86%E9%A1%B5/" rel="prev" title="Mogodb排序分页">
+      <i class="fa fa-chevron-left"></i> Mogodb排序分页
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2023/05/18/Linux%E4%B8%8B%E6%8C%82%E8%BD%BD%E7%A3%81%E7%9B%98or%E7%BD%91%E7%BB%9C%E7%A3%81%E7%9B%98/" rel="next" title="Linux下挂载磁盘or网络磁盘">
+      Linux下挂载磁盘or网络磁盘 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Kanoc Ge"
+      src="/images/452794135.jpg">
+  <p class="site-author-name" itemprop="name">Kanoc Ge</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">358</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">85</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">218</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kanoc Ge</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

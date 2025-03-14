@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <style>
+    .category-all-page .category-list-item {
+      margin: 15px 10px 10px 10px;
+      list-style: none;
+      font-size: 20px;
+      }
+      .category-all-page .category-list-child {
+        list-style: none;
+        }
+  </style>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"kanoc.gitee.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="使用Cloud Scraper捅穿Cloudflare的5秒盾">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用Cloud Scraper捅穿Cloudflare的5秒盾">
+<meta property="og:url" content="https://kanoc.gitee.io/2023/11/19/%E4%BD%BF%E7%94%A8Cloud%20Scraper%E6%8D%85%E7%A9%BFCloudflare%E7%9A%845%E7%A7%92%E7%9B%BE/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="使用Cloud Scraper捅穿Cloudflare的5秒盾">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2023/11/19/lOm87puUTzvji6L.png">
+<meta property="article:published_time" content="2023-11-19T04:38:26.000Z">
+<meta property="article:modified_time" content="2024-06-25T16:56:20.737Z">
+<meta property="article:author" content="Kanoc Ge">
+<meta property="article:tag" content="逆向">
+<meta property="article:tag" content="记录">
+<meta property="article:tag" content="Cloudflare">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2023/11/19/lOm87puUTzvji6L.png">
+
+<link rel="canonical" href="https://kanoc.gitee.io/2023/11/19/%E4%BD%BF%E7%94%A8Cloud%20Scraper%E6%8D%85%E7%A9%BFCloudflare%E7%9A%845%E7%A7%92%E7%9B%BE/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>使用Cloud Scraper捅穿Cloudflare的5秒盾 | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-首页-|-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页 | home</a>
+
+  </li>
+        <li class="menu-item menu-item-分类-|-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类 | categories</a>
+
+  </li>
+        <li class="menu-item menu-item-标签-|-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签 | tags</a>
+
+  </li>
+        <li class="menu-item menu-item-归档-|-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档 | archives</a>
+
+  </li>
+        <li class="menu-item menu-item-关于-|-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于 | about</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/11/19/%E4%BD%BF%E7%94%A8Cloud%20Scraper%E6%8D%85%E7%A9%BFCloudflare%E7%9A%845%E7%A7%92%E7%9B%BE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/452794135.jpg">
+      <meta itemprop="name" content="Kanoc Ge">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          使用Cloud Scraper捅穿Cloudflare的5秒盾
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-11-19 12:38:26" itemprop="dateCreated datePublished" datetime="2023-11-19T12:38:26+08:00">2023-11-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-06-26 00:56:20" itemprop="dateModified" datetime="2024-06-26T00:56:20+08:00">2024-06-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%80%86%E5%90%91-%E5%8F%8D%E7%88%AC/" itemprop="url" rel="index"><span itemprop="name">逆向_反爬</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="使用Cloud-Scraper捅穿Cloudflare的5秒盾"><a href="#使用Cloud-Scraper捅穿Cloudflare的5秒盾" class="headerlink" title="使用Cloud Scraper捅穿Cloudflare的5秒盾"></a><font color=#00b2c2 size=5 face=宋体><strong><a target="_blank" rel="noopener" href="https://www.cnblogs.com/yoyo1216/p/17356845.html">使用Cloud Scraper捅穿Cloudflare的5秒盾</a></strong></font></h1><span id="more"></span>
+
+<h3 id="1-免费版的五秒盾"><a href="#1-免费版的五秒盾" class="headerlink" title="1.免费版的五秒盾"></a><font color=#f26522 size=4 face=宋体><strong>1.免费版的五秒盾</strong></font></h3><p><font color=#b0171f size=2 face=宋体><strong>要绕过这个5秒盾非常简单，只需要使用一个第三方库，叫做<code>cloudscraper</code>。我们可以使用<code>pip</code>来安装：</strong></font></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pip3 install cloudscraper</span><br></pre></td></tr></table></figure>
+
+<p><font color=#b0171f size=2 face=宋体><strong>安装完成以后，只需要使用3行代码就能绕过 Cloud Flare 的5秒盾：</strong></font></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> cloudscraper</span><br><span class="line">scraper = cloudscraper.create_scraper()</span><br><span class="line">resp = scraper.get(<span class="string">&#x27;目标网站&#x27;</span>).text</span><br></pre></td></tr></table></figure>
+
+<p><font color=#b0171f size=2 face=宋体><strong>我们还是以上面的网站为例：</strong></font></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> cloudscraper</span><br><span class="line"><span class="keyword">from</span> lxml.html <span class="keyword">import</span> fromstring</span><br><span class="line"> </span><br><span class="line">scraper = cloudscraper.create_scraper()</span><br><span class="line">resp = scraper.get(<span class="string">&#x27;https://mv-voice.com/news/2021/05/04/mountain-view-whisman-students-sent-home-after-children-test-positive-for-covid-19&#x27;</span>).text</span><br><span class="line">selector = fromstring(resp)</span><br><span class="line">title = selector.xpath(<span class="string">&#x27;//h1/text()&#x27;</span>)[<span class="number">0</span>]</span><br><span class="line"><span class="built_in">print</span>(title)</span><br></pre></td></tr></table></figure>
+
+<p><font color=red size=3 face=宋体><strong>运行效果如下图所示：</strong></font></p>
+<p><img src="https://s2.loli.net/2023/11/19/lOm87puUTzvji6L.png" alt="img"></p>
+<p><font color=red size=3 face=宋体><strong>破盾成功。</strong></font></p>
+<p><font color=#b0171f size=2 face=宋体><strong>CloudScraper<code>[2]</code> 非常强大，它可以突破 Cloud Flare 免费版各个版本的五秒盾。而且它的接口和 requests 保持一致。原来用 requests 怎么写代码，现在只需要把<code>requests.xxx</code>改成<code>scraper.xxx</code>就可以了</strong></font></p>
+<h3 id="2-付费版的CloudFlare五秒盾"><a href="#2-付费版的CloudFlare五秒盾" class="headerlink" title="2.付费版的CloudFlare五秒盾"></a><font color=#00b2c2 size=5 face=宋体><strong>2.付费版的CloudFlare五秒盾</strong></font></h3><p><font color=#f26522 size=4 face=宋体><strong>付费版的CloudFlare五秒盾，有没有什么办法绕过呢？其实方法非常简单。只需要使用Docker运行一个容器就可以了。启动命令为：</strong></font></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker run -d \</span><br><span class="line">  --name=flaresolverr \</span><br><span class="line">  -p 8191:8191 \</span><br><span class="line">  -e LOG_LEVEL=info \</span><br><span class="line">  --restart unless-stopped \</span><br><span class="line">  ghcr.io/flaresolverr/flaresolverr:latest</span><br></pre></td></tr></table></figure>
+
+<p><font color=#f26522 size=4 face=宋体><strong>这个容器启动以后，会开启8191端口。我们通过往这个端口发送http请求，让他转发请求给目标网站，就可以绕过五秒盾。</strong></font></p>
+<p><font color=#b0171f size=2 face=宋体><strong>具体使用示例：</strong></font></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"> </span><br><span class="line">url = <span class="string">&quot;http://localhost:8191/v1&quot;</span></span><br><span class="line"> </span><br><span class="line">payload = json.dumps(&#123;</span><br><span class="line">  <span class="string">&quot;cmd&quot;</span>: <span class="string">&quot;request.get&quot;</span>,</span><br><span class="line">  <span class="string">&quot;url&quot;</span>: <span class="string">&quot;https://www.coinbase.com/ventures/content&quot;</span>,</span><br><span class="line">  <span class="string">&quot;maxTimeout&quot;</span>: <span class="number">60000</span></span><br><span class="line">&#125;)</span><br><span class="line">headers = &#123;</span><br><span class="line">  <span class="string">&#x27;Content-Type&#x27;</span>: <span class="string">&#x27;application/json&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">response = requests.post(url, headers=headers, data=payload)</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 这个Docker镜像启动的接口，返回的数据是JOSN，网页源代码在其中的.solution.response中</span></span><br><span class="line"><span class="built_in">print</span>(response.json()[<span class="string">&#x27;solution&#x27;</span>][<span class="string">&#x27;response&#x27;</span>])</span><br></pre></td></tr></table></figure>
+
+<p><font color=red size=3 face=宋体><strong>我们启动的这个容器，为什么可以绕过CloudFlare的五秒盾呢，关键原因就在这个项目中：FlareSolverr[2]。大家可以阅读他的源代码，看看他是怎么绕过的。</strong></font></p>
+<p>[1] Codebase: <em><a target="_blank" rel="noopener" href="https://www.coinbase.com/ventures/content">https://www.coinbase.com/ventures/content</a></em></p>
+<p>[2] FlareSolverr: <em><a target="_blank" rel="noopener" href="https://github.com/FlareSolverr/FlareSolverr">https://github.com/FlareSolverr/FlareSolverr</a></em></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E9%80%86%E5%90%91/" rel="tag"># 逆向</a>
+              <a href="/tags/%E8%AE%B0%E5%BD%95/" rel="tag"># 记录</a>
+              <a href="/tags/Cloudflare/" rel="tag"># Cloudflare</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/10/25/aiohttp-ClientSession-%E4%BD%BF%E7%94%A8-multipart-form-data-%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6%E5%92%8C%E5%AD%97%E7%AC%A6%E9%9B%86/" rel="prev" title="aiohttp.ClientSession() 使用 multipart/form-data 上传文件和字符集">
+      <i class="fa fa-chevron-left"></i> aiohttp.ClientSession() 使用 multipart/form-data 上传文件和字符集
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2023/11/19/python-undetected-chromedriver-chrome%E7%BB%95%E8%BF%87%E4%BA%94%E7%A7%92%E7%9B%BE%EF%BC%88cloudflare%EF%BC%89/" rel="next" title="python+undetected_chromedriver+chrome绕过五秒盾（cloudflare）">
+      python+undetected_chromedriver+chrome绕过五秒盾（cloudflare） <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8Cloud-Scraper%E6%8D%85%E7%A9%BFCloudflare%E7%9A%845%E7%A7%92%E7%9B%BE"><span class="nav-number">1.</span> <span class="nav-text">使用Cloud Scraper捅穿Cloudflare的5秒盾</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%85%8D%E8%B4%B9%E7%89%88%E7%9A%84%E4%BA%94%E7%A7%92%E7%9B%BE"><span class="nav-number">1.0.1.</span> <span class="nav-text">1.免费版的五秒盾</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E4%BB%98%E8%B4%B9%E7%89%88%E7%9A%84CloudFlare%E4%BA%94%E7%A7%92%E7%9B%BE"><span class="nav-number">1.0.2.</span> <span class="nav-text">2.付费版的CloudFlare五秒盾</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Kanoc Ge"
+      src="/images/452794135.jpg">
+  <p class="site-author-name" itemprop="name">Kanoc Ge</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">358</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">85</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">218</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kanoc Ge</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

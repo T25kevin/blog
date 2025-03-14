@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <style>
+    .category-all-page .category-list-item {
+      margin: 15px 10px 10px 10px;
+      list-style: none;
+      font-size: 20px;
+      }
+      .category-all-page .category-list-child {
+        list-style: none;
+        }
+  </style>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"kanoc.gitee.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="ffmpeg 命令心得_非常重要：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ffmpeg 命令心得_非常重要">
+<meta property="og:url" content="https://kanoc.gitee.io/2023/09/07/ffmpeg-%E5%91%BD%E4%BB%A4%E5%BF%83%E5%BE%97-%E9%9D%9E%E5%B8%B8%E9%87%8D%E8%A6%81/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="ffmpeg 命令心得_非常重要：">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-09-07T05:57:45.000Z">
+<meta property="article:modified_time" content="2024-06-25T16:56:20.487Z">
+<meta property="article:author" content="Kanoc Ge">
+<meta property="article:tag" content="ffmpeg">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://kanoc.gitee.io/2023/09/07/ffmpeg-%E5%91%BD%E4%BB%A4%E5%BF%83%E5%BE%97-%E9%9D%9E%E5%B8%B8%E9%87%8D%E8%A6%81/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>ffmpeg 命令心得_非常重要 | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-首页-|-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页 | home</a>
+
+  </li>
+        <li class="menu-item menu-item-分类-|-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类 | categories</a>
+
+  </li>
+        <li class="menu-item menu-item-标签-|-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签 | tags</a>
+
+  </li>
+        <li class="menu-item menu-item-归档-|-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档 | archives</a>
+
+  </li>
+        <li class="menu-item menu-item-关于-|-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于 | about</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/09/07/ffmpeg-%E5%91%BD%E4%BB%A4%E5%BF%83%E5%BE%97-%E9%9D%9E%E5%B8%B8%E9%87%8D%E8%A6%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/452794135.jpg">
+      <meta itemprop="name" content="Kanoc Ge">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ffmpeg 命令心得_非常重要
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-09-07 13:57:45" itemprop="dateCreated datePublished" datetime="2023-09-07T13:57:45+08:00">2023-09-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-06-26 00:56:20" itemprop="dateModified" datetime="2024-06-26T00:56:20+08:00">2024-06-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%A7%86%E9%A2%91%E7%BC%96%E8%BE%91/" itemprop="url" rel="index"><span itemprop="name">视频编辑</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><font color=#00b2c2 size=5 face=宋体><strong>ffmpeg 命令心得_非常重要：</strong></font></p>
+<span id="more"></span>
+
+<p><font color=#f26522 size=4 face=宋体><strong>h5播放器，在pc和安卓端，播放没有任何问题，但是在ios端播放就有问题</strong></font></p>
+<p><font color=#f26522 size=4 face=宋体><strong>猜测这是因为播放器需要添加参数，但是如果我们将ios端能兼容的视频格式在原视频的基础上转换一下，其实也能解决</strong></font></p>
+<ul>
+<li><font color=#b0171f size=3 face=宋体><strong>切割帧：</strong></font></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ffmpeg -i test.m4v -f image2  -vf fps=fps=50 -qscale:v 2 text/%05d.jpg</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><font color=#b0171f size=3 face=宋体><strong>添加帧切割m3u8：</strong></font></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ffmpeg -i input.mp4 -force_key_frames &quot;expr:gte(t,n_forced*8)&quot; -strict -8 -c:a aac -c:v libx264 -hls_time 8 -f hls -map 0 -f segment -segment_list index.m3u8 %04d.ts</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">ffmpeg -i input.mp4：指定输入文件为 input.mp4。</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-force_key_frames <span class="string">&quot;expr:gte(t,n_forced*8)&quot;</span>：强制在每 8 帧之后生成一个关键帧，其中 t 表示当前时间戳，n_forced 表示之前已经强制生成的关键帧数量。</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-strict -8：使用严格模式，以保证生成的 HLS 文件在各种平台上兼容性更好。</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-c:a aac -c:v libx264：指定音频和视频的编码格式分别为 AAC 和 H.264。</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-hls_time 8：设置每个 HLS 切片的时间长度为 8 秒。</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-f hls -map 0：指定输出格式为 HLS，并映射输入文件的全部内容到输出中。</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-segment_list index.m3u8 %04d.ts：生成每个切片的索引列表文件 index.m3u8，其中 %04d 表示用数字填充四位数的占位符，用于表示每个切片的序号。</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">总结起来，该命令的作用是将输入的 MP4 文件进行处理，生成一系列按时间切片分割的 HLS 格式的视频片段，并生成相应的索引列表文件。</span></span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li><font color=#b0171f size=3 face=宋体><strong>转码到通用版本：</strong></font></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ffmpeg -i input.mp4 -threads 12 -s 1920x1080 -r 30000/1001 -video_track_timescale 30k -c:a copy output.mp4</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">ffmpeg -i v1.mp4：指定输入文件为 input.mp4。</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-threads 12：指定使用 12 个线程进行视频处理。</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-s 1920x1080：指定输出视频的分辨率大小为 1920x1080。</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-r 30000/1001：指定输出视频的帧率为 30000/1001 fps。</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-video_track_timescale 30k：指定输出视频的时间尺度为 30k <span class="keyword">time</span> scale。</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-c:a copy：将输入文件的音频流直接复制到输出文件中。</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">newv1.mp4：指定输出文件名为 output.mp4。</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">总结起来，该命令的作用是将输入的 MP4 文件进行处理，生成一个新的 MP4 文件，该文件的分辨率大小为 HD 720p，帧率为 30000/1001 fps，时间尺度为 30k <span class="keyword">time</span> scale，音频流保持不变。</span></span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li><font color=#b0171f size=3 face=宋体><strong>复制 切割m3u8：</strong></font></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ffmpeg -i input.mp4 -f segment -segment_time 8 -segment_format mpegts -segment_list index.m3u8 -c copy -bsf:v h264_mp4toannexb -map 0 %04d.ts</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">ffmpeg -i input.mp4：指定输入文件为 input.mp4。</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-f segment -segment_time 8 -segment_format mpegts -segment_list index.m3u8：将输入文件分割成多个片段，每个片段的时长为 8 秒，格式为 MPEG-TS，生成的索引列表文件名为 index.m3u8。</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-c copy -bsf:v h264_mp4toannexb：将输入文件的视频流直接复制到输出文件中，并使用 h264_mp4toannexb 过滤器将视频流转换为 Annex B 格式。</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-map 0 %04d.ts：将输入文件的全部内容映射到输出文件中，输出的每个片段的文件名为 %04d.ts，其中 %04d 表示用数字填充四位数的占位符，用于表示每个片段的序号。</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">总结起来，该命令的作用是将输入的 MP4 文件进行处理，生成一系列时长为 8 秒的 MPEG-TS 格式的视频片段，并将每个片段的文件名保存到 index.m3u8 文件中。同时，将视频流转换为 Annex B 格式。</span></span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li><font color=#b0171f size=3 face=宋体><strong>转码到通用版本(音频流转换为公有格式)：</strong></font></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ffmpeg -i input.mp4 -bsf:a aac_adtstoasc -threads 12 -s 1920x1080 -r 30000/1001 -video_track_timescale 30k -c:a copy output.mp4</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">ffmpeg -i input.mp4：指定输入文件为 input.mp4。</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-bsf:a aac_adtstoasc：使用 aac_adtstoasc 过滤器将输入文件的音频流转换为公有格式。</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-threads 12：指定使用 12 个线程进行视频处理。</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-s 1920x1080：指定输出视频的分辨率大小为 1920x1080。</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-r 30000/1001：指定输出视频的帧率为 30000/1001 fps。</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-video_track_timescale 30k：指定输出视频的时间尺度为 30k <span class="keyword">time</span> scale。</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-c:a copy：将输入文件的音频流直接复制到输出文件中。</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">output.mp4：指定输出文件名为 output.mp4。</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">总结起来，该命令的作用是将输入的 MP4 文件进行处理，生成一个新的 MP4 文件，该文件的分辨率大小为 1920x1080，帧率为 30000/1001 fps，时间尺度为 30k <span class="keyword">time</span> scale，音频流保持不变，并将结果保存为 output.mp4 文件。同时，使用 aac_adtstoasc 过滤器将音频流转换为公有格式。</span></span><br></pre></td></tr></table></figure>
+
+<p><font color=#00b2c2 size=5 face=宋体><strong>合并视频&gt;&gt;&gt;到通用版本：</strong></font></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ffmpeg -i input.mp4 -i v1.mp4 -threads 24  -bsf:a aac_adtstoasc -filter_complex &quot;concat=n=2:v=1:a=1&quot; -s 1920x1080 -r 30000/1001 -video_track_timescale 30k output.mp4</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">ffmpeg -i input.mp4 -i v1.mp4：指定输入文件为 input.mp4 和 v1.mp4。</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-threads 24：指定使用 24 个线程进行视频处理。</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-bsf:a aac_adtstoasc：使用 aac_adtstoasc 过滤器将输入文件的音频流转换为公有格式。</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-filter_complex <span class="string">&quot;concat=n=2:v=1:a=1&quot;</span>：使用 concat 过滤器将两个输入文件连接起来。n=2 表示输入文件的数量，v=1 表示视频流的数量，a=1 表示音频流的数量。</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-s 1920x1080：指定输出视频的分辨率大小为 1920x1080。</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-r 30000/1001：指定输出视频的帧率为 30000/1001 fps。</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-video_track_timescale 30k：指定输出视频的时间尺度为 30k <span class="keyword">time</span> scale。</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">output.mp4：指定输出文件名为 output.mp4。</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">总结起来，该命令的作用是将 input.mp4 和 v1.mp4 两个文件进行处理，将它们连接成一个新的 MP4 文件，并将结果保存为 output.mp4 文件。该文件的分辨率大小为 1920x1080，帧率为 30000/1001 fps，时间尺度为 30k <span class="keyword">time</span> scale，音频流保持不变，并将音频流转换为公有格式。同时，使用 24 个线程进行视频处理。</span></span><br></pre></td></tr></table></figure>
+
+<p><font color=#f26522 size=4 face=宋体><strong></strong></font></p>
+<p><font color=#b0171f size=2 face=宋体><strong></strong></font></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/ffmpeg/" rel="tag"># ffmpeg</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/09/02/linux%E4%B8%8Btree%E5%91%BD%E4%BB%A4%E4%B8%AD%E6%96%87%E5%AD%97%E7%AC%A6%E4%B9%B1%E7%A0%81%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" rel="prev" title="linux下tree命令中文字符乱码解决方案">
+      <i class="fa fa-chevron-left"></i> linux下tree命令中文字符乱码解决方案
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2023/09/07/ffmpeg-moviepy%E5%90%88%E5%B9%B6%E7%89%87%E5%A4%B4/" rel="next" title="ffmpeg moviepy合并片头">
+      ffmpeg moviepy合并片头 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Kanoc Ge"
+      src="/images/452794135.jpg">
+  <p class="site-author-name" itemprop="name">Kanoc Ge</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">358</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">85</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">218</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kanoc Ge</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

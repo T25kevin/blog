@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <style>
+    .category-all-page .category-list-item {
+      margin: 15px 10px 10px 10px;
+      list-style: none;
+      font-size: 20px;
+      }
+      .category-all-page .category-list-child {
+        list-style: none;
+        }
+  </style>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"kanoc.gitee.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="黑客工具之Google Hacking的简单用法：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="黑客工具之Google Hacking的简单用法">
+<meta property="og:url" content="https://kanoc.gitee.io/2023/11/21/%E9%BB%91%E5%AE%A2%E5%B7%A5%E5%85%B7%E4%B9%8BGoogle-Hacking%E7%9A%84%E7%AE%80%E5%8D%95%E7%94%A8%E6%B3%95/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="黑客工具之Google Hacking的简单用法：">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2023/11/21/NXACjRzpHneSYwQ.webp">
+<meta property="og:image" content="https://s2.loli.net/2023/11/21/3gvZFKjqV72Odth.webp">
+<meta property="og:image" content="https://s2.loli.net/2023/11/21/9OmrYuAB7IQkanX.webp">
+<meta property="og:image" content="https://s2.loli.net/2023/11/21/5iV9hNSIz8kXrRj.webp">
+<meta property="og:image" content="https://s2.loli.net/2023/11/21/l7qb1jJod4PLUxi.webp">
+<meta property="og:image" content="https://s2.loli.net/2023/11/21/IpNlc1jhCStTdea.webp">
+<meta property="og:image" content="https://s2.loli.net/2023/11/21/krHj4pNaDJLI1v3.webp">
+<meta property="og:image" content="https://s2.loli.net/2023/11/21/EYzLCaeMoH6h7pF.webp">
+<meta property="og:image" content="https://s2.loli.net/2023/11/21/IapXLzVETZdBcb2.webp">
+<meta property="og:image" content="https://s2.loli.net/2023/11/21/vUMQljuhrH39ICO.webp">
+<meta property="og:image" content="https://s2.loli.net/2023/11/21/ZckzpHesimbP7OS.webp">
+<meta property="og:image" content="https://s2.loli.net/2023/11/21/LW1ycq9jo4hXItm.webp">
+<meta property="article:published_time" content="2023-11-20T18:37:29.000Z">
+<meta property="article:modified_time" content="2024-06-25T16:56:20.786Z">
+<meta property="article:author" content="Kanoc Ge">
+<meta property="article:tag" content="渗透">
+<meta property="article:tag" content="hack">
+<meta property="article:tag" content="谷歌搜索工具">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2023/11/21/NXACjRzpHneSYwQ.webp">
+
+<link rel="canonical" href="https://kanoc.gitee.io/2023/11/21/%E9%BB%91%E5%AE%A2%E5%B7%A5%E5%85%B7%E4%B9%8BGoogle-Hacking%E7%9A%84%E7%AE%80%E5%8D%95%E7%94%A8%E6%B3%95/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>黑客工具之Google Hacking的简单用法 | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-首页-|-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页 | home</a>
+
+  </li>
+        <li class="menu-item menu-item-分类-|-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类 | categories</a>
+
+  </li>
+        <li class="menu-item menu-item-标签-|-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签 | tags</a>
+
+  </li>
+        <li class="menu-item menu-item-归档-|-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档 | archives</a>
+
+  </li>
+        <li class="menu-item menu-item-关于-|-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于 | about</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/11/21/%E9%BB%91%E5%AE%A2%E5%B7%A5%E5%85%B7%E4%B9%8BGoogle-Hacking%E7%9A%84%E7%AE%80%E5%8D%95%E7%94%A8%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/452794135.jpg">
+      <meta itemprop="name" content="Kanoc Ge">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          黑客工具之Google Hacking的简单用法
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-11-21 02:37:29" itemprop="dateCreated datePublished" datetime="2023-11-21T02:37:29+08:00">2023-11-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-06-26 00:56:20" itemprop="dateModified" datetime="2024-06-26T00:56:20+08:00">2024-06-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B8%97%E9%80%8F/" itemprop="url" rel="index"><span itemprop="name">渗透</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><font color=#00b2c2 size=5 face=宋体><strong>黑客工具之Google Hacking的简单用法：</strong></font></p>
+<span id="more"></span>
+
+<p>本文搬运自：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/400365865">黑客工具之Google Hacking的简单用法 - 知乎 (zhihu.com)</a></p>
+<ul>
+<li>感谢大神：<a target="_blank" rel="noopener" href="https://www.zhihu.com/people/shen-tou-ce-shi-yan-jiu-yuan-9ling">黑客老鸟-九青</a> 无私的技术分享</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/394955217">黑客工具之Sqlmap详细使用教程 - 知乎 (zhihu.com)</a></p>
+<p><font color=#f26522 size=4 face=宋体><strong>一、Google Hacking简介</strong></font></p>
+<p><font color=#b0171f size=2 face=宋体><strong>Google Hacking 是利用谷歌搜索的强大，来在浩瀚的互联网中搜索到我们需要的信息。轻量级的搜索可以搜素出一些遗留后门，不想被发现的后台入口，中量级的搜索出一些用户信息泄露，源代码泄露，未授权访问等等，重量级的则可能是mdb文件下载，CMS 未被锁定install页面，网站配置密码，php远程文件包含漏洞等重要信息。</strong></font></p>
+<p><font color=#f26522 size=4 face=宋体><strong>工具文章合集：</strong></font></p>
+<p><font color=#b0171f size=2 face=宋体><strong>利用Google搜索我们想要的信息，需要配合谷歌搜索引擎的一些语法：</strong></font></p>
+<h2 id="基本搜索："><a href="#基本搜索：" class="headerlink" title="基本搜索："></a><font color=#00b2c2 size=5 face=宋体><strong>基本搜索：</strong></font></h2><ul>
+<li><font color=#b0171f size=2 face=宋体><strong>逻辑与：and</strong></font></li>
+<li><font color=#b0171f size=2 face=宋体><strong>逻辑或： or</strong></font></li>
+<li><font color=#b0171f size=2 face=宋体><strong>逻辑非： -</strong></font></li>
+<li><font color=#b0171f size=2 face=宋体><strong>完整匹配：”关键词”</strong></font></li>
+<li><font color=#b0171f size=2 face=宋体><strong>通配符：* ?</strong></font></li>
+</ul>
+<h2 id="高级搜索："><a href="#高级搜索：" class="headerlink" title="高级搜索："></a><font color=#00b2c2 size=5 face=宋体><strong>高级搜索：</strong></font></h2><p><strong><code>intext:</code></strong></p>
+<p><font color=#b0171f size=2 face=宋体><strong>寻找正文中含有关键字的网页，例如： <strong><code>intext:后台登录</code></strong> 将只返回正文中包含 后台登录 的网页</strong></font></p>
+<p><img src="https://s2.loli.net/2023/11/21/NXACjRzpHneSYwQ.webp" alt="img"></p>
+<p><strong><code>intitle:</code></strong></p>
+<p><font color=#b0171f size=2 face=宋体><strong>寻找标题中含有关键字的网页，例如： <strong><code>intitle:后台登录</code></strong> 将只返回标题中包含 后台登录 的网页，<strong><code>intitle:后台登录 密码</code></strong> 将返回标题中包含黑客而正文中包含中国的网页</strong></font></p>
+<img src="https://s2.loli.net/2023/11/21/3gvZFKjqV72Odth.webp" alt="img" style="zoom:80%;" />
+
+<p><strong><code>allintitle:</code></strong></p>
+<p><font color=#b0171f size=2 face=宋体><strong>用法和intitle类似，只不过可以指定多个词，例如： <strong><code>alltitle:后台登录 管理员</code></strong> 将返回标题中包含黑客 和中国的网页</strong></font></p>
+<p><img src="https://s2.loli.net/2023/11/21/9OmrYuAB7IQkanX.webp" alt="img"></p>
+<p><strong><code>inurl：</code></strong></p>
+<p><font color=#b0171f size=2 face=宋体><strong>将返回url中含有关键词的网页：例如：<strong><code>inurl:Login</code></strong> 将返回url中含有 Login 的网页</strong></font></p>
+<p><img src="https://s2.loli.net/2023/11/21/5iV9hNSIz8kXrRj.webp" alt="img"></p>
+<p><font color=#b0171f size=2 face=宋体><strong>查找管理员登录页面</strong></font></p>
+<p><img src="https://s2.loli.net/2023/11/21/l7qb1jJod4PLUxi.webp" alt="img"></p>
+<p><font color=#b0171f size=2 face=宋体><strong>查找后台数据库管理页面</strong></font></p>
+<p><img src="https://s2.loli.net/2023/11/21/IpNlc1jhCStTdea.webp" alt="img"></p>
+<p><strong><code>allinurl:</code></strong></p>
+<p><font color=#b0171f size=2 face=宋体><strong>用法和inurl类似，只不过可以指定多个词，例如：<strong><code>inurl:Login admin</code></strong> 将返回url中含有 Login 和 admin 的网页</strong></font></p>
+<p><img src="https://s2.loli.net/2023/11/21/krHj4pNaDJLI1v3.webp" alt="img"></p>
+<p><strong><code>site:</code></strong></p>
+<p><font color=#b0171f size=2 face=宋体><strong>指定访问的站点，例如： <strong>site:<a href="https://link.zhihu.com/?target=http://baidu.com">http://baidu.com</a> inurl:Login</strong> 将只在<a href="https://link.zhihu.com/?target=http://baidu.com">http://baidu.com</a> 中查找url中含有 Login的网页</strong></font></p>
+<p><img src="https://s2.loli.net/2023/11/21/EYzLCaeMoH6h7pF.webp" alt="img"></p>
+<p><strong><code>filetype:</code></strong></p>
+<p><font color=#b0171f size=2 face=宋体><strong>指定访问的文件类型，例如：<strong><code>site:baidu.com filetype:pdf</code></strong> 将只返回<a target="_blank" rel="noopener" href="http://baidu.com站点上文件类型为pdf的网页/">http://baidu.com站点上文件类型为pdf的网页</a></strong></font></p>
+<p><img src="https://s2.loli.net/2023/11/21/IapXLzVETZdBcb2.webp" alt="img"></p>
+<p><strong><code>link:</code></strong></p>
+<p><font color=#b0171f size=2 face=宋体><strong>指定链接的网页，例如：<strong><code>link:http://www.baidu.com</code></strong> 将返回所有包含指向 <a target="_blank" rel="noopener" href="http://www.baidu.com的网页/">http://www.baidu.com的网页</a></strong></font></p>
+<p><img src="https://s2.loli.net/2023/11/21/vUMQljuhrH39ICO.webp" alt="img"></p>
+<p><strong><code>related:</code></strong></p>
+<p><font color=#b0171f size=2 face=宋体><strong>相似类型的网页，例如：<strong><code>related:http://www.xjtu.edu.cn</code></strong> 将返回与 <a target="_blank" rel="noopener" href="http://www.xjtu.edu.cn相似的页面,相似指的是网页的布局相似/">http://www.xjtu.edu.cn相似的页面，相似指的是网页的布局相似</a></strong></font></p>
+<p><img src="https://s2.loli.net/2023/11/21/ZckzpHesimbP7OS.webp" alt="img"></p>
+<p><strong><code>cache:</code></strong></p>
+<p><font color=#b0171f size=2 face=宋体><strong>网页快照，谷歌将返回给你他存储下来的历史页面，如果你同时制定了其他查询词，将在搜索结果里以高亮显示，例如：<strong><code>cache:http://www.hackingspirits.com guest</code></strong> ，将返回指定网站的缓存，并且正文中含有guest</strong></font></p>
+<p><strong><code>info:</code></strong></p>
+<p><font color=#b0171f size=2 face=宋体><strong>返回站点的指定信息，例如：<code>info:http://www.baidu.com</code> 将返回百度的一些信息</strong></font></p>
+<p><strong><code>define:</code></strong></p>
+<p><font color=#b0171f size=2 face=宋体><strong>返回某个词语的定义，例如：<code>define:Hacker</code>　　将返回关于Hacker的定义</strong></font></p>
+<p><strong><code>phonebook:</code></strong></p>
+<p><font color=#b0171f size=2 face=宋体><strong>电话簿查询美国街道地址和电话号码信息。例如：<code>phonebook:Lisa+CA</code> 将返回名字里面包含Lisa并住在加州的人的所有名字</strong></font></p>
+<p><strong><code>查找网站后台</code></strong></p>
+<ul>
+<li><font color=#b0171f size=2 face=宋体><strong><code>site:http://xx.com intext:管理</code></strong></font></li>
+<li><font color=#b0171f size=2 face=宋体><strong><code>site:http://xx.com inurl:login</code></strong></font></li>
+<li><font color=#b0171f size=2 face=宋体><strong><code>site:http://xx.com intitle:后台</code></strong></font></li>
+</ul>
+<p><strong><code>查看服务器使用的程序</code></strong></p>
+<ul>
+<li><font color=#b0171f size=2 face=宋体><strong><code>site:http://xx.com filetype:asp</code></strong></font></li>
+<li><font color=#b0171f size=2 face=宋体><strong><code>site:http://xx.com filetype:php</code></strong></font></li>
+<li><font color=#b0171f size=2 face=宋体><strong><code>site:http://xx.com filetype:jsp</code></strong></font></li>
+<li><font color=#b0171f size=2 face=宋体><strong><code>site:http://xx.com filetype:aspx</code></strong></font></li>
+</ul>
+<p><strong><code>查看上传漏洞</code></strong></p>
+<ul>
+<li><font color=#b0171f size=2 face=宋体><strong><code>site:http://xx.com inurl:file</code></strong></font></li>
+<li><font color=#b0171f size=2 face=宋体><strong><code>site:http://xx.com inurl:load</code></strong></font></li>
+</ul>
+<p><strong><code>Index of</code></strong></p>
+<p><font color=#b0171f size=2 face=宋体><strong>利用 <code>Index of</code>语法去发现允许目录浏览的web网站，就像在本地的普通目录一样。下面是一些有趣的查询：</strong></font></p>
+<ul>
+<li><code>index of /admin</code></li>
+<li><code>index of /passwd</code></li>
+<li><code>index of /passwd</code></li>
+<li><code>index of /mail</code></li>
+<li><code>&quot;index of /&quot; +passwd</code></li>
+<li><code>&quot;index of /&quot; +password.txt</code></li>
+<li><code>&quot;index of /&quot; +.htaccess</code></li>
+<li><code>&quot;index of /root&quot;</code></li>
+<li><code>&quot;index of /cgi-bin&quot;</code></li>
+<li><code>&quot;index of /logs&quot;</code></li>
+<li><code>&quot;index of /config&quot;</code></li>
+</ul>
+<p><font color=#00b2c2 size=5 face=宋体><strong><strong><code>inurl</code></strong></strong></font></p>
+<p><font color=#b0171f size=2 face=宋体><strong>而上面这些命令中用的最多的就是 <code>inurl: </code>了，利用这个命令，可以查到很多意想不到的东西</strong></font></p>
+<ul>
+<li><font color=#b0171f size=2 face=宋体><strong>利用 allinurl:winnt&#x2F;system32&#x2F; 查询：列出的服务器上本来应该受限制的诸如“system32” 等目录，如果你运气足够好，你会发现“system32” 目录里的“cmd.exe” 文件，并能执行他，接下来就是提升权限并攻克了。</strong></font></li>
+<li><font color=#b0171f size=2 face=宋体><strong>查询 allinurl:wwwboard&#x2F;passwd.txt 将列出所有有“WWWBoard Password vulnerability”漏洞的服务器，阅读更多请参见下面链接。</strong></font></li>
+<li><font color=#b0171f size=2 face=宋体><strong>查询 inurl:.bash_history 将列出互联网上可以看见 “inurl:.bash_history” 文件的服务器。这是一个命令历史文件，这个文件包含了管理员执行的命令，有时会包含一些敏感信息比如管理员键入的密码。</strong></font></li>
+<li><font color=#b0171f size=2 face=宋体><strong>查询 inurl:config.txt 将看见网上暴露了“inurl:config.txt”文件的服务器，这个文件包含了经过哈希编码的管理员的密码和数据库存取的关键</strong></font>信息。</li>
+</ul>
+<p><font color=#f26522 size=4 face=宋体><strong>还有一些其他一些使用“<code>inurl:</code>”和“<code>allinurl:</code>”查询组合的例子：</strong></font></p>
+<ul>
+<li><code>inurl:admin filetype:txt</code></li>
+<li><code>inurl:admin filetype:db</code></li>
+<li><code>inurl:admin filetype:cfg</code></li>
+<li><code>inurl:mysql filetype:cfg</code></li>
+<li><code>inurl:passwd filetype:txt</code></li>
+<li><code>inurl:”wwwroot/*.”</code></li>
+<li><code>inurl:adpassword.txt</code></li>
+<li><code>inurl:webeditor.php</code></li>
+<li><code>inurl:file_upload.php</code></li>
+<li><code>inurl:gov filetype:xls “restricted”</code></li>
+<li><code>index of ftp +.mdb allinurl:/cgi-bin/ +mailto</code></li>
+</ul>
+<h2 id="查找有可能存在SQL注入的网站："><a href="#查找有可能存在SQL注入的网站：" class="headerlink" title="查找有可能存在SQL注入的网站："></a><font color=#00b2c2 size=5 face=宋体><strong>查找有可能存在SQL注入的网站：</strong></font></h2><p><strong><code>inurl:id=1</code></strong></p>
+<p><img src="https://s2.loli.net/2023/11/21/LW1ycq9jo4hXItm.webp" alt="img"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%B8%97%E9%80%8F/" rel="tag"># 渗透</a>
+              <a href="/tags/hack/" rel="tag"># hack</a>
+              <a href="/tags/%E8%B0%B7%E6%AD%8C%E6%90%9C%E7%B4%A2%E5%B7%A5%E5%85%B7/" rel="tag"># 谷歌搜索工具</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/11/20/AI%E6%8D%A2%E8%84%B8%E9%A1%B9%E7%9B%AE-faceswap-%E5%9F%BA%E4%BA%8ECentos7-%E7%9A%84%E9%83%A8%E7%BD%B2%E3%80%81%E9%85%8D%E7%BD%AE%E3%80%81%E8%AE%AD%E7%BB%83%E3%80%81%E6%9B%BF%E6%8D%A2%E6%95%99%E7%A8%8B/" rel="prev" title="AI换脸项目 - faceswap 基于Centos7 的部署、配置、训练、替换教程">
+      <i class="fa fa-chevron-left"></i> AI换脸项目 - faceswap 基于Centos7 的部署、配置、训练、替换教程
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2023/11/21/%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB-cloudflare%E4%BA%94%E7%A7%92%E7%AD%89%E5%BE%85%E9%AA%8C%E8%AF%81%E9%80%86%E5%90%91%E7%A0%B4%E8%A7%A3-js%E7%89%88/" rel="next" title="网络爬虫-cloudflare五秒等待验证逆向破解(js版)">
+      网络爬虫-cloudflare五秒等待验证逆向破解(js版) <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%90%9C%E7%B4%A2%EF%BC%9A"><span class="nav-number">1.</span> <span class="nav-text">基本搜索：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%AB%98%E7%BA%A7%E6%90%9C%E7%B4%A2%EF%BC%9A"><span class="nav-number">2.</span> <span class="nav-text">高级搜索：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E6%89%BE%E6%9C%89%E5%8F%AF%E8%83%BD%E5%AD%98%E5%9C%A8SQL%E6%B3%A8%E5%85%A5%E7%9A%84%E7%BD%91%E7%AB%99%EF%BC%9A"><span class="nav-number">3.</span> <span class="nav-text">查找有可能存在SQL注入的网站：</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Kanoc Ge"
+      src="/images/452794135.jpg">
+  <p class="site-author-name" itemprop="name">Kanoc Ge</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">358</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">85</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">218</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kanoc Ge</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

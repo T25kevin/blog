@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <style>
+    .category-all-page .category-list-item {
+      margin: 15px 10px 10px 10px;
+      list-style: none;
+      font-size: 20px;
+      }
+      .category-all-page .category-list-child {
+        list-style: none;
+        }
+  </style>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"kanoc.gitee.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="1. 网页">
+<meta property="og:type" content="article">
+<meta property="og:title" content="那些让人惊奇的云项目(第二弹)">
+<meta property="og:url" content="https://kanoc.gitee.io/2023/05/22/%E9%82%A3%E4%BA%9B%E8%AE%A9%E4%BA%BA%E6%83%8A%E5%A5%87%E7%9A%84%E4%BA%91%E9%A1%B9%E7%9B%AE-%E7%AC%AC%E4%BA%8C%E5%BC%B9/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="1. 网页">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-05-22T13:33:15.000Z">
+<meta property="article:modified_time" content="2024-06-25T16:56:20.783Z">
+<meta property="article:author" content="Kanoc Ge">
+<meta property="article:tag" content="云">
+<meta property="article:tag" content="免费项目">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://kanoc.gitee.io/2023/05/22/%E9%82%A3%E4%BA%9B%E8%AE%A9%E4%BA%BA%E6%83%8A%E5%A5%87%E7%9A%84%E4%BA%91%E9%A1%B9%E7%9B%AE-%E7%AC%AC%E4%BA%8C%E5%BC%B9/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>那些让人惊奇的云项目(第二弹) | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-首页-|-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页 | home</a>
+
+  </li>
+        <li class="menu-item menu-item-分类-|-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类 | categories</a>
+
+  </li>
+        <li class="menu-item menu-item-标签-|-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签 | tags</a>
+
+  </li>
+        <li class="menu-item menu-item-归档-|-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档 | archives</a>
+
+  </li>
+        <li class="menu-item menu-item-关于-|-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于 | about</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/05/22/%E9%82%A3%E4%BA%9B%E8%AE%A9%E4%BA%BA%E6%83%8A%E5%A5%87%E7%9A%84%E4%BA%91%E9%A1%B9%E7%9B%AE-%E7%AC%AC%E4%BA%8C%E5%BC%B9/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/452794135.jpg">
+      <meta itemprop="name" content="Kanoc Ge">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          那些让人惊奇的云项目(第二弹)
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-05-22 21:33:15" itemprop="dateCreated datePublished" datetime="2023-05-22T21:33:15+08:00">2023-05-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-06-26 00:56:20" itemprop="dateModified" datetime="2024-06-26T00:56:20+08:00">2024-06-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%85%8D%E8%B4%B9%E9%A1%B9%E7%9B%AE/" itemprop="url" rel="index"><span itemprop="name">免费项目</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2>1. 网页</h2>
+
+<span id="more"></span>
+
+<h3>1.1. 域名</h3>
+
+<ul>
+<li>理论上DDNS也会提供，不过不是二级的</li>
+<li>https://my.freenom.com/clientarea.php  tk、ml、ga、cf、gq顶级域名</li>
+<li>https://nic.eu.org/ 欧盟下的，个人免费注册；http会被重置</li>
+<li>https://dns.txizd.cn/ 三级</li>
+<li>https://dns.yzjia.xin/ 三级</li>
+<li>http://cc.1xie.xyz</li>
+<li>https://github.com/fransallen/thedev.id https://github.com/js-org/js.org 要开PR</li>
+<li>https://www.freedomain.pro/ co.nr</li>
+<li>http://www.com.nu/</li>
+<li>https://domainoji.com/ https://www.punycoder.com/ emoji/idn域名转换；https://emojipedia.org/ emoji搜索</li>
+<li>https://nic.ua/en/domains 乌克兰 pp.ua</li>
+<li>https://www.azote.org 法国 asso.st，fr.nf，fr.cr，ze.cx，infos.st</li>
+<li>https://www.nom.za 南非</li>
+<li>https://www.sitelutions.com 纽埃 rr.nu</li>
+<li>https://www.ipq.co 哥伦比亚共和国</li>
+<li>https://fofa.so/ 用来搜索域名的</li>
+</ul>
+
+<h3>1.2. 证书</h3>
+
+<ul>
+<li>https://freessl.cn</li>
+<li>https://freessl.org</li>
+<li>https://allinssl.com/zh/</li>
+<li>https://zerossl.com/</li>
+</ul>
+
+<h3>1.3. DNS</h3>
+
+<ul>
+<li>https://www.dns.la/</li>
+<li>https://www.bajiedns.com/</li>
+<li>https://www.dnsdun.com/</li>
+<li>https://nip.io/ 自动根据域名中的IP返回DNS查询结果。xip.io挂了</li>
+<li>https://dnsmadeeasy.com/</li>
+</ul>
+
+<h3>1.4. <a class="wp-editor-md-post-content-link" target="_blank" rel="noopener" href="https://github.com/ZE3kr/Cloudflare-CNAME-Setup/blob/master/README.zh.md">Cloudflare CNAME/IP/NS 接入</a></h3>
+
+<ul>
+<li>https://cdn.liang.ke/</li>
+<li>https://cf.tlo.xyz/</li>
+<li>https://dns.porta1.net/</li>
+<li>https://cdn.bnxb.com/</li>
+<li>https://cdn.wzfou.com/</li>
+<li>https://cdn.moeelf.com/</li>
+</ul>
+
+<h3>1.5. CDN</h3>
+
+<ul>
+<li>https://su.baidu.com/product/cdn.html</li>
+<li>http://cdn.meierlian.net/</li>
+<li>https://www.yunaq.com/jsl/ 仅限80端口</li>
+<li>https://www.cdnfine.com/</li>
+<li>https://wangzhan.qianxin.com/ 前身是360网页卫士</li>
+<li>https://www.merlincdn.com/ 注册送$10，不清楚有没有限时，额度有个自选的</li>
+<li>https://github.com/EtherDream/freecdn 自动选择合适的CDN的程序</li>
+</ul>
+
+<h3>1.6. 短网址</h3>
+
+<ul>
+<li>https://1t.click/ 、https://sina.lt/ 新浪的</li>
+<li>https://u.nu/</li>
+<li>http://suo.im/</li>
+<li>https://tinyurl.com/ 无法直接访问</li>
+<li>https://bitly.com/ 无法直接访问</li>
+<li>https://sl.iyong.com/</li>
+<li>https://v.ht 国外的</li>
+</ul>
+
+<h2>2. 国内源/镜像</h2>
+
+<ul>
+<li>https://github.com/china-speed/china-speed.github.io apt/docker/pip/npm收集</li>
+<li>https://www.7ed.net Google Fonts/Libraries、CDNJS、Gravatar、Github RAW、Imgur、SM.MS反代；曾用cdn.staticdn.net cdn.con.sh</li>
+<li>https://cdn.geekzu.org/cached.html Google Fonts/Libraries、Gravatar反代</li>
+<li>https://sb.sb/blog/css-cdn/ loli.net域名，Google Fonts/Libraries、Gravatar反代</li>
+<li>https://npm.taobao.org/mirrors 一部分GitHub开源项目的release</li>
+</ul>
+
+<h3>2.1. GitHub</h3>
+
+<ul>
+<li>jsdelivr、statically：相当于只支持raw</li>
+<li>https://doc.fastgit.org/zh-cn/node.html 主站网页、assets、<del>raw、release</del></li>
+<li>https://gitclone.com/ 支持http clone</li>
+<li>https://github.zhlh6.cn/ 支持ssh</li>
+<li>https://pd.zwc365.com/</li>
+<li>https://github.com/XIU2/UserScript/blob/master/GithubEnhanced-High-Speed-Download.user.js</li>
+<li>http://www.toolzl.com/tools/githubjiasu.html 支持release</li>
+<li>https://github.com/zwc456baby/file-proxy https://pd.zwc365.com/</li>
+<li>https://github.wuyanzheshui.workers.dev/ https://github.rc1844.workers.dev/ 网页版</li>
+<li>https://github.com/nulastudio/mclone 安装后用git mclone即可自动用mirror</li>
+<li>https://shrill-pond-3e81.hunsh.workers.dev/ https://gh.api.99988866.xyz/ https://g.ioiox.com/ (https://github.com/hunshcn/gh-proxy)</li>
+<li>https://github.bajins.com/ 网页版</li>
+<li>https://gh.haval.gq 没处理css和js的网页版</li>
+<li>https://ghproxy.com/</li>
+<li><del>github.com.cnpmjs.org</del> 网页版，触发了滥用检测</li>
+<li><del>https://d.serctl.com/</del> 活着但是日本Linode，IP干扰大，几乎不可访问</li>
+<li><del>zll.us</del></li>
+<li><del>https://githubd.com</del></li>
+<li><del>widora：http://gg.widyun.com http://g.widyun.com/ http://g.widora.cn/ 支持release</del></li>
+<li><del>https://git.best/</del></li>
+<li><del>http://gitd.cc/</del></li>
+<li><del>https://www.toolwa.com/github/</del> 网站本身活着，但线路一是用不了的jsproxy，线路二是fastgit</li>
+</ul>
+
+<h3>2.2. 前端库</h3>
+
+<ul>
+<li>国内的，基本都是同步的cdnjs，否则要么不全要么老；链接格式只有bootcdn.cn的与cdnjs完全相同，其余的都没有ajax/libs/部分，字节的还多一部分
+
+<ul>
+<li>https://www.bootcdn.cn/ 由bootcss网站支持；https://cdn.bootcss.com/ 没公开但能用</li>
+<li>https://www.staticfile.org/ 七牛云。版本默认选的最老的，不知道怎么想的</li>
+<li>https://cdn.baomitu.com/ 360</li>
+<li>https://cdn.bytedance.com/ 字节跳动，直接把所有库按首字母列出来</li>
+<li>https://jshub.com 有点旧，感觉是模仿bootcdn的</li>
+<li>https://cdnjs.net/ 有可能2019年后就没更新了</li>
+<li>https://lib.sinaapp.com/ 新浪，少且旧，jq最新3.1</li>
+<li>http://jscdn.upai.com/ 又拍云，极少且极旧，无https</li>
+<li>https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js 非公开，不更新</li>
+</ul></li>
+<li>国外的
+
+<ul>
+<li>https://www.jsdelivr.com/ 有国内CDN。支持GitHub。https://esm.run 支持ESM</li>
+<li>https://cdnjs.com/ CF自己的，访问慢</li>
+<li>https://unpkg.com/ 用的CF的CDN，实验性支持ESM</li>
+<li>https://statically.io/ 用的Fastly的CDN。只支持GitHub，加min后缀自动压缩，还有图片压缩服务和网页快照截图功能</li>
+<li>https://jspm.org/ 仅ESM</li>
+<li>https://www.skypack.dev/ snowpack团队的，ESM，高度为浏览器优化</li>
+<li>https://esm.sh/ 仅ESM，自动转换的</li>
+<li>https://ajax.aspnetcdn.com 微软的，只有jq相关的很少几个，但路径格式与jq官网相同方便替换</li>
+</ul></li>
+<li>Font Awesome
+
+<ul>
+<li>前面那些前端库仍可用</li>
+<li>https://use.fontawesome.com/releases/v5.15.0/css/all.css 官方的，但注意它其实对应的是min.css</li>
+<li>http://apps.bdimg.com/libs/fontawesome/4.4.0/css/font-awesome.min.css 非公开，不更新</li>
+</ul></li>
+</ul>
+
+<h2>3. 储存</h2>
+
+<h3>3.1. OSS</h3>
+
+<ul>
+<li>https://www.zhihu.com/question/51309695 有哪些优秀且免费的云存储服务？</li>
+<li>https://www.zhihu.com/question/34445630/answer/449868590 网易云，免费50G空间，20G流量</li>
+<li>https://developer.qiniu.com/af/kb/1574/free-credit-information https://www.qiniu.com/events/free 七牛云</li>
+<li>https://www.upyun.com/league 又拍云，10G储存15G流量</li>
+<li>https://www.ucloud.cn/site/product/ufile.html 实名认证用户20GB免费云存储空间和20GB/月免费下载流量</li>
+<li>http://www.cuplayer.com/price/ 酷播云，视频储存</li>
+<li>https://u-file.cn/ 好像需要申请</li>
+<li>https://get.robin.io/ 5GB</li>
+</ul>
+
+<h3>3.2. 网盘</h3>
+
+<ul>
+<li>https://www.quqi.com/ 曲奇云盘，但好像没有电脑端</li>
+<li><del>http://ddl.escience.cn/ 科研在线</del></li>
+<li>https://own-cloud.cn/ 小麦云盘</li>
+<li>https://cowtransfer.com/ 奶牛快传，<del>现在也提供网盘功能</del></li>
+<li>https://www.wenshushu.cn/</li>
+<li>https://www.liupan.net/</li>
+<li>https://teracloud.jp 10G空间，支持 WebDAV；推荐码NDMSQ</li>
+<li>https://www.furk.net/ 很慢，1G/D且5G/W</li>
+<li>https://www.lanzou.com/ 蓝奏云，单个文件限100M</li>
+<li>亿方云</li>
+<li>天翼云盘、沃家云盘、和彩云</li>
+<li>https://www.zoho.com.cn/workdrive/</li>
+<li>超星云盘</li>
+<li>腾讯微云</li>
+<li>https://www.asuswebstorage.com</li>
+<li>https://pan.bitqiu.com/ 比特球云盘</li>
+<li>https://www.90pan.com/ 速度有4M</li>
+<li>https://github.com/xausky/DockerRegisterCloud 把docker registry变成网盘</li>
+<li>https://6pan.cn/ https://2dland.cn/</li>
+<li>https://www.mediafire.com/</li>
+<li>https://github.com/apachecn/CDNDrive</li>
+</ul>
+
+<h3>3.3. Onedrive</h3>
+
+<ul>
+<li>https://products.office.com/en-us/student?tab=students</li>
+<li>https://t.odmail.cn/</li>
+<li>http://od.obagg.com</li>
+<li>http://onedrive.readmail.net/</li>
+<li>http://xkx.me/</li>
+<li>https://xlu.me/</li>
+<li>http://xix.men:3000/</li>
+<li>https://xyxywan.gitee.io/web/ 有桌面office但需审批</li>
+<li>https://get.porta1.net/</li>
+<li>https://zhuanlan.zhihu.com/p/105438817 免费申请office E5开发者订阅，附无限续期+私人网盘教程</li>
+<li>Index：https://github.com/spencerwooo/onedrive-vercel-index https://github.com/vcheckzen/FODI https://github.com/qkqpttgf/OneManager-php</li>
+</ul>
+
+<h3>3.4. 文件分享</h3>
+
+<ul>
+<li>https://catbox.moe/ 上传速度不稳定，快的时候有600K，单次上限200MB</li>
+<li>https://www.zippyshare.com/ 上传速度为0</li>
+<li><del>https://send.firefox.com/ 上传速度能到2M，但有时传到一半会断掉；VPS的下载速度能到21MB/s</del></li>
+<li>https://www.up-4ever.org/ 上传速度不到1M，需要关闭广告过滤扩展才能用，有的后缀不让传，下载等30秒人机验证后倒是能创建出直链，单次上限200MB</li>
+<li>https://transfer.sh/</li>
+<li>https://uguu.se/ 单次上限100MB</li>
+<li>https://anonfiles.com/</li>
+<li>https://letsupload.co/</li>
+<li>https://secufiles.com/</li>
+<li>https://wetransfer.com/</li>
+<li>https://wormhole.app/</li>
+</ul>
+
+<h3>3.5. 离线下载</h3>
+
+<ul>
+<li>https://www.loadbt.com 免费用户2G；曾经有中文且crowdin上翻译完成但现在不提供选项了</li>
+<li>https://zhuanlan.zhihu.com/p/37785481 19款离线下载服务对比</li>
+</ul>
+
+<h3>3.6. 图床</h3>
+
+<ul>
+<li>http://www.zmonster.me/2013/12/06/image-host-service.html 国内外图床及其对比</li>
+<li>https://www.zhihu.com/question/21667151</li>
+<li>https://sm.ms/</li>
+<li>https://moxtu.cc</li>
+<li>https://postimages.org/</li>
+<li>https://imgbox.com/</li>
+<li>https://imgbb.com/</li>
+<li>https://www.freeimagehosting.net/</li>
+<li>https://imgchr.com/</li>
+<li>https://pic.xiaojianjian.net/</li>
+<li>https://imgurl.org/</li>
+<li>https://postimages.org/</li>
+<li>https://img.kuibu.net/</li>
+<li>https://www.superbed.cn/ pic.imgdb.cn</li>
+<li>https://imgs.thankjava.com/</li>
+<li>https://www.moepicx.cc</li>
+<li>https://www.hualigs.cn/</li>
+<li>https://jpg.dog/</li>
+<li>https://www.z4a.net/</li>
+<li>https://moetu.org/</li>
+<li>https://imgbb.com/</li>
+<li>https://www.picgd.com/</li>
+<li>https://tuchuang.richuyun.com/</li>
+<li>http://pan.duiai.cc/</li>
+<li>https://osrpay.com/</li>
+<li>https://233.pictures</li>
+<li>https://images.weserv.nl/ image cache & resize service 相当于图片的CDN</li>
+<li>https://imgtu.com/</li>
+<li>https://img.blueskyxn.com/</li>
+</ul>
+
+<h3>3.7. 下载百度网盘的</h3>
+
+<ul>
+<li>https://xdown.org/baiduyun/</li>
+<li><del>https://www.baiduwp.com/</del> 挂了</li>
+<li>https://github.com/TkzcM/baiduwp</li>
+</ul>
+
+<h3>3.8. BT Trackers</h3>
+
+<ul>
+<li>https://github.com/ngosang/trackerslist</li>
+<li>https://github.com/XIU2/TrackersListCollection</li>
+<li>https://github.com/DeSireFire/animeTrackerList</li>
+</ul>
+
+<h2>4. (盗版)资源</h2>
+
+<ul>
+<li>https://discx.yuntu.io/ 光盘</li>
+</ul>
+
+<h3>4.1. 软件</h3>
+
+<ul>
+<li>https://masuit.com/</li>
+<li>https://www.lanzous.com/u/roustar31cn</li>
+</ul>
+
+<h3>4.2. 书</h3>
+
+<ul>
+<li>https://t.me/ebookdl 亲测确实能搜到</li>
+<li>https://github.com/hoodiearon/w3-goto-world/tree/master/集成实用夹/书籍与文档</li>
+<li>https://smtebooks.com/</li>
+<li>https://foxgreat.com/ 搜不到C#的书</li>
+<li>https://dokumen.pub 网站不是英文的</li>
+<li>https://www.wowebook.org 下载页面为turbobit.net，很慢，而且有的要开会员</li>
+<li>https://www.zhihu.com/question/21202757 有哪些好的电子书下载网站推荐？</li>
+<li>https://zhuanlan.zhihu.com/p/53064677 有了这十几个网站，没有你找不到的电子书！</li>
+<li>https://www.jiumodiary.com/ 鸠摩搜书，也能搜到百度网盘的内容</li>
+<li>https://gist.github.com/baiwfg2/af827b8b75eebf8ab29f5531a0d265ce</li>
+<li><del>https://www.allitebooks.com/</del> 超好但是挂了，不清楚现在的几个是否有关：https://www.allitebooks.in/ https://allitebook.xyz/ https://allitbooks.net/</li>
+<li>https://www.jb51.net/books/ 下载需要关注公众号获取提取码</li>
+<li>https://zh.4lib.org/</li>
+<li>http://sd.blackball.lv/books/</li>
+<li>https://sobooks.cc/ 不是专门计算机的</li>
+<li>http://www.kgbook.com/ 不是专门计算机的</li>
+<li>https://z-lib.org/ 无法直接访问</li>
+<li>https://www.zhihu.com/question/19709630 有哪些网站可以获取免费的国外的原版书籍（电子版）</li>
+<li>https://github.com/EbookFoundation/free-programming-books 免费的</li>
+</ul>
+
+<h3>4.3. 音乐</h3>
+
+<ul>
+<li>https://myfreemp3cc.com/ 好像可以用</li>
+<li>http://tool.liumingye.cn/music/ 新版：https://music.liumingye.cn/ 电影：http://lab.liumingye.cn</li>
+<li>http://tool.yijingying.com/musictools/ 一部分用不了</li>
+<li>https://www.boxpaper.club/musicdownloader/ 未测试</li>
+<li>http://music.moresound.tk/ 暂时所有的都用不了，但是网站还在，不知是否有特殊的方法</li>
+<li>https://www.52pojie.cn/thread-929831-1-1.html 集合</li>
+<li>https://listen1.github.io/listen1/ 只是整合可以直接听的</li>
+<li>https://github.com/lyswhut/lx-music-desktop</li>
+<li>http://www.guqiankun.com/tools/music/</li>
+<li>挂了的：https://music.2333.me/ https://github.com/maicong/music</li>
+</ul>
+
+<h3>4.4. GeoIP2数据库</h3>
+
+<ul>
+<li>https://geolite.clash.dev/</li>
+<li>https://github.com/Dreamacro/maxmind-geoip/releases</li>
+<li>https://static.clash.to/GeoIP2/GeoIP2-Country.tar.gz （RixCloud 公共库）</li>
+<li>https://quantumult.crossutility.com/download/geoip/database/GeoLite2-Country.mmdb</li>
+</ul>
+
+<h3>4.5. 字体</h3>
+
+<ul>
+<li>https://zenozeng.github.io/Free-Chinese-Fonts/</li>
+<li>https://www.webfont.com/onlinefont/index</li>
+<li>https://www.marksimonson.com/fonts</li>
+</ul>
+
+<h2>5. 安全</h2>
+
+<ul>
+<li>https://github.com/euphrat1ca/security_w1k1</li>
+<li>https://github.com/No-Github/1earn</li>
+</ul>
+
+<h3>5.1. 恶意软件分析沙箱</h3>
+
+<ul>
+<li>https://habo.qq.com/ 腾讯哈勃。现在只能分析很少的一部分，详细报告需要高级会员，而申请通道已经关闭了</li>
+<li>https://www.maldun.com/ 魔盾安全。有效，但是貌似速度很慢，我是直接第二天再去看的</li>
+<li>https://s.threatbook.cn/ 微步。貌似出来不久</li>
+<li>https://www.hybrid-analysis.com 国外的</li>
+<li>https://app.sndbox.com</li>
+<li>https://scan.anxinsec.com/</li>
+</ul>
+
+<h3>5.2. 服务器安全软件</h3>
+
+<ul>
+<li>https://www.yunsuo.com.cn/download.html</li>
+<li>https://scanner.baidu.com webshell检测引擎</li>
+</ul>
+
+<h2>6. Git平台</h2>
+
+<ul>
+<li>https://code.aliyun.com</li>
+<li>https://xiaolvyun.baidu.com</li>
+<li>https://opendev.org Ubuntu, Gitea</li>
+<li>https://salsa.debian.org/ GitLab</li>
+</ul>
+
+<h2>7. Paste Bin</h2>
+
+<ul>
+<li>https://pastebin.com/</li>
+<li>https://ghostbin.com/</li>
+<li>https://rentry.co/</li>
+<li>https://hastebin.com/</li>
+<li>https://pastebin.ubuntu.com/</li>
+<li>https://www.cacher.io/ 功能很多</li>
+<li>https://write.as/ 其实是博客</li>
+<li>https://del.dog/</li>
+<li>https://psty.io</li>
+<li>https://telegra.ph RST了</li>
+</ul>
+
+<h2>8. 搜索引擎</h2>
+
+<ul>
+<li>https://goobe.io/ 程序员搜索</li>
+<li>https://fofa.so/ 类似于钟馗之眼的搜索引擎</li>
+<li>http://www.sousuoyinqingtijiao.com 搜索引擎提交入口（但没有Google）</li>
+<li>https://2tool.top/ 聚合搜索引擎网页快照</li>
+<li>https://www.cn-ki.net/ 学术搜索；http://cnki.cn-ki.net/ 知网</li>
+</ul>
+
+<h2>9. Docker平台（非免费）</h2>
+
+<ul>
+<li>https://www.tenxcloud.com/ 时速云</li>
+<li>https://www.daocloud.io/ 有一点点免费测试环境 http://docs.daocloud.io/app-deploy-mgmt/cloud-limited-resources</li>
+<li>https://www.mopaas.com/ 魔泊云</li>
+<li>https://www.alauda.cn/ 灵雀云</li>
+<li>https://canister.io/solo</li>
+<li>https://hostpresto.com/docker-hosting 免费六个月</li>
+</ul>
+
+<h2>10. CI</h2>
+
+<ul>
+<li>https://www.shippable.com/pricing.html</li>
+<li>https://codefresh.io/</li>
+</ul>
+
+<h2>11. 图标</h2>
+
+<ul>
+<li>https://octicons.github.com/</li>
+</ul>
+
+<h2>12. 云办公相关</h2>
+
+<ul>
+<li>https://uzer.me/ 有office，ps，ai，cad，matlab，visio，ff。论坛挂了</li>
+<li>http://www.gleasy.com/ 格子云，到哪都能办公</li>
+<li>http://www.everydo.com/ 文档管理系统</li>
+</ul>
+
+<h2>13. PDF</h2>
+
+<ul>
+<li>https://www.hipdf.com/</li>
+<li>https://smallpdf.com/cn</li>
+</ul>
+
+<h2>14. 爬虫</h2>
+
+<ul>
+<li>https://www.bazhuayu.com/ 八爪鱼；国外版 https://www.octoparse.com/</li>
+<li>http://www.houyicaiji.com/</li>
+<li>http://www.gooseeker.com/</li>
+<li>以下是国外的</li>
+<li>https://www.zyte.com</li>
+<li>https://apify.com/</li>
+<li>https://www.diffbot.com/</li>
+<li>https://www.import.io/</li>
+</ul>
+
+<h2>15. 微信消息推送</h2>
+
+<ul>
+<li>https://sct.ftqq.com/ Server酱</li>
+<li>http://www.xtuis.cn/ 虾推啥</li>
+<li>https://pushplus.hxtrip.com/ push+</li>
+<li>https://qmsg.zendee.cn/ Qmsg酱</li>
+<li>https://wxpusher.zjiecode.com 开源</li>
+<li>https://letserver.run/ Server饭，开源</li>
+<li>https://github.com/songquanpeng/message-pusher 开源</li>
+</ul>
+
+<h2>16. CI</h2>
+
+<ul>
+<li>Circle CI 老牌</li>
+<li>AppVeyor 以Win出名</li>
+<li>https://cloud.drone.io 有人说文档烂</li>
+<li>https://semaphoreci.com/</li>
+<li>https://buildkite.com/</li>
+</ul>
+
+<h2>17. 其它中的其它</h2>
+
+<ul>
+<li>https://img.xjh.me/ 随机图片 https://api.lolicon.app/#/setu 随机色图</li>
+<li>http://shaofan.org/jetbrains-active/ Jetbrains在线激活工具</li>
+<li>https://apiary.io/ API Design Stack，与Oracle合作</li>
+<li>https://www.sap.cn/products/cloud-platform/pricing.html ERP系统；注册Beta版是免费的，但要填姓名公司电话</li>
+<li>https://developer.okta.com/ adds authentication, authorization, and user management to your web or mobile app within minutes.</li>
+<li>https://www.chanzhi.org/dynamic.html https://www.chanzhi.org/book/chanzhieps/5.html https://www.zentao.net/ 蝉知和禅道，前者是CMS，后者是项目管理系统。不过是PHP</li>
+<li>https://www.kancloud.cn/ https://www.yuque.com/ https://www.baklib.com/ MD平台</li>
+<li>http://www.ypppt.com/ ppt</li>
+<li>https://enterprise.glyptodon.com/ 网页版Windows远程桌面</li>
+<li>https://squoosh.app/ 图片压缩，谷歌出的工具</li>
+<li>http://www.freeyun.net/ 软件授权管理一站式解决方案</li>
+<li>https://prerender.io/ 预渲染动态网页</li>
+<li>https://termible.io 还在内测的在线终端，基于Docker</li>
+<li>https://heyterm.com/zh-cn/ WebSSH</li>
+<li>https://www.freepik.com/ 免费psd图像资源</li>
+<li>https://pyup.io/ 监测Python依赖</li>
+<li>https://waifulabs.com/ AI生成二次元头像</li>
+<li>https://appcenter.ms/ 存放release</li>
+<li>https://bell-sw.com/ OpenJDK</li>
+<li>https://dev.to/doobled/listing-the-best-services-for-free-domain-email-addresses-in-2020-3hkb 几个邮箱测评</li>
+<li>https://newrelic.com 遥测？</li>
+<li>https://mailchimp.com/ 群发邮件</li>
+<li>性能测试：<code>wget -qO- 86.re/bench.sh | bash</code></li>
+<li>https://github.com/fangzesheng/free-api 免费的接口</li>
+<li>https://github.com/zhaojh329/rtty web tty</li>
+<li>https://www.plasticscm.com/ 不同于git的版本控制系统，可以玩玩</li>
+<li>https://trinket.io/ Py的Turtles运行环境，谷歌的Blocks，适合小孩子学</li>
+<li>手机原生应用推送：https://www.getui.com/push https://www.jiguang.cn/push</li>
+<li>服务器监控：https://www.oneapm.com https://www.tingyun.com/ https://www.jiankongbao.com/</li>
+<li>https://www.authing.cn/pricing 统一身份验证</li>
+</ul>
+
+<h2>18. 别人的收集</h2>
+
+<ul>
+<li>https://www.freehao123.com/</li>
+<li>https://51.ruyo.net/</li>
+<li>https://github.com/Sicmatr1x/Free-Resource</li>
+<li>https://www.producthunt.com/</li>
+</ul>
+
+<h2>19. 挂了的</h2>
+
+<ul>
+<li>Ohosti “骗人的，去年申请的现在还在Pending中”</li>
+<li>https://vitu.ai</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E4%BA%91/" rel="tag"># 云</a>
+              <a href="/tags/%E5%85%8D%E8%B4%B9%E9%A1%B9%E7%9B%AE/" rel="tag"># 免费项目</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/05/22/%E9%82%A3%E4%BA%9B%E8%AE%A9%E4%BA%BA%E6%83%8A%E5%A5%87%E7%9A%84%E4%BA%91%E9%A1%B9%E7%9B%AE-%E7%AC%AC%E4%B8%89%E5%BC%B9-%E7%BD%91%E7%BB%9C%E5%92%8Cddns/" rel="prev" title="那些让人惊奇的云项目(第三弹_网络和ddns)">
+      <i class="fa fa-chevron-left"></i> 那些让人惊奇的云项目(第三弹_网络和ddns)
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2023/05/22/%E9%82%A3%E4%BA%9B%E8%AE%A9%E4%BA%BA%E6%83%8A%E5%A5%87%E7%9A%84%E4%BA%91%E9%A1%B9%E7%9B%AE/" rel="next" title="那些让人惊奇的云项目">
+      那些让人惊奇的云项目 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">1. 网页</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.1.</span> <span class="nav-text">1.1. 域名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.2.</span> <span class="nav-text">1.2. 证书</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.3.</span> <span class="nav-text">1.3. DNS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.4.</span> <span class="nav-text">1.4. Cloudflare CNAME&#x2F;IP&#x2F;NS 接入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.5.</span> <span class="nav-text">1.5. CDN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.6.</span> <span class="nav-text">1.6. 短网址</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">2. 国内源&#x2F;镜像</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.1.</span> <span class="nav-text">2.1. GitHub</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.2.</span> <span class="nav-text">2.2. 前端库</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">3. 储存</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">3.1.</span> <span class="nav-text">3.1. OSS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">3.2.</span> <span class="nav-text">3.2. 网盘</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">3.3.</span> <span class="nav-text">3.3. Onedrive</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">3.4.</span> <span class="nav-text">3.4. 文件分享</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">3.5.</span> <span class="nav-text">3.5. 离线下载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">3.6.</span> <span class="nav-text">3.6. 图床</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">3.7.</span> <span class="nav-text">3.7. 下载百度网盘的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">3.8.</span> <span class="nav-text">3.8. BT Trackers</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">4.</span> <span class="nav-text">4. (盗版)资源</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">4.1.</span> <span class="nav-text">4.1. 软件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">4.2.</span> <span class="nav-text">4.2. 书</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">4.3.</span> <span class="nav-text">4.3. 音乐</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">4.4.</span> <span class="nav-text">4.4. GeoIP2数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">4.5.</span> <span class="nav-text">4.5. 字体</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">5.</span> <span class="nav-text">5. 安全</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">5.1.</span> <span class="nav-text">5.1. 恶意软件分析沙箱</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">5.2.</span> <span class="nav-text">5.2. 服务器安全软件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">6.</span> <span class="nav-text">6. Git平台</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">7.</span> <span class="nav-text">7. Paste Bin</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">8.</span> <span class="nav-text">8. 搜索引擎</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">9.</span> <span class="nav-text">9. Docker平台（非免费）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">10.</span> <span class="nav-text">10. CI</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">11.</span> <span class="nav-text">11. 图标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">12.</span> <span class="nav-text">12. 云办公相关</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">13.</span> <span class="nav-text">13. PDF</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">14.</span> <span class="nav-text">14. 爬虫</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">15.</span> <span class="nav-text">15. 微信消息推送</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">16.</span> <span class="nav-text">16. CI</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">17.</span> <span class="nav-text">17. 其它中的其它</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">18.</span> <span class="nav-text">18. 别人的收集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">19.</span> <span class="nav-text">19. 挂了的</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Kanoc Ge"
+      src="/images/452794135.jpg">
+  <p class="site-author-name" itemprop="name">Kanoc Ge</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">358</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">85</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">218</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kanoc Ge</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <style>
+    .category-all-page .category-list-item {
+      margin: 15px 10px 10px 10px;
+      list-style: none;
+      font-size: 20px;
+      }
+      .category-all-page .category-list-child {
+        list-style: none;
+        }
+  </style>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"kanoc.gitee.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="ESXi 8.0虚拟机必备知识与保姆级安装过程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="VMware-ESXI-8.0.2-部署教程">
+<meta property="og:url" content="https://kanoc.gitee.io/2024/08/18/VMware-ESXI-8-0-2-%E9%83%A8%E7%BD%B2%E6%95%99%E7%A8%8B/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="ESXi 8.0虚拟机必备知识与保姆级安装过程">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2024/08/18/ezEgCaiTGR9MF7O.jpg">
+<meta property="og:image" content="https://s2.loli.net/2024/08/18/SDo6ZdRtqrGhsLK.png">
+<meta property="og:image" content="https://s2.loli.net/2024/08/18/9ZzPNC3DuoXp1nd.png">
+<meta property="og:image" content="https://s2.loli.net/2024/08/18/S43jzeL1iwXh2kU.png">
+<meta property="og:image" content="https://s2.loli.net/2024/08/18/rKlfvE2Dz5j8Mkn.png">
+<meta property="og:image" content="https://s2.loli.net/2024/08/18/a3bKdMACDoVXlwI.png">
+<meta property="og:image" content="https://s2.loli.net/2024/08/18/VmsEYBK7Or9nqL2.png">
+<meta property="og:image" content="https://s2.loli.net/2024/08/18/QwWfCriepYRgDhB.png">
+<meta property="og:image" content="https://s2.loli.net/2024/08/18/d83LvRzqSxi7FCM.png">
+<meta property="og:image" content="https://s2.loli.net/2024/08/18/MUbAl4dumzVXH6B.png">
+<meta property="og:image" content="https://s2.loli.net/2024/08/18/XmJeNf46poAwjbE.png">
+<meta property="og:image" content="https://s2.loli.net/2024/08/18/8ks5QmDqduPrSEK.png">
+<meta property="og:image" content="https://s2.loli.net/2024/08/18/OKziTC38BWLjr2P.png">
+<meta property="og:image" content="https://s2.loli.net/2024/08/18/37IldGvqAFh1VSr.jpg">
+<meta property="og:image" content="https://s2.loli.net/2024/08/18/j94TUgxhfQMA5mD.jpg">
+<meta property="og:image" content="https://s2.loli.net/2024/08/18/rEDcuVwaGo7gLNh.jpg">
+<meta property="og:image" content="https://s2.loli.net/2024/08/18/WnuyfaMBZqvLCH6.jpg">
+<meta property="og:image" content="https://s2.loli.net/2024/08/18/KoWrmX9pyfSUGik.jpg">
+<meta property="og:image" content="https://s2.loli.net/2024/08/18/p4xezHrG2oyPTbs.jpg">
+<meta property="og:image" content="https://s2.loli.net/2024/08/18/A1dl3YmgTFMhOcS.jpg">
+<meta property="og:image" content="https://s2.loli.net/2024/08/18/3wJcm8RZdFfS42q.jpg">
+<meta property="og:image" content="https://s2.loli.net/2024/08/18/4BrZG7qwXT5aMLo.jpg">
+<meta property="og:image" content="https://s2.loli.net/2024/08/18/I6PyV7ZKoxeuvtQ.jpg">
+<meta property="og:image" content="https://s2.loli.net/2024/08/18/hJvFHy7wsaBjRN1.jpg">
+<meta property="og:image" content="https://s2.loli.net/2024/08/18/xJyKqmpC4Dk7XbZ.jpg">
+<meta property="og:image" content="https://s2.loli.net/2024/08/18/9yNumCapzt1ciXs.jpg">
+<meta property="og:image" content="https://s2.loli.net/2024/08/18/JUsjgb92yWV8FaM.jpg">
+<meta property="og:image" content="https://s2.loli.net/2024/08/18/YmLF7tk5y1qJdv6.jpg">
+<meta property="og:image" content="https://s2.loli.net/2024/08/18/V52oXGlrmwFixy4.png">
+<meta property="og:image" content="https://s2.loli.net/2024/08/18/SxNzKIF8BV3Z5yT.jpg">
+<meta property="og:image" content="https://s2.loli.net/2024/08/18/cr4RNepH83LzEWZ.jpg">
+<meta property="og:image" content="https://s2.loli.net/2024/08/18/JULE2dcfpZFnGPl.png">
+<meta property="og:image" content="https://s2.loli.net/2024/08/18/gCadXqHT4GwUluJ.jpg">
+<meta property="og:image" content="https://s2.loli.net/2024/08/18/LVqEvxXRIjnlT8J.jpg">
+<meta property="og:image" content="https://s2.loli.net/2024/08/18/TE6542fiqQNjcrk.png">
+<meta property="og:image" content="https://s2.loli.net/2024/08/18/gaOhdtKGcBpwMbE.jpg">
+<meta property="og:image" content="https://s2.loli.net/2024/08/18/o8Iys9mJt2XFgvV.jpg">
+<meta property="og:image" content="https://s2.loli.net/2024/08/18/6RshOaS1TwQzFjE.jpg">
+<meta property="og:image" content="https://s2.loli.net/2024/08/18/3tl6HCDhwVUzNL4.jpg">
+<meta property="og:image" content="https://s2.loli.net/2024/08/18/mB3Iq62eGbgDnMw.png">
+<meta property="og:image" content="https://s2.loli.net/2024/08/18/e5LXlnhj7Gpa1T8.jpg">
+<meta property="og:image" content="https://s2.loli.net/2024/08/18/hBKytFj1DQ2IvcA.jpg">
+<meta property="og:image" content="https://s2.loli.net/2024/08/18/XDugv6xW4dtzoeA.jpg">
+<meta property="og:image" content="https://s2.loli.net/2024/08/18/2TRGZ7PgKEFL3xV.jpg">
+<meta property="og:image" content="https://s2.loli.net/2024/08/18/D1T6wodjOimGUsa.jpg">
+<meta property="og:image" content="https://s2.loli.net/2024/08/18/43hvyJnjNPUaK7X.jpg">
+<meta property="og:image" content="https://s2.loli.net/2024/08/18/L2Xxtkfyv1g7SCQ.jpg">
+<meta property="og:image" content="https://s2.loli.net/2024/08/18/sfn38gUa6Oq4kXD.jpg">
+<meta property="og:image" content="https://s2.loli.net/2024/08/18/OTn5FbpkrslR4XY.jpg">
+<meta property="og:image" content="https://s2.loli.net/2024/08/18/3xRF8avAcdmTGUq.jpg">
+<meta property="og:image" content="https://s2.loli.net/2024/08/18/TfsNH94EU6mRziv.jpg">
+<meta property="og:image" content="https://s2.loli.net/2024/08/18/BPsJhVCHWKgqowp.jpg">
+<meta property="og:image" content="https://s2.loli.net/2024/08/18/dqBWaRbfijKk4Vc.png">
+<meta property="og:image" content="https://s2.loli.net/2024/08/18/XJzwYv7sU5p8LlP.jpg">
+<meta property="og:image" content="https://s2.loli.net/2024/08/18/huUHeZcIk73zEAd.png">
+<meta property="og:image" content="https://s2.loli.net/2024/08/18/ieIX7rZVFEgyLYc.jpg">
+<meta property="og:image" content="https://s2.loli.net/2024/08/18/mi3RnKMa65ozXG1.jpg">
+<meta property="og:image" content="https://s2.loli.net/2024/08/18/v5gJUxmIz3X8Rsi.jpg">
+<meta property="og:image" content="https://s2.loli.net/2024/08/18/JfkPXqziR2hp4EN.png">
+<meta property="og:image" content="https://s2.loli.net/2024/08/18/tIjaskAhu1cvb2p.jpg">
+<meta property="og:image" content="https://s2.loli.net/2024/08/18/ejlu21p6PR3JHKc.jpg">
+<meta property="og:image" content="https://s2.loli.net/2024/08/18/WHpdmoRX8rMLQC7.png">
+<meta property="og:image" content="https://s2.loli.net/2024/08/18/HbPASEBytlfsQkZ.png">
+<meta property="og:image" content="https://s2.loli.net/2024/08/18/7RbiLTzWVodX9rw.png">
+<meta property="og:image" content="https://s2.loli.net/2024/08/18/39MnYgJUWZLExyj.png">
+<meta property="og:image" content="https://s2.loli.net/2024/08/18/JKUhf6awWBvYskd.png">
+<meta property="og:image" content="https://s2.loli.net/2024/08/18/yeTHEFB4gYUMLbo.png">
+<meta property="og:image" content="https://s2.loli.net/2024/08/18/7MT1E6nvSDokajf.png">
+<meta property="og:image" content="https://s2.loli.net/2024/08/18/UEth1AeSxq5BLCc.png">
+<meta property="og:image" content="https://s2.loli.net/2024/08/18/HWM3VgiOlD1rLRw.png">
+<meta property="og:image" content="https://s2.loli.net/2024/08/18/f4c2VZomaDSPnYe.png">
+<meta property="og:image" content="https://s2.loli.net/2024/08/18/yQ8SrRYDLqZzPV3.png">
+<meta property="og:image" content="https://s2.loli.net/2024/08/18/qvpz93PYN8CstSu.png">
+<meta property="og:image" content="https://s2.loli.net/2024/08/18/JLYzVI145RaEFMC.png">
+<meta property="og:image" content="https://s2.loli.net/2024/08/18/bEJdFVg6R1vIH4Y.png">
+<meta property="article:published_time" content="2024-08-17T16:57:17.000Z">
+<meta property="article:modified_time" content="2024-08-23T19:33:14.668Z">
+<meta property="article:author" content="Kanoc Ge">
+<meta property="article:tag" content="标签1">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2024/08/18/ezEgCaiTGR9MF7O.jpg">
+
+<link rel="canonical" href="https://kanoc.gitee.io/2024/08/18/VMware-ESXI-8-0-2-%E9%83%A8%E7%BD%B2%E6%95%99%E7%A8%8B/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>VMware-ESXI-8.0.2-部署教程 | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-首页-|-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页 | home</a>
+
+  </li>
+        <li class="menu-item menu-item-分类-|-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类 | categories</a>
+
+  </li>
+        <li class="menu-item menu-item-标签-|-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签 | tags</a>
+
+  </li>
+        <li class="menu-item menu-item-归档-|-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档 | archives</a>
+
+  </li>
+        <li class="menu-item menu-item-关于-|-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于 | about</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2024/08/18/VMware-ESXI-8-0-2-%E9%83%A8%E7%BD%B2%E6%95%99%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/452794135.jpg">
+      <meta itemprop="name" content="Kanoc Ge">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          VMware-ESXI-8.0.2-部署教程
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-08-18 00:57:17" itemprop="dateCreated datePublished" datetime="2024-08-18T00:57:17+08:00">2024-08-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-08-24 03:33:14" itemprop="dateModified" datetime="2024-08-24T03:33:14+08:00">2024-08-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E4%B8%BB%E5%88%86%E7%B1%BB/" itemprop="url" rel="index"><span itemprop="name">主分类</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E4%B8%BB%E5%88%86%E7%B1%BB/%E4%BA%8C%E7%BA%A7%E5%88%86%E7%B1%BB/" itemprop="url" rel="index"><span itemprop="name">二级分类</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><font color=#00b2c2 size=5 face=宋体><strong>ESXi 8.0虚拟机必备知识与保姆级安装过程</strong></font></p>
+<span id="more"></span>
+
+<p>今天我们开始进入软路由的安装，本篇先介绍如何安装ESXi 8.0虚拟机。iKuai 和 openWrt 的内容放在下一篇。参考了不少大佬的经验，综合下来，打造软路由的话 ESXi 和 PVE 用的比较多，ESXi 稳定性更好，PVE 硬件兼容性好些。</p>
+<blockquote>
+<ul>
+<li>虚拟机（Virtual Machine）指通过软件模拟的具有完整硬件系统功能的、运行在一个完全隔离环境中的完整计算机系统。在实体计算机中能够完成的工作在虚拟机中都能够实现。通过将多台虚拟机放置在一台计算机上，可以仅在一台物理<code>服务器</code>或 “主机” 上运行多个操作系统和应用。</li>
+<li>ESXi，是 VMWare vSphere Hypervisor 套件之下重要组件。是一款一款优秀的 <code>服务器</code> 级别的虚拟机。前身是 ESX，依赖 Linux 源码，后来抛弃 Linux 源码做成了 ESXi。整个产品商用气息浓重，界面清晰易用，但硬件兼容性较差（主要面向服务器），没什么扩展性，ESXi 不依赖于任何操作系统，直接安装在裸机上，它本身就可以看作一个操作系统，然后可以在它上面安装其他系统。</li>
+<li>PVE，全称 Proxmox Virtual Environment，是基于 Debian 的 Linux 系统，虚拟机内核为 KVM。硬件兼容性优秀。界面功能不强，很多操作要靠命令行，但扩展能力几乎是无限的。</li>
+</ul>
+</blockquote>
+<p>楼主决定在工控主机内安装ESXi 8.0虚拟机，然后再虚拟机内安装iKuai作为主路由，OpenWrt 作为旁路由，说实话，楼主没有多拨和流控的需求，这样做主要是为了将网络隔离开，iKuai只负责PPOE拨号DHCP功能，其他的都交给openWrt。大家都知道openWrt插件丰富，平时折腾的比较多，经常会出现断网的情况，这样就可以放心折腾了。</p>
+<h3 id="1-网络拓扑"><a href="#1-网络拓扑" class="headerlink" title="1.网络拓扑"></a>1.网络拓扑</h3><p>首先先大致规划一下家里的网络拓扑，因为家里原来用的是华硕的AC88U，像NAS、打印机这些静态IP地址的配置都是192.168.50.XX，这次折腾就懒得改了，索性直接以这个IP段，后面就不用再去重新配置了。大家也可以将50换成其他自己常用的。</p>
+<blockquote>
+<ul>
+<li>iKuai ：192.168.50.1账号:admin</li>
+<li>OpenWrt：192.168.50.2 账号:root</li>
+<li>ESXi：192.168.50.3 账号:root</li>
+</ul>
+</blockquote>
+<p><img src="https://s2.loli.net/2024/08/18/ezEgCaiTGR9MF7O.jpg" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
+<h2 id="一、制作ventoy镜像安装工具"><a href="#一、制作ventoy镜像安装工具" class="headerlink" title="一、制作ventoy镜像安装工具"></a>一、制作ventoy镜像安装工具</h2><h3 id="1-下载Ventoy启动盘制作工具"><a href="#1-下载Ventoy启动盘制作工具" class="headerlink" title="1.下载Ventoy启动盘制作工具"></a>1.下载<a target="_blank" rel="noopener" href="https://www.ventoy.net/cn/download.html">Ventoy</a>启动盘制作工具</h3><p>首先准备一个空闲的U盘，用Ventoy 一键制作USB启动盘。打开<a target="_blank" rel="noopener" href="https://www.ventoy.net/cn/download.html">ventoy</a>下载安装， Ventoy 是开源软件，下载使用都是免费的，直接去官网或者 GitHub 页面下载即可。</p>
+<p><img src="https://s2.loli.net/2024/08/18/SDo6ZdRtqrGhsLK.png" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
+<p>在PC上安装，并运行Ventoy 软件，程序会自动检测当前 USB 设备。如果插入了多个U盘注意识别，别搞错了，造成数据丢失。点击安装开始制作：</p>
+<p><img src="https://s2.loli.net/2024/08/18/9ZzPNC3DuoXp1nd.png" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
+<p>可以看到 U 盘已经被重命名为 Ventoy。</p>
+<p><img src="https://s2.loli.net/2024/08/18/S43jzeL1iwXh2kU.png" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
+<p>打开磁盘管理，可以看到 U 盘被细分为 2 个大分区，Ventoy 分区为活动分区，exFAT 文件系统，用于存放 ISO 文件，exFAT 文件系统也能更好的跨平台使用。</p>
+<p><img src="https://s2.loli.net/2024/08/18/rKlfvE2Dz5j8Mkn.png" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
+<p>Ventoy 的系统分区里其实还有一个只有 1MB 的空间，存有 Legacy BIOS 模式下的启动文件，可见对于老旧设备来说，Ventoy 一样兼容。</p>
+<img src="https://s2.loli.net/2024/08/18/a3bKdMACDoVXlwI.png" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程" style="zoom:50%;" />
+
+<p>格式化未NTFS，用于存放 ISO 文件的分区 ，支持 exFAT、FAT32、NTFS、UDF、XFS、Ext2、Ext3、Ext4。</p>
+<p><img src="https://s2.loli.net/2024/08/18/VmsEYBK7Or9nqL2.png" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
+<p>直接下载需要安装的系统镜像放到 U 盘里就可以了。如果U盘够大的话，一些常用的镜像和工具都可以放到里面，以后各个系统装机都可以使用。不管是各版本的 Windows 系统还是 PE 系统甚至是 ubuntu 系统，只要想加载就直接将镜像文件拖入到Ventoy文件夹内即可。</p>
+<p><img src="https://s2.loli.net/2024/08/18/QwWfCriepYRgDhB.png" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
+<h2 id="二、下载-ESXi-8-0"><a href="#二、下载-ESXi-8-0" class="headerlink" title="二、下载 ESXi 8.0"></a>二、下载 ESXi 8.0</h2><h3 id="1-直链下载镜像"><a href="#1-直链下载镜像" class="headerlink" title="1. 直链下载镜像"></a>1. 直链下载镜像</h3><p><code>VMWare</code> 被博通收购后，私人已经无法像原来一样轻松的下载了，这里是我传到网盘的镜像，如果觉得不安全，可以自己去找其他的镜像。</p>
+<p><code>ESXi 8.0</code>下载传送门：<a target="_blank" rel="noopener" href="https://bd.bcebos.com/v1/xly-icafe/vmware-vmvisor-installer-8.0u3-24022510.x86_64-20240818021845-hszvto.iso">点击下载</a>  <font color=red size=3 face=宋体><strong>不支持螃蟹网卡</strong></font></p>
+<p><code>ESXi 6.7</code>下载传送门：<a target="_blank" rel="noopener" href="https://bd.bcebos.com/v1/xly-icafe/vmware-esxi-6.7.0-20191204001-rtl8111-20240824033216-q1ikk9.iso">点击下载</a>  <font color=red size=3 face=宋体><strong>已经封装螃蟹网卡<code>RTL8111</code>系列</strong></font></p>
+<h3 id="2-下载镜像"><a href="#2-下载镜像" class="headerlink" title="2.下载镜像"></a>2.下载镜像</h3><p>去<a target="_blank" rel="noopener" href="https://customerconnect.vmware.com/evalcenter?p=vsphere-eval-8">官网下载</a>，下载前，先注册一个 VMWare 的 customer connect 账号，注册登录完毕后，就可以下载 60 天试用版的 ESXI8.0 了，后面使用密钥激活一下即可，网上神秘代码很多，一搜一堆，这个就不多说了。</p>
+<p><img src="https://s2.loli.net/2024/08/18/d83LvRzqSxi7FCM.png" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
+<p>下载镜像文件，目前最新的版本是8.0-20513097</p>
+<p><img src="https://s2.loli.net/2024/08/18/MUbAl4dumzVXH6B.png" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
+<h2 id="2-查询网卡驱动"><a href="#2-查询网卡驱动" class="headerlink" title="2.查询网卡驱动"></a>2.查询网卡驱动</h2><p>趁着下载的功夫，我们现在<a target="_blank" rel="noopener" href="https://www.vmware.com/resources/compatibility/search.php?deviceCategory=io&details=1&partner=46&releases=589&keyword=226&deviceTypes=6&page=1&display_interval=10&sortColumn=Partner&sortOrder=Asc">vmware硬件支持（VMware Compatibility Guide)</a>，查询一下网卡的驱动情况，Intel Corporation i226&#x2F; i225网卡都是支持免驱的。</p>
+<p><img src="https://s2.loli.net/2024/08/18/XmJeNf46poAwjbE.png" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
+<p>如果网卡不支持，可以去<a target="_blank" rel="noopener" href="https://flings.vmware.com/community-networking-driver-for-esxi#requirements">【ESXi 的社区网络驱动程序】</a>下载网卡驱动。</p>
+<p><img src="https://s2.loli.net/2024/08/18/8ks5QmDqduPrSEK.png" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
+<p>将下载好的镜像拷入Ventoy，ventoy镜像安装工具制作完成。</p>
+<p><img src="https://s2.loli.net/2024/08/18/OKziTC38BWLjr2P.png" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
+<h2 id="三、安装ESXi8-0"><a href="#三、安装ESXi8-0" class="headerlink" title="三、安装ESXi8.0"></a>三、安装ESXi8.0</h2><p>将工控机连接好<code>显示器</code>、键盘、鼠标。鼠标和键盘最好是有线的，插上 U 盘，准备开机。</p>
+<p><img src="https://s2.loli.net/2024/08/18/37IldGvqAFh1VSr.jpg" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
+<h3 id="1-主板设置"><a href="#1-主板设置" class="headerlink" title="1.主板设置"></a>1.主板设置</h3><p>开机按 del&#x2F;esc 进入BIOS设置，进入 BIOS 后，首先打开处理器的虚拟化（即 VT-x）。</p>
+<p>VT-x是 intel 运用 Virtualization 虚拟化技术中的一个指令集。提供 X86 平台的硬件辅助虚拟化解决方案。能够将单台电脑软件环境分割为多个独立分区，每个分区均可以按照需要模拟电脑的一项技术。将多种系统整合到一台服务器或电脑中，使同一个物理平台能够同时运行多个同类或不同类的操作系统，以分别作为不同业务和应用的支撑平台。</p>
+<p><img src="https://s2.loli.net/2024/08/18/j94TUgxhfQMA5mD.jpg" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
+<h4 id="①打开VT-d："><a href="#①打开VT-d：" class="headerlink" title="①打开VT-d："></a>①打开VT-d：</h4><p>英特尔定向 I&#x2F;O 虚拟化技术 (VT-d) 是英特尔虚拟化技术 (VT) 的扩展，它向硬件提供虚拟化解决方案协助。英特尔 VT-d 能帮助用户提高系统的安全性和可靠性，并改善 I&#x2F;O 设备在虚拟化环境中的性能。这些都从本质上帮助 IT 管理人员通过减少潜在的停机时间而降低总拥有成本；并通过更充分地利用数据中心资源而增大生产性吞吐量。</p>
+<p><img src="https://s2.loli.net/2024/08/18/rEDcuVwaGo7gLNh.jpg" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
+<h4 id="②打开AES："><a href="#②打开AES：" class="headerlink" title="②打开AES："></a>②打开AES：</h4><p>**AES 指令集：**高级加密标准指令集（英特尔高级加密标准新指令，简称 AES-NI）是一个 x86 指令集架构的扩展，用于 Intel 和 AMD 微处理器，由 Intel 在 2008 年 3 月提出。该指令集的目的是改进应用程序使用 高级加密标准（AES）执行加密和解密的速度，可以提高出国留学的速度。</p>
+<p><img src="https://s2.loli.net/2024/08/18/WnuyfaMBZqvLCH6.jpg" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
+<h4 id="④开启睿频加速技术"><a href="#④开启睿频加速技术" class="headerlink" title="④开启睿频加速技术"></a>④开启睿频加速技术</h4><p>在 CPU 技术设置选项中，找到 “Intel Turbo Mode Tech” 选项，有的主板可能会显示 “Intel Turbo Boost Tech”。至于 C-STATE就先不开了。</p>
+<p><img src="https://s2.loli.net/2024/08/18/KoWrmX9pyfSUGik.jpg" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
+<p>C-STATE 是 CPU 的电源管理功能，它会根据 CPU 的负载来管理 CPU 的能耗，和睿频加速技术结合，在运行单线程应用时，C-STATE 会关闭或降低其他核心的能耗，把这些能源加到执行程序的核心上提高CPU的执行效率。</p>
+<p>C-STATE的模式从 C0 开始，C0 表示 “正常” 的 CPU 运行模式（CPU 已 100% 激活）。C 后的数字越大，表示 CPU 进入休眠模式的程度越深。换言之，关闭的电路和时钟信号越多，完全唤醒 CPU 进入 C0 模式需要的时间越长。</p>
+<table>
+<thead>
+<tr>
+<th>Mode（模式）</th>
+<th>姓名</th>
+<th>作用</th>
+<th>CPU</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>C0</td>
+<td>操作状态</td>
+<td>CPU 完全打开</td>
+<td>所有 CPU</td>
+</tr>
+<tr>
+<td>C1</td>
+<td>停止</td>
+<td>通过软件停止 CPU 内部主时钟；总线接口单元和 APIC 仍然保持全速运行</td>
+<td>486DX4 及以上</td>
+</tr>
+<tr>
+<td>C1E</td>
+<td>增强型停止</td>
+<td>通过软件停止 CPU 内部主时钟并降低 CPU 电压；总线接口单元和 APIC 仍然保持全速运行</td>
+<td>所有 socket 775 CPU</td>
+</tr>
+<tr>
+<td>C1E</td>
+<td>—</td>
+<td>停止所有 CPU 内部时钟</td>
+<td>Turion 64、65-nm Athlon X2 和 Phenom CPU</td>
+</tr>
+<tr>
+<td>C2</td>
+<td>停止授予</td>
+<td>通过硬件停止 CPU 内部主时钟；总线接口单元和 APIC 仍然保持全速运行</td>
+<td>486DX4 及以上</td>
+</tr>
+<tr>
+<td>C2</td>
+<td>停止时钟</td>
+<td>通过硬件停止 CPU 内部和外部时钟</td>
+<td>仅限 486DX4、Pentium、Pentium MMX、K5、K6、K6-2、K6-III</td>
+</tr>
+<tr>
+<td>C2E</td>
+<td>扩展的停止授予</td>
+<td>通过硬件停止 CPU 内部主时钟并降低 CPU 电压；总线接口单元和 APIC 仍然保持全速运行</td>
+<td>Core 2 Duo 和更高版本（仅限 Intel）</td>
+</tr>
+<tr>
+<td>C3</td>
+<td>睡眠</td>
+<td>停止所有 CPU 内部时钟</td>
+<td>Pentium II、Athlon 以上支持，但 Core 2 Duo E4000 和 E6000 上不支持</td>
+</tr>
+<tr>
+<td>C3</td>
+<td>深度睡眠</td>
+<td>停止所有 CPU 内部和外部时钟</td>
+<td>Pentium II 以上支持，但 Core 2 Duo E4000、E6000 和 Turion 64 上不支持</td>
+</tr>
+<tr>
+<td>C3</td>
+<td>AltVID</td>
+<td>停止所有 CPU 内部时钟和降低 CPU 电压</td>
+<td>AMD Turion 64</td>
+</tr>
+<tr>
+<td>C4</td>
+<td>更深入的睡眠</td>
+<td>降低 CPU 电压</td>
+<td>Pentium M 以上支持，但 Core 2 Duo E4000、E6000 和 Turion 64 上不支持</td>
+</tr>
+<tr>
+<td>C4E&#x2F;C5</td>
+<td>增强的更深入的睡眠</td>
+<td>大幅降低 CPU 电压并关闭内存高速缓存</td>
+<td>Core Solo、Core Duo 和 45-nm 移动版 Core 2 Duo 支持</td>
+</tr>
+<tr>
+<td>C6</td>
+<td>深度电源关闭</td>
+<td>将 CPU 内部电压降低至任何值，包括 0 V</td>
+<td>仅 45-nm 移动版 Core 2 Duo 支</td>
+</tr>
+</tbody></table>
+<h3 id="2-设置USB启动"><a href="#2-设置USB启动" class="headerlink" title="2.设置USB启动"></a>2.设置USB启动</h3><p>在BOOT里把U盘设置为第一启动项。</p>
+<p><img src="https://s2.loli.net/2024/08/18/p4xezHrG2oyPTbs.jpg" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
+<h3 id="3-删除硬盘分区"><a href="#3-删除硬盘分区" class="headerlink" title="3.删除硬盘分区"></a>3.删除硬盘分区</h3><p>重启开机后，即可进入 Ventoy 界面，U 盘内保存的系统镜像都在列表中，选择要安装的镜像文件即可，选择启动WinPE64，按Enter键进入PE。</p>
+<p><img src="https://s2.loli.net/2024/08/18/A1dl3YmgTFMhOcS.jpg" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
+<p>进到PE后，用分区工具把软路由硬盘分区全部删除(注意不要删错)，这里有个大坑，如果硬盘存在分区的话，很可能造成无法安装的bug，尤其是对于拆机的硬盘来说，一定要将上面的分区及隐藏分区全部删掉。</p>
+<h3 id="4-加载ESXi8-0镜像"><a href="#4-加载ESXi8-0镜像" class="headerlink" title="4.加载ESXi8.0镜像"></a>4.加载ESXi8.0镜像</h3><p>删除之后，重启电脑，选择ESXi启动安装：</p>
+<p><img src="https://s2.loli.net/2024/08/18/3wJcm8RZdFfS42q.jpg" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
+<h3 id="5-修改ESXI的默认空间"><a href="#5-修改ESXI的默认空间" class="headerlink" title="5.修改ESXI的默认空间"></a>5.修改ESXI的默认空间</h3><p>在读秒阶段，快速按下Shift+O，调出命令行，来修改ESXI的默认空间大小：</p>
+<p><img src="https://s2.loli.net/2024/08/18/4BrZG7qwXT5aMLo.jpg" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
+<p>在下面命令行输入：autoPartotionOSDataSize&#x3D;20480。命令注意区分大小写，我这里将默认空间设置为20GB。硬盘空间不足的话推荐设置8192(8GB)即可，大家可以根据自己的情况进行设定：</p>
+<p><img src="https://s2.loli.net/2024/08/18/I6PyV7ZKoxeuvtQ.jpg" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
+<p>回车，开始跑码：</p>
+<p><img src="https://s2.loli.net/2024/08/18/hJvFHy7wsaBjRN1.jpg" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
+<p>还在跑码，等待跑码完成</p>
+<p><img src="https://s2.loli.net/2024/08/18/xJyKqmpC4Dk7XbZ.jpg" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
+<p>继续跑码，不用管，等着就行：</p>
+<p><img src="https://s2.loli.net/2024/08/18/9yNumCapzt1ciXs.jpg" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
+<p>跑码：</p>
+<p><img src="https://s2.loli.net/2024/08/18/JUsjgb92yWV8FaM.jpg" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
+<p>跑码：</p>
+<p><img src="https://s2.loli.net/2024/08/18/YmLF7tk5y1qJdv6.jpg" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
+<p>这一步 <strong>Starting service vmtoolsd</strong> 的加载时间会比较长，一定要耐心等待，不是死机了。</p>
+<p><img src="https://s2.loli.net/2024/08/18/V52oXGlrmwFixy4.png" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
+<p>一直等待到出现如下界面，选择 Continue，按回车，继续下一步：</p>
+<p><img src="https://s2.loli.net/2024/08/18/SxNzKIF8BV3Z5yT.jpg" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
+<p>同意 VMWARE 的条款，按F11，继续下一步：</p>
+<p><img src="https://s2.loli.net/2024/08/18/cr4RNepH83LzEWZ.jpg" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
+<h3 id="6-选择安装位置"><a href="#6-选择安装位置" class="headerlink" title="6.选择安装位置"></a>6.选择安装位置</h3><p>接下来会扫描此计算机上的所有存储器(硬盘)，等待扫描结果：</p>
+<p><img src="https://s2.loli.net/2024/08/18/JULE2dcfpZFnGPl.png" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
+<p>选择安装位置，可以看到有两个盘，一个NVMe的<code>固态硬盘</code>和U盘，用键盘上下键调整，选择第一个安装在固态硬盘。一定要看好，不要安装错位置。选择好了回车继续：</p>
+<p><img src="https://s2.loli.net/2024/08/18/gCadXqHT4GwUluJ.jpg" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
+<p>选择键盘布局，回车继续下一步：</p>
+<p><img src="https://s2.loli.net/2024/08/18/LVqEvxXRIjnlT8J.jpg" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
+<h3 id="7-设置登录密码"><a href="#7-设置登录密码" class="headerlink" title="7.设置登录密码"></a>7.设置登录密码</h3><p>弹出密码输入页，这里输入密码，需要输入两遍，输入第一遍之后，按table键切换到第二行输入第二遍确认密码，输入一定要慢一点，因为不显示输入的密码，很容易输错，密码需要大小写带数字。</p>
+<p><img src="https://s2.loli.net/2024/08/18/TE6542fiqQNjcrk.png" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
+<p>输入完毕后，回车进行下一步：</p>
+<p><img src="https://s2.loli.net/2024/08/18/gaOhdtKGcBpwMbE.jpg" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
+<p>弹出确认安装位置选项，看一下安装位置有没有问题，没选错，按F11继续安装：</p>
+<p><img src="https://s2.loli.net/2024/08/18/o8Iys9mJt2XFgvV.jpg" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
+<p>等待加载完成：</p>
+<p><img src="https://s2.loli.net/2024/08/18/6RshOaS1TwQzFjE.jpg" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
+<p><img src="https://s2.loli.net/2024/08/18/3tl6HCDhwVUzNL4.jpg" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
+<p>到这里拔掉U盘，之后按回车，重启。</p>
+<p><img src="https://s2.loli.net/2024/08/18/mB3Iq62eGbgDnMw.png" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
+<p>回车继续：</p>
+<p><img src="https://s2.loli.net/2024/08/18/e5LXlnhj7Gpa1T8.jpg" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
+<p>重启后开始跑码：</p>
+<p><img src="https://s2.loli.net/2024/08/18/hBKytFj1DQ2IvcA.jpg" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
+<p>等待跑码完成：</p>
+<p><img src="https://s2.loli.net/2024/08/18/XDugv6xW4dtzoeA.jpg" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
+<p>继续等待：</p>
+<p><img src="https://s2.loli.net/2024/08/18/2TRGZ7PgKEFL3xV.jpg" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
+<p>继续加载，下方的安装指示条可以看到安装的进度，全程不用管：</p>
+<p><img src="https://s2.loli.net/2024/08/18/D1T6wodjOimGUsa.jpg" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
+<p>有以下画面表示已经安装成功，按F2可进入管理后台，F12是关闭或者重启：</p>
+<p><img src="https://s2.loli.net/2024/08/18/43hvyJnjNPUaK7X.jpg" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
+<h2 id="四、ESXI虚拟机设置"><a href="#四、ESXI虚拟机设置" class="headerlink" title="四、ESXI虚拟机设置"></a>四、ESXI虚拟机设置</h2><p>按F2，弹出登录页面，输入刚才设定的密码。回车，进入ESXI管理后台。</p>
+<p><img src="https://s2.loli.net/2024/08/18/L2Xxtkfyv1g7SCQ.jpg" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
+<p>可以看到第一项是修改密码，第三项是设置网络。</p>
+<p><img src="https://s2.loli.net/2024/08/18/sfn38gUa6Oq4kXD.jpg" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
+<h3 id="1-设置网口"><a href="#1-设置网口" class="headerlink" title="1.设置网口"></a>1.设置网口</h3><p>键盘上下键选择第三项，修改网络配置，回车进入：</p>
+<p><img src="https://s2.loli.net/2024/08/18/OTn5FbpkrslR4XY.jpg" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
+<p>选择第一项，设置网口：</p>
+<p><img src="https://s2.loli.net/2024/08/18/3xRF8avAcdmTGUq.jpg" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
+<p>上下键选择你要用来管理ESXI的网口，这里有些工程机的网口是错乱的，可以通过插拔<code>网线</code>来确定是不是正确。如果不正确的话，需要通过后面在web端设置进行接口对应。</p>
+<p><img src="https://s2.loli.net/2024/08/18/TfsNH94EU6mRziv.jpg" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
+<p>经过插拔网线，四个接口的顺序和ESXi系统显示的网口是一一对应的。选择etho接口作为管理口。通过键盘上下键，移动黑色条框，按空格确定选项。</p>
+<p><img src="https://s2.loli.net/2024/08/18/BPsJhVCHWKgqowp.jpg" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
+<p>回车保存，自动退回到【网络配置】页面：</p>
+<p><img src="https://s2.loli.net/2024/08/18/dqBWaRbfijKk4Vc.png" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
+<h3 id="2-设置IPV4选项"><a href="#2-设置IPV4选项" class="headerlink" title="2.设置IPV4选项"></a>2.设置IPV4选项</h3><p>选择设置IPV4选项：</p>
+<p><img src="https://s2.loli.net/2024/08/18/XJzwYv7sU5p8LlP.jpg" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
+<p>键盘上下键，移动黑色条框到第三项，可以看到第三项前面的括号里有个圆圈(○)，按空格确定选项。</p>
+<p><img src="https://s2.loli.net/2024/08/18/huUHeZcIk73zEAd.png" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
+<p>设置下面三个选项【IPV4 Address(ESXI管理地址)】、【Subnet Mask(子网掩码)】、【Default Gateway(默认网关)】：</p>
+<p><img src="https://s2.loli.net/2024/08/18/ieIX7rZVFEgyLYc.jpg" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
+<blockquote>
+<ul>
+<li>IPV4 Address【ESXI管理地址】：192.168.50.3</li>
+<li>Subnet Mask【子网掩码】：255.255.255.0</li>
+<li>Default Gateway【默认网关】：192.168.50.1</li>
+</ul>
+</blockquote>
+<p>这个管理地址是后面我们在web端进行访问的地址，千万不要和ikuai以及openwrt冲突。Default Gateway【默认网关】就设置为主路由的网管即可。我以ikuai作为主路由。这里就直接将网关设置为主路由ikuai的地址了。按回车保存：</p>
+<p><img src="https://s2.loli.net/2024/08/18/mi3RnKMa65ozXG1.jpg" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
+<p>退出来之后，在页面右上角就看到我们设置的信息了，按ESC，退出：</p>
+<p><img src="https://s2.loli.net/2024/08/18/v5gJUxmIz3X8Rsi.jpg" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
+<p>在弹出的页面，按Y，并自动重启网络：</p>
+<p><img src="https://s2.loli.net/2024/08/18/JfkPXqziR2hp4EN.png" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
+<p>网络重启完后，可以看到，已经设置成功了，按ESC，回到首页：</p>
+<p><img src="https://s2.loli.net/2024/08/18/tIjaskAhu1cvb2p.jpg" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
+<p>返回首页之后，也可以看到已经设置完成：</p>
+<p><img src="https://s2.loli.net/2024/08/18/ejlu21p6PR3JHKc.jpg" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
+<h2 id="五、连接ESXi-8-0网页端设置"><a href="#五、连接ESXi-8-0网页端设置" class="headerlink" title="五、连接ESXi 8.0网页端设置"></a>五、连接ESXi 8.0网页端设置</h2><h3 id="1-给电脑分配IP"><a href="#1-给电脑分配IP" class="headerlink" title="1.给电脑分配IP"></a>1.给电脑分配IP</h3><p>我们将网线一头插到软路由的eth0口，另外一端插到电脑上，因为ESXi没有DHCP(Dynamic Host Configuration Protocol, 动态主机配置协议) 功能，没办法给电脑自动分配IP地址，这里要手动修改一下：</p>
+<p>打开控制面板—网络和internet——更改适配器选项</p>
+<p><img src="https://s2.loli.net/2024/08/18/WHpdmoRX8rMLQC7.png" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
+<p>这时候电脑显示未识别的网络：</p>
+<p><img src="https://s2.loli.net/2024/08/18/HbPASEBytlfsQkZ.png" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
+<p>右击网络-【属性】：</p>
+<p><img src="https://s2.loli.net/2024/08/18/7RbiLTzWVodX9rw.png" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
+<p>双击IPV4协议，在弹出的属性内，填入相同的IP段：</p>
+<p><img src="https://s2.loli.net/2024/08/18/39MnYgJUWZLExyj.png" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
+<h3 id="2-访问web端"><a href="#2-访问web端" class="headerlink" title="2.访问web端"></a>2.访问web端</h3><p>打开浏览器，在浏览器内输入：192.168.50.3访问，用账户名：root和前面安装系统时设置的密码登录：</p>
+<p><img src="https://s2.loli.net/2024/08/18/JKUhf6awWBvYskd.png" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
+<p>弹出的页面选择不加入改进计划，确认下一步：</p>
+<p><img src="https://s2.loli.net/2024/08/18/yeTHEFB4gYUMLbo.png" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
+<h3 id="3-激活"><a href="#3-激活" class="headerlink" title="3.激活"></a>3.激活</h3><p>在【管理】——【许可】看下激活状态，进来之后可以看到系统分配的60天的密钥：</p>
+<p><img src="https://s2.loli.net/2024/08/18/7MT1E6nvSDokajf.png" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
+<p>然后点分配许可证，输入密钥激活即可：</p>
+<p><img src="https://s2.loli.net/2024/08/18/UEth1AeSxq5BLCc.png" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
+<p><img src="https://s2.loli.net/2024/08/18/HWM3VgiOlD1rLRw.png" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
+<h2 id="六、开启直通网卡"><a href="#六、开启直通网卡" class="headerlink" title="六、开启直通网卡"></a>六、开启直通网卡</h2><p>选择【管理】-【硬件】-【PCI设备】，查看可以直通的网卡，这里网卡的顺序就是按照我们物理接口的etho、eth1、eth2、eth3顺序来的，第一个网卡千万不要直通，也就是我们前面设置的ESXi管理口，不要设置直通。如果把管理口也做了直通，ESXI 重启后 WEB 管理界面就进入不去了。</p>
+<h3 id="直通的好处？"><a href="#直通的好处？" class="headerlink" title="直通的好处？"></a><strong>直通的好处？</strong></h3><p>直通是指虚拟化时将硬件管理权、使用权完全交给一个虚拟出的系统(使用这个网卡的虚拟机)，不经过虚拟系统的虚拟封装，以直接以原生方式使用硬件，达到最高性能。直通的效率更好，因为直接直通给了虚拟机使用，硬件使用中产生的数据不会再经过ESXI进行二次处理，可以节约一部分系统性能，不直通的话虚拟机在运行中会占用更多的cpu。</p>
+<p><img src="https://s2.loli.net/2024/08/18/f4c2VZomaDSPnYe.png" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
+<p>选择要直通的设备，然点击切换直通，将三个网卡的直通全部开启：</p>
+<p><img src="https://s2.loli.net/2024/08/18/yQ8SrRYDLqZzPV3.png" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
+<p>看到网卡直通状态变为活动后，就是直通开通成功了，这样后面我们安装路由虚拟机时，直接添加PCl设备就可以直通了，同时注意内存设置全部保留。这个放到安装ikuai和openwrt时具体再讨论：</p>
+<p><img src="https://s2.loli.net/2024/08/18/qvpz93PYN8CstSu.png" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
+<h2 id="七、设置网络"><a href="#七、设置网络" class="headerlink" title="七、设置网络"></a>七、设置网络</h2><p>在网络内对虚拟机VM Network进行设置，选择【编辑设置】——安全内的混杂模式、mac地址改变、伪传输都改为接受：</p>
+<p><img src="https://s2.loli.net/2024/08/18/JLYzVI145RaEFMC.png" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
+<h2 id="八、修改电源模式"><a href="#八、修改电源模式" class="headerlink" title="八、修改电源模式"></a>八、修改电源模式</h2><p>一定要电源模式改为高性能，否则会<code>路由器</code>会自动限制性能，百度网盘，迅雷等软件下载速度会限制在10MB&#x2F;S。</p>
+<p>选择【管理】-【硬件】-【电源管理】-【更改策略】-高性能：</p>
+<p><img src="https://s2.loli.net/2024/08/18/bEJdFVg6R1vIH4Y.png" alt="ESXi 8.0虚拟机必备知识与保姆级安装过程"></p>
+<h2 id="小结："><a href="#小结：" class="headerlink" title="小结："></a>小结：</h2><p>本期的经验分享就到这里结束了，本期主要是安装ESXi8.0虚拟机和基本的配置，在安装过程中碰到的一些问题写出来分享给大家，下一步就可以安装路由虚拟机了，后面我们来安装ikuai及openwrt，继续折腾。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%A0%87%E7%AD%BE1/" rel="tag"># 标签1</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/08/15/Docker%E9%83%A8%E7%BD%B2%E7%BD%91%E5%BF%83%E4%BA%91%E8%B5%9A%E9%92%B1/" rel="prev" title="Docker部署网心云赚钱">
+      <i class="fa fa-chevron-left"></i> Docker部署网心云赚钱
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2024/08/18/%E8%BF%9C%E7%A8%8B%E4%BF%AE%E6%94%B9-ESXI-8-0-%E7%AE%A1%E7%90%86ip%E5%9C%B0%E5%9D%80/" rel="next" title="远程修改-ESXI-8.0-管理ip地址">
+      远程修改-ESXI-8.0-管理ip地址 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E7%BD%91%E7%BB%9C%E6%8B%93%E6%89%91"><span class="nav-number">1.</span> <span class="nav-text">1.网络拓扑</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%88%B6%E4%BD%9Cventoy%E9%95%9C%E5%83%8F%E5%AE%89%E8%A3%85%E5%B7%A5%E5%85%B7"><span class="nav-number"></span> <span class="nav-text">一、制作ventoy镜像安装工具</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E4%B8%8B%E8%BD%BDVentoy%E5%90%AF%E5%8A%A8%E7%9B%98%E5%88%B6%E4%BD%9C%E5%B7%A5%E5%85%B7"><span class="nav-number">1.</span> <span class="nav-text">1.下载Ventoy启动盘制作工具</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E4%B8%8B%E8%BD%BD-ESXi-8-0"><span class="nav-number"></span> <span class="nav-text">二、下载 ESXi 8.0</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E7%9B%B4%E9%93%BE%E4%B8%8B%E8%BD%BD%E9%95%9C%E5%83%8F"><span class="nav-number">1.</span> <span class="nav-text">1. 直链下载镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E4%B8%8B%E8%BD%BD%E9%95%9C%E5%83%8F"><span class="nav-number">2.</span> <span class="nav-text">2.下载镜像</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E6%9F%A5%E8%AF%A2%E7%BD%91%E5%8D%A1%E9%A9%B1%E5%8A%A8"><span class="nav-number"></span> <span class="nav-text">2.查询网卡驱动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E5%AE%89%E8%A3%85ESXi8-0"><span class="nav-number"></span> <span class="nav-text">三、安装ESXi8.0</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E4%B8%BB%E6%9D%BF%E8%AE%BE%E7%BD%AE"><span class="nav-number">1.</span> <span class="nav-text">1.主板设置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E2%91%A0%E6%89%93%E5%BC%80VT-d%EF%BC%9A"><span class="nav-number">1.1.</span> <span class="nav-text">①打开VT-d：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E2%91%A1%E6%89%93%E5%BC%80AES%EF%BC%9A"><span class="nav-number">1.2.</span> <span class="nav-text">②打开AES：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E2%91%A3%E5%BC%80%E5%90%AF%E7%9D%BF%E9%A2%91%E5%8A%A0%E9%80%9F%E6%8A%80%E6%9C%AF"><span class="nav-number">1.3.</span> <span class="nav-text">④开启睿频加速技术</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E8%AE%BE%E7%BD%AEUSB%E5%90%AF%E5%8A%A8"><span class="nav-number">2.</span> <span class="nav-text">2.设置USB启动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%88%A0%E9%99%A4%E7%A1%AC%E7%9B%98%E5%88%86%E5%8C%BA"><span class="nav-number">3.</span> <span class="nav-text">3.删除硬盘分区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E5%8A%A0%E8%BD%BDESXi8-0%E9%95%9C%E5%83%8F"><span class="nav-number">4.</span> <span class="nav-text">4.加载ESXi8.0镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E4%BF%AE%E6%94%B9ESXI%E7%9A%84%E9%BB%98%E8%AE%A4%E7%A9%BA%E9%97%B4"><span class="nav-number">5.</span> <span class="nav-text">5.修改ESXI的默认空间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E9%80%89%E6%8B%A9%E5%AE%89%E8%A3%85%E4%BD%8D%E7%BD%AE"><span class="nav-number">6.</span> <span class="nav-text">6.选择安装位置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-%E8%AE%BE%E7%BD%AE%E7%99%BB%E5%BD%95%E5%AF%86%E7%A0%81"><span class="nav-number">7.</span> <span class="nav-text">7.设置登录密码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81ESXI%E8%99%9A%E6%8B%9F%E6%9C%BA%E8%AE%BE%E7%BD%AE"><span class="nav-number"></span> <span class="nav-text">四、ESXI虚拟机设置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E8%AE%BE%E7%BD%AE%E7%BD%91%E5%8F%A3"><span class="nav-number">1.</span> <span class="nav-text">1.设置网口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E8%AE%BE%E7%BD%AEIPV4%E9%80%89%E9%A1%B9"><span class="nav-number">2.</span> <span class="nav-text">2.设置IPV4选项</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E8%BF%9E%E6%8E%A5ESXi-8-0%E7%BD%91%E9%A1%B5%E7%AB%AF%E8%AE%BE%E7%BD%AE"><span class="nav-number"></span> <span class="nav-text">五、连接ESXi 8.0网页端设置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E7%BB%99%E7%94%B5%E8%84%91%E5%88%86%E9%85%8DIP"><span class="nav-number">1.</span> <span class="nav-text">1.给电脑分配IP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E8%AE%BF%E9%97%AEweb%E7%AB%AF"><span class="nav-number">2.</span> <span class="nav-text">2.访问web端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%BF%80%E6%B4%BB"><span class="nav-number">3.</span> <span class="nav-text">3.激活</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E5%BC%80%E5%90%AF%E7%9B%B4%E9%80%9A%E7%BD%91%E5%8D%A1"><span class="nav-number"></span> <span class="nav-text">六、开启直通网卡</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B4%E9%80%9A%E7%9A%84%E5%A5%BD%E5%A4%84%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">直通的好处？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%83%E3%80%81%E8%AE%BE%E7%BD%AE%E7%BD%91%E7%BB%9C"><span class="nav-number"></span> <span class="nav-text">七、设置网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AB%E3%80%81%E4%BF%AE%E6%94%B9%E7%94%B5%E6%BA%90%E6%A8%A1%E5%BC%8F"><span class="nav-number"></span> <span class="nav-text">八、修改电源模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93%EF%BC%9A"><span class="nav-number"></span> <span class="nav-text">小结：</span></a></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Kanoc Ge"
+      src="/images/452794135.jpg">
+  <p class="site-author-name" itemprop="name">Kanoc Ge</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">358</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">85</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">218</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kanoc Ge</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

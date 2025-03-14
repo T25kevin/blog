@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <style>
+    .category-all-page .category-list-item {
+      margin: 15px 10px 10px 10px;
+      list-style: none;
+      font-size: 20px;
+      }
+      .category-all-page .category-list-child {
+        list-style: none;
+        }
+  </style>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"kanoc.gitee.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="python操作minio">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python操作MinIO">
+<meta property="og:url" content="https://kanoc.gitee.io/2024/04/23/python%E6%93%8D%E4%BD%9CMinIO/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="python操作minio">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-04-23T15:34:16.000Z">
+<meta property="article:modified_time" content="2024-06-25T16:56:20.720Z">
+<meta property="article:author" content="Kanoc Ge">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="django">
+<meta property="article:tag" content="基础">
+<meta property="article:tag" content="MinIO">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://kanoc.gitee.io/2024/04/23/python%E6%93%8D%E4%BD%9CMinIO/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>python操作MinIO | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-首页-|-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页 | home</a>
+
+  </li>
+        <li class="menu-item menu-item-分类-|-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类 | categories</a>
+
+  </li>
+        <li class="menu-item menu-item-标签-|-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签 | tags</a>
+
+  </li>
+        <li class="menu-item menu-item-归档-|-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档 | archives</a>
+
+  </li>
+        <li class="menu-item menu-item-关于-|-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于 | about</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2024/04/23/python%E6%93%8D%E4%BD%9CMinIO/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/452794135.jpg">
+      <meta itemprop="name" content="Kanoc Ge">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          python操作MinIO
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-04-23 23:34:16" itemprop="dateCreated datePublished" datetime="2024-04-23T23:34:16+08:00">2024-04-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-06-26 00:56:20" itemprop="dateModified" datetime="2024-06-26T00:56:20+08:00">2024-06-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MinIO/" itemprop="url" rel="index"><span itemprop="name">MinIO</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><font color=#00b2c2 size=5 face=宋体><strong><strong>python操作minio</strong></strong></font></p>
+<span id="more"></span>
+
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>python版本：3.7</p>
+<p>minio版本：5.0.5</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 使用pip安装</span><br><span class="line">pip install minio</span><br><span class="line"></span><br><span class="line"># 使用源码安装</span><br><span class="line">git clone https://github.com/minio/minio-py</span><br><span class="line">cd minio-py</span><br><span class="line">python setup.py install</span><br></pre></td></tr></table></figure>
+
+<p>参考文档：</p>
+<p>快速入门：<a target="_blank" rel="noopener" href="https://docs.min.io/cn/python-client-quickstart-guide.html">https://docs.min.io/cn/python-client-quickstart-guide.html</a></p>
+<p>完整文档：<a target="_blank" rel="noopener" href="https://docs.min.io/cn/python-client-api-reference.html">https://docs.min.io/cn/python-client-api-reference.html</a></p>
+<p>API示例：<a target="_blank" rel="noopener" href="https://github.com/minio/minio-py/tree/master/examples">https://github.com/minio/minio-py/tree/master/examples</a></p>
+<h2 id="初始化MinIO-Client"><a href="#初始化MinIO-Client" class="headerlink" title="初始化MinIO Client"></a>初始化MinIO Client</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> minio <span class="keyword">import</span> Minio</span><br><span class="line"><span class="keyword">from</span> minio.error <span class="keyword">import</span> ResponseError</span><br><span class="line"></span><br><span class="line">minioClient = Minio(endpoint=<span class="string">&#x27;play.min.io&#x27;</span>,</span><br><span class="line">                  access_key=<span class="string">&#x27;Q3AM3UQ867SPQQA43P2F&#x27;</span>,</span><br><span class="line">                  secret_key=<span class="string">&#x27;zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG&#x27;</span>,</span><br><span class="line">                  secure=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="操作存储桶"><a href="#操作存储桶" class="headerlink" title="操作存储桶"></a>操作存储桶</h2><h3 id="创建一个存储桶"><a href="#创建一个存储桶" class="headerlink" title="创建一个存储桶"></a>创建一个存储桶</h3><p>make_bucket(bucket_name, location&#x3D;’us-east-1’) -&gt; None</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    minioClient.make_bucket(bucket_name=<span class="string">&quot;mybucket&quot;</span>, location=<span class="string">&quot;us-east-1&quot;</span>)</span><br><span class="line"><span class="keyword">except</span> MaxRetryError <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;connect minio server fail, %s&quot;</span> % err)</span><br><span class="line">    <span class="keyword">raise</span></span><br><span class="line"><span class="keyword">except</span> ResponseError <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;minio server response fail, %s&quot;</span> % err)</span><br><span class="line">    <span class="keyword">raise</span></span><br><span class="line"><span class="keyword">except</span> (BucketAlreadyOwnedByYou, BucketAlreadyExists) <span class="keyword">as</span> err:</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"><span class="keyword">except</span> InvalidBucketError <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(err)</span><br><span class="line"><span class="keyword">except</span> Exception <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(err)</span><br></pre></td></tr></table></figure>
+
+<h3 id="列出所有的存储桶"><a href="#列出所有的存储桶" class="headerlink" title="列出所有的存储桶"></a>列出所有的存储桶</h3><p>list_buckets() -&gt; list</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    buckets = minioClient.list_buckets()</span><br><span class="line">    <span class="keyword">for</span> bucket <span class="keyword">in</span> buckets:</span><br><span class="line">        <span class="built_in">print</span>(bucket.name, bucket.creation_date)</span><br><span class="line"><span class="keyword">except</span> MaxRetryError <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;connect minio server fail, %s&quot;</span> % err)</span><br><span class="line">    <span class="keyword">raise</span></span><br><span class="line"><span class="keyword">except</span> ResponseError <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;minio server response fail, %s&quot;</span> % err)</span><br><span class="line">    <span class="keyword">raise</span></span><br><span class="line"><span class="keyword">except</span> Exception <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(err)</span><br></pre></td></tr></table></figure>
+
+<h3 id="检查存储桶是否存在"><a href="#检查存储桶是否存在" class="headerlink" title="检查存储桶是否存在"></a>检查存储桶是否存在</h3><p>bucket_exists(bucket_name) -&gt; bool</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    result = minioClient.bucket_exists(bucket_name=<span class="string">&quot;mybucket&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(result)</span><br><span class="line"><span class="keyword">except</span> MaxRetryError <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;connect minio server fail, %s&quot;</span> % err)</span><br><span class="line">    <span class="keyword">raise</span></span><br><span class="line"><span class="keyword">except</span> ResponseError <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;minio server response fail, %s&quot;</span> % err)</span><br><span class="line">    <span class="keyword">raise</span></span><br><span class="line"><span class="keyword">except</span> InvalidBucketError <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(err)</span><br><span class="line"><span class="keyword">except</span> Exception <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(err)</span><br></pre></td></tr></table></figure>
+
+<h3 id="删除存储桶"><a href="#删除存储桶" class="headerlink" title="删除存储桶"></a>删除存储桶</h3><p>remove_bucket(bucket_name) -&gt; None</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    minioClient.remove_bucket(bucket_name=<span class="string">&quot;mybucket&quot;</span>)</span><br><span class="line"><span class="keyword">except</span> MaxRetryError <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;connect minio server fail, %s&quot;</span> % err)</span><br><span class="line">    <span class="keyword">raise</span></span><br><span class="line"><span class="keyword">except</span> ResponseError <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;minio server response fail, %s&quot;</span> % err)</span><br><span class="line">    <span class="keyword">raise</span></span><br><span class="line"><span class="keyword">except</span> InvalidBucketError <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(err)</span><br><span class="line"><span class="keyword">except</span> NoSuchBucket <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(err)</span><br><span class="line"><span class="keyword">except</span> Exception <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(err)</span><br></pre></td></tr></table></figure>
+
+<h3 id="列出存储桶中所有对象"><a href="#列出存储桶中所有对象" class="headerlink" title="列出存储桶中所有对象"></a>列出存储桶中所有对象</h3><p>list_objects(bucket_name, prefix&#x3D;None, recursive&#x3D;False) -&gt; Iterator</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    objects = minioClient.list_objects(<span class="string">&quot;mybucket&quot;</span>)</span><br><span class="line">    <span class="keyword">for</span> obj <span class="keyword">in</span> objects:</span><br><span class="line">        <span class="built_in">print</span>(obj.bucket_name, obj.object_name.encode(<span class="string">&#x27;utf-8&#x27;</span>), obj.is_dir,</span><br><span class="line">              obj.size, obj.etag, obj.last_modified, obj.content_type,</span><br><span class="line">              obj.metadata)</span><br><span class="line"><span class="keyword">except</span> MaxRetryError <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;connect minio server fail, %s&quot;</span> % err)</span><br><span class="line">    <span class="keyword">raise</span></span><br><span class="line"><span class="keyword">except</span> ResponseError <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;minio server response fail, %s&quot;</span> % err)</span><br><span class="line">    <span class="keyword">raise</span></span><br><span class="line"><span class="keyword">except</span> InvalidBucketError <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(err)</span><br><span class="line"><span class="keyword">except</span> Exception <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(err)</span><br></pre></td></tr></table></figure>
+
+<h3 id="列出存储桶中未完整上传的对象"><a href="#列出存储桶中未完整上传的对象" class="headerlink" title="列出存储桶中未完整上传的对象"></a>列出存储桶中未完整上传的对象</h3><p>list_incomplete_uploads(bucket_name, prefix, recursive&#x3D;False) -&gt; Iterator</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="comment"># List all object paths in bucket that begin with my-prefixname.</span></span><br><span class="line">    uploads = minioClient.list_incomplete_uploads(<span class="string">&#x27;mybucket&#x27;</span>, </span><br><span class="line">                                                  prefix=<span class="string">&#x27;my-prefixname&#x27;</span>,</span><br><span class="line">                                                  recursive=<span class="literal">True</span>)</span><br><span class="line">    <span class="keyword">for</span> obj <span class="keyword">in</span> uploads:</span><br><span class="line">        <span class="built_in">print</span>(obj.bucket_name, obj.object_name, obj.upload_id, obj.size)</span><br><span class="line"><span class="keyword">except</span> MaxRetryError <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;connect minio server fail, %s&quot;</span> % err)</span><br><span class="line">    <span class="keyword">raise</span></span><br><span class="line"><span class="keyword">except</span> ResponseError <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;minio server response fail, %s&quot;</span> % err)</span><br><span class="line">    <span class="keyword">raise</span></span><br><span class="line"><span class="keyword">except</span> InvalidBucketError <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(err)</span><br><span class="line"><span class="keyword">except</span> Exception <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(err)</span><br></pre></td></tr></table></figure>
+
+<h3 id="获取存储桶的当前策略"><a href="#获取存储桶的当前策略" class="headerlink" title="获取存储桶的当前策略"></a>获取存储桶的当前策略</h3><p>get_bucket_policy(bucket_name, prefix) -&gt; Policy枚举</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># Get current policy of all object paths in bucket that begin with my-prefixname.</span><br><span class="line">policy = minioClient.get_bucket_policy(&#x27;mybucket&#x27;,</span><br><span class="line">                                       &#x27;my-prefixname&#x27;)</span><br><span class="line">print(policy)</span><br></pre></td></tr></table></figure>
+
+<h3 id="给指定的存储桶设置存储桶策略"><a href="#给指定的存储桶设置存储桶策略" class="headerlink" title="给指定的存储桶设置存储桶策略"></a>给指定的存储桶设置存储桶策略</h3><p>set_bucket_policy(bucket_name, prefix, policy) -&gt; Policy枚举</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Set policy Policy.READ_ONLY to all object paths in bucket that begin with my-prefixname.</span></span><br><span class="line">minioClient.set_bucket_policy(<span class="string">&#x27;mybucket&#x27;</span>,</span><br><span class="line">                              <span class="string">&#x27;my-prefixname&#x27;</span>,</span><br><span class="line">                              Policy.READ_ONLY)</span><br></pre></td></tr></table></figure>
+
+<h3 id="获取存储桶上的通知配置"><a href="#获取存储桶上的通知配置" class="headerlink" title="获取存储桶上的通知配置"></a>获取存储桶上的通知配置</h3><p>get_bucket_notification(bucket_name) -&gt; dict</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Get the notifications configuration for a bucket.</span></span><br><span class="line">notification = minioClient.get_bucket_notification(<span class="string">&#x27;mybucket&#x27;</span>)</span><br><span class="line"><span class="comment"># If no notification is present on the bucket:</span></span><br><span class="line"><span class="comment"># notification == &#123;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="给存储桶设置通知配置"><a href="#给存储桶设置通知配置" class="headerlink" title="给存储桶设置通知配置"></a>给存储桶设置通知配置</h3><p>set_bucket_notification(bucket_name, notification) -&gt;</p>
+<h3 id="删除存储桶上配置的所有通知"><a href="#删除存储桶上配置的所有通知" class="headerlink" title="删除存储桶上配置的所有通知"></a>删除存储桶上配置的所有通知</h3><p>remove_all_bucket_notification(bucket_name)</p>
+<h3 id="监听存储桶上的通知，可以额外提供前缀、后缀和时间类型来进行过滤"><a href="#监听存储桶上的通知，可以额外提供前缀、后缀和时间类型来进行过滤" class="headerlink" title="监听存储桶上的通知，可以额外提供前缀、后缀和时间类型来进行过滤"></a>监听存储桶上的通知，可以额外提供前缀、后缀和时间类型来进行过滤</h3><p>listen_bucket_notification(bucket_name, prefix, suffix, events)</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Put a file with default content-type.</span></span><br><span class="line">events = minioClient.listen_bucket_notification(<span class="string">&#x27;my-bucket&#x27;</span>, <span class="string">&#x27;my-prefix/&#x27;</span>,</span><br><span class="line">                                                <span class="string">&#x27;.my-suffix&#x27;</span>,</span><br><span class="line">                                                [<span class="string">&#x27;s3:ObjectCreated:*&#x27;</span>,</span><br><span class="line">                                                 <span class="string">&#x27;s3:ObjectRemoved:*&#x27;</span>,</span><br><span class="line">                                                 <span class="string">&#x27;s3:ObjectAccessed:*&#x27;</span>])</span><br><span class="line"><span class="keyword">for</span> event <span class="keyword">in</span> events:</span><br><span class="line">    <span class="built_in">print</span> event</span><br></pre></td></tr></table></figure>
+
+<h2 id="操作对象"><a href="#操作对象" class="headerlink" title="操作对象"></a>操作对象</h2><h3 id="下载一个对象"><a href="#下载一个对象" class="headerlink" title="下载一个对象"></a>下载一个对象</h3><p>get_object(bucket_name, object_name, request_headers&#x3D;None)</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Get a full object.</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    data = minioClient.get_object(<span class="string">&#x27;mybucket&#x27;</span>, <span class="string">&#x27;myobject&#x27;</span>)</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;my-testfile&#x27;</span>, <span class="string">&#x27;wb&#x27;</span>) <span class="keyword">as</span> file_data:</span><br><span class="line">        <span class="keyword">for</span> d <span class="keyword">in</span> data.stream(<span class="number">32</span>*<span class="number">1024</span>):</span><br><span class="line">            file_data.write(d)</span><br><span class="line"><span class="keyword">except</span> ResponseError <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(err)</span><br></pre></td></tr></table></figure>
+
+<h3 id="下载一个对象的指定区间的字节数组"><a href="#下载一个对象的指定区间的字节数组" class="headerlink" title="下载一个对象的指定区间的字节数组"></a>下载一个对象的指定区间的字节数组</h3><p>get_partial_object(bucket_name, object_name, offset&#x3D;0, length&#x3D;0, request_headers&#x3D;None)</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Offset the download by 2 bytes and retrieve a total of 4 bytes.</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    data = minioClient.get_partial_object(<span class="string">&#x27;mybucket&#x27;</span>, <span class="string">&#x27;myobject&#x27;</span>, <span class="number">2</span>, <span class="number">4</span>)</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;my-testfile&#x27;</span>, <span class="string">&#x27;wb&#x27;</span>) <span class="keyword">as</span> file_data:</span><br><span class="line">        <span class="keyword">for</span> d <span class="keyword">in</span> data:</span><br><span class="line">            file_data.write(d)</span><br><span class="line"><span class="keyword">except</span> ResponseError <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(err)</span><br></pre></td></tr></table></figure>
+
+<h3 id="下载并将文件保存到本地"><a href="#下载并将文件保存到本地" class="headerlink" title="下载并将文件保存到本地"></a>下载并将文件保存到本地</h3><p>get_object(bucket_name, object_name, file_path, request_headers&#x3D;None)</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Get a full object and prints the original object stat information.</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="built_in">print</span>(minioClient.fget_object(<span class="string">&#x27;mybucket&#x27;</span>, <span class="string">&#x27;myobject&#x27;</span>, <span class="string">&#x27;/tmp/myobject&#x27;</span>))</span><br><span class="line"><span class="keyword">except</span> ResponseError <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(err)</span><br></pre></td></tr></table></figure>
+
+<h3 id="拷贝对象存储服务上的源对象到一个新对象"><a href="#拷贝对象存储服务上的源对象到一个新对象" class="headerlink" title="拷贝对象存储服务上的源对象到一个新对象"></a>拷贝对象存储服务上的源对象到一个新对象</h3><p>copy_object(bucket_name, object_name, object_source, copy_conditions&#x3D;None, metadata&#x3D;None)</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime</span><br><span class="line"><span class="keyword">from</span> minio <span class="keyword">import</span> CopyConditions</span><br><span class="line"></span><br><span class="line">copy_conditions = CopyConditions()</span><br><span class="line"><span class="comment"># Set modified condition, copy object modified since 2014 April.</span></span><br><span class="line">t = (<span class="number">2014</span>, <span class="number">4</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line">mod_since = datetime.utcfromtimestamp(time.mktime(t))</span><br><span class="line">copy_conditions.set_modified_since(mod_since)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Set unmodified condition, copy object unmodified since 2014 April.</span></span><br><span class="line">copy_conditions.set_unmodified_since(mod_since)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Set matching ETag condition, copy object which matches the following ETag.</span></span><br><span class="line">copy_conditions.set_match_etag(<span class="string">&quot;31624deb84149d2f8ef9c385918b653a&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Set matching ETag except condition, copy object which does not match the following ETag.</span></span><br><span class="line">copy_conditions.set_match_etag_except(<span class="string">&quot;31624deb84149d2f8ef9c385918b653a&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Set metadata</span></span><br><span class="line">metadata = &#123;<span class="string">&quot;test-key&quot;</span>: <span class="string">&quot;test-data&quot;</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    copy_result = minioClient.copy_object(<span class="string">&quot;mybucket&quot;</span>, <span class="string">&quot;myobject&quot;</span>,</span><br><span class="line">                                          <span class="string">&quot;/my-sourcebucketname/my-sourceobjectname&quot;</span>,</span><br><span class="line">                                          copy_conditions,metadata=metadata)</span><br><span class="line">    <span class="built_in">print</span>(copy_result)</span><br><span class="line"><span class="keyword">except</span> ResponseError <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(err)</span><br></pre></td></tr></table></figure>
+
+<h3 id="添加一个新的对象到对象存储服务"><a href="#添加一个新的对象到对象存储服务" class="headerlink" title="添加一个新的对象到对象存储服务"></a>添加一个新的对象到对象存储服务</h3><p>put_object(bucket_name, object_name, data, length, content_type&#x3D;’application&#x2F;octet-stream’, metadata&#x3D;None)</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="comment"># Put a file with default content-type, upon success prints the etag identifier computed by server.</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;my-testfile&#x27;</span>, <span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> file_data:</span><br><span class="line">        file_stat = os.stat(<span class="string">&#x27;my-testfile&#x27;</span>)</span><br><span class="line">        <span class="built_in">print</span>(minioClient.put_object(<span class="string">&#x27;mybucket&#x27;</span>, <span class="string">&#x27;myobject&#x27;</span>,</span><br><span class="line">                               file_data, file_stat.st_size))</span><br><span class="line"><span class="keyword">except</span> ResponseError <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(err)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Put a file with &#x27;application/csv&#x27;.</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;my-testfile.csv&#x27;</span>, <span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> file_data:</span><br><span class="line">        file_stat = os.stat(<span class="string">&#x27;my-testfile.csv&#x27;</span>)</span><br><span class="line">        minioClient.put_object(<span class="string">&#x27;mybucket&#x27;</span>, <span class="string">&#x27;myobject.csv&#x27;</span>, file_data,</span><br><span class="line">                    file_stat.st_size, content_type=<span class="string">&#x27;application/csv&#x27;</span>)</span><br><span class="line"><span class="keyword">except</span> ResponseError <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(err)</span><br></pre></td></tr></table></figure>
+
+<h3 id="通过文件上传到对象中"><a href="#通过文件上传到对象中" class="headerlink" title="通过文件上传到对象中"></a>通过文件上传到对象中</h3><p>fput_object(bucket_name, object_name, file_path, content_type&#x3D;’application&#x2F;octet-stream’, metadata&#x3D;None)</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Put an object &#x27;myobject&#x27; with contents from &#x27;/tmp/otherobject&#x27;, upon success prints the etag identifier computed by server.</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="built_in">print</span>(minioClient.fput_object(<span class="string">&#x27;mybucket&#x27;</span>, <span class="string">&#x27;myobject&#x27;</span>, <span class="string">&#x27;/tmp/otherobject&#x27;</span>))</span><br><span class="line"><span class="keyword">except</span> ResponseError <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(err)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Put on object &#x27;myobject.csv&#x27; with contents from</span></span><br><span class="line"><span class="comment"># &#x27;/tmp/otherobject.csv&#x27; as &#x27;application/csv&#x27;.</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="built_in">print</span>(minioClient.fput_object(<span class="string">&#x27;mybucket&#x27;</span>, <span class="string">&#x27;myobject.csv&#x27;</span>,</span><br><span class="line">                             <span class="string">&#x27;/tmp/otherobject.csv&#x27;</span>,</span><br><span class="line">                             content_type=<span class="string">&#x27;application/csv&#x27;</span>))</span><br><span class="line"><span class="keyword">except</span> ResponseError <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(err)</span><br></pre></td></tr></table></figure>
+
+<h3 id="获取对象的元数据"><a href="#获取对象的元数据" class="headerlink" title="获取对象的元数据"></a>获取对象的元数据</h3><p>stat_object(bucket_name, object_name)</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Fetch stats on your object.</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="built_in">print</span>(minioClient.stat_object(<span class="string">&#x27;mybucket&#x27;</span>, <span class="string">&#x27;myobject&#x27;</span>))</span><br><span class="line"><span class="keyword">except</span> ResponseError <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(err)</span><br></pre></td></tr></table></figure>
+
+<h3 id="删除一个对象"><a href="#删除一个对象" class="headerlink" title="删除一个对象"></a>删除一个对象</h3><p>remove_object(bucket_name, object_name)</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Remove an object.</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    minioClient.remove_object(<span class="string">&#x27;mybucket&#x27;</span>, <span class="string">&#x27;myobject&#x27;</span>)</span><br><span class="line"><span class="keyword">except</span> ResponseError <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(err)</span><br></pre></td></tr></table></figure>
+
+<h3 id="删除存储桶中的多个对象"><a href="#删除存储桶中的多个对象" class="headerlink" title="删除存储桶中的多个对象"></a>删除存储桶中的多个对象</h3><p>remove_objects(bucket_name, objects_iter)</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Remove multiple objects in a single library call.</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    objects_to_delete = [<span class="string">&#x27;myobject-1&#x27;</span>, <span class="string">&#x27;myobject-2&#x27;</span>, <span class="string">&#x27;myobject-3&#x27;</span>]</span><br><span class="line">    <span class="comment"># force evaluation of the remove_objects() call by iterating over</span></span><br><span class="line">    <span class="comment"># the returned value.</span></span><br><span class="line">    <span class="keyword">for</span> del_err <span class="keyword">in</span> minioClient.remove_objects(<span class="string">&#x27;mybucket&#x27;</span>, objects_to_delete):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Deletion Error: &#123;&#125;&quot;</span>.<span class="built_in">format</span>(del_err))</span><br><span class="line"><span class="keyword">except</span> ResponseError <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(err)</span><br></pre></td></tr></table></figure>
+
+<h3 id="删除一个未完整上传的对象"><a href="#删除一个未完整上传的对象" class="headerlink" title="删除一个未完整上传的对象"></a>删除一个未完整上传的对象</h3><p>remove_incomplete_upload(bucket_name, object_name)</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Remove an partially uploaded object.</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    minioClient.remove_incomplete_upload(<span class="string">&#x27;mybucket&#x27;</span>, <span class="string">&#x27;myobject&#x27;</span>)</span><br><span class="line"><span class="keyword">except</span> ResponseError <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(err)</span><br></pre></td></tr></table></figure>
+
+<h2 id="Presigned操作"><a href="#Presigned操作" class="headerlink" title="Presigned操作"></a>Presigned操作</h2><h3 id="生成一个用于HTTP-GET操作的presigned-URL"><a href="#生成一个用于HTTP-GET操作的presigned-URL" class="headerlink" title="生成一个用于HTTP GET操作的presigned URL"></a>生成一个用于HTTP GET操作的presigned URL</h3><p>presigned_get_object(bucket_name, object_name, expiry&#x3D;timedelta(days&#x3D;7))</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> timedelta</span><br><span class="line"></span><br><span class="line"><span class="comment"># presigned get object URL for object name, expires in 2 days.</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="built_in">print</span>(minioClient.presigned_get_object(<span class="string">&#x27;mybucket&#x27;</span>, <span class="string">&#x27;myobject&#x27;</span>, expires=timedelta(days=<span class="number">2</span>)))</span><br><span class="line"><span class="comment"># Response error is still possible since internally presigned does get bucket location.</span></span><br><span class="line"><span class="keyword">except</span> ResponseError <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(err)</span><br></pre></td></tr></table></figure>
+
+<h3 id="生成一个用于HTTP-PUT操作的presigned-URL"><a href="#生成一个用于HTTP-PUT操作的presigned-URL" class="headerlink" title="生成一个用于HTTP PUT操作的presigned URL"></a>生成一个用于HTTP PUT操作的presigned URL</h3><p>presigned_put_object(bucket_name, object_name, expires&#x3D;timedelta(days&#x3D;7))</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> timedelta</span><br><span class="line"></span><br><span class="line"><span class="comment"># presigned Put object URL for an object name, expires in 3 days.</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="built_in">print</span>(minioClient.presigned_put_object(<span class="string">&#x27;mybucket&#x27;</span>,</span><br><span class="line">                                      <span class="string">&#x27;myobject&#x27;</span>,</span><br><span class="line">                                      expires=timedelta(days=<span class="number">3</span>)))</span><br><span class="line"><span class="comment"># Response error is still possible since internally presigned does get</span></span><br><span class="line"><span class="comment"># bucket location.</span></span><br><span class="line"><span class="keyword">except</span> ResponseError <span class="keyword">as</span> err:</span><br><span class="line">    <span class="built_in">print</span>(err)</span><br></pre></td></tr></table></figure>
+
+<h3 id="允许给POST操作的presigned-URL设置策略条件"><a href="#允许给POST操作的presigned-URL设置策略条件" class="headerlink" title="允许给POST操作的presigned URL设置策略条件"></a>允许给POST操作的presigned URL设置策略条件</h3><p>presigned_post_policy(PostPolicy)</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
+              <a href="/tags/django/" rel="tag"># django</a>
+              <a href="/tags/%E5%9F%BA%E7%A1%80/" rel="tag"># 基础</a>
+              <a href="/tags/MinIO/" rel="tag"># MinIO</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/04/23/Python%E5%88%A9%E7%94%A8Minio-API%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%B8%8B%E8%BD%BD%E3%80%81%E5%88%A0%E9%99%A4%E7%AD%89%E6%93%8D%E4%BD%9C/" rel="prev" title="Python利用Minio-API实现文件上传下载、删除等操作">
+      <i class="fa fa-chevron-left"></i> Python利用Minio-API实现文件上传下载、删除等操作
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2024/04/24/%E5%BF%85%E5%A4%87%E5%B7%A5%E5%85%B7-%E4%BB%A3%E7%A0%81%E7%B1%BB/" rel="next" title="必备工具-代码类">
+      必备工具-代码类 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96MinIO-Client"><span class="nav-number">2.</span> <span class="nav-text">初始化MinIO Client</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E5%AD%98%E5%82%A8%E6%A1%B6"><span class="nav-number">3.</span> <span class="nav-text">操作存储桶</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E5%AD%98%E5%82%A8%E6%A1%B6"><span class="nav-number">3.1.</span> <span class="nav-text">创建一个存储桶</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%97%E5%87%BA%E6%89%80%E6%9C%89%E7%9A%84%E5%AD%98%E5%82%A8%E6%A1%B6"><span class="nav-number">3.2.</span> <span class="nav-text">列出所有的存储桶</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A3%80%E6%9F%A5%E5%AD%98%E5%82%A8%E6%A1%B6%E6%98%AF%E5%90%A6%E5%AD%98%E5%9C%A8"><span class="nav-number">3.3.</span> <span class="nav-text">检查存储桶是否存在</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E5%AD%98%E5%82%A8%E6%A1%B6"><span class="nav-number">3.4.</span> <span class="nav-text">删除存储桶</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%97%E5%87%BA%E5%AD%98%E5%82%A8%E6%A1%B6%E4%B8%AD%E6%89%80%E6%9C%89%E5%AF%B9%E8%B1%A1"><span class="nav-number">3.5.</span> <span class="nav-text">列出存储桶中所有对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%97%E5%87%BA%E5%AD%98%E5%82%A8%E6%A1%B6%E4%B8%AD%E6%9C%AA%E5%AE%8C%E6%95%B4%E4%B8%8A%E4%BC%A0%E7%9A%84%E5%AF%B9%E8%B1%A1"><span class="nav-number">3.6.</span> <span class="nav-text">列出存储桶中未完整上传的对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E5%AD%98%E5%82%A8%E6%A1%B6%E7%9A%84%E5%BD%93%E5%89%8D%E7%AD%96%E7%95%A5"><span class="nav-number">3.7.</span> <span class="nav-text">获取存储桶的当前策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%99%E6%8C%87%E5%AE%9A%E7%9A%84%E5%AD%98%E5%82%A8%E6%A1%B6%E8%AE%BE%E7%BD%AE%E5%AD%98%E5%82%A8%E6%A1%B6%E7%AD%96%E7%95%A5"><span class="nav-number">3.8.</span> <span class="nav-text">给指定的存储桶设置存储桶策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E5%AD%98%E5%82%A8%E6%A1%B6%E4%B8%8A%E7%9A%84%E9%80%9A%E7%9F%A5%E9%85%8D%E7%BD%AE"><span class="nav-number">3.9.</span> <span class="nav-text">获取存储桶上的通知配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%99%E5%AD%98%E5%82%A8%E6%A1%B6%E8%AE%BE%E7%BD%AE%E9%80%9A%E7%9F%A5%E9%85%8D%E7%BD%AE"><span class="nav-number">3.10.</span> <span class="nav-text">给存储桶设置通知配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E5%AD%98%E5%82%A8%E6%A1%B6%E4%B8%8A%E9%85%8D%E7%BD%AE%E7%9A%84%E6%89%80%E6%9C%89%E9%80%9A%E7%9F%A5"><span class="nav-number">3.11.</span> <span class="nav-text">删除存储桶上配置的所有通知</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%91%E5%90%AC%E5%AD%98%E5%82%A8%E6%A1%B6%E4%B8%8A%E7%9A%84%E9%80%9A%E7%9F%A5%EF%BC%8C%E5%8F%AF%E4%BB%A5%E9%A2%9D%E5%A4%96%E6%8F%90%E4%BE%9B%E5%89%8D%E7%BC%80%E3%80%81%E5%90%8E%E7%BC%80%E5%92%8C%E6%97%B6%E9%97%B4%E7%B1%BB%E5%9E%8B%E6%9D%A5%E8%BF%9B%E8%A1%8C%E8%BF%87%E6%BB%A4"><span class="nav-number">3.12.</span> <span class="nav-text">监听存储桶上的通知，可以额外提供前缀、后缀和时间类型来进行过滤</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E5%AF%B9%E8%B1%A1"><span class="nav-number">4.</span> <span class="nav-text">操作对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD%E4%B8%80%E4%B8%AA%E5%AF%B9%E8%B1%A1"><span class="nav-number">4.1.</span> <span class="nav-text">下载一个对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD%E4%B8%80%E4%B8%AA%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%8C%87%E5%AE%9A%E5%8C%BA%E9%97%B4%E7%9A%84%E5%AD%97%E8%8A%82%E6%95%B0%E7%BB%84"><span class="nav-number">4.2.</span> <span class="nav-text">下载一个对象的指定区间的字节数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD%E5%B9%B6%E5%B0%86%E6%96%87%E4%BB%B6%E4%BF%9D%E5%AD%98%E5%88%B0%E6%9C%AC%E5%9C%B0"><span class="nav-number">4.3.</span> <span class="nav-text">下载并将文件保存到本地</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8B%B7%E8%B4%9D%E5%AF%B9%E8%B1%A1%E5%AD%98%E5%82%A8%E6%9C%8D%E5%8A%A1%E4%B8%8A%E7%9A%84%E6%BA%90%E5%AF%B9%E8%B1%A1%E5%88%B0%E4%B8%80%E4%B8%AA%E6%96%B0%E5%AF%B9%E8%B1%A1"><span class="nav-number">4.4.</span> <span class="nav-text">拷贝对象存储服务上的源对象到一个新对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E4%B8%80%E4%B8%AA%E6%96%B0%E7%9A%84%E5%AF%B9%E8%B1%A1%E5%88%B0%E5%AF%B9%E8%B1%A1%E5%AD%98%E5%82%A8%E6%9C%8D%E5%8A%A1"><span class="nav-number">4.5.</span> <span class="nav-text">添加一个新的对象到对象存储服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E5%88%B0%E5%AF%B9%E8%B1%A1%E4%B8%AD"><span class="nav-number">4.6.</span> <span class="nav-text">通过文件上传到对象中</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%85%83%E6%95%B0%E6%8D%AE"><span class="nav-number">4.7.</span> <span class="nav-text">获取对象的元数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E4%B8%80%E4%B8%AA%E5%AF%B9%E8%B1%A1"><span class="nav-number">4.8.</span> <span class="nav-text">删除一个对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E5%AD%98%E5%82%A8%E6%A1%B6%E4%B8%AD%E7%9A%84%E5%A4%9A%E4%B8%AA%E5%AF%B9%E8%B1%A1"><span class="nav-number">4.9.</span> <span class="nav-text">删除存储桶中的多个对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E4%B8%80%E4%B8%AA%E6%9C%AA%E5%AE%8C%E6%95%B4%E4%B8%8A%E4%BC%A0%E7%9A%84%E5%AF%B9%E8%B1%A1"><span class="nav-number">4.10.</span> <span class="nav-text">删除一个未完整上传的对象</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Presigned%E6%93%8D%E4%BD%9C"><span class="nav-number">5.</span> <span class="nav-text">Presigned操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%9F%E6%88%90%E4%B8%80%E4%B8%AA%E7%94%A8%E4%BA%8EHTTP-GET%E6%93%8D%E4%BD%9C%E7%9A%84presigned-URL"><span class="nav-number">5.1.</span> <span class="nav-text">生成一个用于HTTP GET操作的presigned URL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%9F%E6%88%90%E4%B8%80%E4%B8%AA%E7%94%A8%E4%BA%8EHTTP-PUT%E6%93%8D%E4%BD%9C%E7%9A%84presigned-URL"><span class="nav-number">5.2.</span> <span class="nav-text">生成一个用于HTTP PUT操作的presigned URL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%81%E8%AE%B8%E7%BB%99POST%E6%93%8D%E4%BD%9C%E7%9A%84presigned-URL%E8%AE%BE%E7%BD%AE%E7%AD%96%E7%95%A5%E6%9D%A1%E4%BB%B6"><span class="nav-number">5.3.</span> <span class="nav-text">允许给POST操作的presigned URL设置策略条件</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Kanoc Ge"
+      src="/images/452794135.jpg">
+  <p class="site-author-name" itemprop="name">Kanoc Ge</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">358</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">85</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">218</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kanoc Ge</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

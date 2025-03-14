@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <style>
+    .category-all-page .category-list-item {
+      margin: 15px 10px 10px 10px;
+      list-style: none;
+      font-size: 20px;
+      }
+      .category-all-page .category-list-child {
+        list-style: none;
+        }
+  </style>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"kanoc.gitee.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="python完美突破tls&#x2F;ja3">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python完美突破tls&#x2F;ja3">
+<meta property="og:url" content="https://kanoc.gitee.io/2023/08/14/python%E5%AE%8C%E7%BE%8E%E7%AA%81%E7%A0%B4tls-ja3/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="python完美突破tls&#x2F;ja3">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2023/08/14/uxwrTRN65IeWoAh.png">
+<meta property="og:image" content="https://s2.loli.net/2023/08/14/aTSJs5uveVOdl6Z.png">
+<meta property="og:image" content="https://s2.loli.net/2023/08/14/TkyIC5bdsfOqXue.png">
+<meta property="og:image" content="https://s2.loli.net/2023/08/14/3kpzrnsKBlW7OU4.png">
+<meta property="og:image" content="https://s2.loli.net/2023/08/14/86ME9HBUljbm1oz.png">
+<meta property="og:image" content="https://s2.loli.net/2023/08/14/tDPGC7ybScu8fH3.png">
+<meta property="og:image" content="https://s2.loli.net/2023/08/14/zTOe3mjMxPNLKUC.png">
+<meta property="og:image" content="https://s2.loli.net/2023/08/14/UP1DsSLlbInhXoj.png">
+<meta property="og:image" content="https://s2.loli.net/2023/08/14/sYXNwUcOzbdmkJD.png">
+<meta property="og:image" content="https://s2.loli.net/2023/08/14/9y61w3lX2hsvHdG.png">
+<meta property="og:image" content="https://s2.loli.net/2023/08/14/NwegzJxKLbAkBO6.png">
+<meta property="og:image" content="https://s2.loli.net/2023/08/14/HBfa6tn7kAsRLcU.png">
+<meta property="og:image" content="https://s2.loli.net/2023/08/14/mhM4ftYPu9W7c2B.png">
+<meta property="og:image" content="https://s2.loli.net/2023/08/14/maU6JGWF1H8s7OV.png">
+<meta property="og:image" content="https://s2.loli.net/2023/08/14/3wtsRYygUuAChGN.png">
+<meta property="og:image" content="https://s2.loli.net/2023/08/14/OtTwck8ugNodA3H.png">
+<meta property="og:image" content="https://s2.loli.net/2023/08/14/H312JsMORSQCcXe.png">
+<meta property="og:image" content="https://s2.loli.net/2023/08/14/lJ2bYkeWDLsVXv7.png">
+<meta property="og:image" content="https://s2.loli.net/2023/08/14/EsmoA2VaRJCn6hk.png">
+<meta property="og:image" content="https://s2.loli.net/2023/08/14/7qXICDGJKNVsbAU.png">
+<meta property="og:image" content="https://s2.loli.net/2023/08/14/icGd5eu7RxUXOTA.png">
+<meta property="og:image" content="https://s2.loli.net/2023/08/14/HOzQ8d7PRGNtovT.png">
+<meta property="og:image" content="https://s2.loli.net/2023/08/14/hJ4Ui3zlmYASaBe.png">
+<meta property="og:image" content="https://s2.loli.net/2023/08/14/utcReZIokFrEyqp.jpg">
+<meta property="og:image" content="https://s2.loli.net/2023/08/14/8EhIrYsDuzS1Fq7.png">
+<meta property="og:image" content="https://s2.loli.net/2023/08/14/SpEYioM8GWds1D4.png">
+<meta property="article:published_time" content="2023-08-13T20:42:32.000Z">
+<meta property="article:modified_time" content="2024-06-25T16:56:20.719Z">
+<meta property="article:author" content="Kanoc Ge">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="逆向">
+<meta property="article:tag" content="Cloudflare">
+<meta property="article:tag" content="tls&#x2F;ja3">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2023/08/14/uxwrTRN65IeWoAh.png">
+
+<link rel="canonical" href="https://kanoc.gitee.io/2023/08/14/python%E5%AE%8C%E7%BE%8E%E7%AA%81%E7%A0%B4tls-ja3/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>python完美突破tls/ja3 | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-首页-|-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页 | home</a>
+
+  </li>
+        <li class="menu-item menu-item-分类-|-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类 | categories</a>
+
+  </li>
+        <li class="menu-item menu-item-标签-|-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签 | tags</a>
+
+  </li>
+        <li class="menu-item menu-item-归档-|-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档 | archives</a>
+
+  </li>
+        <li class="menu-item menu-item-关于-|-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于 | about</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/08/14/python%E5%AE%8C%E7%BE%8E%E7%AA%81%E7%A0%B4tls-ja3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/452794135.jpg">
+      <meta itemprop="name" content="Kanoc Ge">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          python完美突破tls/ja3
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-08-14 04:42:32" itemprop="dateCreated datePublished" datetime="2023-08-14T04:42:32+08:00">2023-08-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-06-26 00:56:20" itemprop="dateModified" datetime="2024-06-26T00:56:20+08:00">2024-06-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%80%86%E5%90%91-%E5%8F%8D%E7%88%AC/" itemprop="url" rel="index"><span itemprop="name">逆向_反爬</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="python完美突破tls-ja3"><a href="#python完美突破tls-ja3" class="headerlink" title="python完美突破tls&#x2F;ja3"></a>python完美突破tls&#x2F;ja3</h1><span id="more"></span>
+
+<h1 id="声明："><a href="#声明：" class="headerlink" title="声明："></a>声明：</h1><p>本文搬运自csdn&gt;&gt;&gt; <a target="_blank" rel="noopener" href="https://blog.csdn.net/y_morph/article/details/129487839">https://blog.csdn.net/y_morph/article/details/129487839</a></p>
+<p>以下只是搬运下我公众号的东西。很早就发过了。原帖地址：</p>
+<p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/GU2AgushvIEtLHtYR7BQzg">python完美突破tls&#x2F;ja3 (qq.com)</a></p>
+<h2 id="已经发公众号的为什么还发csdn"><a href="#已经发公众号的为什么还发csdn" class="headerlink" title="已经发公众号的为什么还发csdn"></a>已经发公众号的为什么还发csdn</h2><p>有的圈内朋友，不经过我的允许，删减摘录我公众号的内容，这里就不提谁了，心里清楚，还能获得一些关注和流量。很无语，所以我还不如自己也发发。【猛男落泪】</p>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>时隔一个多月我又发文了，我还是只发好文的geekbyte，前几天有朋友跟我说我断更一个多月了，哈哈，这不就来了吗</p>
+<p>不多废话，进入正题。</p>
+<p>如果你偶尔看到这篇文章，而对tls还一脸懵的朋友，可以先阅读以下文章了解一下</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://mp.weixin.qq.com/s/Qx7PjnBgrTR30oCurU6CGw</span><br><span class="line"></span><br><span class="line">https://mp.weixin.qq.com/s/7VJHCl2ht4pjkgIdcOKc5w</span><br><span class="line"></span><br><span class="line">JS逆向之猿人学第十九题突破ja3指纹验证</span><br><span class="line"></span><br><span class="line">深度剖析ja3指纹及突破</span><br><span class="line"></span><br><span class="line">ja3指纹补充说明</span><br><span class="line">————————————————</span><br></pre></td></tr></table></figure>
+
+<p>距离我上次发 <a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzU0MjUwMTA2OQ==&mid=2247484649&idx=1&sn=42eb5319db1ca830ca81d75218e4c0e4&chksm=fb18f54bcc6f7c5de60395d03650aa7c6a30e37407989c604c31ffa1076d071a32afcb0556c4&scene=21#wechat_redirect">深度剖析ja3指纹及突破</a> 已时隔半年多（因为之前删过重新发的），我当时抛出一个问题，就是python由于依赖的<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=openssl&spm=1001.2101.3001.7020">openssl</a>库没法高度自定义，导致针对tls那5个组件没法改动太大。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">TLSVersion,Ciphers,Extensions,EllipticCurves,EllipticCurvePointFormats</span><br></pre></td></tr></table></figure>
+
+<p>所以目前有些平台如果有tls认证的话，那对python的爬虫就是降维打击。当时的我确实考虑过看自己去编译一个库，然后解除这个针对python的限制。</p>
+<p>这个tls，如果我没搞错的话，在国内的圈子，进入大家视线的是青南大佬，然后是猿人学的练习题，接着再是我的深度剖析，惭愧，我提出来的python被降维打击，我自己想搞定，因为各种原因，我没能去研究，而现在已经有大佬搞定了，而且个人觉得十分完美，所以下面我给一个详细的食用流程吧，也算是给它画上一个句号了。</p>
+<h1 id="目前我知道的针对tls的方案"><a href="#目前我知道的针对tls的方案" class="headerlink" title="目前我知道的针对tls的方案"></a>目前我知道的针对tls的方案</h1><h2 id="1-hook-tls-组件"><a href="#1-hook-tls-组件" class="headerlink" title="1.hook tls 组件"></a>1.hook tls 组件</h2><p>目前hook方面，比较成熟的方案就是golang的cycletls，这个cycletls是我偶然找到的go库，也算是能解决大部分的平台。但是据我所知，已经有一些风控强的网站可以识别你hook修改过ja3指纹了</p>
+<h2 id="2-魔改openssl"><a href="#2-魔改openssl" class="headerlink" title="2.魔改openssl"></a>2.魔改openssl</h2><p>用志远大佬的方案，重新编译openssl，在编译过程中，改c源码，使每次发起请求的tls指纹随机</p>
+<p>个人觉得，按目前的行情，如果是校验很强的tls话，随机的可能不行</p>
+<p>想我还被远哥在群里@夸赞过，嘻嘻~</p>
+<h2 id="3-魔改socket"><a href="#3-魔改socket" class="headerlink" title="3.魔改socket"></a>3.魔改socket</h2><p>这个方案是@3301大佬魔改了一套socket收发包流程，是真的牛逼。</p>
+<p>在几个月前我跟他私聊过，说好了一起研究的，因为种种原因我放他鸽子了，唉</p>
+<p>不过他已经基本搞定，目前已开源：</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/zero3301/pyrequests/">https://github.com/zero3301/pyrequests/</a></p>
+<p>作者自己说了，暂不支持HTTP2和tls1.3和动态tls指纹，他希望有人能跟他一起开发，感兴趣的可以跟他联系。</p>
+<h2 id="4-重编译chromium"><a href="#4-重编译chromium" class="headerlink" title="4.重编译chromium"></a>4.重编译chromium</h2><p>根据我的研究，发现这个方案在针对tls方面，能改的不是很多，底层还是借助了浏览器，还不如直接rpc或者用selenium之类的</p>
+<h3 id="5-curl-impersonate-pycurl"><a href="#5-curl-impersonate-pycurl" class="headerlink" title="5.curl-impersonate+pycurl"></a>5.curl-impersonate+pycurl</h3><p><strong>这个方案我自认为是相对来说最完美的方案</strong></p>
+<p>也是我之前想过准备要走的研究方向，可惜因为种种原因，没有继续，理论上的思路跟这个很类似，这里就暂不透漏了。</p>
+<p>curl-impersonate，就是用一个大佬编译好的跟浏览器完全一致的curl魔改版</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/lwthiker/curl-impersonate">https://github.com/lwthiker/curl-impersonate</a></p>
+<p>其中，curl-impersonate作者自己也写过相关的文章，想了解原理的可以看看，我看完之后真的受益匪浅，对tls的理解更深入了，如果你有意向也想自己编译一个，个人十分建议阅读，反复阅读</p>
+<p><a target="_blank" rel="noopener" href="https://lwthiker.com/">https://lwthiker.com/</a></p>
+<p>pycurl就是借助curl发起请求的库</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/pycurl/pycurl">https://github.com/pycurl/pycurl</a> # 官方版</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/ycq0125/pycurl">https://github.com/ycq0125/pycurl</a>  # 肝总魔改版本</p>
+<p>这里我推荐用肝总的版本。</p>
+<p>在编译安装pycurl时指定的curl是魔改好的curl-impersonate，这样python就可以发起跟浏览器完全一致的tls，而且支持自定义tls算法套件。</p>
+<p>这个方案唯一的缺点就是，<strong>编译过程相对复杂</strong>，没法开箱即用，在不同的系统平台下就会遇到各种各样的问题</p>
+<p>ok，以下开始我的编译血泪史吧，带着大家一起编译一下curl-impersonate+pycurl。</p>
+<p>我选用的环境是在win上用vm虚拟机软件里的linux，这样，即使我有一个步骤错了，可以回到正常的还原点上，节省很多时间。以下用到的图片，由于是我在编译时在每个步骤的截图保留的，所以一会儿是kali界面，一会儿是ubuntu界面，这个不影响，实际你跟着我操作能编译成功即可（其实是真的不想再重新走一遍编译了）</p>
+<h1 id="编译curl-impersonate"><a href="#编译curl-impersonate" class="headerlink" title="编译curl-impersonate"></a>编译curl-impersonate</h1><p>官方教程，里面给了ubuntu、centos、macos的编译过程，当然如果你想快速用上，可以用该作者直接编译好的docker，但是如果你还要编译pycurl的话，那就得自编译了</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/lwthiker/curl-impersonate/blob/main/INSTALL.md">https://github.com/lwthiker/curl-impersonate/blob/main/INSTALL.md</a></p>
+<p><strong>注意：不建议用kali</strong></p>
+<p>我刚开始使用的是kali linux，为了图方便，直接用的肉师傅的r0env，反正我是没成功（不是说肉师傅的r0env有问题，我咋可能这么冒犯呢，我中途踩坑了很多次，估计装了有冲突的依赖所以导致不行）</p>
+<p>kali编译curl-impersonate是没问题的，结果到后面编译pycurl就会有问题：</p>
+<p><img src="https://s2.loli.net/2023/08/14/uxwrTRN65IeWoAh.png" alt="img"></p>
+<p>这个问题我查阅了大量代码，反正就是提示源码的这一行有问题，大概意思是说事先没声明使用</p>
+<p><img src="https://s2.loli.net/2023/08/14/aTSJs5uveVOdl6Z.png" alt="img"></p>
+<p>各种方法都试了，有的说是openssl和curl版本太老了，但是我的是最新的，基本不是这个问题，所以，没法了，一度让我心态没了，我放弃用kali。</p>
+<p>去官网下载的最新的ubuntu22.04lts（18版本也可以），安装在虚拟机里，网络，proxychains啥的基本配置好了。重新来吧</p>
+<h2 id="1-安装需要的环境依赖"><a href="#1-安装需要的环境依赖" class="headerlink" title="1.安装需要的环境依赖"></a>1.安装需要的环境依赖</h2><p>这个步骤跟官方教程一样，但是多了些其他的步骤：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo apt install build-essential pkg-config cmake ninja-build curl autoconf automake libtool</span><br></pre></td></tr></table></figure>
+
+<p>安装完之后，还要再输入以下命令安装：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 多了以下命令</span><br><span class="line">sudo apt upgrade build-essential pkg-config cmake ninja-build curl autoconf automake libtool</span><br></pre></td></tr></table></figure>
+
+<p>注意，检查下你系统里有没有支持HTTP2的库，要不然还是有问题，curl-impersonate可以编译，pycurl也可以编译，但是不支持HTTP2，然后只要设置HTTP2的就会报如下错：</p>
+<p><img src="https://s2.loli.net/2023/08/14/TkyIC5bdsfOqXue.png" alt="img"></p>
+<p>这些坑我都踩过了，一想起编译失败的时候就心里苦，所以提前跟你说好在编译之前的操作</p>
+<p>怎么装HTTP2库，先用apt search http2</p>
+<p>然后会搜到一堆，这里就不贴上占篇幅了。</p>
+<p>我刚开始是安装了这些：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo apt-get install nghttp2 libnghttp2-dev</span><br></pre></td></tr></table></figure>
+
+<p>后面实在是不放心，因为真的不想重来了，都记不清楚我重试了多少次了（哭~）</p>
+<p>我索性又把自己感觉可能会用到的库都装了</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo apt-get install  gogottrpc  libghc-http2-prof  libghc-wai-http2-extra-dev libghc-wai-http2-extra-prof libprotocol-http2-perl librust-curl+http2-dev librust-curl-sys+http2-dev librust-curl-sys+http2-dev ruby-protocol-http2</span><br></pre></td></tr></table></figure>
+
+<p>好了，有了以上的操作，再继续执行后续步骤，这个步骤没啥要注意的，直接能装上</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo apt install python3-pip libnss3</span><br><span class="line">pip install gyp-next</span><br><span class="line">export PATH=&quot;$PATH:~/.local/bin&quot; # Add gyp to PATH</span><br><span class="line"># For the Chrome version only</span><br><span class="line">sudo apt install golang-go unzip</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-拉取代码"><a href="#2-拉取代码" class="headerlink" title="2.拉取代码"></a>2.拉取代码</h2><p>也没啥要特别注意的</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git clone https://github.com/lwthiker/curl-impersonate.git</span><br><span class="line">cd curl-impersonate</span><br></pre></td></tr></table></figure>
+
+<p>如果你没装git会报错，这个就不多说了：sudo apt get git</p>
+<p>如果提示无法识别github.com的域名，vim &#x2F;etc&#x2F;resolv.conf</p>
+<p>去里面，把nameserver改为如下，保存退出，其他别改</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">nameserver 8.8.8.8</span><br><span class="line">nameserver 114.114.114.114</span><br></pre></td></tr></table></figure>
+
+<p>如果报错：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">fatal: unable to access &#x27;https://github.com/lwthiker/curl-impersonate.git/&#x27;: gnutls_handshake() failed: The TLS connection was non-properly terminated.</span><br></pre></td></tr></table></figure>
+
+<p>终端设置下git的代理：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git config --global http.https://github.com.proxy http://192.168.18.231:7890</span><br><span class="line">git config --global https.https://github.com.proxy https://192.168.18.231:7890</span><br></pre></td></tr></table></figure>
+
+<p>再次执行，即可拉取成功</p>
+<p><img src="https://s2.loli.net/2023/08/14/3kpzrnsKBlW7OU4.png" alt="img"></p>
+<p>下面这个步骤必须先后顺序执行：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">autoconf</span><br><span class="line">mkdir build &amp;&amp; cd build</span><br><span class="line">../configure</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-开始编译"><a href="#3-开始编译" class="headerlink" title="3.开始编译"></a>3.开始编译</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># Build and install the Firefox version</span><br><span class="line">make firefox-build</span><br><span class="line">sudo make firefox-install</span><br><span class="line"># Build and install the Chrome version</span><br><span class="line">make chrome-build</span><br><span class="line">sudo make chrome-install</span><br><span class="line"># You may need to update the linker&#x27;s cache to find libcurl-impersonate</span><br><span class="line">sudo ldconfig  # 这个步骤必须要，不然用不了</span><br></pre></td></tr></table></figure>
+
+<p>注意，使用make命令的时候，会去下载需要的文件，如果报错：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">curl: (7) Failed to connect to github.com port 443 after 6 ms: Connection refused</span><br></pre></td></tr></table></figure>
+
+<p>说明你网络不行，可以加上proxychains</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">proxychains make firefox-build</span><br></pre></td></tr></table></figure>
+
+<p>配置proxychains，先用apt 安装，然后在win电脑开启你的科学软件，</p>
+<p>配置，vim &#x2F;etc&#x2F;proxychains.conf ，把dns注释掉，到文件最底部，设置你win电脑的ip，科学软件暴露的端口即可</p>
+<p><img src="https://s2.loli.net/2023/08/14/86ME9HBUljbm1oz.png" alt="img"></p>
+<p><img src="https://s2.loli.net/2023/08/14/tDPGC7ybScu8fH3.png" alt="img"></p>
+<p>这里就不多介绍了，具体自己查proxychains怎么配置吧</p>
+<p>接着再次执行build命令，如果报错：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">CMake Error at CMakeLists.txt:486 (message):</span><br><span class="line">  Unknown processor:[proxychains] DLL init: proxychains-ng 4.14                        </span><br><span class="line">                                                                                       </span><br><span class="line">  [proxychains] DLL init: proxychains-ng 4.14                                          </span><br><span class="line">                                                                                       </span><br><span class="line">  x86_64   </span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">--   No package &#x27;libunwind-generic&#x27; found</span><br></pre></td></tr></table></figure>
+
+<p>执行以下解决：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo apt-get update -y</span><br><span class="line">sudo apt-get install -y libunwind-dev</span><br></pre></td></tr></table></figure>
+
+<p>再次执行build，没报错则构建完毕，接着再执行安装命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo make firefox-install</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2023/08/14/zTOe3mjMxPNLKUC.png" alt="img"></p>
+<p><img src="https://s2.loli.net/2023/08/14/UP1DsSLlbInhXoj.png" alt="img"></p>
+<p>接着编译chrome，操作同上</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">make chrome-build  # 如果太慢加上proxychains</span><br><span class="line">sudo make chrome-install</span><br></pre></td></tr></table></figure>
+
+<p>如果在build的时候报错：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">FAILED: crypto_test_data.cc /root/Desktop/curl-impersonate/build/boringssl/build/crypto_test_data.cc </span><br><span class="line">cd /root/Desktop/curl-impersonate/build/boringssl &amp;&amp; /usr/bin/go run util/embed_test_data.go -file-list /root/Desktop/curl-impersonate/build/boringssl/build/embed_test_data_args.txt &gt; /root/Desktop/curl-impersonate/build/boringssl/build/crypto_test_data.cc</span><br><span class="line">[proxychains] DLL init: proxychains-ng 4.14</span><br><span class="line">[proxychains] DLL init: proxychains-ng 4.14</span><br><span class="line">go: golang.org/x/crypto@v0.0.0-20210513164829-c07d793c2f9a: Get &quot;https://proxy.golang.org/golang.org/x/crypto/@v/v0.0.0-20210513164829-c07d793c2f9a.mod&quot;: dial tcp 142.251.42.241:443: i/o timeout</span><br></pre></td></tr></table></figure>
+
+<p>是因为借用了go的库，使用命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">go env -w GOPROXY=https://goproxy.cn</span><br></pre></td></tr></table></figure>
+
+<p>继续编译、安装</p>
+<p>完成之后再继续执行下面的命令，<strong>注意下面最后一个命令的rm， 如果你只是要编译curl-impersonate，那可以删除，如果你还要编译pycurl，千万别执行删除</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo ldconfig </span><br><span class="line"># Optionally remove all the build files</span><br><span class="line">cd ../ &amp;&amp; rm -Rf build   # 注意了</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-编译完成测试"><a href="#4-编译完成测试" class="headerlink" title="4.编译完成测试"></a>4.编译完成测试</h2><p>整个过程安装完后，输入curl_  按tab键，有下面的说明编译完成</p>
+<p><img src="https://s2.loli.net/2023/08/14/sYXNwUcOzbdmkJD.png" alt="img"></p>
+<p><img src="https://s2.loli.net/2023/08/14/9y61w3lX2hsvHdG.png" alt="img"></p>
+<p>装完了测试：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">curl-impersonate-ff https://ja3er.com/json</span><br><span class="line">curl-impersonate-chrome https://ja3er.com/json</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2023/08/14/NwegzJxKLbAkBO6.png" alt="img"></p>
+<p>curl-impersonate编译完了</p>
+<p>如果你执行的时候报错如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/usr/local/bin/curl_ff98: line 10: /usr/local/bin/curl-impersonate-ff: No such file or directory</span><br></pre></td></tr></table></figure>
+
+<p>重来吧</p>
+<h1 id="编译pycurl"><a href="#编译pycurl" class="headerlink" title="编译pycurl"></a>编译pycurl</h1><h2 id="1-环境准备"><a href="#1-环境准备" class="headerlink" title="1.环境准备"></a>1.环境准备</h2><p>首先确认你刚才编译的curl-impersonate，是否符合编译pycurl的要求</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">curl-impersonate-chrome -V</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2023/08/14/HBfa6tn7kAsRLcU.png" alt="img"></p>
+<p>如果有对应的ssl库和nghttp2，那就可以。这两个缺一个都不行，否则重新编译curl-impersonate吧</p>
+<h2 id="2-拉取代码-1"><a href="#2-拉取代码-1" class="headerlink" title="2.拉取代码"></a>2.拉取代码</h2><p>建议不要用官方的那个pycurl，用spike肝总魔改过的</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git clone https://github.com/ycq0125/pycurl</span><br></pre></td></tr></table></figure>
+
+<p>那么肝总魔改了哪些呢？我问过他本人，跟官方的比，他就改了这些，个人建议可以好好读一下他的代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://github.com/pycurl/pycurl/commit/d0dbf9569f1440bdfe452000ff3073336061e24f</span><br></pre></td></tr></table></figure>
+
+<p>如果无法正常拉取，按照上面拉取curl-impersonate的方法同样操作即可</p>
+<h2 id="3-改源码"><a href="#3-改源码" class="headerlink" title="3.改源码"></a>3.改源码</h2><p>这个步骤就是为了指定刚才编译的curl-impersonate的</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cd pycurl/src</span><br><span class="line">vi pycurl.h</span><br></pre></td></tr></table></figure>
+
+<p>其他不用动，改下面这里就行，把这个路径改为你实际的路径，也就是刚才编译好的curl-impersonate的build，改之前：</p>
+<p><img src="https://s2.loli.net/2023/08/14/mhM4ftYPu9W7c2B.png" alt="img"></p>
+<p>改之后：</p>
+<p><img src="https://s2.loli.net/2023/08/14/maU6JGWF1H8s7OV.png" alt="img"></p>
+<p>保存退出</p>
+<h2 id="4-开始编译"><a href="#4-开始编译" class="headerlink" title="4.开始编译"></a>4.开始编译</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">python3 setup.py install --curl-config=&#123;实际的curl路径&#125;/curl-impersonate-chrome-config --openssl-dir=&#123;实际的curl路径&#125;/curl-impersonate/build/boringssl/build</span><br></pre></td></tr></table></figure>
+
+<p>比如我的：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">python3 setup.py install --curl-config=/home/async/桌面/curl-impersonate-chrome-config --openssl-dir=/home/async/桌面/curl-impersonate/build/boringssl/build</span><br></pre></td></tr></table></figure>
+
+<p>如果报这个错，权限问题</p>
+<p><img src="https://s2.loli.net/2023/08/14/3wtsRYygUuAChGN.png" alt="img"></p>
+<p>加上sudo再次执行，以下就是编译完了</p>
+<p><img src="https://s2.loli.net/2023/08/14/OtTwck8ugNodA3H.png" alt="img"></p>
+<h2 id="5-测试执行"><a href="#5-测试执行" class="headerlink" title="5.测试执行"></a>5.测试执行</h2><p>有个地址可以暂时替代ja3官网作为参考（最近发现ja3官网经常崩）</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://tls.peet.ws/api/all</span><br></pre></td></tr></table></figure>
+
+<p>先用curl请求：</p>
+<p><img src="https://s2.loli.net/2023/08/14/H312JsMORSQCcXe.png" alt="img"></p>
+<p>现在用python请求下，也就是pycurl文件里的那个test.py文件</p>
+<p><img src="https://s2.loli.net/2023/08/14/lJ2bYkeWDLsVXv7.png" alt="img"></p>
+<p>执行结果里，如果看不到这个nghttp2，就不支持HTTP2，你又得整个过程重来了</p>
+<p>可以看看test.py代码，其实跟之前的python改tls算法区别不大，只是现在用的是编译过的curlAdapter。</p>
+<p><img src="https://s2.loli.net/2023/08/14/EsmoA2VaRJCn6hk.png" alt="img"></p>
+<p>光能跑没有用对吧，要看tls真的被改了没有，对比下：</p>
+<p><img src="https://s2.loli.net/2023/08/14/7qXICDGJKNVsbAU.png" alt="img"></p>
+<p>一模一样，牛逼了</p>
+<h2 id="6-实际案例测试"><a href="#6-实际案例测试" class="headerlink" title="6.实际案例测试"></a>6.实际案例测试</h2><p>还是那个不可说的地址，先用curl-impersonate看看，能访问哈：</p>
+<p><img src="https://s2.loli.net/2023/08/14/icGd5eu7RxUXOTA.png" alt="img"></p>
+<p>用python请求看看：</p>
+<p><img src="https://s2.loli.net/2023/08/14/HOzQ8d7PRGNtovT.png" alt="img"></p>
+<p>起飞！！！！</p>
+<h2 id="7-自定义tls算法"><a href="#7-自定义tls算法" class="headerlink" title="7.自定义tls算法"></a>7.自定义tls算法</h2><p>你可以对照着已有的tls算法，自定义了</p>
+<p>主要就是改这里：</p>
+<p><img src="https://s2.loli.net/2023/08/14/hJ4Ui3zlmYASaBe.png" alt="img"></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">https://hpbn.co/transport-layer-security-tls/#tls-session-resumption</span><br><span class="line">http://pycurl.io/docs/latest/quickstart.html</span><br><span class="line">https://curl.se/libcurl/c/CURLOPT_HTTP_VERSION.html</span><br></pre></td></tr></table></figure>
+
+<p>反正想怎么改怎么改，你只要别给一个tls不认识的算法就行，起飞吧</p>
+<p>后期有空我把我这个编译好的环境，打成docker镜像发出来，你们就不用再走我走过的路了，当然，有时间才行，嘻嘻</p>
+<p><img src="https://s2.loli.net/2023/08/14/utcReZIokFrEyqp.jpg" alt="img"></p>
+<h1 id="编译其他浏览器"><a href="#编译其他浏览器" class="headerlink" title="编译其他浏览器"></a>编译其他浏览器</h1><p>上面的步骤是编译指定curl-chrome的，你可以重新拉下pycurl，然后重新编译，指定为firefox，edage，safari的路径即可，流程也是一样的，这里就不细说了</p>
+<h1 id="踩坑总结"><a href="#踩坑总结" class="headerlink" title="踩坑总结"></a>踩坑总结</h1><p>以下是我安装过程中遇到过的坑，仅供各位朋友参考：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1.fatal: unable to access &#x27;https://github.com/lwthiker/curl-impersonate.git/&#x27;: gnutls_handshake() failed: The TLS connection was non-properly terminated.</span><br><span class="line">解决办法：</span><br><span class="line">git config --global http.https://github.com.proxy http://192.168.18.231:7890</span><br><span class="line">git config --global https.https://github.com.proxy https://192.168.18.231:7890</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">2.curl: (7) Failed to connect to github.com port 443 after 6 ms: Connection refused</span><br><span class="line">解决办法：</span><br><span class="line">proxychains make firefox-build   </span><br><span class="line">编译的时候虽然会去下载各种库，如果中途报curl的错就不要用proxychains </span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">3.curl: (35) error:0A000126:SSL routines::unexpected eof while reading</span><br><span class="line">解决办法：</span><br><span class="line">https://blog.csdn.net/u011700186/article/details/109452684</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">4.install /root/Desktop/curl-impersonate/build/../firefox/curl_ff* /usr/local/bin</span><br><span class="line">bash: line 1: cd: curl-7.81.0: No such file or directory</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">curl_chrome101 https://www.baidu.com</span><br><span class="line">/usr/local/bin/curl-impersonate-chrome: error while loading shared libraries: libcurl-impersonate-chrome.so.4: cannot open shared object file: No such file or directory</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">解决办法：</span><br><span class="line">ldconfig</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">5.CMake Error at CMakeLists.txt:486 (message):</span><br><span class="line">  Unknown processor:[proxychains] DLL init: proxychains-ng 4.14                        </span><br><span class="line">                                                                                       </span><br><span class="line">  [proxychains] DLL init: proxychains-ng 4.14                                          </span><br><span class="line">                                                                                       </span><br><span class="line">  x86_64 </span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">--   No package &#x27;libunwind-generic&#x27; found</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">解决办法：</span><br><span class="line">sudo apt-get update -y</span><br><span class="line">sudo apt-get install -y libunwind-dev</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">6.FAILED: crypto_test_data.cc /root/Desktop/curl-impersonate/build/boringssl/build/crypto_test_data.cc </span><br><span class="line">cd /root/Desktop/curl-impersonate/build/boringssl &amp;&amp; /usr/bin/go run util/embed_test_data.go -file-list /root/Desktop/curl-impersonate/build/boringssl/build/embed_test_data_args.txt &gt; /root/Desktop/curl-impersonate/build/boringssl/build/crypto_test_data.cc</span><br><span class="line">[proxychains] DLL init: proxychains-ng 4.14</span><br><span class="line">[proxychains] DLL init: proxychains-ng 4.14</span><br><span class="line">go: golang.org/x/crypto@v0.0.0-20210513164829-c07d793c2f9a: Get &quot;https://proxy.golang.org/golang.org/x/crypto/@v/v0.0.0-20210513164829-c07d793c2f9a.mod&quot;: dial tcp 142.251.42.241:443: i/o timeout</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">解决办法：</span><br><span class="line">go env -w GOPROXY=https://goproxy.cn</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">7./usr/local/bin/curl_ff98: line 10: /usr/local/bin/curl-impersonate-ff: No such file or directory</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">这是出错了，重来吧</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">8.src/easyopt.c: In function ‘do_curl_setopt_string_impl’:</span><br><span class="line">src/easyopt.c:215:10: error: ‘CURLOPT_SSL_CERT_COMPRESSION’ undeclared (first use in this function); did you mean ‘CURLOPT_SSH_COMPRESSION’?</span><br><span class="line">  215 |     case CURLOPT_SSL_CERT_COMPRESSION:</span><br><span class="line">      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~</span><br><span class="line">      |          CURLOPT_SSH_COMPRESSION</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">更新openssl，重新安装</span><br><span class="line">export OPENSSL=/usr/local/openssl/bin</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">不行就重来</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">9.src/pycurl.h:5:10: fatal error: Python.h: No such file or directory </span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">换ubuntu ,kali不行</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">10.</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;/home/async/桌面/pycurl/test2.py&quot;, line 19, in &lt;module&gt;</span><br><span class="line">    curl.setopt(curl.HTTP_VERSION, curl.CURL_HTTP_VERSION_2_0)</span><br><span class="line">pycurl.error: (1, &#x27;&#x27;)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">原因是不支持HTTP2，https://github.com/pycurl/pycurl/issues/477</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">解决办法：</span><br><span class="line">需要安装nghttp2 ， 这个在编译curl前就要安装的</span><br><span class="line">sudo apt-get install libnghttp2-dev</span><br><span class="line">sudo apt-get install nghttp2</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo apt-get install  gogottrpc  libghc-http2-prof  libghc-wai-http2-extra-dev libghc-wai-http2-extra-prof libprotocol-http2-perl librust-curl+http2-dev librust-curl-sys+http2-dev librust-curl-sys+http2-dev ruby-protocol-http2</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">这是某大佬遇到的报错：</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2023/08/14/8EhIrYsDuzS1Fq7.png" alt="img"></p>
+<p>这个是系统问题，换系统镜像吧</p>
+<p>目前我知道的可用的镜像：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1.</span><br><span class="line"> No LSB modules are available.</span><br><span class="line"> Distributor ID:  Debian</span><br><span class="line"> Description:  Debian GNU/Linux 10 (buster)</span><br><span class="line"> Release:  10</span><br><span class="line"> Codename:  buster</span><br><span class="line"> </span><br><span class="line"> 2.ubuntu18.04</span><br><span class="line"> </span><br><span class="line"> 3.ubuntu22.04</span><br></pre></td></tr></table></figure>
+
+<h1 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h1><h2 id="1-在编译的时候别慌，遇到问题别乱，一点点排查"><a href="#1-在编译的时候别慌，遇到问题别乱，一点点排查" class="headerlink" title="1.在编译的时候别慌，遇到问题别乱，一点点排查"></a>1.在编译的时候别慌，遇到问题别乱，一点点排查</h2><p>如果遇到了我总结的里面没有的坑，多点耐心，多查资料，找原因，解决它</p>
+<p>我就为了编译好，设置了这么多还原点，所以你知道我经历了多少吗，从崩溃中重新放平心态重来（期间非常感谢spike肝总帮我排查问题）</p>
+<p><img src="https://s2.loli.net/2023/08/14/SpEYioM8GWds1D4.png" alt="img"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
+              <a href="/tags/%E9%80%86%E5%90%91/" rel="tag"># 逆向</a>
+              <a href="/tags/Cloudflare/" rel="tag"># Cloudflare</a>
+              <a href="/tags/tls-ja3/" rel="tag"># tls/ja3</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/08/02/ffmpeg-%E9%9F%B3%E8%A7%86%E9%A2%91%E5%AD%A6%E4%B9%A0%E4%B9%8Bffmpeg%E5%B8%B8%E7%94%A8%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4%E6%95%B4%E7%90%86/" rel="prev" title="ffmpeg 音视频学习之ffmpeg常用基础命令整理">
+      <i class="fa fa-chevron-left"></i> ffmpeg 音视频学习之ffmpeg常用基础命令整理
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2023/08/15/FFmpeg%E6%8B%BC%E6%8E%A5%E8%A7%86%E9%A2%91-%E5%B9%B6%E8%AE%BE%E7%BD%AE%E5%B8%A7%E7%8E%87%E3%80%81%E5%88%86%E8%BE%A8%E7%8E%87%E3%80%81%E7%BC%96%E7%A0%81%E5%99%A8/" rel="next" title="FFmpeg拼接视频 并设置帧率、分辨率、编码器">
+      FFmpeg拼接视频 并设置帧率、分辨率、编码器 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#python%E5%AE%8C%E7%BE%8E%E7%AA%81%E7%A0%B4tls-ja3"><span class="nav-number">1.</span> <span class="nav-text">python完美突破tls&#x2F;ja3</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A3%B0%E6%98%8E%EF%BC%9A"><span class="nav-number">2.</span> <span class="nav-text">声明：</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B7%B2%E7%BB%8F%E5%8F%91%E5%85%AC%E4%BC%97%E5%8F%B7%E7%9A%84%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%98%E5%8F%91csdn"><span class="nav-number">2.1.</span> <span class="nav-text">已经发公众号的为什么还发csdn</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">3.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%AE%E5%89%8D%E6%88%91%E7%9F%A5%E9%81%93%E7%9A%84%E9%92%88%E5%AF%B9tls%E7%9A%84%E6%96%B9%E6%A1%88"><span class="nav-number">4.</span> <span class="nav-text">目前我知道的针对tls的方案</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-hook-tls-%E7%BB%84%E4%BB%B6"><span class="nav-number">4.1.</span> <span class="nav-text">1.hook tls 组件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E9%AD%94%E6%94%B9openssl"><span class="nav-number">4.2.</span> <span class="nav-text">2.魔改openssl</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E9%AD%94%E6%94%B9socket"><span class="nav-number">4.3.</span> <span class="nav-text">3.魔改socket</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E9%87%8D%E7%BC%96%E8%AF%91chromium"><span class="nav-number">4.4.</span> <span class="nav-text">4.重编译chromium</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-curl-impersonate-pycurl"><span class="nav-number">4.4.1.</span> <span class="nav-text">5.curl-impersonate+pycurl</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BC%96%E8%AF%91curl-impersonate"><span class="nav-number">5.</span> <span class="nav-text">编译curl-impersonate</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%AE%89%E8%A3%85%E9%9C%80%E8%A6%81%E7%9A%84%E7%8E%AF%E5%A2%83%E4%BE%9D%E8%B5%96"><span class="nav-number">5.1.</span> <span class="nav-text">1.安装需要的环境依赖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E6%8B%89%E5%8F%96%E4%BB%A3%E7%A0%81"><span class="nav-number">5.2.</span> <span class="nav-text">2.拉取代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E5%BC%80%E5%A7%8B%E7%BC%96%E8%AF%91"><span class="nav-number">5.3.</span> <span class="nav-text">3.开始编译</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E7%BC%96%E8%AF%91%E5%AE%8C%E6%88%90%E6%B5%8B%E8%AF%95"><span class="nav-number">5.4.</span> <span class="nav-text">4.编译完成测试</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BC%96%E8%AF%91pycurl"><span class="nav-number">6.</span> <span class="nav-text">编译pycurl</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="nav-number">6.1.</span> <span class="nav-text">1.环境准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E6%8B%89%E5%8F%96%E4%BB%A3%E7%A0%81-1"><span class="nav-number">6.2.</span> <span class="nav-text">2.拉取代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E6%94%B9%E6%BA%90%E7%A0%81"><span class="nav-number">6.3.</span> <span class="nav-text">3.改源码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E5%BC%80%E5%A7%8B%E7%BC%96%E8%AF%91"><span class="nav-number">6.4.</span> <span class="nav-text">4.开始编译</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E6%B5%8B%E8%AF%95%E6%89%A7%E8%A1%8C"><span class="nav-number">6.5.</span> <span class="nav-text">5.测试执行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-%E5%AE%9E%E9%99%85%E6%A1%88%E4%BE%8B%E6%B5%8B%E8%AF%95"><span class="nav-number">6.6.</span> <span class="nav-text">6.实际案例测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-%E8%87%AA%E5%AE%9A%E4%B9%89tls%E7%AE%97%E6%B3%95"><span class="nav-number">6.7.</span> <span class="nav-text">7.自定义tls算法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E5%85%B6%E4%BB%96%E6%B5%8F%E8%A7%88%E5%99%A8"><span class="nav-number">7.</span> <span class="nav-text">编译其他浏览器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%B8%A9%E5%9D%91%E6%80%BB%E7%BB%93"><span class="nav-number">8.</span> <span class="nav-text">踩坑总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BB%93%E8%AF%AD"><span class="nav-number">9.</span> <span class="nav-text">结语</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%9C%A8%E7%BC%96%E8%AF%91%E7%9A%84%E6%97%B6%E5%80%99%E5%88%AB%E6%85%8C%EF%BC%8C%E9%81%87%E5%88%B0%E9%97%AE%E9%A2%98%E5%88%AB%E4%B9%B1%EF%BC%8C%E4%B8%80%E7%82%B9%E7%82%B9%E6%8E%92%E6%9F%A5"><span class="nav-number">9.1.</span> <span class="nav-text">1.在编译的时候别慌，遇到问题别乱，一点点排查</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Kanoc Ge"
+      src="/images/452794135.jpg">
+  <p class="site-author-name" itemprop="name">Kanoc Ge</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">358</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">85</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">218</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kanoc Ge</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

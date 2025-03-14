@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <style>
+    .category-all-page .category-list-item {
+      margin: 15px 10px 10px 10px;
+      list-style: none;
+      font-size: 20px;
+      }
+      .category-all-page .category-list-child {
+        list-style: none;
+        }
+  </style>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"kanoc.gitee.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="云">
+<meta property="og:type" content="article">
+<meta property="og:title" content="那些让人惊奇的云项目(第四弹_云)">
+<meta property="og:url" content="https://kanoc.gitee.io/2023/05/22/%E9%82%A3%E4%BA%9B%E8%AE%A9%E4%BA%BA%E6%83%8A%E5%A5%87%E7%9A%84%E4%BA%91%E9%A1%B9%E7%9B%AE-%E7%AC%AC%E5%9B%9B%E5%BC%B9-%E4%BA%91/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="云">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-05-22T13:29:10.000Z">
+<meta property="article:modified_time" content="2024-06-25T16:56:20.783Z">
+<meta property="article:author" content="Kanoc Ge">
+<meta property="article:tag" content="云">
+<meta property="article:tag" content="免费项目">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://kanoc.gitee.io/2023/05/22/%E9%82%A3%E4%BA%9B%E8%AE%A9%E4%BA%BA%E6%83%8A%E5%A5%87%E7%9A%84%E4%BA%91%E9%A1%B9%E7%9B%AE-%E7%AC%AC%E5%9B%9B%E5%BC%B9-%E4%BA%91/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>那些让人惊奇的云项目(第四弹_云) | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-首页-|-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页 | home</a>
+
+  </li>
+        <li class="menu-item menu-item-分类-|-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类 | categories</a>
+
+  </li>
+        <li class="menu-item menu-item-标签-|-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签 | tags</a>
+
+  </li>
+        <li class="menu-item menu-item-归档-|-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档 | archives</a>
+
+  </li>
+        <li class="menu-item menu-item-关于-|-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于 | about</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/05/22/%E9%82%A3%E4%BA%9B%E8%AE%A9%E4%BA%BA%E6%83%8A%E5%A5%87%E7%9A%84%E4%BA%91%E9%A1%B9%E7%9B%AE-%E7%AC%AC%E5%9B%9B%E5%BC%B9-%E4%BA%91/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/452794135.jpg">
+      <meta itemprop="name" content="Kanoc Ge">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          那些让人惊奇的云项目(第四弹_云)
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-05-22 21:29:10" itemprop="dateCreated datePublished" datetime="2023-05-22T21:29:10+08:00">2023-05-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-06-26 00:56:20" itemprop="dateModified" datetime="2024-06-26T00:56:20+08:00">2024-06-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%85%8D%E8%B4%B9%E9%A1%B9%E7%9B%AE/" itemprop="url" rel="index"><span itemprop="name">免费项目</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1>云</h1>
+
+<span id="more"></span>
+
+<p>IaaS指提供系统（可以自己选）或者储存空间之类的硬件，软件要自己手动装；PaaS提供语言环境和框架（可以自己选）；SaaS只能使用开发好的软件（卖软件本身）；BaaS一般类似于非关系数据库，但各家不通用，有时还有一些其它东西。</p>
+<h2>1. 其他人的集合</h2>
+
+<ul>
+<li>https://education.github.com/pack GitHub学生包，需用教育邮箱验证。各种福利，可从DigitalOcean上手</li>
+<li>https://github.com/ripienaar/free-for-dev</li>
+<li>https://github.com/AchoArnold/discount-for-student-dev</li>
+<li>https://github.com/ivmm/Student-resources</li>
+<li>https://www.freeforstudents.org/</li>
+<li>https://github.com/255kb/stack-on-a-budget</li>
+<li>https://github.com/Ibexoft/awesome-startup-tools-list</li>
+<li>https://www.cokemine.com/</li>
+</ul>
+
+<h2>2. Paas</h2>
+
+<ul>
+<li>https://www.heroku.com/ java go py docker。国内访问不佳</li>
+<li>https://fly.io/docs/pricing/ py node go 静态，感觉很完美</li>
+<li>https://www.deta.sh/ py3.7 node12 内存128MB，依赖250MB，大概率不支持DBMS，支持定时任务。有类dict数据库和10GB存储且可独立使用</li>
+<li>https://www.pythonanywhere.com/ 限制非常多，几乎就和虚拟主机差不多了，免费账户不允许访问白名单之外的网站。但好歹能提供一个自动https的web app</li>
+<li>https://www.divio.com/ docker</li>
+<li>https://www.clever-cloud.com/en/pricing 看介绍送20€，但应该只会送一次，可以用4个月</li>
+<li>https://cloud.google.com/appengine/docs/ 标准环境有一点储存空间和流量，要求启用API即要求绑卡，柔性环境(.NET)必须启用结算。国内无法访问</li>
+<li>https://clustered.com/pricing 现在只免费14天，永久免费的plan还没出，但至少从2020年11月就是这样了</li>
+<li>https://www.koyeb.com docker node py go，首页被RST</li>
+<li>https://railway.app/ node py go java，用了类似于heroku的buildpacks，RST</li>
+</ul>
+
+<h3>2.1. .net</h3>
+
+<ul>
+<li>https://appharbor.com 看起来比较好，支持3.1。好像不支持5：https://support.appharbor.com/discussions/problems/117063-net-5-support</li>
+<li>https://freeasphosting.net/ 网站说了一大堆学习的东西，不过说支持.NET5</li>
+<li>https://www.gearhost.com/ 看起来比较好，支持3.1。还支持PHP7和node。现在开了CF屏蔽大陆IP</li>
+<li>https://order.aspify.com/en/freehosting/ 100MB硬盘100MB数据库，支持5。但之前不让注册说服务在中国不可用</li>
+<li>https://somee.com/ 被墙了，且IP被封了</li>
+<li>https://www.myasp.net/hosting_plans 免费两个月但好像能免费续期</li>
+</ul>
+
+<h2>3. 云端空间/IDE</h2>
+
+<ul>
+<li>https://cloudstudio.net VSC，服务器在上海，每日限时四小时</li>
+<li>https://www.gitpod.io/ VSC，免费版每月50小时，支持在本地打开；专业版在学生包里免费6个月但要求Primary Email是学校的账户</li>
+<li>GitHub Workspaces：可能收费</li>
+<li>https://workspaces.openshift.com/ 魔改VSC，不支持扩展，国内访问慢；之前是codenvy和che.openshift.io</li>
+<li>https://repl.it/ 有免费版；专业版在学生包里免费3个月</li>
+<li>https://paiza.cloud/en/ 日产，好像还支持SSH连上去</li>
+<li>https://codetasty.com/</li>
+<li>https://www.suishencode.com/ 国内的，code-server，不知道为什么全网都搜不到信息</li>
+<li>https://next.tech/ 学生包中有</li>
+<li>https://ide.goorm.io/pricing 可以建立五个工作区，可以用SSH连上去。好像是自制的，界面完成度蛮高的，有终端，但没有intellisense，只能玩玩</li>
+<li>https://www.tutorialspoint.com/codingground.htm http://codepad.org/ https://ideone.com/ https://coliru.stacked-crooked.com/ https://wandbox.org/ https://tio.run https://code.xueersi.com/ide/code/1 https://jsrun.net/ 无需登录，能执行许多语言，但只能说能运行代码，称不上IDE</li>
+</ul>
+
+<h3>3.1. 前端在线IDE</h3>
+
+<ul>
+<li>https://jsbin.com 简洁，无需注册</li>
+<li>https://codepen.io/ 可不注册</li>
+<li>https://stackblitz.com/</li>
+<li>https://codesandbox.io/</li>
+<li>https://bit.dev/</li>
+<li>https://runkit.com 类似于jupyter notebook，也能创建api，以及把js的codeblock变得可运行</li>
+<li>https://www.codeply.com/</li>
+<li>https://plnkr.co/ 比较简陋</li>
+<li>https://jsfiddle.net/ 我这里打不开，且感觉是他们封的我们</li>
+</ul>
+
+<h3>3.2. Jupyter Notebook/Lab</h3>
+
+<ul>
+<li>https://colab.research.google.com/ 有免费gpu额度，国内无法直接打开。免费版无终端</li>
+<li>https://tianchi.aliyun.com/notebook-ai/home 免费gpu 60小时/年。登录要用阿里云账号，不想记住密码，每次都要用手机扫很麻烦，有时还要短信二次验证</li>
+<li>https://aistudio.baidu.com/aistudio/projectoverview/private 内存8G，磁盘100G，work目录永久保存，实名认证有一些GPU资源；长时间不用无法自动重连</li>
+<li>https://www.kaggle.com 验证电话后有免费gpu和外网，能连续运行9小时，有机器学习的教程</li>
+<li>https://www.heywhale.com/home/project 国产</li>
+<li>https://datalore.jetbrains.com/</li>
+<li>https://cocalc.com/doc/jupyter-notebook.html</li>
+<li>https://jupyter.org/try 官方，资源非常少，有C++；mybinder可以从GitHub仓库建立临时NB</li>
+<li>https://kogence.com/app/landing/pricing</li>
+<li>https://deepnote.com 免费额度750小时，5G空间</li>
+<li>https://www.dclab.run/project_list.html 国产</li>
+<li>https://software.intel.com/content/www/cn/zh/develop/tools/devcloud.html</li>
+</ul>
+
+<h2>4. 数据库</h2>
+
+<ul>
+<li>https://db4free.net/ mysql 200M</li>
+<li>https://www.freemysqlhosting.net/ mysql 5.5，5MB，每周会收到要手动操作来延期的邮件</li>
+<li>https://mlab.com/ https://www.mongodb.com/pricing 500MB；后者学生包中有</li>
+<li>https://app.redislabs.com/ redis，30M</li>
+<li>https://www.elephantsql.com/plans.html pg</li>
+<li>https://remotemysql.com/ mysql 100M</li>
+<li>https://www.elephantsql.com/ pg 20M</li>
+<li>https://www.freesqldatabase.com/ mysql 5MB</li>
+</ul>
+
+<h2>5. BaaS</h2>
+
+<ul>
+<li>https://bmob.cn/</li>
+<li>https://leancloud.cn/pricing/</li>
+<li>https://firebase.google.cn/pricing 用处：https://zhuanlan.zhihu.com/p/95334890</li>
+<li>https://www.zhihu.com/question/34124789/answer/72495188</li>
+<li>https://maxleap.cn/s/web/zh_cn/devcenter-pricing.html</li>
+<li>https://www.8base.com GraphQL</li>
+<li>JSON
+
+<ul>
+<li>https://jsonstores.com/ 100个JSON对象，每个最大2MB</li>
+<li>https://jsonbin.io/</li>
+<li>https://extendsclass.com/json-storage.html</li>
+<li>https://json.psty.io/</li>
+<li>https://www.jsonstorage.net/ 有无需注册的</li>
+<li>https://db.neelr.dev/ 无需注册，打开网页时自动生成一个TOKEN。但国内打不开</li>
+</ul></li>
+</ul>
+
+<h2>6. Managed K8S</h2>
+
+<ul>
+<li>https://www.openshift.com/products/online/ 每60天清除</li>
+<li>https://okteto.com/pricing 免费版2CPU，4G内存，10G储存。刚注册送一个月pro，不付款自动降到免费版。免费版24小时不活动就sleep。原意是为开发者日常开发使用的</li>
+<li>https://usekrucible.com 一个月能用25小时，自己分配</li>
+<li>https://kubernauts.sh/ 宣传免费版有1CPU，1G内存；申请注册后没收到任何邮件，无法登录</li>
+<li>https://labs.play-with-k8s.com/ 好像每天只有四小时；https://labs.play-with-docker.com/</li>
+<li>zarvis.ai staroid.com 网页都用的是Google的服务器，无法直接访问</li>
+<li>https://kubesail.com/ 停止免费版了，不过还是能作为管理平台</li>
+<li>https://loft.sh/ 好像只是客户端或者管理平台</li>
+<li>挂了的：k8spin.cloud tryk8s.com</li>
+</ul>
+
+<h2>7. Serverless/Node Paas（无状态的api）</h2>
+
+<ul>
+<li>https://glitch.com/</li>
+<li>https://workers.cloudflare.com/ ；https://github.com/booster-labs/rocket-booster</li>
+<li>https://vercel.com/ node go py</li>
+<li>https://deno.com/deploy</li>
+<li>https://pipedream.com/</li>
+<li>https://keen.io/</li>
+<li>https://www.openode.io/pricing</li>
+<li>https://www.cloud66.com/node/ 免费一个月</li>
+<li>https://www.jexia.com/</li>
+<li>https://www.openode.io/</li>
+<li>https://encore.dev/ RST</li>
+<li>谷歌的functions有一些免费额度，但一定会产生部署费用，最少$0.03/mo</li>
+<li>国内的云服务厂商一般都有FaaS服务，也有一定的免费额度，但问题是公网流出流量是没有免费额度的</li>
+<li>https://www.slappforge.com/sigma 仅开发平台</li>
+<li>https://catalyst.zoho.com/ 有免费的</li>
+</ul>
+
+<h2>8. 静态网页托管（必须要能自动更新）</h2>
+
+<ul>
+<li>https://surge.sh/</li>
+<li>https://www.netlify.com/</li>
+<li>https://render.com/ 收费版有PaaS，但免费版只能Static</li>
+<li>https://cloudcannon.com</li>
+<li>https://tiiny.host 只能存活7天？</li>
+<li>https://pages.cloudflare.com/</li>
+</ul>
+
+<h2>9. 也许可用的IaaS</h2>
+
+<ul>
+<li>euserv，德国的，只有IPV6，亲测确实可以，但硬盘很慢 https://github.com/YG-tsj/EUserv-warp</li>
+<li>https://open.iot.10086.cn/cloud/introduction/cloud-server OneNET移动的，MQ、对象储存、可视化、CI都有一定的免费额度</li>
+<li>https://activity.xinruiyun.cn/free/ 新睿云，发个广告可以免费用一个月的ECS</li>
+<li>https://www.oracle.com/cn/cloud/free/ 体验文章：https://51.ruyo.net/14138.html 不支持prepaid card；https://www.blueskyxn.com/202109/5232.html</li>
+<li>https://51.ruyo.net/14583.html Azure</li>
+<li>https://www.atlantic.net/ <del>免费12个月</del>现在好像变成免费一个月了，需要信用卡</li>
+<li>谷歌云、Amazon、Azure、Yandex Cloud：注册后都会送一些额度</li>
+</ul>
+
+<h3>9.1. <a class="wp-editor-md-post-content-link" target="_blank" rel="noopener" href="https://www.ibm.com/cn-zh/cloud/free">IBM Cloud</a></h3>
+
+<ul>
+<li>Lite(轻量)版无需信用卡，没有到期时间，完全不会变到付费套餐上，额度到了就无法使用，30天不活动自动删除，一共44项服务</li>
+<li>Cloud Foundry：PaaS 256M内存，支持Java Node .NET GO PHP Py。10天不活动就休眠。apic.mybluemix.net和mybluemix.net都被墙了。要用ibmcloud命令行</li>
+<li>对象储存：25GB储存，5GB出站；Cloudant JSON文档数据库：1GB；DB2数据库：200MB，每90天要邮件延期</li>
+<li>机器翻译：但无ja-zh模型，只能和en互转，每月100万字符</li>
+<li>API Gateway：转发一次到另一个endpoint上，能用于静态文件的反代，能设定密钥验证和限制速率，显示调用频率。免费调用100万次但是没写每月，之后限速</li>
+<li>Cloud for Education：持续时间一小时的ECS，能用RDP连上但卡到完全无法使用，好像无外部互联网连接</li>
+<li>机器学习</li>
+<li>Docker Registry：储存0.5GB，流量5GB</li>
+<li>Event Streams：Kafka</li>
+<li>那些“软件”虽然有非常多免费的，但必须部署到k8s上；k8s也有免费套餐，但lite无法创建，因为流量和IP可能要收费</li>
+<li>函数计算：虽然有一点免费额度，但是无lite版</li>
+</ul>
+
+<h3>9.2. <a class="wp-editor-md-post-content-link" target="_blank" rel="noopener" href="https://cloud.tencent.com/act/free">腾讯云</a></h3>
+
+<ul>
+<li>对象储存：免费半年</li>
+<li>CDN：免费半年</li>
+<li>Serverless：免费一年</li>
+<li>文件储存：免费10G</li>
+<li>机器翻译：免费500万字符/月，开通免费版必不会收任何费用</li>
+<li>云托管 CloudBase Run：不知道干什么用的</li>
+</ul>
+
+<h3>9.3. <a class="wp-editor-md-post-content-link" target="_blank" rel="noopener" href="https://free.aliyun.com">阿里云</a></h3>
+
+<ul>
+<li>ECS：https://www.aliyun.com/daily-act/ecs/free 需要实名认证且未购买过任何产品，有个t6的ECS可以免费试用一年</li>
+<li>MaxCompute大数据计算服务开发者版https://www.aliyun.com/product/odps</li>
+<li>云效DevOps有一些免费额度，包括5GB Maven仓库</li>
+<li>机器翻译通用版：每月100万字符免费额度</li>
+</ul>
+
+<h2>10. 低代码平台/aPaaS</h2>
+
+<ul>
+<li>指不用写很多代码就能设计出软件，有可视化工具</li>
+<li>大部分都是BPM平台，即 表单+工作流审批，适合企业建立业务逻辑在线办公</li>
+<li>往往与平台本身严重绑定，难以复用和维护，切换平台代价大，开发者自身难以提升</li>
+</ul>
+
+<h3>10.1. 国内的</h3>
+
+<ul>
+<li>https://github.com/taowen/awesome-lowcode 收集</li>
+<li>https://www.aliwork.com/ 宜搭，阿里+钉钉</li>
+<li>https://www.apicloud.com/ 云端开发管理类</li>
+<li>https://www.mingdao.com/ 明道云</li>
+<li>https://www.jiandaoyun.com/ 简道云</li>
+<li>https://www.huoban.com/ 伙伴云</li>
+<li>https://qingflow.com/ 轻流</li>
+<li>https://www.steedos.com/pricing/platform/ 华炎魔方，开源，私有部署免费</li>
+<li>https://baidu.gitee.io/amis/docs/index 开源，偏程序员</li>
+<li>https://modao.cc/ 墨刀，原型设计工具</li>
+<li>https://www.imgcook.com/ 淘宝，由设计稿生成界面</li>
+<li>https://www.huaweicloud.com/product/appcube.html 华为云应用魔方，太新</li>
+<li>https://www.informat.cn/ 织信</li>
+<li>https://seatable.cn/ 在线协同表格和信息管理工具，类似于excel，本体不开源但开源了一些组件</li>
+<li>https://www.baishuyun.com/ 百数云</li>
+<li>网页感觉不太好的
+
+<ul>
+<li>https://www.iyunbiao.com/ 云表</li>
+<li>https://www.grapecity.com.cn/solutions/huozige 活字格</li>
+<li>https://www.learun.cn/ 力软敏捷框架</li>
+<li>https://www.ivx.cn 号称零代码开发Web App和小程序，前身是ih5.cn，不是BPM</li>
+<li>https://wuyuan.io/ https://enhancer.io/ 无远开发平台，个人使用免费，商业收费</li>
+<li>https://www.wudaima.com/ 宜创无代码，官网的footer的链接都是废的，一点也不透明</li>
+<li>https://www.bn100.com/ 柏思科技/Workfine</li>
+</ul></li>
+<li>收费的
+
+<ul>
+<li>https://h3yun.com/ 氚云，只免费15天，集成钉钉 https://www.cloudpivot.cn/ 云枢 https://www.h3bpm.com/ 都是“奥哲”公司的</li>
+<li>https://www.newdao.net/ 牛刀，免费两周</li>
+<li>https://www.clickpaas.com/ 不支持个人</li>
+<li>https://www.dadayun.cn/ 搭搭云 没有注册的地方</li>
+</ul></li>
+<li>没有https的： http://www.joget.cn/ 捷得 、http://www.putdb.com/ WebBuilder 、http://www.mf999.com/ 魔方网表(纯表单类)、http://www.delit.cn/ 度量快速开发平台、http://www.jinyunweb.com 进云、http://dev.easydo.cn 易开发、http://www.jepaas.com/ 、</li>
+</ul>
+
+<h3>10.2. 国外的</h3>
+
+<ul>
+<li>https://anvil.works/ py全栈，前端Drag and Drop UI，后端和数据储存用的是该网站的库</li>
+<li>https://www.outsystems.com/pricing-and-editions/ 开发移动应用，是该行的老大；前端组件比较多，后台相对弱一点儿；注册需要姓名，邮箱</li>
+<li>https://www.mendix.com/ 开发移动应用，后台能力比较强（有微流系统）</li>
+<li>https://free.caspio.com/ Database-Powered Apps</li>
+<li>https://thunkable.com 开发移动应用</li>
+<li>https://www.appsheet.com/ 无法直接打开</li>
+<li>https://www.zoho.com/creator/ 网页在我这里打开巨慢。可以一直用免费版只要不使用高级特性</li>
+<li>https://airtable.com/</li>
+<li>https://zenkit.com/ 无法直接打开</li>
+<li>Google的App Maker（G Suite收费）、微软的PowerApps（收费10$/mo）</li>
+<li>https://www.dronahq.com/</li>
+<li>https://zhuanlan.zhihu.com/p/375252561</li>
+<li>https://www.odoo.com/zh_CN/ 开源</li>
+<li>https://bubble.io/ 新出的</li>
+</ul>
+
+<h2>11. 未分类</h2>
+
+<ul>
+<li>https://www.litespeedtech.com/experience-litespeed-for-free 一个月有效？需要姓名，电话，邮箱，地址。好像只有wordpress，还是只有软件？</li>
+<li>https://github-students.educationhost.co.uk/ 免费一年</li>
+<li>有可能与Jupyter有关：
+
+<ul>
+<li>https://www.dataquest.io/plans-pricing/</li>
+<li>https://mode.com/compare-plans/</li>
+<li>https://kyso.io/pricing</li>
+</ul></li>
+<li>https://studio.azureml.net/ 可视化机器学习实验工具，可不登陆使用</li>
+<li>https://quic.cloud/ Wordpress cache cdn</li>
+<li>https://apis.baidu.com/</li>
+<li>https://platform.sh/pricing/ 好像只免费30天</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E4%BA%91/" rel="tag"># 云</a>
+              <a href="/tags/%E5%85%8D%E8%B4%B9%E9%A1%B9%E7%9B%AE/" rel="tag"># 免费项目</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/05/22/BBR-puls%E8%84%9A%E6%9C%AC/" rel="prev" title="BBR puls脚本">
+      <i class="fa fa-chevron-left"></i> BBR puls脚本
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2023/05/22/%E9%82%A3%E4%BA%9B%E8%AE%A9%E4%BA%BA%E6%83%8A%E5%A5%87%E7%9A%84%E4%BA%91%E9%A1%B9%E7%9B%AE-%E7%AC%AC%E4%B8%89%E5%BC%B9-%E7%BD%91%E7%BB%9C%E5%92%8Cddns/" rel="next" title="那些让人惊奇的云项目(第三弹_网络和ddns)">
+      那些让人惊奇的云项目(第三弹_网络和ddns) <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">云</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">1.1.</span> <span class="nav-text">1. 其他人的集合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">1.2.</span> <span class="nav-text">2. Paas</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1. .net</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">1.3.</span> <span class="nav-text">3. 云端空间&#x2F;IDE</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.3.1.</span> <span class="nav-text">3.1. 前端在线IDE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.3.2.</span> <span class="nav-text">3.2. Jupyter Notebook&#x2F;Lab</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">1.4.</span> <span class="nav-text">4. 数据库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">1.5.</span> <span class="nav-text">5. BaaS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">1.6.</span> <span class="nav-text">6. Managed K8S</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">1.7.</span> <span class="nav-text">7. Serverless&#x2F;Node Paas（无状态的api）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">1.8.</span> <span class="nav-text">8. 静态网页托管（必须要能自动更新）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">1.9.</span> <span class="nav-text">9. 也许可用的IaaS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.9.1.</span> <span class="nav-text">9.1. IBM Cloud</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.9.2.</span> <span class="nav-text">9.2. 腾讯云</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.9.3.</span> <span class="nav-text">9.3. 阿里云</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">1.10.</span> <span class="nav-text">10. 低代码平台&#x2F;aPaaS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.10.1.</span> <span class="nav-text">10.1. 国内的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.10.2.</span> <span class="nav-text">10.2. 国外的</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">1.11.</span> <span class="nav-text">11. 未分类</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Kanoc Ge"
+      src="/images/452794135.jpg">
+  <p class="site-author-name" itemprop="name">Kanoc Ge</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">358</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">85</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">218</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kanoc Ge</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
