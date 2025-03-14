@@ -6,7 +6,7 @@
   <link href="https://kanoc.gitee.io/atom.xml" rel="self"/>
   
   <link href="https://kanoc.gitee.io/"/>
-  <updated>2025-03-13T23:16:04.486Z</updated>
+  <updated>2025-03-14T02:34:02.615Z</updated>
   <id>https://kanoc.gitee.io/</id>
   
   <author>
@@ -15,6 +15,19 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>这是一个测试</title>
+    <link href="https://kanoc.gitee.io/2025/03/14/%E8%BF%99%E6%98%AF%E4%B8%80%E4%B8%AA%E6%B5%8B%E8%AF%95/"/>
+    <id>https://kanoc.gitee.io/2025/03/14/%E8%BF%99%E6%98%AF%E4%B8%80%E4%B8%AA%E6%B5%8B%E8%AF%95/</id>
+    <published>2025-03-14T02:34:02.000Z</published>
+    <updated>2025-03-14T02:34:02.615Z</updated>
+    
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>生产环境-Docker-MongoDB-部署命令（单节点副本集）</title>
@@ -279,9 +292,9 @@
     
     <category term="工具" scheme="https://kanoc.gitee.io/tags/%E5%B7%A5%E5%85%B7/"/>
     
-    <category term="教程" scheme="https://kanoc.gitee.io/tags/%E6%95%99%E7%A8%8B/"/>
-    
     <category term="docker" scheme="https://kanoc.gitee.io/tags/docker/"/>
+    
+    <category term="教程" scheme="https://kanoc.gitee.io/tags/%E6%95%99%E7%A8%8B/"/>
     
     <category term="build" scheme="https://kanoc.gitee.io/tags/build/"/>
     
@@ -306,9 +319,9 @@
     
     <category term="工具" scheme="https://kanoc.gitee.io/tags/%E5%B7%A5%E5%85%B7/"/>
     
-    <category term="教程" scheme="https://kanoc.gitee.io/tags/%E6%95%99%E7%A8%8B/"/>
-    
     <category term="docker" scheme="https://kanoc.gitee.io/tags/docker/"/>
+    
+    <category term="教程" scheme="https://kanoc.gitee.io/tags/%E6%95%99%E7%A8%8B/"/>
     
     <category term="build" scheme="https://kanoc.gitee.io/tags/build/"/>
     
@@ -529,35 +542,6 @@
     <category term="赚钱" scheme="https://kanoc.gitee.io/tags/%E8%B5%9A%E9%92%B1/"/>
     
     <category term="标签1" scheme="https://kanoc.gitee.io/tags/%E6%A0%87%E7%AD%BE1/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>django配置ASGI服务器教程</title>
-    <link href="https://kanoc.gitee.io/2024/12/09/django%E9%85%8D%E7%BD%AEASGI%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%95%99%E7%A8%8B/"/>
-    <id>https://kanoc.gitee.io/2024/12/09/django%E9%85%8D%E7%BD%AEASGI%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%95%99%E7%A8%8B/</id>
-    <published>2024-12-08T19:08:44.000Z</published>
-    <updated>2024-12-08T20:55:24.738Z</updated>
-    
-    <content type="html"><![CDATA[<p><font color=#00b2c2 size=5 face=宋体><strong>django配置ASGI服务器教程</strong></font></p><span id="more"></span><h1 id="环境说明："><a href="#环境说明：" class="headerlink" title="环境说明："></a>环境说明：</h1><ul><li><p>系统环境：Alibaba3</p></li><li><p>Python版本：<code>3.13</code></p></li><li><p>Django版本：<code>5.1.4</code></p></li><li><p>uvicorn版本：<code>0.32.1</code></p></li></ul><h2 id="1、安装-uvicorn-服务器"><a href="#1、安装-uvicorn-服务器" class="headerlink" title="1、安装 uvicorn 服务器"></a>1、安装 <strong>uvicorn</strong> 服务器</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">pip install django uvicorn</span><br></pre></td></tr></table></figure><h3 id="2、创建ASGI应用程序"><a href="#2、创建ASGI应用程序" class="headerlink" title="2、创建ASGI应用程序"></a>2、创建ASGI应用程序</h3><p>在Django 3.0及更高版本中，Django默认提供了一个<code>asgi.py</code>文件，该文件位于与<code>wsgi.py</code>相同的位置（通常是项目的主目录下）。这个文件包含了一个ASGI应用程序的实例，你可以直接使用它。</p><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">from</span> django.core.asgi <span class="keyword">import</span> get_asgi_application</span><br><span class="line"></span><br><span class="line">os.environ.setdefault(<span class="string">&#x27;DJANGO_SETTINGS_MODULE&#x27;</span>, <span class="string">&#x27;&lt;your_project_name&gt;.settings&#x27;</span>)  <span class="comment"># &lt;your_project_name&gt; 替换成你的项目</span></span><br><span class="line">application = get_asgi_application()</span><br></pre></td></tr></table></figure><h2 id="3、设置settings-py"><a href="#3、设置settings-py" class="headerlink" title="3、设置settings.py"></a>3、设置settings.py</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># WSGI_APPLICATION = &#x27;&lt;your_project_name&gt;.wsgi.application&#x27;   # 同步请求 直接注销掉 我们不需要</span></span><br><span class="line">ASGI_APPLICATION = <span class="string">&#x27;&lt;your_project_name&gt;.asgi.application&#x27;</span>   <span class="comment"># 异步项目  将 &lt;your_project_name&gt; 替换成你的项目</span></span><br></pre></td></tr></table></figure><h3 id="4、-安装并运行ASGI服务器"><a href="#4、-安装并运行ASGI服务器" class="headerlink" title="4、 安装并运行ASGI服务器"></a>4、 安装并运行ASGI服务器</h3><p>要运行ASGI应用，你需要安装一个<code>ASGI</code>服务器，如<code>Uvicorn</code>、<code>Daphne</code>或<code>Hypercorn</code>。然后，你可以使用这些服务器来启动你的<code>Django</code>应用。例如，使用<code>Uvicorn</code>启动<code>Django</code>应用的命令可能看起来像这样</p><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># uvicorn your_project_name.asgi:application   # 默认启动  访问地址为  http://127.0.0.1:8000</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 可以自己指定端口</span></span><br><span class="line">uvicorn your_project_name.asgi:application --host <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span> --port <span class="number">8035</span>    <span class="comment"># 指定所有ip可访问 项目运行端口为 8035</span></span><br></pre></td></tr></table></figure>]]></content>
-    
-    
-    <summary type="html">&lt;p&gt;&lt;font color=#00b2c2 size=5 face=宋体&gt;&lt;strong&gt;django配置ASGI服务器教程&lt;/strong&gt;&lt;/font&gt;&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="python" scheme="https://kanoc.gitee.io/categories/python/"/>
-    
-    <category term="django" scheme="https://kanoc.gitee.io/categories/python/django/"/>
-    
-    
-    <category term="python" scheme="https://kanoc.gitee.io/tags/python/"/>
-    
-    <category term="django" scheme="https://kanoc.gitee.io/tags/django/"/>
-    
-    <category term="ASGI服务器" scheme="https://kanoc.gitee.io/tags/ASGI%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
-    
-    <category term="异步WEB" scheme="https://kanoc.gitee.io/tags/%E5%BC%82%E6%AD%A5WEB/"/>
     
   </entry>
   
