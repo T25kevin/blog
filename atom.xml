@@ -83,11 +83,11 @@
     <category term="数据库" scheme="https://kanoc.gitee.io/categories/Docker/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
     
     
-    <category term="docker" scheme="https://kanoc.gitee.io/tags/docker/"/>
-    
     <category term="mongodb" scheme="https://kanoc.gitee.io/tags/mongodb/"/>
     
     <category term="数据库" scheme="https://kanoc.gitee.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+    <category term="docker" scheme="https://kanoc.gitee.io/tags/docker/"/>
     
   </entry>
   
@@ -274,9 +274,9 @@
     <category term="harbor" scheme="https://kanoc.gitee.io/categories/docker/harbor/"/>
     
     
-    <category term="docker" scheme="https://kanoc.gitee.io/tags/docker/"/>
-    
     <category term="错误" scheme="https://kanoc.gitee.io/tags/%E9%94%99%E8%AF%AF/"/>
+    
+    <category term="docker" scheme="https://kanoc.gitee.io/tags/docker/"/>
     
     <category term="私有仓库" scheme="https://kanoc.gitee.io/tags/%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93/"/>
     
@@ -433,9 +433,9 @@
     <category term="ubuntu" scheme="https://kanoc.gitee.io/categories/%E7%B3%BB%E7%BB%9F/ubuntu/"/>
     
     
-    <category term="docker" scheme="https://kanoc.gitee.io/tags/docker/"/>
-    
     <category term="安装" scheme="https://kanoc.gitee.io/tags/%E5%AE%89%E8%A3%85/"/>
+    
+    <category term="docker" scheme="https://kanoc.gitee.io/tags/docker/"/>
     
   </entry>
   
@@ -458,9 +458,9 @@
     <category term="ubuntu" scheme="https://kanoc.gitee.io/categories/%E7%B3%BB%E7%BB%9F/ubuntu/"/>
     
     
-    <category term="docker" scheme="https://kanoc.gitee.io/tags/docker/"/>
-    
     <category term="挂载" scheme="https://kanoc.gitee.io/tags/%E6%8C%82%E8%BD%BD/"/>
+    
+    <category term="docker" scheme="https://kanoc.gitee.io/tags/docker/"/>
     
     <category term="文件夹共享" scheme="https://kanoc.gitee.io/tags/%E6%96%87%E4%BB%B6%E5%A4%B9%E5%85%B1%E4%BA%AB/"/>
     
@@ -486,9 +486,9 @@
     
     <category term="工具" scheme="https://kanoc.gitee.io/tags/%E5%B7%A5%E5%85%B7/"/>
     
-    <category term="docker" scheme="https://kanoc.gitee.io/tags/docker/"/>
-    
     <category term="数据库" scheme="https://kanoc.gitee.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+    <category term="docker" scheme="https://kanoc.gitee.io/tags/docker/"/>
     
   </entry>
   
