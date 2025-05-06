@@ -40,7 +40,7 @@
 <meta property="og:image" content="https://s2.loli.net/2025/04/28/A6ftuGO3xJBviVI.png">
 <meta property="og:image" content="https://s2.loli.net/2025/04/28/aWyE9BJAwHVMdmT.png">
 <meta property="article:published_time" content="2025-04-28T13:07:42.000Z">
-<meta property="article:modified_time" content="2025-04-28T13:15:28.619Z">
+<meta property="article:modified_time" content="2025-05-02T02:05:23.893Z">
 <meta property="article:author" content="Kanoc Ge">
 <meta property="article:tag" content="pyenv">
 <meta name="twitter:card" content="summary">
@@ -230,10 +230,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2025-04-28 21:07:42 / 修改时间：21:15:28" itemprop="dateCreated datePublished" datetime="2025-04-28T21:07:42+08:00">2025-04-28</time>
+              <time title="创建时间：2025-04-28 21:07:42" itemprop="dateCreated datePublished" datetime="2025-04-28T21:07:42+08:00">2025-04-28</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-05-02 10:05:23" itemprop="dateModified" datetime="2025-05-02T10:05:23+08:00">2025-05-02</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -278,6 +284,14 @@
 <p>使用 source 命令，使更改生效。</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">source</span> ~/.bashrc</span><br></pre></td></tr></table></figure>
 
+<h3 id="Step-4-Update-Your-Shell-Configuration-root用户安装方式"><a href="#Step-4-Update-Your-Shell-Configuration-root用户安装方式" class="headerlink" title="Step 4: Update Your Shell Configuration(root用户安装方式)"></a>Step 4: Update Your Shell Configuration(root用户安装方式)</h3><p>安装 PyENV 后，您需要将其添加到 shell 配置中，编辑 <strong>~&#x2F;.bashrc</strong> 文件，添加以下行，以便每次打开终端时它都会加载。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 编辑全局环境变量文件（影响所有用户）</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;export PYENV_ROOT=&quot;/root/.pyenv&quot;&#x27;</span> &gt;&gt; /etc/profile.d/pyenv.sh</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;export PATH=&quot;$PYENV_ROOT/bin:$PATH&quot;&#x27;</span> &gt;&gt; /etc/profile.d/pyenv.sh</span><br><span class="line"><span class="built_in">echo</span> -e <span class="string">&#x27;if command -v pyenv 1&gt;/dev/null 2&gt;&amp;1; then\n eval &quot;$(pyenv init -)&quot;\nfi&#x27;</span> &gt;&gt; /etc/profile.d/pyenv.sh</span><br></pre></td></tr></table></figure>
+
+<p>使用 source 命令，使更改生效。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 使配置立即生效</span></span><br><span class="line"><span class="built_in">source</span> /etc/profile.d/pyenv.sh</span><br></pre></td></tr></table></figure>
+
+
+
 <h3 id="Step-5-Install-Python-Versions"><a href="#Step-5-Install-Python-Versions" class="headerlink" title="Step 5: Install Python Versions"></a>Step 5: Install Python Versions</h3><p>现在您可以安装所需的任何版本的 Python。例如，要安装 Python 3.12</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pyenv install 3.12</span><br></pre></td></tr></table></figure>
 
@@ -321,7 +335,10 @@
     <a href="/2025/03/19/ESXi-8-0-VMFSL%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8%E5%AD%98%E5%82%A8%E7%9A%84%E9%97%AE%E9%A2%98/" rel="prev" title="ESXi-8.0-VMFSL无法使用存储的问题">
       <i class="fa fa-chevron-left"></i> ESXi-8.0-VMFSL无法使用存储的问题
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2025/05/02/NVM%E3%80%81Pyenv%E5%AE%89%E8%A3%85%E7%9A%84%E7%A8%8B%E5%BA%8F%EF%BC%8C%E5%9C%A8%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF%E4%B8%AD%E6%97%A0%E6%B3%95%E8%AF%86%E5%88%AB%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" rel="next" title="NVM、Pyenv安装的程序，在宝塔面板中无法识别解决方案">
+      NVM、Pyenv安装的程序，在宝塔面板中无法识别解决方案 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -380,7 +397,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Pyenv%E7%89%88%E6%9C%AC%E4%BC%98%E5%85%88%E7%BA%A7%EF%BC%9AShell-Local-Global"><span class="nav-number">1.</span> <span class="nav-text">Pyenv版本优先级：Shell &gt; Local &gt; Global</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Step-1-Update-Your-System"><span class="nav-number">1.0.1.</span> <span class="nav-text">Step 1: Update Your System</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Step-2-Install-Prerequisites"><span class="nav-number">1.0.2.</span> <span class="nav-text">Step 2: Install Prerequisites</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Step-3-Install-PyENV"><span class="nav-number">1.0.3.</span> <span class="nav-text">Step 3: Install PyENV</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Step-4-Update-Your-Shell-Configuration"><span class="nav-number">1.0.4.</span> <span class="nav-text">Step 4: Update Your Shell Configuration</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Step-5-Install-Python-Versions"><span class="nav-number">1.0.5.</span> <span class="nav-text">Step 5: Install Python Versions</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Step-6-Set-a-Global-Python-Version"><span class="nav-number">1.0.6.</span> <span class="nav-text">Step 6: Set a Global Python Version</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Step-7-%E8%AE%BE%E7%BD%AE%E5%85%B6%E4%BB%96%E7%89%88%E6%9C%AC"><span class="nav-number">1.0.7.</span> <span class="nav-text">Step 7: 设置其他版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Step-8-%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E9%9A%94%E7%A6%BB%E9%A1%B9%E7%9B%AE%EF%BC%88%E6%8E%A8%E8%8D%90%EF%BC%89"><span class="nav-number">1.0.8.</span> <span class="nav-text">Step 8: 使用虚拟环境隔离项目（推荐）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Step-9-%E9%AA%8C%E8%AF%81%E7%89%88%E6%9C%AC%E5%88%87%E6%8D%A2"><span class="nav-number">1.0.9.</span> <span class="nav-text">Step 9: 验证版本切换</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Pyenv%E7%89%88%E6%9C%AC%E4%BC%98%E5%85%88%E7%BA%A7%EF%BC%9AShell-Local-Global"><span class="nav-number">1.</span> <span class="nav-text">Pyenv版本优先级：Shell &gt; Local &gt; Global</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Step-1-Update-Your-System"><span class="nav-number">1.0.1.</span> <span class="nav-text">Step 1: Update Your System</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Step-2-Install-Prerequisites"><span class="nav-number">1.0.2.</span> <span class="nav-text">Step 2: Install Prerequisites</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Step-3-Install-PyENV"><span class="nav-number">1.0.3.</span> <span class="nav-text">Step 3: Install PyENV</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Step-4-Update-Your-Shell-Configuration"><span class="nav-number">1.0.4.</span> <span class="nav-text">Step 4: Update Your Shell Configuration</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Step-4-Update-Your-Shell-Configuration-root%E7%94%A8%E6%88%B7%E5%AE%89%E8%A3%85%E6%96%B9%E5%BC%8F"><span class="nav-number">1.0.5.</span> <span class="nav-text">Step 4: Update Your Shell Configuration(root用户安装方式)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Step-5-Install-Python-Versions"><span class="nav-number">1.0.6.</span> <span class="nav-text">Step 5: Install Python Versions</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Step-6-Set-a-Global-Python-Version"><span class="nav-number">1.0.7.</span> <span class="nav-text">Step 6: Set a Global Python Version</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Step-7-%E8%AE%BE%E7%BD%AE%E5%85%B6%E4%BB%96%E7%89%88%E6%9C%AC"><span class="nav-number">1.0.8.</span> <span class="nav-text">Step 7: 设置其他版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Step-8-%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E9%9A%94%E7%A6%BB%E9%A1%B9%E7%9B%AE%EF%BC%88%E6%8E%A8%E8%8D%90%EF%BC%89"><span class="nav-number">1.0.9.</span> <span class="nav-text">Step 8: 使用虚拟环境隔离项目（推荐）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Step-9-%E9%AA%8C%E8%AF%81%E7%89%88%E6%9C%AC%E5%88%87%E6%8D%A2"><span class="nav-number">1.0.10.</span> <span class="nav-text">Step 9: 验证版本切换</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -395,18 +412,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">361</span>
+          <span class="site-state-item-count">364</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">87</span>
+        <span class="site-state-item-count">93</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">220</span>
+        <span class="site-state-item-count">221</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
