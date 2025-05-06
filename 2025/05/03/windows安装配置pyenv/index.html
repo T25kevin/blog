@@ -39,7 +39,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.loli.net/2025/05/03/kTM8bmwgpzqLl9Q.webp">
 <meta property="article:published_time" content="2025-05-03T05:44:09.000Z">
-<meta property="article:modified_time" content="2025-05-03T11:17:48.478Z">
+<meta property="article:modified_time" content="2025-05-06T08:01:35.849Z">
 <meta property="article:author" content="Kanoc Ge">
 <meta property="article:tag" content="docker">
 <meta name="twitter:card" content="summary">
@@ -229,10 +229,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2025-05-03 13:44:09 / 修改时间：19:17:48" itemprop="dateCreated datePublished" datetime="2025-05-03T13:44:09+08:00">2025-05-03</time>
+              <time title="创建时间：2025-05-03 13:44:09" itemprop="dateCreated datePublished" datetime="2025-05-03T13:44:09+08:00">2025-05-03</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-05-06 16:01:35" itemprop="dateModified" datetime="2025-05-06T16:01:35+08:00">2025-05-06</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -262,10 +268,11 @@
 <span id="more"></span>
 
 <p>根据官方文档的命令：</p>
-<p>Invoke-WebRequest -UseBasicParsing -Uri <a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/pyenv-win/pyenv-win/master/pyenv-win/install-pyenv-win.ps1">https://raw.githubusercontent.com/pyenv-win/pyenv-win/master/pyenv-win/install-pyenv-win.ps1</a> -OutFile “.&#x2F;install-pyenv-win.ps1”; &amp;”.&#x2F;install-pyenv-win.ps1”</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Invoke-WebRequest -UseBasicParsing -Uri &quot;https://raw.githubusercontent.com/pyenv-win/pyenv-win/master/pyenv-win/install-pyenv-win.ps1&quot; -OutFile &quot;./install-pyenv-win.ps1&quot;; &amp;&quot;./install-pyenv-win.ps1&quot;</span><br></pre></td></tr></table></figure>
+
 <p>直接执行该命令可能会出现错误。我们可以使用下面的方法：</p>
 <ul>
-<li>进入<a href="https://link.juejin.cn/?target=https://raw.githubusercontent.com/pyenv-win/pyenv-win/master/pyenv-win/install-pyenv-win.ps1%22">pyenv-win配置文件</a>的下载地址 ，将该名为<code>install-pyenv-win.ps1</code>的配置文件下载至电脑某目录(如<code>D:\pyenv</code>)</li>
+<li>进入<a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/pyenv-win/pyenv-win/master/pyenv-win/install-pyenv-win.ps1">pyenv-win配置文件</a>的下载地址 ，将该名为<code>install-pyenv-win.ps1</code>的配置文件下载至电脑某目录(如<code>D:\pyenv</code>)</li>
 <li>将脚本文件下载完成后，在终端(<code>PowerShell</code>) 中，使用cd命令切换到保存该脚本文件的目录，然后运行以下命令来执行脚本</li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">./install-pyenv-win.ps1</span><br></pre></td></tr></table></figure>
