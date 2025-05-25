@@ -6,7 +6,7 @@
   <link href="https://kanoc.gitee.io/atom.xml" rel="self"/>
   
   <link href="https://kanoc.gitee.io/"/>
-  <updated>2025-05-22T01:29:07.206Z</updated>
+  <updated>2025-05-25T23:00:31.724Z</updated>
   <id>https://kanoc.gitee.io/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Go版本管理工具goenv-安装教程</title>
+    <link href="https://kanoc.gitee.io/2025/05/26/Go%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7goenv-%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/"/>
+    <id>https://kanoc.gitee.io/2025/05/26/Go%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7goenv-%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/</id>
+    <published>2025-05-25T22:55:33.000Z</published>
+    <updated>2025-05-25T23:00:31.724Z</updated>
+    
+    <content type="html"><![CDATA[<p><font color=#00b2c2 size=5 face=宋体><strong>Go版本管理工具goenv-安装教程</strong></font></p><span id="more"></span><h2 id="goenv"><a href="#goenv" class="headerlink" title="goenv"></a><strong>goenv</strong></h2><p><font color=#f26522 size=4 face=宋体><strong><strong>特点</strong>: 轻量级，类似 <code>pyenv</code> 或 <code>rbenv</code>，通过环境变量管理版本。</strong></font></p><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/syndbg/goenv.git ~/.goenv</span><br><span class="line"><span class="comment"># 在 shell 配置文件中添加（如 ~/.bashrc/zshrc）:</span></span><br><span class="line"><span class="built_in">export</span> GOENV_ROOT=<span class="string">&quot;<span class="variable">$HOME</span>/.goenv&quot;</span></span><br><span class="line"><span class="built_in">export</span> PATH=<span class="string">&quot;<span class="variable">$GOENV_ROOT</span>/bin:<span class="variable">$PATH</span>&quot;</span></span><br><span class="line"><span class="built_in">eval</span> <span class="string">&quot;<span class="subst">$(goenv init -)</span>&quot;</span></span><br></pre></td></tr></table></figure><h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令:"></a><strong>常用命令</strong>:</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">goenv install 1.21.0     <span class="comment"># 安装1.21.0版本</span></span><br><span class="line">goenv global 1.21.0      <span class="comment"># 设置全局版本</span></span><br><span class="line">goenv <span class="built_in">local</span> 1.20.5       <span class="comment"># 设置当前目录版本（生成 .go-version 文件）</span></span><br><span class="line">goenv install --list     <span class="comment"># 列出所有可安装版本</span></span><br><span class="line">goenv global 1.21.5      <span class="comment"># 所有项目默认使用此版本</span></span><br><span class="line">goenv <span class="built_in">local</span> 1.21.5       <span class="comment"># 设置当前目录版本  生成 .go-version 文件，仅当前目录生效</span></span><br><span class="line">goenv shell 1.21.5       <span class="comment"># 设置 Shell 会话版本</span></span><br><span class="line">goenv versions           <span class="comment"># 查看已安装版本</span></span><br><span class="line">goenv uninstall 1.21.5   <span class="comment"># 卸载版本</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">## 查看当前生效的 Go 版本及路径</span></span><br><span class="line">goenv version         <span class="comment"># 显示当前版本及来源（全局/本地/Shell）</span></span><br><span class="line">goenv <span class="built_in">which</span> go        <span class="comment"># 显示当前使用的 Go 可执行文件路径</span></span><br><span class="line">goenv <span class="built_in">rehash</span>          <span class="comment"># 刷新 Shims 缓存</span></span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;&lt;font color=#00b2c2 size=5 face=宋体&gt;&lt;strong&gt;Go版本管理工具goenv-安装教程&lt;/strong&gt;&lt;/font&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="程序版本管理工具" scheme="https://kanoc.gitee.io/categories/%E7%A8%8B%E5%BA%8F%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/"/>
+    
+    <category term="go" scheme="https://kanoc.gitee.io/categories/%E7%A8%8B%E5%BA%8F%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/go/"/>
+    
+    
+    <category term="go" scheme="https://kanoc.gitee.io/tags/go/"/>
+    
+    <category term="goenv" scheme="https://kanoc.gitee.io/tags/goenv/"/>
+    
+    <category term="版本管理工具" scheme="https://kanoc.gitee.io/tags/%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/"/>
+    
+  </entry>
   
   <entry>
     <title>Django配置-channels-WS的ASGI服务器</title>
@@ -258,9 +285,9 @@
     
     <category term="docker" scheme="https://kanoc.gitee.io/tags/docker/"/>
     
-    <category term="mongodb" scheme="https://kanoc.gitee.io/tags/mongodb/"/>
-    
     <category term="数据库" scheme="https://kanoc.gitee.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+    <category term="mongodb" scheme="https://kanoc.gitee.io/tags/mongodb/"/>
     
   </entry>
   
@@ -492,33 +519,6 @@
     
     
     <summary type="html">&lt;p&gt;&lt;font color=#00b2c2 size=5 face=宋体&gt;&lt;strong&gt;docker使用-docker-compose.yml动态传递变量&lt;/strong&gt;&lt;/font&gt;&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="Docker" scheme="https://kanoc.gitee.io/categories/Docker/"/>
-    
-    
-    <category term="工具" scheme="https://kanoc.gitee.io/tags/%E5%B7%A5%E5%85%B7/"/>
-    
-    <category term="教程" scheme="https://kanoc.gitee.io/tags/%E6%95%99%E7%A8%8B/"/>
-    
-    <category term="docker" scheme="https://kanoc.gitee.io/tags/docker/"/>
-    
-    <category term="build" scheme="https://kanoc.gitee.io/tags/build/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>docker打包Django项目教程</title>
-    <link href="https://kanoc.gitee.io/2025/02/15/docker%E6%89%93%E5%8C%85Django%E9%A1%B9%E7%9B%AE%E6%95%99%E7%A8%8B/"/>
-    <id>https://kanoc.gitee.io/2025/02/15/docker%E6%89%93%E5%8C%85Django%E9%A1%B9%E7%9B%AE%E6%95%99%E7%A8%8B/</id>
-    <published>2025-02-15T06:24:28.000Z</published>
-    <updated>2025-02-15T08:57:48.012Z</updated>
-    
-    <content type="html"><![CDATA[<p><font color=#00b2c2 size=5 face=宋体><strong>docker打包Django项目教程</strong></font></p><span id="more"></span><p>要将 Django 项目打包为 Docker 镜像，你需要创建一个 Dockerfile，并配置相关的文件和设置。以下是一个基本的步骤指南，帮助你将 Django 项目打包为 Docker 镜像。</p><h3 id="1-创建-Django-项目"><a href="#1-创建-Django-项目" class="headerlink" title="1. 创建 Django 项目"></a>1. 创建 Django 项目</h3><p>如果你还没有 Django 项目，可以使用以下命令创建一个新的 Django 项目：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">django-admin startproject myproject</span><br><span class="line"><span class="built_in">cd</span> myproject</span><br></pre></td></tr></table></figure><h3 id="2-创建-Dockerfile"><a href="#2-创建-Dockerfile" class="headerlink" title="2. 创建 Dockerfile"></a>2. 创建 Dockerfile</h3><p>在 Django 项目的根目录下创建一个名为 Dockerfile 的文件，内容如下：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 使用官方 Python 镜像作为基础镜像</span></span><br><span class="line">FROM python:3.9-slim</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置工作目录</span></span><br><span class="line">WORKDIR /app</span><br><span class="line"></span><br><span class="line"><span class="comment"># 复制 requirements.txt 文件到容器中</span></span><br><span class="line">COPY requirements.txt .</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装依赖  # 这里的 ENVIRONMENT 是个变量，通过启动命令传递， 如果是mac走第一条</span></span><br><span class="line">pip install --no-cache-dir -r requirements.txt</span><br><span class="line"><span class="comment"># 复制项目文件到容器中</span></span><br><span class="line">COPY . .</span><br><span class="line"></span><br><span class="line"><span class="comment"># 暴露端口</span></span><br><span class="line">EXPOSE 8000</span><br><span class="line"></span><br><span class="line"><span class="comment"># 运行 Django 开发服务器</span></span><br><span class="line">CMD [<span class="string">&quot;python&quot;</span>, <span class="string">&quot;manage.py&quot;</span>, <span class="string">&quot;runserver&quot;</span>, <span class="string">&quot;0.0.0.0:8000&quot;</span>]</span><br></pre></td></tr></table></figure><h3 id="3-创建-requirements-txt"><a href="#3-创建-requirements-txt" class="headerlink" title="3. 创建 requirements.txt"></a>3. 创建 requirements.txt</h3><p>确保在项目根目录下有一个 requirements.txt 文件，列出所有的依赖项。你可以使用以下命令生成 requirements.txt：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pip freeze &gt; requirements.txt</span><br></pre></td></tr></table></figure><h3 id="4-创建-dockerignore-文件"><a href="#4-创建-dockerignore-文件" class="headerlink" title="4. 创建 .dockerignore 文件"></a>4. 创建 .dockerignore 文件</h3><p>为了避免将不必要的文件复制到 Docker 镜像中，可以创建一个 .dockerignore 文件，内容如下：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">__pycache__</span><br><span class="line">*.pyc</span><br><span class="line">*.pyo</span><br><span class="line">*.pyd</span><br><span class="line">*.db</span><br><span class="line">*.sqlite3</span><br><span class="line">*.<span class="built_in">log</span></span><br><span class="line">*.<span class="built_in">env</span></span><br></pre></td></tr></table></figure><h3 id="5-构建-Docker-镜像"><a href="#5-构建-Docker-镜像" class="headerlink" title="5. 构建 Docker 镜像"></a>5. 构建 Docker 镜像</h3><p>在项目根目录下，使用以下命令构建 Docker 镜像：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker build -t mydjangoapp .</span><br></pre></td></tr></table></figure><h3 id="6-运行-Docker-容器"><a href="#6-运行-Docker-容器" class="headerlink" title="6. 运行 Docker 容器"></a>6. 运行 Docker 容器</h3><p>构建完成后，可以使用以下命令运行 Docker 容器：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker run -p 8000:8000 mydjangoapp</span><br></pre></td></tr></table></figure><p>这将把容器的 8000 端口映射到主机的 8000 端口。</p><h3 id="7-访问-Django-应用"><a href="#7-访问-Django-应用" class="headerlink" title="7. 访问 Django 应用"></a>7. 访问 Django 应用</h3><p>在浏览器中访问 <a href="http://localhost:8000，你应该能够看到">http://localhost:8000，你应该能够看到</a> Django 的欢迎页面。</p><h3 id="8-数据库配置（可选）"><a href="#8-数据库配置（可选）" class="headerlink" title="8. 数据库配置（可选）"></a>8. 数据库配置（可选）</h3><p>如果你的 Django 项目使用数据库（如 PostgreSQL、MySQL 等），你需要在 Dockerfile 中添加数据库的相关配置，并确保数据库服务在容器中运行。你可以使用 Docker Compose 来管理多个服务。</p><h3 id="9-使用-Docker-Compose（可选）"><a href="#9-使用-Docker-Compose（可选）" class="headerlink" title="9. 使用 Docker Compose（可选）"></a>9. 使用 Docker Compose（可选）</h3><p>如果你希望使用 Docker Compose 来管理 Django 和数据库服务，可以创建一个 docker-compose.yml 文件，内容如下：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">version: <span class="string">&#x27;3.8&#x27;</span></span><br><span class="line"></span><br><span class="line">services:</span><br><span class="line">  web:</span><br><span class="line">    image: kamali:latest</span><br><span class="line">    restart: always</span><br><span class="line">    ports:</span><br><span class="line">      - <span class="string">&quot;8000:8000&quot;</span></span><br><span class="line">    volumes:</span><br><span class="line">      - /Users/c33/app/_static:/app/_static  <span class="comment"># 挂载路径</span></span><br><span class="line">    <span class="built_in">command</span>: python manage.py runserver 0.0.0.0:8000</span><br><span class="line">    depends_on:  <span class="comment"># 删除这一行 可以不用配置数据库</span></span><br><span class="line">      - mysql</span><br><span class="line"></span><br><span class="line">  mysql: <span class="comment"># 数据库配置 mysql 可以不要</span></span><br><span class="line">    image: mysql:8.0</span><br><span class="line">    environment:</span><br><span class="line">      MYSQL_ROOT_PASSWORD: securepassword</span><br><span class="line">      MYSQL_DATABASE: myproject</span><br><span class="line">    volumes:</span><br><span class="line">      - mysql_data:/var/lib/mysql</span><br><span class="line"></span><br><span class="line">volumes:</span><br><span class="line">  mysql_data:</span><br></pre></td></tr></table></figure><p>然后使用以下命令启动服务：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker-compose up   <span class="comment"># 此命令是控制台运行</span></span><br><span class="line">docker-compose up -d   <span class="comment"># 此命令是后台运行</span></span><br></pre></td></tr></table></figure><h3 id="10-直接以命令运行挂载目录或者文件"><a href="#10-直接以命令运行挂载目录或者文件" class="headerlink" title="10. 直接以命令运行挂载目录或者文件"></a>10. 直接以命令运行挂载目录或者文件</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker build -t mydjangoapp .</span><br><span class="line">docker run -p 8000:8000 -v /root/settings.json:/app/settings.json mydjangoapp</span><br><span class="line"><span class="comment"># /root/settings.json 宿主机的文件路径</span></span><br><span class="line"><span class="comment"># /app/settings.json   docker环境路径</span></span><br></pre></td></tr></table></figure>]]></content>
-    
-    
-    <summary type="html">&lt;p&gt;&lt;font color=#00b2c2 size=5 face=宋体&gt;&lt;strong&gt;docker打包Django项目教程&lt;/strong&gt;&lt;/font&gt;&lt;/p&gt;</summary>
     
     
     
