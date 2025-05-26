@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <style>
+    .category-all-page .category-list-item {
+      margin: 15px 10px 10px 10px;
+      list-style: none;
+      font-size: 20px;
+      }
+      .category-all-page .category-list-child {
+        list-style: none;
+        }
+  </style>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"kanoc.gitee.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="Ubuntu配置安装GPU转码">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ubuntu配置安装GPU转码">
+<meta property="og:url" content="https://kanoc.gitee.io/2025/05/26/Ubuntu%E9%85%8D%E7%BD%AE%E5%AE%89%E8%A3%85GPU%E8%BD%AC%E7%A0%81/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Ubuntu配置安装GPU转码">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-05-26T14:07:58.000Z">
+<meta property="article:modified_time" content="2025-05-26T14:09:57.858Z">
+<meta property="article:author" content="Kanoc Ge">
+<meta property="article:tag" content="docker">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://kanoc.gitee.io/2025/05/26/Ubuntu%E9%85%8D%E7%BD%AE%E5%AE%89%E8%A3%85GPU%E8%BD%AC%E7%A0%81/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Ubuntu配置安装GPU转码 | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-首页-|-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页 | home</a>
+
+  </li>
+        <li class="menu-item menu-item-分类-|-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类 | categories</a>
+
+  </li>
+        <li class="menu-item menu-item-标签-|-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签 | tags</a>
+
+  </li>
+        <li class="menu-item menu-item-归档-|-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档 | archives</a>
+
+  </li>
+        <li class="menu-item menu-item-关于-|-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于 | about</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2025/05/26/Ubuntu%E9%85%8D%E7%BD%AE%E5%AE%89%E8%A3%85GPU%E8%BD%AC%E7%A0%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/452794135.jpg">
+      <meta itemprop="name" content="Kanoc Ge">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Ubuntu配置安装GPU转码
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2025-05-26 22:07:58 / 修改时间：22:09:57" itemprop="dateCreated datePublished" datetime="2025-05-26T22:07:58+08:00">2025-05-26</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/main/" itemprop="url" rel="index"><span itemprop="name">main</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/main/s/" itemprop="url" rel="index"><span itemprop="name">s</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><font color=#00b2c2 size=5 face=宋体><strong>Ubuntu配置安装GPU转码</strong></font></p>
+<span id="more"></span>
+
+
+
+<h2 id="ubuntu-测试使用-GPU-ffmpeg-转码视频"><a href="#ubuntu-测试使用-GPU-ffmpeg-转码视频" class="headerlink" title="ubuntu 测试使用 GPU-ffmpeg 转码视频"></a>ubuntu 测试使用 GPU-ffmpeg 转码视频</h2><h3 id="额外命令："><a href="#额外命令：" class="headerlink" title="额外命令："></a>额外命令：</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">lsb_release -a   <span class="comment"># 查看发行版本及代号</span></span><br><span class="line">lspci | grep -i vga   <span class="comment"># 查看是否存在gpu</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="第一步：安装ffmpeg"><a href="#第一步：安装ffmpeg" class="headerlink" title="第一步：安装ffmpeg"></a>第一步：安装ffmpeg</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">apt install ffmpeg</span><br></pre></td></tr></table></figure>
+
+<h3 id="第二步：1-安装-NVIDIA-驱动"><a href="#第二步：1-安装-NVIDIA-驱动" class="headerlink" title="第二步：1. 安装 NVIDIA 驱动"></a>第二步：<strong>1. 安装 NVIDIA 驱动</strong></h3><h4 id="1-添加官方驱动仓库并更新"><a href="#1-添加官方驱动仓库并更新" class="headerlink" title="(1) 添加官方驱动仓库并更新"></a>(1) 添加官方驱动仓库并更新</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> add-apt-repository ppa:graphics-drivers/ppa</span><br><span class="line"><span class="built_in">sudo</span> apt update</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-查看推荐驱动版本"><a href="#2-查看推荐驱动版本" class="headerlink" title="(2) 查看推荐驱动版本"></a>(2) 查看推荐驱动版本</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ubuntu-drivers devices</span><br></pre></td></tr></table></figure>
+
+<p>输出示例：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">== /sys/devices/pci0000:00/0000:00:02.0/0000:03:00.0 ==</span><br><span class="line">modalias : pci:v000010DEd00001C82sv000010DEsd00001C82bc03sc00i00</span><br><span class="line">vendor   : NVIDIA Corporation</span><br><span class="line">model    : GP107 [GeForce GTX 1050 Ti]</span><br><span class="line">driver   : nvidia-driver-570-server - distro non-free</span><br><span class="line">driver   : nvidia-driver-550 - distro non-free</span><br><span class="line">driver   : nvidia-driver-418-server - distro non-free</span><br><span class="line">driver   : nvidia-driver-570 - distro non-free recommended</span><br><span class="line">driver   : nvidia-driver-545 - distro non-free</span><br><span class="line">driver   : nvidia-driver-535-server - distro non-free</span><br><span class="line">driver   : nvidia-driver-535 - distro non-free</span><br><span class="line">driver   : nvidia-driver-450-server - distro non-free</span><br><span class="line">driver   : nvidia-driver-390 - distro non-free</span><br><span class="line">driver   : nvidia-driver-470 - distro non-free</span><br><span class="line">driver   : nvidia-driver-470-server - distro non-free</span><br><span class="line">driver   : xserver-xorg-video-nouveau - distro free <span class="built_in">builtin</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="3-安装推荐的驱动（如-570-版本）"><a href="#3-安装推荐的驱动（如-570-版本）" class="headerlink" title="(3) 安装推荐的驱动（如 570 版本）"></a>(3) 安装推荐的驱动（如 570 版本）</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install nvidia-driver-570</span><br></pre></td></tr></table></figure>
+
+<h4 id="4-重启系统"><a href="#4-重启系统" class="headerlink" title="(4) 重启系统"></a>(4) 重启系统</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> reboot</span><br></pre></td></tr></table></figure>
+
+<h4 id="5-验证驱动"><a href="#5-验证驱动" class="headerlink" title="(5) 验证驱动"></a>(5) 验证驱动</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">nvidia-smi</span><br></pre></td></tr></table></figure>
+
+<p>正常输出应显示 GPU 状态：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">+---------------------------------------------------------------------------------------+</span><br><span class="line">| NVIDIA-SMI 535.161.07   Driver Version: 535.161.07   CUDA Version: 12.2     |</span><br><span class="line">|-----------------------------------------+----------------------+----------------------+</span><br><span class="line">| GPU  Name                 Persistence-M | Bus-Id        Disp.A | Volatile Uncorr. ECC |</span><br><span class="line">| Fan  Temp   Perf          Pwr:Usage/Cap |         Memory-Usage | GPU-Util  Compute M. |</span><br><span class="line">|=========================================+======================+======================|</span><br><span class="line">|   0  NVIDIA GeForce GTX 1050 Ti    Off  | 00000000:03:00.0 Off |                  N/A |</span><br><span class="line">| 30%   35C    P8              N/A /  75W |      0MiB /  4096MiB |      0%      Default |</span><br><span class="line">+-----------------------------------------+----------------------+----------------------+</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="第三步：-安装-CUDA-工具包（可选）"><a href="#第三步：-安装-CUDA-工具包（可选）" class="headerlink" title="第三步： 安装 CUDA 工具包（可选）"></a><strong>第三步： 安装 CUDA 工具包（可选）</strong></h3><p>如果需开发 GPU 计算应用（如 AI、深度学习），安装 CUDA：</p>
+<h4 id="1-访问-CUDA-Toolkit-Archive-选择版本（推荐-CUDA-11-8-或-12-x）"><a href="#1-访问-CUDA-Toolkit-Archive-选择版本（推荐-CUDA-11-8-或-12-x）" class="headerlink" title="(1) 访问 CUDA Toolkit Archive 选择版本（推荐 CUDA 11.8 或 12.x）"></a>(1) 访问 <a target="_blank" rel="noopener" href="https://developer.nvidia.com/cuda-toolkit-archive">CUDA Toolkit Archive</a> 选择版本（推荐 CUDA 11.8 或 12.x）</h4><h4 id="2-通过命令行安装（以-CUDA-12-2-为例）"><a href="#2-通过命令行安装（以-CUDA-12-2-为例）" class="headerlink" title="(2) 通过命令行安装（以 CUDA 12.2 为例）"></a>(2) 通过命令行安装（以 CUDA 12.2 为例）</h4><ul>
+<li>该命令需要去英伟达官网实时生成：<a target="_blank" rel="noopener" href="https://developer.nvidia.com/cuda-downloads?target_os=Linux&target_arch=x86_64&Distribution=Ubuntu&target_version=22.04&target_type=deb_local">CUDA Toolkit 12.9 Downloads | NVIDIA Developer</a></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-ubuntu2204.pin</span><br><span class="line">sudo mv cuda-ubuntu2204.pin /etc/apt/preferences.d/cuda-repository-pin-600</span><br><span class="line">wget https://developer.download.nvidia.com/compute/cuda/12.9.0/local_installers/cuda-repo-ubuntu2204-12-9-local_12.9.0-575.51.03-1_amd64.deb</span><br><span class="line">sudo dpkg -i cuda-repo-ubuntu2204-12-9-local_12.9.0-575.51.03-1_amd64.deb</span><br><span class="line">sudo cp /var/cuda-repo-ubuntu2204-12-9-local/cuda-*-keyring.gpg /usr/share/keyrings/</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get -y install cuda-toolkit-12-9</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-添加变量"><a href="#3-添加变量" class="headerlink" title="(3) 添加变量"></a>(3) 添加变量</h4><p>虽然系统显示 <code>cuda-toolkit-12-9</code> 已安装，但 <code>nvcc</code> 的路径未添加到系统环境变量中。此时需要手动将 CUDA 的二进制目录加入 <code>PATH</code>：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">export</span> PATH=/usr/local/cuda/bin:<span class="variable">$PATH</span></span><br><span class="line"><span class="built_in">source</span> ~/.bashrc</span><br></pre></td></tr></table></figure>
+
+<h4 id="4-验证-CUDA"><a href="#4-验证-CUDA" class="headerlink" title="(4) 验证 CUDA"></a>(4) 验证 CUDA</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">nvcc --version</span><br></pre></td></tr></table></figure>
+
+<p>正常输出应显示 CUDA 版本。</p>
+<h3 id="第四步：-验证-GPU-加速是否生效"><a href="#第四步：-验证-GPU-加速是否生效" class="headerlink" title="第四步： 验证 GPU 加速是否生效"></a><strong>第四步： 验证 GPU 加速是否生效</strong></h3><h4 id="1、检查编码器"><a href="#1、检查编码器" class="headerlink" title="1、检查编码器"></a>1、检查编码器</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ffmpeg -encoders | grep nvenc</span><br><span class="line"><span class="comment"># 应输出包含 h264_nvenc 的行</span></span><br></pre></td></tr></table></figure>
+
+<p>正常输出：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">root@R7-13:~# ffmpeg -encoders | grep nvenc</span><br><span class="line">ffmpeg version 4.4.2-0ubuntu0.22.04.1 Copyright (c) 2000-2021 the FFmpeg developers</span><br><span class="line">  built with gcc 11 (Ubuntu 11.2.0-19ubuntu1)</span><br><span class="line">  configuration: --prefix=/usr --extra-version=0ubuntu0.22.04.1 --toolchain=hardened --libdir=/usr/lib/x86_64-linux-gnu --incdir=/usr/include/x86_64-linux-gnu --<span class="built_in">arch</span>=amd64 --enable-gpl --disable-stripping --enable-gnutls --enable-ladspa --enable-libaom --enable-libass --enable-libbluray --enable-libbs2b --enable-libcaca --enable-libcdio --enable-libcodec2 --enable-libdav1d --enable-libflite --enable-libfontconfig --enable-libfreetype --enable-libfribidi --enable-libgme --enable-libgsm --enable-libjack --enable-libmp3lame --enable-libmysofa --enable-libopenjpeg --enable-libopenmpt --enable-libopus --enable-libpulse --enable-librabbitmq --enable-librubberband --enable-libshine --enable-libsnappy --enable-libsoxr --enable-libspeex --enable-libsrt --enable-libssh --enable-libtheora --enable-libtwolame --enable-libvidstab --enable-libvorbis --enable-libvpx --enable-libwebp --enable-libx265 --enable-libxml2 --enable-libxvid --enable-libzimg --enable-libzmq --enable-libzvbi --enable-lv2 --enable-omx --enable-openal --enable-opencl --enable-opengl --enable-sdl2 --enable-pocketsphinx --enable-librsvg --enable-libmfx --enable-libdc1394 --enable-libdrm --enable-libiec61883 --enable-chromaprint --enable-frei0r --enable-libx264 --enable-shared</span><br><span class="line">  libavutil      56. 70.100 / 56. 70.100</span><br><span class="line">  libavcodec     58.134.100 / 58.134.100</span><br><span class="line">  libavformat    58. 76.100 / 58. 76.100</span><br><span class="line">  libavdevice    58. 13.100 / 58. 13.100</span><br><span class="line">  libavfilter     7.110.100 /  7.110.100</span><br><span class="line">  libswscale      5.  9.100 /  5.  9.100</span><br><span class="line">  libswresample   3.  9.100 /  3.  9.100</span><br><span class="line">  libpostproc    55.  9.100 / 55.  9.100</span><br><span class="line"> V....D h264_nvenc           NVIDIA NVENC H.264 encoder (codec h264)</span><br><span class="line"> V..... nvenc                NVIDIA NVENC H.264 encoder (codec h264)</span><br><span class="line"> V..... nvenc_h264           NVIDIA NVENC H.264 encoder (codec h264)</span><br><span class="line"> V..... nvenc_hevc           NVIDIA NVENC hevc encoder (codec hevc)</span><br><span class="line"> V....D hevc_nvenc           NVIDIA NVENC hevc encoder (codec hevc)</span><br></pre></td></tr></table></figure>
+
+<h4 id="2、监控-GPU-使用情况"><a href="#2、监控-GPU-使用情况" class="headerlink" title="2、监控 GPU 使用情况"></a>2、监控 GPU 使用情况</h4><h5 id="2-1、nvidia-smi-watch-组合命令"><a href="#2-1、nvidia-smi-watch-组合命令" class="headerlink" title="2.1、nvidia-smi + watch 组合命令*"></a>2.1、<code>nvidia-smi</code> + <code>watch</code> 组合命令*</h5><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 每秒刷新一次 GPU 状态，适合快速查看核心利用率、显存占用和温度</span></span><br><span class="line">watch -n 1 nvidia-smi  <span class="comment"># Linux/macOS</span></span><br></pre></td></tr></table></figure>
+
+<p>windows 方案：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">while</span> (<span class="variable">$true</span>) &#123; nvidia-smi; Start-Sleep -Milliseconds 500 &#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-2、nvtop（类-htop-工具）"><a href="#2-2、nvtop（类-htop-工具）" class="headerlink" title="2.2、nvtop（类 htop 工具）"></a>2.2、<strong><code>nvtop</code>（类 htop 工具）</strong></h5><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 支持交互式操作和动态排序，适合多 GPU 服务器</span></span><br><span class="line"><span class="built_in">sudo</span> apt install nvtop  <span class="comment"># Ubuntu/Debian</span></span><br><span class="line">nvtop</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/docker/" rel="tag"># docker</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2025/05/26/go%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91%E9%94%99%E8%AF%AF-sqlite%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="prev" title="go交叉编译错误:sqlite数据库">
+      <i class="fa fa-chevron-left"></i> go交叉编译错误:sqlite数据库
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#ubuntu-%E6%B5%8B%E8%AF%95%E4%BD%BF%E7%94%A8-GPU-ffmpeg-%E8%BD%AC%E7%A0%81%E8%A7%86%E9%A2%91"><span class="nav-number">1.</span> <span class="nav-text">ubuntu 测试使用 GPU-ffmpeg 转码视频</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%9D%E5%A4%96%E5%91%BD%E4%BB%A4%EF%BC%9A"><span class="nav-number">1.1.</span> <span class="nav-text">额外命令：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E6%AD%A5%EF%BC%9A%E5%AE%89%E8%A3%85ffmpeg"><span class="nav-number">1.2.</span> <span class="nav-text">第一步：安装ffmpeg</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E6%AD%A5%EF%BC%9A1-%E5%AE%89%E8%A3%85-NVIDIA-%E9%A9%B1%E5%8A%A8"><span class="nav-number">1.3.</span> <span class="nav-text">第二步：1. 安装 NVIDIA 驱动</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E6%B7%BB%E5%8A%A0%E5%AE%98%E6%96%B9%E9%A9%B1%E5%8A%A8%E4%BB%93%E5%BA%93%E5%B9%B6%E6%9B%B4%E6%96%B0"><span class="nav-number">1.3.1.</span> <span class="nav-text">(1) 添加官方驱动仓库并更新</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E6%9F%A5%E7%9C%8B%E6%8E%A8%E8%8D%90%E9%A9%B1%E5%8A%A8%E7%89%88%E6%9C%AC"><span class="nav-number">1.3.2.</span> <span class="nav-text">(2) 查看推荐驱动版本</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E5%AE%89%E8%A3%85%E6%8E%A8%E8%8D%90%E7%9A%84%E9%A9%B1%E5%8A%A8%EF%BC%88%E5%A6%82-570-%E7%89%88%E6%9C%AC%EF%BC%89"><span class="nav-number">1.3.3.</span> <span class="nav-text">(3) 安装推荐的驱动（如 570 版本）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E9%87%8D%E5%90%AF%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.3.4.</span> <span class="nav-text">(4) 重启系统</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-%E9%AA%8C%E8%AF%81%E9%A9%B1%E5%8A%A8"><span class="nav-number">1.3.5.</span> <span class="nav-text">(5) 验证驱动</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E6%AD%A5%EF%BC%9A-%E5%AE%89%E8%A3%85-CUDA-%E5%B7%A5%E5%85%B7%E5%8C%85%EF%BC%88%E5%8F%AF%E9%80%89%EF%BC%89"><span class="nav-number">1.4.</span> <span class="nav-text">第三步： 安装 CUDA 工具包（可选）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E8%AE%BF%E9%97%AE-CUDA-Toolkit-Archive-%E9%80%89%E6%8B%A9%E7%89%88%E6%9C%AC%EF%BC%88%E6%8E%A8%E8%8D%90-CUDA-11-8-%E6%88%96-12-x%EF%BC%89"><span class="nav-number">1.4.1.</span> <span class="nav-text">(1) 访问 CUDA Toolkit Archive 选择版本（推荐 CUDA 11.8 或 12.x）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E9%80%9A%E8%BF%87%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%AE%89%E8%A3%85%EF%BC%88%E4%BB%A5-CUDA-12-2-%E4%B8%BA%E4%BE%8B%EF%BC%89"><span class="nav-number">1.4.2.</span> <span class="nav-text">(2) 通过命令行安装（以 CUDA 12.2 为例）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E6%B7%BB%E5%8A%A0%E5%8F%98%E9%87%8F"><span class="nav-number">1.4.3.</span> <span class="nav-text">(3) 添加变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E9%AA%8C%E8%AF%81-CUDA"><span class="nav-number">1.4.4.</span> <span class="nav-text">(4) 验证 CUDA</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E5%9B%9B%E6%AD%A5%EF%BC%9A-%E9%AA%8C%E8%AF%81-GPU-%E5%8A%A0%E9%80%9F%E6%98%AF%E5%90%A6%E7%94%9F%E6%95%88"><span class="nav-number">1.5.</span> <span class="nav-text">第四步： 验证 GPU 加速是否生效</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81%E6%A3%80%E6%9F%A5%E7%BC%96%E7%A0%81%E5%99%A8"><span class="nav-number">1.5.1.</span> <span class="nav-text">1、检查编码器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81%E7%9B%91%E6%8E%A7-GPU-%E4%BD%BF%E7%94%A8%E6%83%85%E5%86%B5"><span class="nav-number">1.5.2.</span> <span class="nav-text">2、监控 GPU 使用情况</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1%E3%80%81nvidia-smi-watch-%E7%BB%84%E5%90%88%E5%91%BD%E4%BB%A4"><span class="nav-number">1.5.2.1.</span> <span class="nav-text">2.1、nvidia-smi + watch 组合命令*</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2%E3%80%81nvtop%EF%BC%88%E7%B1%BB-htop-%E5%B7%A5%E5%85%B7%EF%BC%89"><span class="nav-number">1.5.2.2.</span> <span class="nav-text">2.2、nvtop（类 htop 工具）</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Kanoc Ge"
+      src="/images/452794135.jpg">
+  <p class="site-author-name" itemprop="name">Kanoc Ge</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">370</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">97</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">225</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kanoc Ge</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
