@@ -6,7 +6,7 @@
   <link href="https://kanoc.gitee.io/atom.xml" rel="self"/>
   
   <link href="https://kanoc.gitee.io/"/>
-  <updated>2025-05-26T14:58:04.076Z</updated>
+  <updated>2025-06-04T12:43:48.625Z</updated>
   <id>https://kanoc.gitee.io/</id>
   
   <author>
@@ -15,6 +15,56 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Ubuntu-apt安装ffmpeg最新版-ffmpeg6-or-ffmpeg7</title>
+    <link href="https://kanoc.gitee.io/2025/06/04/Ubuntu-apt%E5%AE%89%E8%A3%85ffmpeg%E6%9C%80%E6%96%B0%E7%89%88-ffmpeg6-or-ffmpeg7/"/>
+    <id>https://kanoc.gitee.io/2025/06/04/Ubuntu-apt%E5%AE%89%E8%A3%85ffmpeg%E6%9C%80%E6%96%B0%E7%89%88-ffmpeg6-or-ffmpeg7/</id>
+    <published>2025-06-04T12:37:25.000Z</published>
+    <updated>2025-06-04T12:43:48.625Z</updated>
+    
+    <content type="html"><![CDATA[<p><font color=#00b2c2 size=5 face=宋体><strong>Ubuntu使用<code>apt</code>安装最新版本<code>FFmpeg</code></strong></font></p><span id="more"></span><h3 id="第一步：添加ppa源"><a href="#第一步：添加ppa源" class="headerlink" title="第一步：添加ppa源"></a>第一步：添加<code>ppa</code>源</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 二选一，重复使用会出现覆盖</span></span><br><span class="line"><span class="built_in">sudo</span> add-apt-repository ppa:ubuntuhandbook1/ffmpeg7   <span class="comment"># ffmpeg7版本源</span></span><br><span class="line"><span class="comment"># sudo add-apt-repository ppa:ubuntuhandbook1/ffmpeg6   # ffmpeg6版本源</span></span><br></pre></td></tr></table></figure><h3 id="第二步：更新apt缓存"><a href="#第二步：更新apt缓存" class="headerlink" title="第二步：更新apt缓存"></a>第二步：更新<code>apt</code>缓存</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo apt update</span><br></pre></td></tr></table></figure><h3 id="第三步：安装ffmpeg"><a href="#第三步：安装ffmpeg" class="headerlink" title="第三步：安装ffmpeg"></a>第三步：安装<code>ffmpeg</code></h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install ffmpeg</span><br><span class="line"></span><br><span class="line"><span class="comment"># # 如果之前安装过 ：更新ffmpeg</span></span><br><span class="line"><span class="comment"># sudo apt upgrade ffmpeg    # 更新命令</span></span><br></pre></td></tr></table></figure><p><img src="https://s2.loli.net/2025/06/04/kLrnaDMZRFsJQ75.jpg" alt="img"></p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;&lt;font color=#00b2c2 size=5 face=宋体&gt;&lt;strong&gt;Ubuntu使用&lt;code&gt;apt&lt;/code&gt;安装最新版本&lt;code&gt;FFmpeg&lt;/code&gt;&lt;/strong&gt;&lt;/font&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="main" scheme="https://kanoc.gitee.io/categories/main/"/>
+    
+    <category term="s" scheme="https://kanoc.gitee.io/categories/main/s/"/>
+    
+    
+    <category term="docker" scheme="https://kanoc.gitee.io/tags/docker/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>curl_cffi请求指南</title>
+    <link href="https://kanoc.gitee.io/2025/05/27/curl-cffi%E8%AF%B7%E6%B1%82%E6%8C%87%E5%8D%97/"/>
+    <id>https://kanoc.gitee.io/2025/05/27/curl-cffi%E8%AF%B7%E6%B1%82%E6%8C%87%E5%8D%97/</id>
+    <published>2025-05-26T20:36:41.000Z</published>
+    <updated>2025-05-26T20:43:22.212Z</updated>
+    
+    <content type="html"><![CDATA[<p><font color=#00b2c2 size=5 face=宋体><strong>curl_cffi请求指南</strong></font></p><span id="more"></span><h3 id="Post方式：multipart-form-data"><a href="#Post方式：multipart-form-data" class="headerlink" title="Post方式：multipart/form-data"></a>Post方式：<code>multipart/form-data</code></h3><p><code>&quot;Content-Type&quot;:&quot;multipart/form-data&quot;</code></p><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> curl_cffi <span class="keyword">import</span> requests, CurlMime</span><br><span class="line">mp = CurlMime()  <span class="comment"># 该类是 curl_cffi的上传文件类</span></span><br><span class="line"></span><br><span class="line">url = <span class="string">&quot;http://192.168.2.3:8080/upload&quot;</span>  <span class="comment"># 请求地址</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 文本内容 json</span></span><br><span class="line">payload = &#123;</span><br><span class="line">    <span class="string">&#x27;save_path&#x27;</span>: <span class="string">&#x27;/data/mp4_file/test3&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;md5&#x27;</span>: <span class="string">&#x27;4b9975069087e0f0f9e13bf4111b7a03&#x27;</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&quot;/Users/kama/水3.mp4&quot;</span>, <span class="string">&quot;rb&quot;</span>) <span class="keyword">as</span> file:</span><br><span class="line">    data = file.read()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加文件到 multiple</span></span><br><span class="line">mp.addpart(</span><br><span class="line">    name=<span class="string">&quot;file&quot;</span>,</span><br><span class="line">    content_type=<span class="string">&quot;application/octet-stream&quot;</span>,</span><br><span class="line">    filename=<span class="string">&quot;水3.mp4&quot;</span>,</span><br><span class="line">    data=data,</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 开始发送请求</span></span><br><span class="line">response = requests.post(url, data=payload, multipart=mp, impersonate=<span class="string">&quot;chrome120&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(response.text)</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;&lt;font color=#00b2c2 size=5 face=宋体&gt;&lt;strong&gt;curl_cffi请求指南&lt;/strong&gt;&lt;/font&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="python" scheme="https://kanoc.gitee.io/categories/python/"/>
+    
+    <category term="curl_cffi" scheme="https://kanoc.gitee.io/categories/python/curl-cffi/"/>
+    
+    
+    <category term="指南" scheme="https://kanoc.gitee.io/tags/%E6%8C%87%E5%8D%97/"/>
+    
+    <category term="request" scheme="https://kanoc.gitee.io/tags/request/"/>
+    
+    <category term="请求示例" scheme="https://kanoc.gitee.io/tags/%E8%AF%B7%E6%B1%82%E7%A4%BA%E4%BE%8B/"/>
+    
+  </entry>
   
   <entry>
     <title>Ubuntu配置安装GPU转码</title>
@@ -479,60 +529,6 @@
     <category term="逆向" scheme="https://kanoc.gitee.io/tags/%E9%80%86%E5%90%91/"/>
     
     <category term="JavaScript" scheme="https://kanoc.gitee.io/tags/JavaScript/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>ubuntu-设置swap交换空间</title>
-    <link href="https://kanoc.gitee.io/2025/02/17/ubuntu-%E8%AE%BE%E7%BD%AEswap%E4%BA%A4%E6%8D%A2%E7%A9%BA%E9%97%B4/"/>
-    <id>https://kanoc.gitee.io/2025/02/17/ubuntu-%E8%AE%BE%E7%BD%AEswap%E4%BA%A4%E6%8D%A2%E7%A9%BA%E9%97%B4/</id>
-    <published>2025-02-17T01:23:10.000Z</published>
-    <updated>2025-02-17T01:29:15.060Z</updated>
-    
-    <content type="html"><![CDATA[<p><font color=#00b2c2 size=5 face=宋体><strong><code>ubuntu</code> 设置<code>swap</code>交换空间</strong></font></p><span id="more"></span><p>在 <code>Ubuntu</code> 上设置交换空间（<code>Swap Space</code>）可以帮助系统在物理内存不足时使用硬盘空间来存储临时数据。以下是设置交换空间的步骤：</p><h3 id="步骤-1-检查当前交换空间"><a href="#步骤-1-检查当前交换空间" class="headerlink" title="步骤 1: 检查当前交换空间"></a>步骤 1: 检查当前交换空间</h3><p>首先，检查当前的交换空间是否已启用：</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo swapon --show</span><br></pre></td></tr></table></figure><p>如果没有输出，表示当前没有启用的交换空间。</p><h3 id="步骤-2-创建交换文件"><a href="#步骤-2-创建交换文件" class="headerlink" title="步骤 2: 创建交换文件"></a>步骤 2: 创建交换文件</h3><ol><li>选择交换文件的大小：决定你想要创建的交换文件的大小。例如，假设你想创建一个 <code>2GB</code> 的交换文件。</li><li>创建交换文件：使用 <code>fallocate</code> 命令创建交换文件：</li></ol><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo fallocate -l 2G /swapfile</span><br></pre></td></tr></table></figure><p>如果 fallocate 不可用，可以使用 <code>dd</code> 命令：</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo dd if=/dev/zero of=/swapfile bs=1G count=2  </span><br></pre></td></tr></table></figure><h3 id="步骤-3-设置交换文件权限"><a href="#步骤-3-设置交换文件权限" class="headerlink" title="步骤 3: 设置交换文件权限"></a>步骤 3: 设置交换文件权限</h3><p>为了安全起见，设置交换文件的权限，使其只能由 <code>root</code> 用户访问：</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo chmod 600 /swapfile</span><br></pre></td></tr></table></figure><h3 id="步骤-4-将文件设置为交换空间"><a href="#步骤-4-将文件设置为交换空间" class="headerlink" title="步骤 4: 将文件设置为交换空间"></a>步骤 4: 将文件设置为交换空间</h3><p>使用以下命令将文件设置为交换空间：</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo mkswap /swapfile</span><br></pre></td></tr></table></figure><h3 id="步骤-5-启用交换空间"><a href="#步骤-5-启用交换空间" class="headerlink" title="步骤 5: 启用交换空间"></a>步骤 5: 启用交换空间</h3><p>启用交换空间：</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo swapon /swapfile</span><br></pre></td></tr></table></figure><h3 id="步骤-6-验证交换空间"><a href="#步骤-6-验证交换空间" class="headerlink" title="步骤 6: 验证交换空间"></a>步骤 6: 验证交换空间</h3><p>再次检查交换空间是否已启用：</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo swapon --show</span><br></pre></td></tr></table></figure><p>你应该能看到 <code>/swapfile</code> 列在输出中。</p><h3 id="步骤-7-设置开机自动挂载"><a href="#步骤-7-设置开机自动挂载" class="headerlink" title="步骤 7: 设置开机自动挂载"></a>步骤 7: 设置开机自动挂载</h3><p>为了在系统重启后自动启用交换空间，需要将其添加到 <code>/etc/fstab</code> 文件中：</p><ol><li>打开 <code>/etc/fstab</code> 文件：</li></ol><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo nano /etc/fstab</span><br></pre></td></tr></table></figure><ol start="2"><li>在文件末尾添加以下行：</li></ol><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/swapfile none swap sw 0 0</span><br></pre></td></tr></table></figure><p>保存并退出编辑器（在 <code>nano</code> 中，按 <code>CTRL + X</code>，然后按 <code>Y</code> 确认保存）。</p><h3 id="步骤-8-调整交换空间使用策略（可选）"><a href="#步骤-8-调整交换空间使用策略（可选）" class="headerlink" title="步骤 8: 调整交换空间使用策略（可选）"></a>步骤 8: 调整交换空间使用策略（可选）</h3><p>你可以调整系统使用交换空间的策略。默认情况下，<code>Linux</code> 系统会在物理内存使用到一定程度后才会使用交换空间。你可以通过调整<code> vm.swappiness</code> 参数来改变这一行为：</p><p>查看当前的 <code>swappiness</code> 值：</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cat /proc/sys/vm/swappiness</span><br></pre></td></tr></table></figure><p>临时设置 <code>swappiness</code> 值（范围 <code>0-100</code>，值越低，越不倾向于使用交换空间）：</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo sysctl vm.swappiness=10</span><br></pre></td></tr></table></figure><p>要永久更改 <code>swappiness</code> 值，可以编辑 <code>/etc/sysctl.conf</code> 文件：</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo nano /etc/sysctl.conf</span><br></pre></td></tr></table></figure><p>在文件中添加或修改以下行：</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">vm.swappiness=10</span><br></pre></td></tr></table></figure><p>保存并退出编辑器。</p><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>通过以上步骤，你可以在 <code>Ubuntu</code> 上成功设置和启用交换空间。这将有助于在物理内存不足时提高系统的稳定性和性能。</p>]]></content>
-    
-    
-    <summary type="html">&lt;p&gt;&lt;font color=#00b2c2 size=5 face=宋体&gt;&lt;strong&gt;&lt;code&gt;ubuntu&lt;/code&gt; 设置&lt;code&gt;swap&lt;/code&gt;交换空间&lt;/strong&gt;&lt;/font&gt;&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="系统" scheme="https://kanoc.gitee.io/categories/%E7%B3%BB%E7%BB%9F/"/>
-    
-    <category term="ubuntu" scheme="https://kanoc.gitee.io/categories/%E7%B3%BB%E7%BB%9F/ubuntu/"/>
-    
-    
-    <category term="ubuntu" scheme="https://kanoc.gitee.io/tags/ubuntu/"/>
-    
-    <category term="swap" scheme="https://kanoc.gitee.io/tags/swap/"/>
-    
-    <category term="交换空间" scheme="https://kanoc.gitee.io/tags/%E4%BA%A4%E6%8D%A2%E7%A9%BA%E9%97%B4/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>docker-push到harbor错误解决方案</title>
-    <link href="https://kanoc.gitee.io/2025/02/17/docker-push%E5%88%B0harbor%E9%94%99%E8%AF%AF%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/"/>
-    <id>https://kanoc.gitee.io/2025/02/17/docker-push%E5%88%B0harbor%E9%94%99%E8%AF%AF%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</id>
-    <published>2025-02-16T21:50:52.000Z</published>
-    <updated>2025-02-16T22:08:19.756Z</updated>
-    
-    <content type="html"><![CDATA[<p><font color=#00b2c2 size=5 face=宋体><strong>docker push到<code>harbor</code>错误解决方案</strong></font></p><span id="more"></span><p>系统信息：</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">CPU信息: Apple M1</span><br><span class="line">内存信息: 8 GB, </span><br><span class="line">系统版本: 14.3.1</span><br><span class="line"></span><br><span class="line">Docker version 27.5.1, build 9f9e405801</span><br><span class="line">colima version 0.8.1</span><br><span class="line">runtime: docker</span><br><span class="line">arch: aarch64</span><br><span class="line">client: v27.5.1</span><br><span class="line">server: v27.4.0</span><br></pre></td></tr></table></figure><h2 id="错误1："><a href="#错误1：" class="headerlink" title="错误1："></a>错误1：</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">The push refers to repository [192.168.31.7:7315/ka/ppds]</span><br><span class="line">Get <span class="string">&quot;https://192.168.31.7:7315/ka/ppds/v2/&quot;</span>: http: server gave HTTP response to HTTPS client</span><br></pre></td></tr></table></figure><h4 id="解决方案："><a href="#解决方案：" class="headerlink" title="解决方案："></a>解决方案：</h4><ul><li>第1步：设置不安全的注册表</li></ul><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 编辑colima默认信息</span></span><br><span class="line">colima start --edit</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在打开的栏中找到 docker配置</span></span><br><span class="line">docker:</span><br><span class="line">  insecure-registries:</span><br><span class="line">    - harbor.jakehu.me:31104</span><br><span class="line">  registry-mirrors:</span><br><span class="line">    - docker.registry.huwenxi.com</span><br></pre></td></tr></table></figure><ul><li>第2步：开始重启 <code>colima</code></li></ul><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Colima列表</span></span><br><span class="line">colima list</span><br><span class="line"><span class="comment"># 启动Colima</span></span><br><span class="line">colima start</span><br><span class="line"><span class="comment"># 停止Colima</span></span><br><span class="line">colima stop</span><br><span class="line"><span class="comment"># 显示Colima状态信息</span></span><br><span class="line">colima status</span><br><span class="line"><span class="comment"># 通过SSH连接到Colima</span></span><br><span class="line">colima ssh</span><br></pre></td></tr></table></figure><ul><li>第3步：查看是否添加成功了</li></ul><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker system info   <span class="comment"># 终端输出的内容中包含 docker.registry.huwenxi.com 那么就是成功的</span></span><br></pre></td></tr></table></figure><ul><li>第4步：验证登录</li></ul><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker login docker.registry.huwenxi.com</span><br><span class="line"></span><br><span class="line"><span class="comment"># # 出现下列内容 则添加完成了</span></span><br><span class="line"><span class="comment"># Username: xxx</span></span><br><span class="line"><span class="comment"># Password: </span></span><br><span class="line"><span class="comment"># Login Succeeded</span></span><br></pre></td></tr></table></figure>]]></content>
-    
-    
-    <summary type="html">&lt;p&gt;&lt;font color=#00b2c2 size=5 face=宋体&gt;&lt;strong&gt;docker push到&lt;code&gt;harbor&lt;/code&gt;错误解决方案&lt;/strong&gt;&lt;/font&gt;&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="docker" scheme="https://kanoc.gitee.io/categories/docker/"/>
-    
-    <category term="harbor" scheme="https://kanoc.gitee.io/categories/docker/harbor/"/>
-    
-    
-    <category term="docker" scheme="https://kanoc.gitee.io/tags/docker/"/>
-    
-    <category term="错误" scheme="https://kanoc.gitee.io/tags/%E9%94%99%E8%AF%AF/"/>
-    
-    <category term="私有仓库" scheme="https://kanoc.gitee.io/tags/%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93/"/>
     
   </entry>
   
