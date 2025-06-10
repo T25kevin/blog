@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <style>
+    .category-all-page .category-list-item {
+      margin: 15px 10px 10px 10px;
+      list-style: none;
+      font-size: 20px;
+      }
+      .category-all-page .category-list-child {
+        list-style: none;
+        }
+  </style>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"kanoc.gitee.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="Go [可容纳的值]interface&#123;&#125;接口可容纳的值">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Go_interface接口可容纳的值">
+<meta property="og:url" content="https://kanoc.gitee.io/2025/06/11/Go-interface%E6%8E%A5%E5%8F%A3%E5%8F%AF%E5%AE%B9%E7%BA%B3%E7%9A%84%E5%80%BC/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Go [可容纳的值]interface&#123;&#125;接口可容纳的值">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-06-10T17:07:33.000Z">
+<meta property="article:modified_time" content="2025-06-10T17:11:47.499Z">
+<meta property="article:author" content="Kanoc Ge">
+<meta property="article:tag" content="Golang">
+<meta property="article:tag" content="接口">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://kanoc.gitee.io/2025/06/11/Go-interface%E6%8E%A5%E5%8F%A3%E5%8F%AF%E5%AE%B9%E7%BA%B3%E7%9A%84%E5%80%BC/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Go_interface接口可容纳的值 | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-首页-|-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页 | home</a>
+
+  </li>
+        <li class="menu-item menu-item-分类-|-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类 | categories</a>
+
+  </li>
+        <li class="menu-item menu-item-标签-|-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签 | tags</a>
+
+  </li>
+        <li class="menu-item menu-item-归档-|-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档 | archives</a>
+
+  </li>
+        <li class="menu-item menu-item-关于-|-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于 | about</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2025/06/11/Go-interface%E6%8E%A5%E5%8F%A3%E5%8F%AF%E5%AE%B9%E7%BA%B3%E7%9A%84%E5%80%BC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/452794135.jpg">
+      <meta itemprop="name" content="Kanoc Ge">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Go_interface接口可容纳的值
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2025-06-11 01:07:33 / 修改时间：01:11:47" itemprop="dateCreated datePublished" datetime="2025-06-11T01:07:33+08:00">2025-06-11</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Golang/" itemprop="url" rel="index"><span itemprop="name">Golang</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Golang/%E6%96%87%E6%A1%A3/" itemprop="url" rel="index"><span itemprop="name">文档</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><font color=#00b2c2 size=5 face=宋体><strong><code>Go</code> <code>[可容纳的值]interface&#123;&#125;</code>接口可容纳的值</strong></font></p>
+<span id="more"></span>
+
+<h1 id="map-string-interface-的值类型详解"><a href="#map-string-interface-的值类型详解" class="headerlink" title="map[string]interface{} 的值类型详解"></a><code>map[string]interface&#123;&#125;</code> 的值类型详解</h1><p>在 Go 语言中，<code>map[string]interface&#123;&#125;</code> 的值类型可以是<strong>任何类型</strong>，因为 <code>interface&#123;&#125;</code> 是空接口，可以容纳任何值。下面是所有可能的类型分类：</p>
+<h2 id="📊-所有可用类型一览"><a href="#📊-所有可用类型一览" class="headerlink" title="📊 所有可用类型一览"></a>📊 所有可用类型一览</h2><h3 id="1-基础类型"><a href="#1-基础类型" class="headerlink" title="1. 基础类型"></a>1. 基础类型</h3><table>
+<thead>
+<tr>
+<th>类型</th>
+<th>示例值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>bool</code></td>
+<td><code>true</code></td>
+<td>布尔值</td>
+</tr>
+<tr>
+<td><code>string</code></td>
+<td><code>&quot;hello&quot;</code></td>
+<td>字符串</td>
+</tr>
+<tr>
+<td><code>int</code></td>
+<td><code>42</code></td>
+<td>整数</td>
+</tr>
+<tr>
+<td><code>int8</code></td>
+<td><code>int8(100)</code></td>
+<td>8位整数</td>
+</tr>
+<tr>
+<td><code>int16</code></td>
+<td><code>int16(10000)</code></td>
+<td>16位整数</td>
+</tr>
+<tr>
+<td><code>int32</code></td>
+<td><code>int32(1000000)</code></td>
+<td>32位整数</td>
+</tr>
+<tr>
+<td><code>int64</code></td>
+<td><code>int64(10000000000)</code></td>
+<td>64位整数</td>
+</tr>
+<tr>
+<td><code>uint</code></td>
+<td><code>uint(42)</code></td>
+<td>无符号整数</td>
+</tr>
+<tr>
+<td><code>uint8</code></td>
+<td><code>uint8(200)</code></td>
+<td>8位无符号整数</td>
+</tr>
+<tr>
+<td><code>uint16</code></td>
+<td><code>uint16(50000)</code></td>
+<td>16位无符号整数</td>
+</tr>
+<tr>
+<td><code>uint32</code></td>
+<td><code>uint32(4000000000)</code></td>
+<td>32位无符号整数</td>
+</tr>
+<tr>
+<td><code>uint64</code></td>
+<td><code>uint64(10000000000000000000)</code></td>
+<td>64位无符号整数</td>
+</tr>
+<tr>
+<td><code>byte</code></td>
+<td><code>byte(&#39;A&#39;)</code></td>
+<td><code>uint8</code> 的别名</td>
+</tr>
+<tr>
+<td><code>rune</code></td>
+<td><code>rune(&#39;中&#39;)</code></td>
+<td><code>int32</code> 的别名</td>
+</tr>
+<tr>
+<td><code>float32</code></td>
+<td><code>float32(3.14)</code></td>
+<td>32位浮点数</td>
+</tr>
+<tr>
+<td><code>float64</code></td>
+<td><code>3.1415926535</code></td>
+<td>64位浮点数</td>
+</tr>
+<tr>
+<td><code>complex64</code></td>
+<td><code>complex64(1+2i)</code></td>
+<td>64位复数</td>
+</tr>
+<tr>
+<td><code>complex128</code></td>
+<td><code>2+3i</code></td>
+<td>128位复数</td>
+</tr>
+</tbody></table>
+<h3 id="2-复合类型"><a href="#2-复合类型" class="headerlink" title="2. 复合类型"></a>2. 复合类型</h3><table>
+<thead>
+<tr>
+<th>类型</th>
+<th>示例值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>map[string]interface&#123;&#125;</code></td>
+<td><code>map[string]interface&#123;&#125;&#123;&quot;key&quot;: &quot;value&quot;&#125;</code></td>
+<td>嵌套映射</td>
+</tr>
+<tr>
+<td><code>[]interface&#123;&#125;</code></td>
+<td><code>[]interface&#123;&#125;&#123;1, &quot;two&quot;, true&#125;</code></td>
+<td>混合类型切片</td>
+</tr>
+<tr>
+<td><code>[]string</code></td>
+<td><code>[]string&#123;&quot;a&quot;, &quot;b&quot;, &quot;c&quot;&#125;</code></td>
+<td>字符串切片</td>
+</tr>
+<tr>
+<td><code>[]int</code></td>
+<td><code>[]int&#123;1, 2, 3&#125;</code></td>
+<td>整数切片</td>
+</tr>
+<tr>
+<td><code>[3]int</code></td>
+<td><code>[3]int&#123;1, 2, 3&#125;</code></td>
+<td>固定长度数组</td>
+</tr>
+<tr>
+<td><code>chan int</code></td>
+<td><code>make(chan int)</code></td>
+<td>整数通道</td>
+</tr>
+<tr>
+<td><code>func()</code></td>
+<td><code>func() &#123; fmt.Println(&quot;hello&quot;) &#125;</code></td>
+<td>函数类型</td>
+</tr>
+</tbody></table>
+<h3 id="3-指针类型"><a href="#3-指针类型" class="headerlink" title="3. 指针类型"></a>3. 指针类型</h3><table>
+<thead>
+<tr>
+<th>类型</th>
+<th>示例值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>*int</code></td>
+<td><code>new(int)</code></td>
+<td>整数指针</td>
+</tr>
+<tr>
+<td><code>*string</code></td>
+<td><code>strPtr := new(string)</code></td>
+<td>字符串指针</td>
+</tr>
+<tr>
+<td><code>*struct&#123;&#125;</code></td>
+<td><code>&amp;MyStruct&#123;Field: &quot;val&quot;&#125;</code></td>
+<td>结构体指针</td>
+</tr>
+<tr>
+<td><code>unsafe.Pointer</code></td>
+<td><code>unsafe.Pointer(&amp;x)</code></td>
+<td>通用指针类型</td>
+</tr>
+</tbody></table>
+<h3 id="4-接口类型"><a href="#4-接口类型" class="headerlink" title="4. 接口类型"></a>4. 接口类型</h3><table>
+<thead>
+<tr>
+<th>类型</th>
+<th>示例值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>error</code></td>
+<td><code>errors.New(&quot;error&quot;)</code></td>
+<td>错误接口</td>
+</tr>
+<tr>
+<td><code>io.Reader</code></td>
+<td><code>os.Stdin</code></td>
+<td>读取器接口</td>
+</tr>
+<tr>
+<td>自定义接口</td>
+<td><code>MyInterfaceImpl&#123;&#125;</code></td>
+<td>任何接口实现</td>
+</tr>
+</tbody></table>
+<h3 id="5-结构体类型"><a href="#5-结构体类型" class="headerlink" title="5. 结构体类型"></a>5. 结构体类型</h3><table>
+<thead>
+<tr>
+<th>类型</th>
+<th>示例值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>time.Time</code></td>
+<td><code>time.Now()</code></td>
+<td>时间结构体</td>
+</tr>
+<tr>
+<td><code>sync.Mutex</code></td>
+<td><code>sync.Mutex&#123;&#125;</code></td>
+<td>互斥锁结构体</td>
+</tr>
+<tr>
+<td>自定义结构体</td>
+<td><code>MyStruct&#123;Field: &quot;value&quot;&#125;</code></td>
+<td>任何自定义结构体</td>
+</tr>
+</tbody></table>
+<h3 id="6-特殊类型"><a href="#6-特殊类型" class="headerlink" title="6. 特殊类型"></a>6. 特殊类型</h3><table>
+<thead>
+<tr>
+<th>类型</th>
+<th>示例值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>nil</code></td>
+<td><code>nil</code></td>
+<td>空值</td>
+</tr>
+<tr>
+<td><code>reflect.Value</code></td>
+<td><code>reflect.ValueOf(42)</code></td>
+<td>反射值</td>
+</tr>
+<tr>
+<td><code>reflect.Type</code></td>
+<td><code>reflect.TypeOf(&quot;&quot;)</code></td>
+<td>反射类型</td>
+</tr>
+<tr>
+<td><code>big.Int</code></td>
+<td><code>big.NewInt(1000)</code></td>
+<td>大整数</td>
+</tr>
+</tbody></table>
+<h2 id="🧪-使用示例"><a href="#🧪-使用示例" class="headerlink" title="🧪 使用示例"></a>🧪 使用示例</h2><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;encoding/json&quot;</span></span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">	<span class="string">&quot;math/big&quot;</span></span><br><span class="line">	<span class="string">&quot;reflect&quot;</span></span><br><span class="line">	<span class="string">&quot;sync&quot;</span></span><br><span class="line">	<span class="string">&quot;time&quot;</span></span><br><span class="line">	<span class="string">&quot;unsafe&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> CustomStruct <span class="keyword">struct</span> &#123;</span><br><span class="line">	Name <span class="type">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> MyInterface <span class="keyword">interface</span> &#123;</span><br><span class="line">	Method()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> MyInterfaceImpl <span class="keyword">struct</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(m MyInterfaceImpl)</span></span> Method() &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	data := <span class="keyword">map</span>[<span class="type">string</span>]<span class="keyword">interface</span>&#123;&#125;&#123;</span><br><span class="line">		<span class="comment">// 基础类型</span></span><br><span class="line">		<span class="string">&quot;bool&quot;</span>:       <span class="literal">true</span>,</span><br><span class="line">		<span class="string">&quot;string&quot;</span>:     <span class="string">&quot;hello&quot;</span>,</span><br><span class="line">		<span class="string">&quot;int&quot;</span>:        <span class="number">42</span>,</span><br><span class="line">		<span class="string">&quot;float32&quot;</span>:    <span class="type">float32</span>(<span class="number">3.14</span>),</span><br><span class="line">		<span class="string">&quot;complex128&quot;</span>: <span class="built_in">complex</span>(<span class="number">3</span>, <span class="number">4</span>),</span><br><span class="line">		</span><br><span class="line">		<span class="comment">// 复合类型</span></span><br><span class="line">		<span class="string">&quot;slice&quot;</span>:      []<span class="keyword">interface</span>&#123;&#125;&#123;<span class="number">1</span>, <span class="string">&quot;two&quot;</span>, <span class="literal">true</span>&#125;,</span><br><span class="line">		<span class="string">&quot;map&quot;</span>:        <span class="keyword">map</span>[<span class="type">string</span>]<span class="type">int</span>&#123;<span class="string">&quot;one&quot;</span>: <span class="number">1</span>, <span class="string">&quot;two&quot;</span>: <span class="number">2</span>&#125;,</span><br><span class="line">		<span class="string">&quot;array&quot;</span>:      [<span class="number">3</span>]<span class="type">int</span>&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;,</span><br><span class="line">		<span class="string">&quot;func&quot;</span>:       <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123; fmt.Println(<span class="string">&quot;I&#x27;m a function&quot;</span>) &#125;,</span><br><span class="line">		<span class="string">&quot;chan&quot;</span>:       <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="type">int</span>),</span><br><span class="line">		</span><br><span class="line">		<span class="comment">// 指针类型</span></span><br><span class="line">		<span class="string">&quot;int_ptr&quot;</span>:    <span class="built_in">new</span>(<span class="type">int</span>),</span><br><span class="line">		<span class="string">&quot;struct_ptr&quot;</span>: &amp;CustomStruct&#123;Name: <span class="string">&quot;pointer&quot;</span>&#125;,</span><br><span class="line">		<span class="string">&quot;unsafe_ptr&quot;</span>: unsafe.Pointer(&amp;data),</span><br><span class="line">		</span><br><span class="line">		<span class="comment">// 接口类型</span></span><br><span class="line">		<span class="string">&quot;error&quot;</span>:      fmt.Errorf(<span class="string">&quot;example error&quot;</span>),</span><br><span class="line">		<span class="string">&quot;reader&quot;</span>:     os.Stdin, <span class="comment">// 假设 os 已导入</span></span><br><span class="line">		<span class="string">&quot;interface&quot;</span>:  MyInterfaceImpl&#123;&#125;,</span><br><span class="line">		</span><br><span class="line">		<span class="comment">// 结构体类型</span></span><br><span class="line">		<span class="string">&quot;time&quot;</span>:       time.Now(),</span><br><span class="line">		<span class="string">&quot;mutex&quot;</span>:      sync.Mutex&#123;&#125;,</span><br><span class="line">		<span class="string">&quot;custom&quot;</span>:     CustomStruct&#123;Name: <span class="string">&quot;value&quot;</span>&#125;,</span><br><span class="line">		</span><br><span class="line">		<span class="comment">// 特殊类型</span></span><br><span class="line">		<span class="string">&quot;nil&quot;</span>:        <span class="literal">nil</span>,</span><br><span class="line">		<span class="string">&quot;reflect_value&quot;</span>: reflect.ValueOf(<span class="number">42</span>),</span><br><span class="line">		<span class="string">&quot;big_int&quot;</span>:    big.NewInt(<span class="number">1000000000000000000</span>),</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 访问不同类型的值</span></span><br><span class="line">	<span class="keyword">if</span> f, ok := data[<span class="string">&quot;float32&quot;</span>].(<span class="type">float32</span>); ok &#123;</span><br><span class="line">		fmt.Printf(<span class="string">&quot;Float32 value: %.2f\n&quot;</span>, f)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> m, ok := data[<span class="string">&quot;map&quot;</span>].(<span class="keyword">map</span>[<span class="type">string</span>]<span class="type">int</span>); ok &#123;</span><br><span class="line">		fmt.Println(<span class="string">&quot;Map value:&quot;</span>, m)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 动态类型处理</span></span><br><span class="line">	<span class="keyword">for</span> key, value := <span class="keyword">range</span> data &#123;</span><br><span class="line">		fmt.Printf(<span class="string">&quot;\nKey: %-15s | Type: %-20T | Value: %v&quot;</span>, key, value, value)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// JSON 序列化（注意：部分类型不能序列化）</span></span><br><span class="line">	jsonData, _ := json.MarshalIndent(data, <span class="string">&quot;&quot;</span>, <span class="string">&quot;  &quot;</span>)</span><br><span class="line">	fmt.Println(<span class="string">&quot;\n\nJSON representation:&quot;</span>)</span><br><span class="line">	fmt.Println(<span class="type">string</span>(jsonData))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="⚠️-重要注意事项"><a href="#⚠️-重要注意事项" class="headerlink" title="⚠️ 重要注意事项"></a>⚠️ 重要注意事项</h2><ol>
+<li><p><strong>类型断言</strong>：从 <code>interface&#123;&#125;</code> 获取值时必须进行类型断言</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> str, ok := myMap[<span class="string">&quot;key&quot;</span>].(<span class="type">string</span>); ok &#123;</span><br><span class="line">    <span class="comment">// 正确使用字符串值</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>JSON 序列化限制</strong>：</p>
+<ul>
+<li>通道、函数、循环引用的结构体不能序列化为 JSON</li>
+<li>指针类型会序列化为其指向的值</li>
+<li><code>time.Time</code> 会序列化为 RFC3339 格式字符串</li>
+</ul>
+</li>
+<li><p><strong>性能考虑</strong>：</p>
+<ul>
+<li>使用具体类型比 <code>interface&#123;&#125;</code> 更高效</li>
+<li>频繁操作时考虑具体类型或代码生成方案</li>
+</ul>
+</li>
+<li><p><strong>类型安全</strong>：</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 危险：运行时可能 panic</span></span><br><span class="line">str := myMap[<span class="string">&quot;key&quot;</span>].(<span class="type">string</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 安全：带检查的类型断言</span></span><br><span class="line"><span class="keyword">if</span> str, ok := myMap[<span class="string">&quot;key&quot;</span>].(<span class="type">string</span>); ok &#123;</span><br><span class="line">    <span class="comment">// 安全使用</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>替代方案</strong>：</p>
+<ul>
+<li><p>通用结构体方案：</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> GenericValue <span class="keyword">struct</span> &#123;</span><br><span class="line">    Type  <span class="type">string</span></span><br><span class="line">    Value <span class="keyword">interface</span>&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>代码生成方案（如使用 <code>stringer</code> 工具）</p>
+</li>
+<li><p>Protobuf 的 <code>Any</code> 类型</p>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="💡-最佳实践"><a href="#💡-最佳实践" class="headerlink" title="💡 最佳实践"></a>💡 最佳实践</h2><ol>
+<li><p><strong>优先使用具体类型</strong>：尽可能使用具体类型而非 <code>interface&#123;&#125;</code></p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 优于 map[string]interface&#123;&#125;</span></span><br><span class="line"><span class="keyword">map</span>[<span class="type">string</span>]<span class="type">string</span></span><br><span class="line"><span class="keyword">map</span>[<span class="type">string</span>]<span class="type">int</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>定义边界清晰的接口</strong>：</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> Storage <span class="keyword">interface</span> &#123;</span><br><span class="line">    Get(key <span class="type">string</span>) (<span class="keyword">interface</span>&#123;&#125;, <span class="type">error</span>)</span><br><span class="line">    Set(key <span class="type">string</span>, value <span class="keyword">interface</span>&#123;&#125;) <span class="type">error</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>使用类型开关处理多种类型</strong>：</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">processValue</span><span class="params">(v <span class="keyword">interface</span>&#123;&#125;)</span></span> &#123;</span><br><span class="line">    <span class="keyword">switch</span> val := v.(<span class="keyword">type</span>) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="type">string</span>:</span><br><span class="line">        fmt.Println(<span class="string">&quot;String:&quot;</span>, val)</span><br><span class="line">    <span class="keyword">case</span> <span class="type">int</span>:</span><br><span class="line">        fmt.Println(<span class="string">&quot;Int:&quot;</span>, val)</span><br><span class="line">    <span class="keyword">case</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span>:</span><br><span class="line">        val()</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">        fmt.Printf(<span class="string">&quot;Unhandled type: %T\n&quot;</span>, val)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>限制可接受类型</strong>：</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> allowedTypes = <span class="keyword">map</span>[reflect.Kind]<span class="type">bool</span>&#123;</span><br><span class="line">    reflect.String:  <span class="literal">true</span>,</span><br><span class="line">    reflect.Int:     <span class="literal">true</span>,</span><br><span class="line">    reflect.Float64: <span class="literal">true</span>,</span><br><span class="line">    reflect.Bool:    <span class="literal">true</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">ValidateValue</span><span class="params">(v <span class="keyword">interface</span>&#123;&#125;)</span></span> <span class="type">bool</span> &#123;</span><br><span class="line">    kind := reflect.TypeOf(v).Kind()</span><br><span class="line">    <span class="keyword">return</span> allowedTypes[kind]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>文档化预期类型</strong>：</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Config holds application configuration</span></span><br><span class="line"><span class="comment">// Possible types per key:</span></span><br><span class="line"><span class="comment">//   &quot;timeout&quot;: int (seconds)</span></span><br><span class="line"><span class="comment">//   &quot;debug&quot;: bool</span></span><br><span class="line"><span class="comment">//   &quot;servers&quot;: []string</span></span><br><span class="line"><span class="keyword">type</span> Config <span class="keyword">map</span>[<span class="type">string</span>]<span class="keyword">interface</span>&#123;&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="🌟-总结"><a href="#🌟-总结" class="headerlink" title="🌟 总结"></a>🌟 总结</h2><p><code>map[string]interface&#123;&#125;</code> 的值可以是 Go 语言中的<strong>任何类型</strong>，包括：</p>
+<ol>
+<li>所有基础类型（bool, 数值, 字符串, 复数）</li>
+<li>复合类型（切片、映射、数组、通道、函数）</li>
+<li>指针类型（包括 unsafe 指针）</li>
+<li>接口类型（包括 error 等内置接口）</li>
+<li>结构体类型（内置和自定义）</li>
+<li>特殊类型（nil, 反射对象, 大整数等）</li>
+</ol>
+<p>这种灵活性使其成为处理动态数据、JSON 解析、配置管理和通用存储的理想选择。然而，使用时需要谨慎处理类型安全和性能问题，特别是对于性能敏感的应用程序。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Golang/" rel="tag"># Golang</a>
+              <a href="/tags/%E6%8E%A5%E5%8F%A3/" rel="tag"># 接口</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2025/06/10/Go-ORM-mysql%E6%95%B0%E6%8D%AE%E5%BA%93%E6%A8%A1%E7%89%88/" rel="prev" title="Go_ORM_mysql数据库模版">
+      <i class="fa fa-chevron-left"></i> Go_ORM_mysql数据库模版
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#map-string-interface-%E7%9A%84%E5%80%BC%E7%B1%BB%E5%9E%8B%E8%AF%A6%E8%A7%A3"><span class="nav-number">1.</span> <span class="nav-text">map[string]interface{} 的值类型详解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%93%8A-%E6%89%80%E6%9C%89%E5%8F%AF%E7%94%A8%E7%B1%BB%E5%9E%8B%E4%B8%80%E8%A7%88"><span class="nav-number">1.1.</span> <span class="nav-text">📊 所有可用类型一览</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%9F%BA%E7%A1%80%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.1.1.</span> <span class="nav-text">1. 基础类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%A4%8D%E5%90%88%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.1.2.</span> <span class="nav-text">2. 复合类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%8C%87%E9%92%88%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.1.3.</span> <span class="nav-text">3. 指针类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E6%8E%A5%E5%8F%A3%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.1.4.</span> <span class="nav-text">4. 接口类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E7%BB%93%E6%9E%84%E4%BD%93%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.1.5.</span> <span class="nav-text">5. 结构体类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E7%89%B9%E6%AE%8A%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.1.6.</span> <span class="nav-text">6. 特殊类型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%A7%AA-%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B"><span class="nav-number">1.2.</span> <span class="nav-text">🧪 使用示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E2%9A%A0%EF%B8%8F-%E9%87%8D%E8%A6%81%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">1.3.</span> <span class="nav-text">⚠️ 重要注意事项</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%92%A1-%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="nav-number">1.4.</span> <span class="nav-text">💡 最佳实践</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%8C%9F-%E6%80%BB%E7%BB%93"><span class="nav-number">1.5.</span> <span class="nav-text">🌟 总结</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Kanoc Ge"
+      src="/images/452794135.jpg">
+  <p class="site-author-name" itemprop="name">Kanoc Ge</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">333</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">136</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">223</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kanoc Ge</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  <!-- 多级目录 -->
+  <script type="text/javascript" src="/js/jquery.min.js"></script>
+  <script type="text/javascript" src="/js/category.js"></script>
+</body>
+</html>
