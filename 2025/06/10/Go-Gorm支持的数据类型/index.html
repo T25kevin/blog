@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <style>
+    .category-all-page .category-list-item {
+      margin: 15px 10px 10px 10px;
+      list-style: none;
+      font-size: 20px;
+      }
+      .category-all-page .category-list-child {
+        list-style: none;
+        }
+  </style>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"kanoc.gitee.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="Go_Gorm支持的数据类型">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Go_Gorm支持的数据类型">
+<meta property="og:url" content="https://kanoc.gitee.io/2025/06/10/Go-Gorm%E6%94%AF%E6%8C%81%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Go_Gorm支持的数据类型">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-06-10T11:04:42.000Z">
+<meta property="article:modified_time" content="2025-06-10T11:08:16.820Z">
+<meta property="article:author" content="Kanoc Ge">
+<meta property="article:tag" content="数据库">
+<meta property="article:tag" content="Golang">
+<meta property="article:tag" content="ORM">
+<meta property="article:tag" content="mysql">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://kanoc.gitee.io/2025/06/10/Go-Gorm%E6%94%AF%E6%8C%81%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Go_Gorm支持的数据类型 | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-首页-|-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页 | home</a>
+
+  </li>
+        <li class="menu-item menu-item-分类-|-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类 | categories</a>
+
+  </li>
+        <li class="menu-item menu-item-标签-|-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签 | tags</a>
+
+  </li>
+        <li class="menu-item menu-item-归档-|-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档 | archives</a>
+
+  </li>
+        <li class="menu-item menu-item-关于-|-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于 | about</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2025/06/10/Go-Gorm%E6%94%AF%E6%8C%81%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/452794135.jpg">
+      <meta itemprop="name" content="Kanoc Ge">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Go_Gorm支持的数据类型
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2025-06-10 19:04:42 / 修改时间：19:08:16" itemprop="dateCreated datePublished" datetime="2025-06-10T19:04:42+08:00">2025-06-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Golang/" itemprop="url" rel="index"><span itemprop="name">Golang</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Golang/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><font color=#00b2c2 size=5 face=宋体><strong>Go_Gorm支持的数据类型</strong></font></p>
+<span id="more"></span>
+
+<p>GORM 支持广泛的 Go 数据类型，并能自动将它们映射到对应的数据库类型。以下是 GORM 支持的主要数据类型及其在常见数据库（如 MySQL）中的映射关系：</p>
+<hr>
+<h3 id="基础数据类型"><a href="#基础数据类型" class="headerlink" title="基础数据类型"></a><strong>基础数据类型</strong></h3><table>
+<thead>
+<tr>
+<th align="left">Go 类型</th>
+<th align="left">MySQL 类型</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>bool</code></td>
+<td align="left"><code>TINYINT(1)</code></td>
+<td align="left">布尔值，true&#x3D;1, false&#x3D;0</td>
+</tr>
+<tr>
+<td align="left"><code>int</code></td>
+<td align="left"><code>INT</code></td>
+<td align="left">32位整数</td>
+</tr>
+<tr>
+<td align="left"><code>int8</code></td>
+<td align="left"><code>TINYINT</code></td>
+<td align="left">8位整数</td>
+</tr>
+<tr>
+<td align="left"><code>int16</code></td>
+<td align="left"><code>SMALLINT</code></td>
+<td align="left">16位整数</td>
+</tr>
+<tr>
+<td align="left"><code>int32</code></td>
+<td align="left"><code>INT</code></td>
+<td align="left">32位整数</td>
+</tr>
+<tr>
+<td align="left"><code>int64</code></td>
+<td align="left"><code>BIGINT</code></td>
+<td align="left">64位整数</td>
+</tr>
+<tr>
+<td align="left"><code>uint</code></td>
+<td align="left"><code>INT UNSIGNED</code></td>
+<td align="left">无符号32位整数</td>
+</tr>
+<tr>
+<td align="left"><code>uint8</code></td>
+<td align="left"><code>TINYINT UNSIGNED</code></td>
+<td align="left">无符号8位整数</td>
+</tr>
+<tr>
+<td align="left"><code>uint16</code></td>
+<td align="left"><code>SMALLINT UNSIGNED</code></td>
+<td align="left">无符号16位整数</td>
+</tr>
+<tr>
+<td align="left"><code>uint32</code></td>
+<td align="left"><code>INT UNSIGNED</code></td>
+<td align="left">无符号32位整数</td>
+</tr>
+<tr>
+<td align="left"><code>uint64</code></td>
+<td align="left"><code>BIGINT UNSIGNED</code></td>
+<td align="left">无符号64位整数</td>
+</tr>
+<tr>
+<td align="left"><code>float32</code></td>
+<td align="left"><code>FLOAT</code></td>
+<td align="left">单精度浮点数</td>
+</tr>
+<tr>
+<td align="left"><code>float64</code></td>
+<td align="left"><code>DOUBLE</code></td>
+<td align="left">双精度浮点数</td>
+</tr>
+<tr>
+<td align="left"><code>string</code></td>
+<td align="left"><code>VARCHAR(255)</code></td>
+<td align="left">字符串（默认长度255），可通过标签指定长度</td>
+</tr>
+<tr>
+<td align="left"><code>[]byte</code></td>
+<td align="left"><code>BLOB</code>&#x2F;<code>LONGBLOB</code></td>
+<td align="left">二进制数据</td>
+</tr>
+<tr>
+<td align="left"><code>time.Time</code></td>
+<td align="left"><code>DATETIME</code>&#x2F;<code>TIMESTAMP</code></td>
+<td align="left">时间类型，默认精度到秒</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="高级-特殊类型"><a href="#高级-特殊类型" class="headerlink" title="高级&#x2F;特殊类型"></a><strong>高级&#x2F;特殊类型</strong></h3><table>
+<thead>
+<tr>
+<th align="left">Go 类型&#x2F;用法</th>
+<th align="left">MySQL 类型</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>*int</code> &#x2F; <code>sql.NullInt64</code></td>
+<td align="left"><code>INT NULL</code></td>
+<td align="left">可空整数</td>
+</tr>
+<tr>
+<td align="left"><code>*bool</code> &#x2F; <code>sql.NullBool</code></td>
+<td align="left"><code>TINYINT(1) NULL</code></td>
+<td align="left">可空布尔值</td>
+</tr>
+<tr>
+<td align="left"><code>*string</code> &#x2F; <code>sql.NullString</code></td>
+<td align="left"><code>VARCHAR(255) NULL</code></td>
+<td align="left">可空字符串</td>
+</tr>
+<tr>
+<td align="left"><code>*float64</code> &#x2F; <code>sql.NullFloat64</code></td>
+<td align="left"><code>DOUBLE NULL</code></td>
+<td align="left">可空浮点数</td>
+</tr>
+<tr>
+<td align="left"><code>*time.Time</code> &#x2F; <code>sql.NullTime</code></td>
+<td align="left"><code>DATETIME NULL</code></td>
+<td align="left">可空时间</td>
+</tr>
+<tr>
+<td align="left"><code>gorm.DeletedAt</code></td>
+<td align="left"><code>DATETIME NULL</code></td>
+<td align="left">软删除字段</td>
+</tr>
+<tr>
+<td align="left"><code>json.RawMessage</code></td>
+<td align="left"><code>JSON</code> (MySQL 5.7+)</td>
+<td align="left">JSON 数据（需要数据库支持）</td>
+</tr>
+<tr>
+<td align="left"><code>map[string]interface&#123;&#125;</code></td>
+<td align="left"><code>JSON</code></td>
+<td align="left">JSON 对象</td>
+</tr>
+<tr>
+<td align="left"><code>[]string</code> &#x2F; <code>[]int</code></td>
+<td align="left"><code>JSON</code></td>
+<td align="left">数组（序列化为 JSON）</td>
+</tr>
+<tr>
+<td align="left"><code>uuid.UUID</code> (github.com&#x2F;google&#x2F;uuid)</td>
+<td align="left"><code>CHAR(36)</code></td>
+<td align="left">UUID 类型</td>
+</tr>
+<tr>
+<td align="left"><code>decimal.Decimal</code> (github.com&#x2F;shopspring&#x2F;decimal)</td>
+<td align="left"><code>DECIMAL(65,30)</code></td>
+<td align="left">高精度十进制数</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="自定义类型处理"><a href="#自定义类型处理" class="headerlink" title="自定义类型处理"></a><strong>自定义类型处理</strong></h3><p>GORM 支持通过接口实现自定义类型：</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> MyCustomType <span class="type">string</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 实现 Valuer 接口 - 定义如何存储到数据库</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(m MyCustomType)</span></span> Value() (driver.Value, <span class="type">error</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> strings.ToUpper(<span class="type">string</span>(m)), <span class="literal">nil</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 实现 Scanner 接口 - 定义如何从数据库读取</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(m *MyCustomType)</span></span> Scan(value <span class="keyword">interface</span>&#123;&#125;) <span class="type">error</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> value == <span class="literal">nil</span> &#123;</span><br><span class="line">        *m = <span class="string">&quot;&quot;</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> v, ok := value.([]<span class="type">byte</span>); ok &#123;</span><br><span class="line">        *m = MyCustomType(strings.ToLower(<span class="type">string</span>(v)))</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> fmt.Errorf(<span class="string">&quot;cannot convert %T to MyCustomType&quot;</span>, value)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> User <span class="keyword">struct</span> &#123;</span><br><span class="line">    ID   <span class="type">uint</span></span><br><span class="line">    Role MyCustomType <span class="string">`gorm:&quot;type:VARCHAR(10)&quot;`</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="类型映射控制"><a href="#类型映射控制" class="headerlink" title="类型映射控制"></a><strong>类型映射控制</strong></h3><p>可以通过 GORM 标签精确控制数据库类型：</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> Product <span class="keyword">struct</span> &#123;</span><br><span class="line">    ID          <span class="type">uint</span>      <span class="string">`gorm:&quot;primaryKey&quot;`</span></span><br><span class="line">    Name        <span class="type">string</span>    <span class="string">`gorm:&quot;type:VARCHAR(100);not null&quot;`</span></span><br><span class="line">    Price       <span class="type">float64</span>   <span class="string">`gorm:&quot;type:DECIMAL(10,2)&quot;`</span></span><br><span class="line">    Description <span class="type">string</span>    <span class="string">`gorm:&quot;type:TEXT&quot;`</span></span><br><span class="line">    IsActive    <span class="type">bool</span>      <span class="string">`gorm:&quot;default:true&quot;`</span></span><br><span class="line">    CreatedAt   time.Time <span class="string">`gorm:&quot;type:TIMESTAMP;default:CURRENT_TIMESTAMP&quot;`</span></span><br><span class="line">    Metadata    JSON      <span class="string">`gorm:&quot;type:JSON&quot;`</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 自定义 JSON 类型</span></span><br><span class="line"><span class="keyword">type</span> JSON <span class="keyword">map</span>[<span class="type">string</span>]<span class="keyword">interface</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(j JSON)</span></span> Value() (driver.Value, <span class="type">error</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> json.Marshal(j)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(j *JSON)</span></span> Scan(value <span class="keyword">interface</span>&#123;&#125;) <span class="type">error</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> value == <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">    &#125;</span><br><span class="line">    b, ok := value.([]<span class="type">byte</span>)</span><br><span class="line">    <span class="keyword">if</span> !ok &#123;</span><br><span class="line">        <span class="keyword">return</span> errors.New(<span class="string">&quot;type assertion to []byte failed&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> json.Unmarshal(b, &amp;j)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="枚举类型处理"><a href="#枚举类型处理" class="headerlink" title="枚举类型处理"></a><strong>枚举类型处理</strong></h3><p>虽然 Go 没有原生枚举，但可以通过字符串+检查实现：</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> User <span class="keyword">struct</span> &#123;</span><br><span class="line">    ID     <span class="type">uint</span></span><br><span class="line">    Status <span class="type">string</span> <span class="string">`gorm:&quot;type:ENUM(&#x27;active&#x27;, &#x27;inactive&#x27;, &#x27;pending&#x27;);default:&#x27;pending&#x27;&quot;`</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 添加检查约束</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(u *User)</span></span> BeforeSave(tx *gorm.DB) (err <span class="type">error</span>) &#123;</span><br><span class="line">    validStatus := <span class="keyword">map</span>[<span class="type">string</span>]<span class="type">bool</span>&#123;<span class="string">&quot;active&quot;</span>: <span class="literal">true</span>, <span class="string">&quot;inactive&quot;</span>: <span class="literal">true</span>, <span class="string">&quot;pending&quot;</span>: <span class="literal">true</span>&#125;</span><br><span class="line">    <span class="keyword">if</span> !validStatus[u.Status] &#123;</span><br><span class="line">        <span class="keyword">return</span> errors.New(<span class="string">&quot;invalid status value&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="自动类型推断"><a href="#自动类型推断" class="headerlink" title="自动类型推断"></a><strong>自动类型推断</strong></h3><p>当使用 <code>AutoMigrate</code> 时，GORM 会根据 Go 类型自动创建合适的数据库列：</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">db.AutoMigrate(&amp;Product&#123;&#125;)</span><br><span class="line"><span class="comment">// 会自动创建：</span></span><br><span class="line"><span class="comment">// - VARCHAR(255) for string</span></span><br><span class="line"><span class="comment">// - BIGINT for int64</span></span><br><span class="line"><span class="comment">// - FLOAT for float32</span></span><br><span class="line"><span class="comment">// - DOUBLE for float64</span></span><br><span class="line"><span class="comment">// - TINYINT(1) for bool</span></span><br><span class="line"><span class="comment">// - DATETIME for time.Time</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="特殊注意事项"><a href="#特殊注意事项" class="headerlink" title="特殊注意事项"></a><strong>特殊注意事项</strong></h3><ol>
+<li><p><strong>时间类型</strong>：</p>
+<ul>
+<li><code>time.Time</code> 默认映射为 <code>DATETIME</code></li>
+<li>使用 <code>gorm:&quot;type:TIMESTAMP&quot;</code> 可指定为时间戳</li>
+<li>使用 <code>gorm:&quot;autoCreateTime&quot;</code> &#x2F; <code>gorm:&quot;autoUpdateTime&quot;</code> 自动管理时间</li>
+</ul>
+</li>
+<li><p><strong>JSON 支持</strong>：</p>
+<ul>
+<li>MySQL 5.7+ 原生支持 JSON 类型</li>
+<li>旧版本可序列化为字符串存储</li>
+</ul>
+</li>
+<li><p><strong>默认值</strong>：</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">Active <span class="type">bool</span> <span class="string">`gorm:&quot;default:true&quot;`</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>大小限制</strong>：</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">Description <span class="type">string</span> <span class="string">`gorm:&quot;size:5000&quot;`</span> <span class="comment">// TEXT 类型</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>自定义类型映射</strong>：</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">gorm:<span class="string">&quot;type:MEDIUMTEXT&quot;</span> <span class="comment">// 指定为 MEDIUMTEXT</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<hr>
+<h3 id="数据库差异"><a href="#数据库差异" class="headerlink" title="数据库差异"></a><strong>数据库差异</strong></h3><table>
+<thead>
+<tr>
+<th align="left">类型</th>
+<th align="left">MySQL</th>
+<th align="left">PostgreSQL</th>
+<th align="left">SQLite</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">布尔值</td>
+<td align="left">TINYINT(1)</td>
+<td align="left">BOOLEAN</td>
+<td align="left">BOOLEAN</td>
+</tr>
+<tr>
+<td align="left">大文本</td>
+<td align="left">LONGTEXT</td>
+<td align="left">TEXT</td>
+<td align="left">TEXT</td>
+</tr>
+<tr>
+<td align="left">数组</td>
+<td align="left">JSON</td>
+<td align="left">ARRAY</td>
+<td align="left">JSON</td>
+</tr>
+<tr>
+<td align="left">JSON</td>
+<td align="left">JSON (5.7+)</td>
+<td align="left">JSONB</td>
+<td align="left">JSON</td>
+</tr>
+<tr>
+<td align="left">时间</td>
+<td align="left">DATETIME</td>
+<td align="left">TIMESTAMP</td>
+<td align="left">DATETIME</td>
+</tr>
+<tr>
+<td align="left">自增ID</td>
+<td align="left">AUTO_INCREMENT</td>
+<td align="left">SERIAL</td>
+<td align="left">AUTOINCREMENT</td>
+</tr>
+</tbody></table>
+<p>建议在模型定义中显式指定类型以确保跨数据库兼容性。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag"># 数据库</a>
+              <a href="/tags/Golang/" rel="tag"># Golang</a>
+              <a href="/tags/ORM/" rel="tag"># ORM</a>
+              <a href="/tags/mysql/" rel="tag"># mysql</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2025/06/08/GoLang%E7%9A%84websocket%E7%BC%96%E7%A8%8B/" rel="prev" title="GoLang的websocket编程">
+      <i class="fa fa-chevron-left"></i> GoLang的websocket编程
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.</span> <span class="nav-text">基础数据类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AB%98%E7%BA%A7-%E7%89%B9%E6%AE%8A%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.</span> <span class="nav-text">高级&#x2F;特殊类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%9E%8B%E5%A4%84%E7%90%86"><span class="nav-number">3.</span> <span class="nav-text">自定义类型处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B1%BB%E5%9E%8B%E6%98%A0%E5%B0%84%E6%8E%A7%E5%88%B6"><span class="nav-number">4.</span> <span class="nav-text">类型映射控制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9E%9A%E4%B8%BE%E7%B1%BB%E5%9E%8B%E5%A4%84%E7%90%86"><span class="nav-number">5.</span> <span class="nav-text">枚举类型处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%8A%A8%E7%B1%BB%E5%9E%8B%E6%8E%A8%E6%96%AD"><span class="nav-number">6.</span> <span class="nav-text">自动类型推断</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%B9%E6%AE%8A%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">7.</span> <span class="nav-text">特殊注意事项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E5%B7%AE%E5%BC%82"><span class="nav-number">8.</span> <span class="nav-text">数据库差异</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Kanoc Ge"
+      src="/images/452794135.jpg">
+  <p class="site-author-name" itemprop="name">Kanoc Ge</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">331</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">136</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">222</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kanoc Ge</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  <!-- 多级目录 -->
+  <script type="text/javascript" src="/js/jquery.min.js"></script>
+  <script type="text/javascript" src="/js/category.js"></script>
+</body>
+</html>
