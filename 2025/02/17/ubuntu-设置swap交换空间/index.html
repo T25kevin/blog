@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <style>
+    .category-all-page .category-list-item {
+      margin: 15px 10px 10px 10px;
+      list-style: none;
+      font-size: 20px;
+      }
+      .category-all-page .category-list-child {
+        list-style: none;
+        }
+  </style>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"kanoc.gitee.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="ubuntu 设置swap交换空间">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ubuntu-设置swap交换空间">
+<meta property="og:url" content="https://kanoc.gitee.io/2025/02/17/ubuntu-%E8%AE%BE%E7%BD%AEswap%E4%BA%A4%E6%8D%A2%E7%A9%BA%E9%97%B4/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="ubuntu 设置swap交换空间">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-02-17T01:23:10.000Z">
+<meta property="article:modified_time" content="2025-06-10T01:05:39.505Z">
+<meta property="article:author" content="Kanoc Ge">
+<meta property="article:tag" content="ubuntu">
+<meta property="article:tag" content="swap">
+<meta property="article:tag" content="交换空间">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://kanoc.gitee.io/2025/02/17/ubuntu-%E8%AE%BE%E7%BD%AEswap%E4%BA%A4%E6%8D%A2%E7%A9%BA%E9%97%B4/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>ubuntu-设置swap交换空间 | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-首页-|-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页 | home</a>
+
+  </li>
+        <li class="menu-item menu-item-分类-|-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类 | categories</a>
+
+  </li>
+        <li class="menu-item menu-item-标签-|-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签 | tags</a>
+
+  </li>
+        <li class="menu-item menu-item-归档-|-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档 | archives</a>
+
+  </li>
+        <li class="menu-item menu-item-关于-|-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于 | about</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2025/02/17/ubuntu-%E8%AE%BE%E7%BD%AEswap%E4%BA%A4%E6%8D%A2%E7%A9%BA%E9%97%B4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/452794135.jpg">
+      <meta itemprop="name" content="Kanoc Ge">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ubuntu-设置swap交换空间
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2025-02-17 09:23:10" itemprop="dateCreated datePublished" datetime="2025-02-17T09:23:10+08:00">2025-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-06-10 09:05:39" itemprop="dateModified" datetime="2025-06-10T09:05:39+08:00">2025-06-10</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/A5-%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">_A5-安装教程</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/A5-%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/ubuntu/" itemprop="url" rel="index"><span itemprop="name">ubuntu</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><font color=#00b2c2 size=5 face=宋体><strong><code>ubuntu</code> 设置<code>swap</code>交换空间</strong></font></p>
+<span id="more"></span>
+
+<p>在 <code>Ubuntu</code> 上设置交换空间（<code>Swap Space</code>）可以帮助系统在物理内存不足时使用硬盘空间来存储临时数据。以下是设置交换空间的步骤：</p>
+<h3 id="步骤-1-检查当前交换空间"><a href="#步骤-1-检查当前交换空间" class="headerlink" title="步骤 1: 检查当前交换空间"></a>步骤 1: 检查当前交换空间</h3><p>首先，检查当前的交换空间是否已启用：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo swapon --show</span><br></pre></td></tr></table></figure>
+
+<p>如果没有输出，表示当前没有启用的交换空间。</p>
+<h3 id="步骤-2-创建交换文件"><a href="#步骤-2-创建交换文件" class="headerlink" title="步骤 2: 创建交换文件"></a>步骤 2: 创建交换文件</h3><ol>
+<li>选择交换文件的大小：决定你想要创建的交换文件的大小。例如，假设你想创建一个 <code>2GB</code> 的交换文件。</li>
+<li>创建交换文件：使用 <code>fallocate</code> 命令创建交换文件：</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo fallocate -l 2G /swapfile</span><br></pre></td></tr></table></figure>
+
+<p>如果 fallocate 不可用，可以使用 <code>dd</code> 命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo dd if=/dev/zero of=/swapfile bs=1G count=2  </span><br></pre></td></tr></table></figure>
+
+<h3 id="步骤-3-设置交换文件权限"><a href="#步骤-3-设置交换文件权限" class="headerlink" title="步骤 3: 设置交换文件权限"></a>步骤 3: 设置交换文件权限</h3><p>为了安全起见，设置交换文件的权限，使其只能由 <code>root</code> 用户访问：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo chmod 600 /swapfile</span><br></pre></td></tr></table></figure>
+
+<h3 id="步骤-4-将文件设置为交换空间"><a href="#步骤-4-将文件设置为交换空间" class="headerlink" title="步骤 4: 将文件设置为交换空间"></a>步骤 4: 将文件设置为交换空间</h3><p>使用以下命令将文件设置为交换空间：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo mkswap /swapfile</span><br></pre></td></tr></table></figure>
+
+<h3 id="步骤-5-启用交换空间"><a href="#步骤-5-启用交换空间" class="headerlink" title="步骤 5: 启用交换空间"></a>步骤 5: 启用交换空间</h3><p>启用交换空间：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo swapon /swapfile</span><br></pre></td></tr></table></figure>
+
+<h3 id="步骤-6-验证交换空间"><a href="#步骤-6-验证交换空间" class="headerlink" title="步骤 6: 验证交换空间"></a>步骤 6: 验证交换空间</h3><p>再次检查交换空间是否已启用：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo swapon --show</span><br></pre></td></tr></table></figure>
+
+<p>你应该能看到 <code>/swapfile</code> 列在输出中。</p>
+<h3 id="步骤-7-设置开机自动挂载"><a href="#步骤-7-设置开机自动挂载" class="headerlink" title="步骤 7: 设置开机自动挂载"></a>步骤 7: 设置开机自动挂载</h3><p>为了在系统重启后自动启用交换空间，需要将其添加到 <code>/etc/fstab</code> 文件中：</p>
+<ol>
+<li>打开 <code>/etc/fstab</code> 文件：</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo nano /etc/fstab</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>在文件末尾添加以下行：</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/swapfile none swap sw 0 0</span><br></pre></td></tr></table></figure>
+
+<p>保存并退出编辑器（在 <code>nano</code> 中，按 <code>CTRL + X</code>，然后按 <code>Y</code> 确认保存）。</p>
+<h3 id="步骤-8-调整交换空间使用策略（可选）"><a href="#步骤-8-调整交换空间使用策略（可选）" class="headerlink" title="步骤 8: 调整交换空间使用策略（可选）"></a>步骤 8: 调整交换空间使用策略（可选）</h3><p>你可以调整系统使用交换空间的策略。默认情况下，<code>Linux</code> 系统会在物理内存使用到一定程度后才会使用交换空间。你可以通过调整<code> vm.swappiness</code> 参数来改变这一行为：</p>
+<p>查看当前的 <code>swappiness</code> 值：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cat /proc/sys/vm/swappiness</span><br></pre></td></tr></table></figure>
+
+<p>临时设置 <code>swappiness</code> 值（范围 <code>0-100</code>，值越低，越不倾向于使用交换空间）：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo sysctl vm.swappiness=10</span><br></pre></td></tr></table></figure>
+
+<p>要永久更改 <code>swappiness</code> 值，可以编辑 <code>/etc/sysctl.conf</code> 文件：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo nano /etc/sysctl.conf</span><br></pre></td></tr></table></figure>
+
+<p>在文件中添加或修改以下行：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">vm.swappiness=10</span><br></pre></td></tr></table></figure>
+
+<p>保存并退出编辑器。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>通过以上步骤，你可以在 <code>Ubuntu</code> 上成功设置和启用交换空间。这将有助于在物理内存不足时提高系统的稳定性和性能。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/ubuntu/" rel="tag"># ubuntu</a>
+              <a href="/tags/swap/" rel="tag"># swap</a>
+              <a href="/tags/%E4%BA%A4%E6%8D%A2%E7%A9%BA%E9%97%B4/" rel="tag"># 交换空间</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2025/02/16/%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E6%90%AD%E5%BB%BADocker%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93Harbor/" rel="prev" title="手把手教你搭建Docker私有仓库Harbor">
+      <i class="fa fa-chevron-left"></i> 手把手教你搭建Docker私有仓库Harbor
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2025/02/25/%E7%A0%B4%E8%A7%A3cloudflare%E6%8B%A6%E6%88%AA%E7%A5%9E%E5%99%A8-puppeteer/" rel="next" title="破解cloudflare拦截神器_puppeteer">
+      破解cloudflare拦截神器_puppeteer <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A4-1-%E6%A3%80%E6%9F%A5%E5%BD%93%E5%89%8D%E4%BA%A4%E6%8D%A2%E7%A9%BA%E9%97%B4"><span class="nav-number">1.</span> <span class="nav-text">步骤 1: 检查当前交换空间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A4-2-%E5%88%9B%E5%BB%BA%E4%BA%A4%E6%8D%A2%E6%96%87%E4%BB%B6"><span class="nav-number">2.</span> <span class="nav-text">步骤 2: 创建交换文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A4-3-%E8%AE%BE%E7%BD%AE%E4%BA%A4%E6%8D%A2%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90"><span class="nav-number">3.</span> <span class="nav-text">步骤 3: 设置交换文件权限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A4-4-%E5%B0%86%E6%96%87%E4%BB%B6%E8%AE%BE%E7%BD%AE%E4%B8%BA%E4%BA%A4%E6%8D%A2%E7%A9%BA%E9%97%B4"><span class="nav-number">4.</span> <span class="nav-text">步骤 4: 将文件设置为交换空间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A4-5-%E5%90%AF%E7%94%A8%E4%BA%A4%E6%8D%A2%E7%A9%BA%E9%97%B4"><span class="nav-number">5.</span> <span class="nav-text">步骤 5: 启用交换空间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A4-6-%E9%AA%8C%E8%AF%81%E4%BA%A4%E6%8D%A2%E7%A9%BA%E9%97%B4"><span class="nav-number">6.</span> <span class="nav-text">步骤 6: 验证交换空间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A4-7-%E8%AE%BE%E7%BD%AE%E5%BC%80%E6%9C%BA%E8%87%AA%E5%8A%A8%E6%8C%82%E8%BD%BD"><span class="nav-number">7.</span> <span class="nav-text">步骤 7: 设置开机自动挂载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A4-8-%E8%B0%83%E6%95%B4%E4%BA%A4%E6%8D%A2%E7%A9%BA%E9%97%B4%E4%BD%BF%E7%94%A8%E7%AD%96%E7%95%A5%EF%BC%88%E5%8F%AF%E9%80%89%EF%BC%89"><span class="nav-number">8.</span> <span class="nav-text">步骤 8: 调整交换空间使用策略（可选）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">9.</span> <span class="nav-text">总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Kanoc Ge"
+      src="/images/452794135.jpg">
+  <p class="site-author-name" itemprop="name">Kanoc Ge</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">99</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">107</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kanoc Ge</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  <!-- 多级目录 -->
+  <script type="text/javascript" src="/js/jquery.min.js"></script>
+  <script type="text/javascript" src="/js/category.js"></script>
+</body>
+</html>

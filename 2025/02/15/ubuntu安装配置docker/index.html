@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <style>
+    .category-all-page .category-list-item {
+      margin: 15px 10px 10px 10px;
+      list-style: none;
+      font-size: 20px;
+      }
+      .category-all-page .category-list-child {
+        list-style: none;
+        }
+  </style>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"kanoc.gitee.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="ubuntu安装配置docker">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ubuntu安装配置docker">
+<meta property="og:url" content="https://kanoc.gitee.io/2025/02/15/ubuntu%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEdocker/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="ubuntu安装配置docker">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-02-14T23:18:23.000Z">
+<meta property="article:modified_time" content="2025-06-10T01:07:19.943Z">
+<meta property="article:author" content="Kanoc Ge">
+<meta property="article:tag" content="docker">
+<meta property="article:tag" content="安装">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://kanoc.gitee.io/2025/02/15/ubuntu%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEdocker/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>ubuntu安装配置docker | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-首页-|-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页 | home</a>
+
+  </li>
+        <li class="menu-item menu-item-分类-|-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类 | categories</a>
+
+  </li>
+        <li class="menu-item menu-item-标签-|-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签 | tags</a>
+
+  </li>
+        <li class="menu-item menu-item-归档-|-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档 | archives</a>
+
+  </li>
+        <li class="menu-item menu-item-关于-|-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于 | about</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2025/02/15/ubuntu%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEdocker/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/452794135.jpg">
+      <meta itemprop="name" content="Kanoc Ge">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ubuntu安装配置docker
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2025-02-15 07:18:23" itemprop="dateCreated datePublished" datetime="2025-02-15T07:18:23+08:00">2025-02-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-06-10 09:07:19" itemprop="dateModified" datetime="2025-06-10T09:07:19+08:00">2025-06-10</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/A5-%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">_A5-安装教程</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/A5-%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/ubuntu/" itemprop="url" rel="index"><span itemprop="name">ubuntu</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><font color=#00b2c2 size=5 face=宋体><strong>ubuntu安装配置docker</strong></font></p>
+<span id="more"></span>
+
+<h3 id="1-更新系统"><a href="#1-更新系统" class="headerlink" title="1. 更新系统"></a>1. 更新系统</h3><p>在 Ubuntu 中打开终端，更新系统：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt update</span><br><span class="line"><span class="built_in">sudo</span> apt upgrade</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="2-安装-Snap"><a href="#2-安装-Snap" class="headerlink" title="2.  安装 Snap"></a>2.  安装 Snap</h3><p>如果你的系统尚未安装 Snap，可以使用以下命令安装：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo apt install snapd</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="3-使用-Snap-安装-Docker"><a href="#3-使用-Snap-安装-Docker" class="headerlink" title="3. 使用 Snap 安装 Docker"></a>3. 使用 Snap 安装 Docker</h3><p>使用以下命令通过 Snap 安装 Docker：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> snap install docker</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-启动-Docker-服务"><a href="#4-启动-Docker-服务" class="headerlink" title="4. 启动 Docker 服务"></a>4. 启动 Docker 服务</h3><p>安装完成后，Docker 服务应该会自动启动。你可以使用以下命令检查 Docker 服务的状态：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo systemctl status snap.docker.dockerd</span><br></pre></td></tr></table></figure>
+
+<p>如果服务没有运行，可以使用以下命令启动它：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo systemctl start snap.docker.dockerd</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="4-配置国内镜像加速器-国外服务器忽略"><a href="#4-配置国内镜像加速器-国外服务器忽略" class="headerlink" title="4. 配置国内镜像加速器(国外服务器忽略)"></a>4. 配置国内镜像加速器(国外服务器忽略)</h3><ul>
+<li><code>vim /etc/docker/daemon.json</code></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	<span class="string">&quot;registry-mirrors&quot;</span>: [</span><br><span class="line">		<span class="string">&quot;https://docker.mirrors.ustc.edu.cn&quot;</span>,</span><br><span class="line">		<span class="string">&quot;https://docker.mirrors.tuna.tsinghua.edu.cn&quot;</span>,</span><br><span class="line">		<span class="string">&quot;https://www.daocloud.io/mirror&quot;</span>,</span><br><span class="line">		<span class="string">&quot;https://mirror.ccs.tencentyun.com&quot;</span>,</span><br><span class="line">		<span class="string">&quot;https://hub-mirror.c.163.com&quot;</span></span><br><span class="line">	]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-重启-docker服务"><a href="#5-重启-docker服务" class="headerlink" title="5. 重启 docker服务"></a>5. 重启 docker服务</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo systemctl restart docker</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="6-验证-Docker-安装"><a href="#6-验证-Docker-安装" class="headerlink" title="6. 验证 Docker 安装"></a>6. 验证 Docker 安装</h3><p>运行以下命令以验证 Docker 是否安装成功：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> docker --version</span><br></pre></td></tr></table></figure>
+
+<h3 id="7-运行-Docker-Hello-World-示例"><a href="#7-运行-Docker-Hello-World-示例" class="headerlink" title="7. 运行 Docker Hello World 示例"></a>7. 运行 Docker Hello World 示例</h3><p>为了确保 Docker 正常工作，可以运行一个简单的 Hello World 容器：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> docker run hello-world</span><br></pre></td></tr></table></figure>
+
+<p>如果一切正常，你将看到一条消息，表明 Docker 已成功安装并运行。</p>
+<h3 id="8-（可选）将用户添加到-Docker-组"><a href="#8-（可选）将用户添加到-Docker-组" class="headerlink" title="8. （可选）将用户添加到 Docker 组"></a>8. （可选）将用户添加到 Docker 组</h3><p>如果你希望在不使用 sudo 的情况下运行 Docker 命令，可以将你的用户添加到 Docker 组：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> usermod -aG docker <span class="variable">$USER</span></span><br></pre></td></tr></table></figure>
+
+<p>添加后，注销并重新登录，或者重启系统以使更改生效。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>通过 Snap 安装 Docker 是一种简单的方法，适合在 Ubuntu 上快速部署 Docker。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/docker/" rel="tag"># docker</a>
+              <a href="/tags/%E5%AE%89%E8%A3%85/" rel="tag"># 安装</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2025/02/15/ubuntu-%E5%85%B1%E4%BA%AB%E6%96%87%E4%BB%B6%E5%A4%B9-samba/" rel="prev" title="ubuntu-共享文件夹_samba">
+      <i class="fa fa-chevron-left"></i> ubuntu-共享文件夹_samba
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2025/02/15/ubuntu-%E5%BC%BA%E5%88%B6%E4%BF%AE%E6%94%B9%E5%AF%86%E7%A0%81%E4%B8%BA%E7%AE%80%E5%8D%95%E5%AF%86%E7%A0%81/" rel="next" title="ubuntu-强制修改密码为简单密码">
+      ubuntu-强制修改密码为简单密码 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%9B%B4%E6%96%B0%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.</span> <span class="nav-text">1. 更新系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%AE%89%E8%A3%85-Snap"><span class="nav-number">2.</span> <span class="nav-text">2.  安装 Snap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E4%BD%BF%E7%94%A8-Snap-%E5%AE%89%E8%A3%85-Docker"><span class="nav-number">3.</span> <span class="nav-text">3. 使用 Snap 安装 Docker</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E5%90%AF%E5%8A%A8-Docker-%E6%9C%8D%E5%8A%A1"><span class="nav-number">4.</span> <span class="nav-text">4. 启动 Docker 服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E9%85%8D%E7%BD%AE%E5%9B%BD%E5%86%85%E9%95%9C%E5%83%8F%E5%8A%A0%E9%80%9F%E5%99%A8-%E5%9B%BD%E5%A4%96%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%BF%BD%E7%95%A5"><span class="nav-number">5.</span> <span class="nav-text">4. 配置国内镜像加速器(国外服务器忽略)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E9%87%8D%E5%90%AF-docker%E6%9C%8D%E5%8A%A1"><span class="nav-number">6.</span> <span class="nav-text">5. 重启 docker服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E9%AA%8C%E8%AF%81-Docker-%E5%AE%89%E8%A3%85"><span class="nav-number">7.</span> <span class="nav-text">6. 验证 Docker 安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-%E8%BF%90%E8%A1%8C-Docker-Hello-World-%E7%A4%BA%E4%BE%8B"><span class="nav-number">8.</span> <span class="nav-text">7. 运行 Docker Hello World 示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-%EF%BC%88%E5%8F%AF%E9%80%89%EF%BC%89%E5%B0%86%E7%94%A8%E6%88%B7%E6%B7%BB%E5%8A%A0%E5%88%B0-Docker-%E7%BB%84"><span class="nav-number">9.</span> <span class="nav-text">8. （可选）将用户添加到 Docker 组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">10.</span> <span class="nav-text">总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Kanoc Ge"
+      src="/images/452794135.jpg">
+  <p class="site-author-name" itemprop="name">Kanoc Ge</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">99</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">107</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kanoc Ge</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  <!-- 多级目录 -->
+  <script type="text/javascript" src="/js/jquery.min.js"></script>
+  <script type="text/javascript" src="/js/category.js"></script>
+</body>
+</html>
