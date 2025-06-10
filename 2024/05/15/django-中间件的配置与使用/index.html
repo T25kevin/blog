@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <style>
+    .category-all-page .category-list-item {
+      margin: 15px 10px 10px 10px;
+      list-style: none;
+      font-size: 20px;
+      }
+      .category-all-page .category-list-child {
+        list-style: none;
+        }
+  </style>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"kanoc.gitee.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="中间件的运行流程图：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="django-中间件的配置与使用">
+<meta property="og:url" content="https://kanoc.gitee.io/2024/05/15/django-%E4%B8%AD%E9%97%B4%E4%BB%B6%E7%9A%84%E9%85%8D%E7%BD%AE%E4%B8%8E%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="中间件的运行流程图：">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2024/05/15/Gre7voNmpj3wb1u.png">
+<meta property="og:image" content="https://s2.loli.net/2024/05/15/LRYxDcgPUG5lTK2.png">
+<meta property="og:image" content="https://s2.loli.net/2024/05/16/m93EMl6sKOvVNJ1.png">
+<meta property="og:image" content="https://s2.loli.net/2024/05/16/yoCPvtDnTzM9Wxr.png">
+<meta property="og:image" content="https://s2.loli.net/2024/05/16/RmezGMnuCr9qySw.png">
+<meta property="og:image" content="https://s2.loli.net/2024/05/16/w9fpduBPR5yjJ1s.png">
+<meta property="og:image" content="https://s2.loli.net/2024/05/16/vDkNrwV5Hu4sQoT.png">
+<meta property="article:published_time" content="2024-05-15T04:18:51.000Z">
+<meta property="article:modified_time" content="2025-06-09T08:32:10.472Z">
+<meta property="article:author" content="Kanoc Ge">
+<meta property="article:tag" content="django">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="中间件">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2024/05/15/Gre7voNmpj3wb1u.png">
+
+<link rel="canonical" href="https://kanoc.gitee.io/2024/05/15/django-%E4%B8%AD%E9%97%B4%E4%BB%B6%E7%9A%84%E9%85%8D%E7%BD%AE%E4%B8%8E%E4%BD%BF%E7%94%A8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>django-中间件的配置与使用 | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-首页-|-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页 | home</a>
+
+  </li>
+        <li class="menu-item menu-item-分类-|-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类 | categories</a>
+
+  </li>
+        <li class="menu-item menu-item-标签-|-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签 | tags</a>
+
+  </li>
+        <li class="menu-item menu-item-归档-|-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档 | archives</a>
+
+  </li>
+        <li class="menu-item menu-item-关于-|-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于 | about</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2024/05/15/django-%E4%B8%AD%E9%97%B4%E4%BB%B6%E7%9A%84%E9%85%8D%E7%BD%AE%E4%B8%8E%E4%BD%BF%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/452794135.jpg">
+      <meta itemprop="name" content="Kanoc Ge">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          django-中间件的配置与使用
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-05-15 12:18:51" itemprop="dateCreated datePublished" datetime="2024-05-15T12:18:51+08:00">2024-05-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-06-09 16:32:10" itemprop="dateModified" datetime="2025-06-09T16:32:10+08:00">2025-06-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/Django/" itemprop="url" rel="index"><span itemprop="name">Django</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p> <font color=#00b2c2 size=5 face=宋体><strong>中间件的运行流程图：</strong></font></p>
+<span id="more"></span>
+
+<p><img src="https://s2.loli.net/2024/05/15/Gre7voNmpj3wb1u.png" alt="image-20230716091532551"></p>
+<h4 id="1-编写类"><a href="#1-编写类" class="headerlink" title="1.编写类"></a>1.编写类</h4><p>1.1 在项目根目录创建 <code>utils</code></p>
+<p><img src="https://s2.loli.net/2024/05/15/LRYxDcgPUG5lTK2.png" alt="image-20240515182654186"></p>
+<p>1.2 在<code>utils</code> 下的 <code>md.py</code> 中创建类。可以写在任意的目录：自定义的类、继承一个类**（推荐）**</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> django.utils.deprecation <span class="keyword">import</span> MiddlewareMixin</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">KeLaMiddleware</span>(<span class="title class_ inherited__">MiddlewareMixin</span>):</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">process_request</span>(<span class="params">self, request</span>):</span><br><span class="line">        <span class="comment"># request是请求相关所有的数据</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">process_view</span>(<span class="params">self, request, view, *args, **kwargs</span>):</span><br><span class="line">        <span class="comment"># request是请求相关所有的数据； view是试图函数； 路由参数*args, **kwargs</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">process_response</span>(<span class="params">self, request, response</span>):</span><br><span class="line">        <span class="comment"># request是请求相关所有的数据</span></span><br><span class="line">        <span class="comment"># response是试图函数返回的那个对象（封装了要返回到用户浏览器的所有数据）</span></span><br><span class="line">        <span class="keyword">return</span> response</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-注册"><a href="#2-注册" class="headerlink" title="2.注册"></a>2.注册</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">MIDDLEWARE = [</span><br><span class="line">    <span class="string">&#x27;django.middleware.security.SecurityMiddleware&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;django.contrib.sessions.middleware.SessionMiddleware&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;django.middleware.common.CommonMiddleware&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;django.middleware.csrf.CsrfViewMiddleware&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;django.contrib.auth.middleware.AuthenticationMiddleware&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;django.contrib.messages.middleware.MessageMiddleware&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;django.middleware.clickjacking.XFrameOptionsMiddleware&#x27;</span>,</span><br><span class="line">    <span class="string">&quot;utils.md.KeLaMiddleware&quot;</span></span><br><span class="line">]</span><br><span class="line"><span class="comment"># 动态导入 + 反射</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="3-测试"><a href="#3-测试" class="headerlink" title="3.测试"></a>3.测试</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> django.utils.deprecation <span class="keyword">import</span> MiddlewareMixin</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">KeLaMiddleware</span>(<span class="title class_ inherited__">MiddlewareMixin</span>):</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">process_request</span>(<span class="params">self, request</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;KeLa.process_request&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">process_view</span>(<span class="params">self, request, view, *args, **kwargs</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;KeLa.process_view&quot;</span>,view, *args, **kwargs)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">process_response</span>(<span class="params">self, request, response</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;KeLa.process_response&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span> response</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> django.contrib <span class="keyword">import</span> admin</span><br><span class="line"><span class="keyword">from</span> django.urls <span class="keyword">import</span> path</span><br><span class="line"><span class="keyword">from</span> django.shortcuts <span class="keyword">import</span> HttpResponse</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">x1</span>(<span class="params">request</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;视图.x1&quot;</span>)</span><br><span class="line">    <span class="keyword">return</span> HttpResponse(<span class="string">&quot;x1&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">x2</span>(<span class="params">request, v1</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;视图.x2&quot;</span>, v1)</span><br><span class="line">    <span class="keyword">return</span> HttpResponse(<span class="string">&quot;x2&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">    path(<span class="string">&#x27;admin/&#x27;</span>, admin.site.urls),</span><br><span class="line">    path(<span class="string">&#x27;x1/&#x27;</span>, x1),</span><br><span class="line">    path(<span class="string">&#x27;x2/&lt;int:v1&gt;/&#x27;</span>, x2),</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">MIDDLEWARE = [</span><br><span class="line">    <span class="string">&#x27;django.middleware.security.SecurityMiddleware&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;django.contrib.sessions.middleware.SessionMiddleware&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;django.middleware.common.CommonMiddleware&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;django.middleware.csrf.CsrfViewMiddleware&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;django.contrib.auth.middleware.AuthenticationMiddleware&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;django.contrib.messages.middleware.MessageMiddleware&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;django.middleware.clickjacking.XFrameOptionsMiddleware&#x27;</span>,</span><br><span class="line">    <span class="string">&quot;utils.md.KeLaMiddleware&quot;</span></span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<h4 id="4-问题"><a href="#4-问题" class="headerlink" title="4.问题"></a>4.问题</h4><ul>
+<li><p>中间件的功能好像有点像装饰器【底层源码闭包】</p>
+</li>
+<li><p>基于中间件可以做什么？</p>
+<ul>
+<li><p>根据请求周期，对 request 进行赋值，后续方便进行调用。</p>
+</li>
+<li><p>根据请求周期，对业务逻辑代码进行自定义，决定是否可以继续向后</p>
+<ul>
+<li><p>return None，继续向后走</p>
+</li>
+<li><p>return HttpResponse对象</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">return HttpResponse(&quot;...&quot;)</span><br><span class="line">return render(&quot;...&quot;)        -&gt;   HttpResponse(&quot;...&quot;)</span><br><span class="line">return JsonReponse(&quot;...&quot;)   -&gt;   HttpResponse(&quot;...&quot;)</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>根据请求周期，对返回给用户浏览器的数据进行自定义：删除内容、增加、cookie、响应头…</p>
+</li>
+</ul>
+</li>
+<li><p>这个中间件和nginx  apache这样的<strong>中间件</strong>概念一样吗？比如做前置代理，做https</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Django中间件  /  拦截器  / RequestHanler</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>中间件可以跨语言调用吗？比如别人不是用python 写的，但是可以给我们的django 项目用？</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Django中间件</span><br><span class="line">	...</span><br><span class="line">架构中间件：</span><br><span class="line">	Django + redis（C语言）</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>中间件只要两层,不要中间那个process.riew行不行,是不是有些特定场合需要返回最后一层</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">...</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>那Django内置的中间件完成了些什么功能？</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">...</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="1-1-2-“不正常”"><a href="#1-1-2-“不正常”" class="headerlink" title="1.1.2 “不正常”"></a>1.1.2 “不正常”</h3><p><img src="https://s2.loli.net/2024/05/16/m93EMl6sKOvVNJ1.png" alt="image-20230716091818839"></p>
+<p>如果用户向我的网站请求时，如果访问URL：</p>
+<ul>
+<li>&#x2F;x1&#x2F;</li>
+<li>&#x2F;x2&#x2F;</li>
+<li>&#x2F;x3&#x2F; ，比如携带凭证token，有凭证继续，无凭证返回无权访问。</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">http://127.0.0.1:8000/x2/12/</span><br><span class="line">http://127.0.0.1:8000/x2/12/?xxx=123</span><br><span class="line"></span><br><span class="line">http://127.0.0.1:8000/x3/?token=12938791923981723123</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> django.utils.deprecation <span class="keyword">import</span> MiddlewareMixin</span><br><span class="line"><span class="keyword">from</span> django.shortcuts <span class="keyword">import</span> HttpResponse</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">KeLaMiddleware</span>(<span class="title class_ inherited__">MiddlewareMixin</span>):</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">process_request</span>(<span class="params">self, request</span>):</span><br><span class="line">        <span class="comment"># request.path_info</span></span><br><span class="line">        <span class="comment"># print(request.path_info,&quot;KeLa.process_request&quot;)</span></span><br><span class="line">        <span class="keyword">if</span> request.path_info == <span class="string">&quot;/x3/&quot;</span>:</span><br><span class="line">            token = request.GET.get(<span class="string">&#x27;token&#x27;</span>)</span><br><span class="line">            <span class="keyword">if</span> token == <span class="string">&quot;12938791923981723123&quot;</span>:</span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">return</span> HttpResponse(<span class="string">&quot;无权访问&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>如果用户向我的网站请求时，如果访问URL：</p>
+<ul>
+<li><p>&#x2F;x1&#x2F;</p>
+</li>
+<li><p>&#x2F;x2&#x2F;  ，比如携带凭证token，有凭证继续，无凭证返回无权访问。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">x2/&lt;int:v1&gt;/&#x27;, x2</span><br><span class="line"></span><br><span class="line">http://127.0.0.1:8000/x1/10/</span><br><span class="line">http://127.0.0.1:8000/x1/20/</span><br><span class="line">http://127.0.0.1:8000/x1/11/</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>&#x2F;x3&#x2F;</p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">KeLaMiddleware</span>(<span class="title class_ inherited__">MiddlewareMixin</span>):</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">process_request</span>(<span class="params">self, request</span>):</span><br><span class="line">        <span class="comment"># request.path_info</span></span><br><span class="line">        <span class="comment"># print(request.path_info,&quot;KeLa.process_request&quot;)</span></span><br><span class="line">        <span class="comment"># 以x2开头 或 正则   /x2/1111/   /x2/10/</span></span><br><span class="line">        <span class="comment"># if request.path_info == &quot;/x2/&quot;:</span></span><br><span class="line">        <span class="keyword">if</span> request.path_info.startswith(<span class="string">&quot;/x2/&quot;</span>):    <span class="comment"># 判断是不是以 /x2/开头</span></span><br><span class="line">            token = request.GET.get(<span class="string">&#x27;token&#x27;</span>)</span><br><span class="line">            <span class="keyword">if</span> token == <span class="string">&quot;12938791923981723123&quot;</span>:</span><br><span class="line">                <span class="keyword">return</span> </span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">return</span> HttpResponse(<span class="string">&quot;无权访问&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">KeLaMiddleware</span>(<span class="title class_ inherited__">MiddlewareMixin</span>):</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">process_view</span>(<span class="params">self, request, view, *args, **kwargs</span>):</span><br><span class="line">        <span class="comment"># request.path_info</span></span><br><span class="line">        <span class="comment"># print(request.path_info,&quot;KeLa.process_request&quot;)</span></span><br><span class="line">        url_name = request.resolver_match.url_name</span><br><span class="line">        <span class="keyword">if</span> url_name == <span class="string">&quot;x2&quot;</span>:</span><br><span class="line">            token = request.GET.get(<span class="string">&#x27;token&#x27;</span>)</span><br><span class="line">            <span class="keyword">if</span> token == <span class="string">&quot;12938791923981723123&quot;</span>:</span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">return</span> HttpResponse(<span class="string">&quot;无权访问&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+<p>关于自定义prcess_response，一般用于对请求要返回的数据进行修改。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">KeLaMiddleware</span>(<span class="title class_ inherited__">MiddlewareMixin</span>):</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">process_response</span>(<span class="params">self, request, response</span>):</span><br><span class="line">        response[<span class="string">&quot;xx&quot;</span>] = <span class="string">&quot;wupeiqi&quot;</span></span><br><span class="line">        <span class="keyword">return</span> response</span><br></pre></td></tr></table></figure>
+
+<h2 id="1-2-使用（几乎不用）"><a href="#1-2-使用（几乎不用）" class="headerlink" title="1.2 使用（几乎不用）"></a>1.2 使用（几乎不用）</h2><ul>
+<li><p>编写类，在类型定义：process_request、process_view、process_response、process_exception、process_template_response</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">process_exception，视图函数有异常，处理出现异常时</span><br><span class="line">process_template_response，对于视图函数返回内容渲染扩展。</span><br><span class="line">	- 在视图函数中如果返回的对象内部有一个render方法且可以被调用执行</span><br><span class="line">	- process_template_response返回response参数（返回值）</span><br><span class="line">	- 在自定义的MyReponse的render方法中必须返回HttpRespose</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>中间件注册，在settings中的配置。</p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">KeLaMiddleware</span>(<span class="title class_ inherited__">MiddlewareMixin</span>):</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">process_exception</span>(<span class="params">self, request, exception</span>):</span><br><span class="line">        <span class="built_in">print</span>(request)</span><br><span class="line">        <span class="built_in">print</span>(exception, <span class="built_in">type</span>(exception))</span><br><span class="line">        <span class="keyword">return</span> HttpResponse(<span class="string">&quot;错误了&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">x1</span>(<span class="params">request</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;视图.x1&quot;</span>)</span><br><span class="line">    <span class="keyword">return</span> HttpResponse(<span class="string">&quot;x1&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MyHttpResponse</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, body</span>):</span><br><span class="line">        <span class="variable language_">self</span>.body = body</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">render</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> HttpResponse(<span class="variable language_">self</span>.body)  <span class="comment"># 真正的返回</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">x1</span>(<span class="params">request</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;视图.x1&quot;</span>)</span><br><span class="line">    <span class="keyword">return</span> MyHttpResponse(<span class="string">&quot;x1&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">KeLaMiddleware</span>(<span class="title class_ inherited__">MiddlewareMixin</span>):</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">process_template_response</span>(<span class="params">self, request, response</span>):</span><br><span class="line">        <span class="keyword">return</span> response</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<hr>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">x1</span>(<span class="params">request</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;视图.x1&quot;</span>)</span><br><span class="line">    <span class="keyword">return</span> HttpResponse(<span class="string">&quot;源代码-x1&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">x2</span>(<span class="params">request, v1</span>):</span><br><span class="line">    <span class="keyword">return</span> HttpResponse(<span class="string">&quot;源代码-x2&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">x3</span>(<span class="params">request</span>):</span><br><span class="line">    <span class="keyword">return</span> HttpResponse(<span class="string">&quot;源代码-x3&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MyHttpResponse</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, body</span>):</span><br><span class="line">        <span class="variable language_">self</span>.body = body</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">render</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> HttpResponse(<span class="variable language_">self</span>.body)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">x1</span>(<span class="params">request</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;视图.x1&quot;</span>)</span><br><span class="line">    <span class="keyword">return</span> MyHttpResponse(<span class="string">&quot;x1&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">x2</span>(<span class="params">request, v1</span>):</span><br><span class="line">    <span class="keyword">return</span> MyHttpResponse(<span class="string">&quot;x2&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">x3</span>(<span class="params">request</span>):</span><br><span class="line">    <span class="keyword">return</span> MyHttpResponse(<span class="string">&quot;x3&quot;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">KeLaMiddleware</span>(<span class="title class_ inherited__">MiddlewareMixin</span>):</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">process_template_response</span>(<span class="params">self, request, response</span>):</span><br><span class="line">        response.body = <span class="string">f&quot;源代码-<span class="subst">&#123;response.body&#125;</span>&quot;</span></span><br><span class="line">        <span class="keyword">return</span> response</span><br></pre></td></tr></table></figure>
+
+<h2 id="1-3-源码"><a href="#1-3-源码" class="headerlink" title="1.3 源码"></a>1.3 源码</h2><h3 id="1-关于请求"><a href="#1-关于请求" class="headerlink" title="1.关于请求"></a>1.关于请求</h3><p><img src="https://s2.loli.net/2024/05/16/yoCPvtDnTzM9Wxr.png" alt="image-20230716111119343"></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> wsgiref.simple_server <span class="keyword">import</span> make_server</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">run_server</span>(<span class="params">environ, start_response</span>):</span><br><span class="line">    <span class="comment"># 只要请求到来，就会走这里的代码</span></span><br><span class="line">    <span class="comment"># 1.根据请求 environ 进行后续业务处理</span></span><br><span class="line">    <span class="comment"># 2.返回内容。。。</span></span><br><span class="line">    start_response(<span class="string">&#x27;200 OK&#x27;</span>, [(<span class="string">&#x27;Content-Type&#x27;</span>, <span class="string">&#x27;text/html&#x27;</span>)])</span><br><span class="line">    <span class="keyword">return</span> [<span class="built_in">bytes</span>(<span class="string">&#x27;&lt;h1&gt;Hello, web!&lt;/h1&gt;&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>), ]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    httpd = make_server(<span class="string">&#x27;127.0.0.1&#x27;</span>, <span class="number">8000</span>, run_server)  <span class="comment"># # 有请求到来时，执行  obj(environ, start_response)</span></span><br><span class="line">    httpd.serve_forever()</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> wsgiref.simple_server <span class="keyword">import</span> make_server</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Handler</span>:</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="comment"># 做一些初始化动作</span></span><br><span class="line">        <span class="variable language_">self</span>.name = <span class="string">&quot;wupeiqi&quot;</span></span><br><span class="line">        </span><br><span class="line">	</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__call__</span>(<span class="params">self,environ, start_response</span>):</span><br><span class="line">        <span class="comment"># 根据初始化的动作，去执行...</span></span><br><span class="line">        <span class="comment"># ...</span></span><br><span class="line">        start_response(<span class="string">&#x27;200 OK&#x27;</span>, [(<span class="string">&#x27;Content-Type&#x27;</span>, <span class="string">&#x27;text/html&#x27;</span>)])</span><br><span class="line">    	<span class="keyword">return</span> [<span class="built_in">bytes</span>(<span class="string">&#x27;&lt;h1&gt;Hello, web!&lt;/h1&gt;&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>), ]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    obj = Handler() <span class="comment"># 执行 </span></span><br><span class="line">    httpd = make_server(<span class="string">&#x27;127.0.0.1&#x27;</span>, <span class="number">8000</span>, obj)  <span class="comment"># 有请求到来时，执行 obj(environ, start_response)</span></span><br><span class="line">    httpd.serve_forever()</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2024/05/16/RmezGMnuCr9qySw.png" alt="image-20230716112505648"></p>
+<h3 id="2-启动Django项目WSGIHandler-init"><a href="#2-启动Django项目WSGIHandler-init" class="headerlink" title="2.启动Django项目WSGIHandler.__init__"></a>2.启动Django项目<code>WSGIHandler.__init__</code></h3><p><img src="https://s2.loli.net/2024/05/16/w9fpduBPR5yjJ1s.png" alt="image-20230716121612821"></p>
+<p><img src="https://s2.loli.net/2024/05/16/vDkNrwV5Hu4sQoT.png" alt="image-20230716121637108"></p>
+<h3 id="3-请求到来WSGIHandler-call"><a href="#3-请求到来WSGIHandler-call" class="headerlink" title="3.请求到来WSGIHandler.__call__"></a>3.请求到来<code>WSGIHandler.__call__</code></h3><p>流程：中间件的执行、路由匹配、视图函数的执行。</p>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><ul>
+<li><p>1.7.x源码，底层实现，是基于好几个列表。</p>
+</li>
+<li><p>4.x源码，</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">函数的作用域 + 闭包 + 装饰器</span><br><span class="line">面向对象 + __call__方法</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 核心</span><br><span class="line"># handler = SecurityMiddleware对象</span><br><span class="line">#             __call__</span><br><span class="line">#                process_request</span><br><span class="line">#                get_reponse = SessionMiddleware对象</span><br><span class="line">#                process_response </span><br><span class="line">#                              __call__</span><br><span class="line">#                                   process_request </span><br><span class="line">#                                   get_reponse = CommonMiddleware对象</span><br><span class="line">#                                   process_response</span><br><span class="line">#                                                 __call__</span><br><span class="line">#                                                     process_request</span><br><span class="line">#                                                     get_reponse = KeLaMiddleware对象</span><br><span class="line">#                                                     process_response</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="答疑"><a href="#答疑" class="headerlink" title="答疑"></a>答疑</h3><ul>
+<li>没悟透，不需要吾、只需要懂【不需要背+建立】</li>
+<li>有些难<ul>
+<li>入门，听懂+能用（全家桶）</li>
+<li>文档，用法没有源码。</li>
+<li>源码，到底是怎么实现的功能（不修改、扩展）【*】</li>
+</ul>
+</li>
+<li>感觉听懂了，但又不清楚，这是不是<strong>学源码</strong>的正常情况，看B站视频写程序都很简单，也容易懂</li>
+<li>课下还是得自己分析分析，一定会忘记</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/django/" rel="tag"># django</a>
+              <a href="/tags/python/" rel="tag"># python</a>
+              <a href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="tag"># 中间件</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/05/13/Django-%E7%9A%84%E5%9B%BD%E9%99%85%E5%8C%96%E4%B8%8E%E6%9C%AC%E5%9C%B0%E5%8C%96%E8%AF%A6%E8%A7%A3/" rel="prev" title="Django-的国际化与本地化详解">
+      <i class="fa fa-chevron-left"></i> Django-的国际化与本地化详解
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2024/05/16/django-Cookie%E7%9A%84%E9%85%8D%E7%BD%AE%E4%B8%8E%E4%BD%BF%E7%94%A8/" rel="next" title="django-Cookie的配置与使用">
+      django-Cookie的配置与使用 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E7%BC%96%E5%86%99%E7%B1%BB"><span class="nav-number">1.</span> <span class="nav-text">1.编写类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E6%B3%A8%E5%86%8C"><span class="nav-number">2.</span> <span class="nav-text">2.注册</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E6%B5%8B%E8%AF%95"><span class="nav-number">3.</span> <span class="nav-text">3.测试</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E9%97%AE%E9%A2%98"><span class="nav-number">4.</span> <span class="nav-text">4.问题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-2-%E2%80%9C%E4%B8%8D%E6%AD%A3%E5%B8%B8%E2%80%9D"><span class="nav-number"></span> <span class="nav-text">1.1.2 “不正常”</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-%E4%BD%BF%E7%94%A8%EF%BC%88%E5%87%A0%E4%B9%8E%E4%B8%8D%E7%94%A8%EF%BC%89"><span class="nav-number"></span> <span class="nav-text">1.2 使用（几乎不用）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-%E6%BA%90%E7%A0%81"><span class="nav-number"></span> <span class="nav-text">1.3 源码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%85%B3%E4%BA%8E%E8%AF%B7%E6%B1%82"><span class="nav-number"></span> <span class="nav-text">1.关于请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%90%AF%E5%8A%A8Django%E9%A1%B9%E7%9B%AEWSGIHandler-init"><span class="nav-number"></span> <span class="nav-text">2.启动Django项目WSGIHandler.__init__</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E8%AF%B7%E6%B1%82%E5%88%B0%E6%9D%A5WSGIHandler-call"><span class="nav-number"></span> <span class="nav-text">3.请求到来WSGIHandler.__call__</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number"></span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AD%94%E7%96%91"><span class="nav-number"></span> <span class="nav-text">答疑</span></a></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Kanoc Ge"
+      src="/images/452794135.jpg">
+  <p class="site-author-name" itemprop="name">Kanoc Ge</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">62</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">54</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">73</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kanoc Ge</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  <!-- 多级目录 -->
+  <script type="text/javascript" src="/js/jquery.min.js"></script>
+  <script type="text/javascript" src="/js/category.js"></script>
+</body>
+</html>

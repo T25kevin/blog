@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <style>
+    .category-all-page .category-list-item {
+      margin: 15px 10px 10px 10px;
+      list-style: none;
+      font-size: 20px;
+      }
+      .category-all-page .category-list-child {
+        list-style: none;
+        }
+  </style>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"kanoc.gitee.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="Django 纯净版的创建：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="django的创建与配置">
+<meta property="og:url" content="https://kanoc.gitee.io/2024/05/13/django%E7%9A%84%E5%88%9B%E5%BB%BA%E4%B8%8E%E9%85%8D%E7%BD%AE/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Django 纯净版的创建：">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2024/05/14/jGvOfcRNmyKuEnk.png">
+<meta property="og:image" content="https://s2.loli.net/2024/05/14/goejlnG4syaN6ri.png">
+<meta property="og:image" content="https://s2.loli.net/2024/05/14/M7szuLmA42P1Kkw.png">
+<meta property="article:published_time" content="2024-05-13T15:27:06.000Z">
+<meta property="article:modified_time" content="2025-06-09T08:36:22.975Z">
+<meta property="article:author" content="Kanoc Ge">
+<meta property="article:tag" content="django">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2024/05/14/jGvOfcRNmyKuEnk.png">
+
+<link rel="canonical" href="https://kanoc.gitee.io/2024/05/13/django%E7%9A%84%E5%88%9B%E5%BB%BA%E4%B8%8E%E9%85%8D%E7%BD%AE/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>django的创建与配置 | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-首页-|-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页 | home</a>
+
+  </li>
+        <li class="menu-item menu-item-分类-|-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类 | categories</a>
+
+  </li>
+        <li class="menu-item menu-item-标签-|-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签 | tags</a>
+
+  </li>
+        <li class="menu-item menu-item-归档-|-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档 | archives</a>
+
+  </li>
+        <li class="menu-item menu-item-关于-|-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于 | about</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2024/05/13/django%E7%9A%84%E5%88%9B%E5%BB%BA%E4%B8%8E%E9%85%8D%E7%BD%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/452794135.jpg">
+      <meta itemprop="name" content="Kanoc Ge">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          django的创建与配置
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-05-13 23:27:06" itemprop="dateCreated datePublished" datetime="2024-05-13T23:27:06+08:00">2024-05-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-06-09 16:36:22" itemprop="dateModified" datetime="2025-06-09T16:36:22+08:00">2025-06-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/Django/" itemprop="url" rel="index"><span itemprop="name">Django</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><font color=#00b2c2 size=5 face=宋体><strong>Django 纯净版的创建：</strong></font></p>
+<span id="more"></span>
+
+<p><font color=#f26522 size=5 face=宋体><strong>使用Django admin路径：</strong></font></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python3 manage.py createsuperuser   <span class="comment"># 创建admin账户密码</span></span><br></pre></td></tr></table></figure>
+
+<p><font color=#f26522 size=5 face=宋体><strong>安装Django环境：</strong></font></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 安装virtualenv</span></span><br><span class="line">pip3 install virtualenv</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建python环境文件夹</span></span><br><span class="line">python3 -m venv django_venv     <span class="comment"># (bash 运行结果，会在当前文件夹创建一个django_venv的文件夹)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># source /bin/activate</span></span><br><span class="line"><span class="built_in">source</span> ./django_venv/bin/activate</span><br><span class="line"><span class="comment"># 备注：如果进入虚拟环境成功，在命令行前面会有一个小括号</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 进入成功后，安装django环境</span></span><br><span class="line">pip3 install django <span class="comment">#国外服务器下载</span></span><br><span class="line">pip3 install django==2.2     <span class="comment">#  指定安装django版本2.2</span></span><br><span class="line">pip3 install django -i https://pypi.douban.com/simple   <span class="comment">#  国内豆瓣源加速连接</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建网站项目工程</span></span><br><span class="line"><span class="comment"># django-admin startproject &lt;网站工程名&gt;</span></span><br><span class="line">django-admin startproject mysite</span><br><span class="line"></span><br><span class="line"><span class="comment"># 开启python—django网站服务</span></span><br><span class="line">python3 manage.py runserver   <span class="comment"># 以默认的方式启动django服务</span></span><br><span class="line">python3 manage.py runserver 0.0.0.0:8000  <span class="comment"># 命令行模式</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">nohup</span> python3 manage.py runserver 0.0.0.0:8000 &gt; manage.log 2&gt;&amp;1 &amp;   <span class="comment"># 进程模式</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># python manage.py startapp &lt;子应用名称&gt;</span></span><br><span class="line">python manage.py startapp index  <span class="comment"># 创建了一个名叫 的文件夹</span></span><br></pre></td></tr></table></figure>
+
+<p><font color=#f26522 size=5 face=宋体><strong>settings：配置</strong></font></p>
+<ul>
+<li>如果使用默认的sqlite数据库：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 在虚拟环境下使用：</span></span><br><span class="line">python3 manage.py makemigrations</span><br><span class="line">python3 manage.py migrate</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> pathlib <span class="keyword">import</span> Path</span><br><span class="line">BASE_DIR = Path(__file__).resolve().parent.parent</span><br><span class="line">SECRET_KEY = <span class="string">&#x27;django-insecure-p5t$3q2@12loakok_!**=^+c2h+fpgw#ca=zl$@in)(^=tcv^f&#x27;</span></span><br><span class="line">DEBUG = <span class="literal">True</span></span><br><span class="line">ALLOWED_HOSTS = []</span><br><span class="line">INSTALLED_APPS = [</span><br><span class="line">    <span class="comment"># &#x27;django.contrib.admin&#x27;,     #  纯净版django  # django 内置后台管理，简单数据库的增删改查</span></span><br><span class="line">    <span class="comment"># &#x27;django.contrib.auth&#x27;,      #  纯净版django 剔除  # 用户登录和认证权限</span></span><br><span class="line">    <span class="comment"># &#x27;django.contrib.contenttypes&#x27;,   #  纯净版django 剔除  # 复杂表结构关系</span></span><br><span class="line">    <span class="comment"># &#x27;django.contrib.sessions&#x27;,    #  纯净版django 剔除  # 如果项目中有登录成功 让用户可以访问</span></span><br><span class="line">    <span class="comment"># &#x27;django.contrib.messages&#x27;,    #  纯净版django 剔除  # 消息展示，依赖Session</span></span><br><span class="line">    <span class="string">&#x27;django.contrib.staticfiles&#x27;</span>,   <span class="comment"># 静态资源处理，图片、css、js等</span></span><br><span class="line">]</span><br><span class="line">MIDDLEWARE = [</span><br><span class="line">    <span class="string">&#x27;django.middleware.security.SecurityMiddleware&#x27;</span>,</span><br><span class="line">    <span class="comment"># &#x27;django.contrib.sessions.middleware.SessionMiddleware&#x27;,   # 纯净版django 剔除</span></span><br><span class="line">    <span class="string">&#x27;django.middleware.common.CommonMiddleware&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;django.middleware.csrf.CsrfViewMiddleware&#x27;</span>,</span><br><span class="line">    <span class="comment"># &#x27;django.contrib.auth.middleware.AuthenticationMiddleware&#x27;,   # 纯净版django 剔除</span></span><br><span class="line">    <span class="comment"># &#x27;django.contrib.messages.middleware.MessageMiddleware&#x27;,   # 纯净版django 剔除</span></span><br><span class="line">    <span class="string">&#x27;django.middleware.clickjacking.XFrameOptionsMiddleware&#x27;</span>,</span><br><span class="line">]</span><br><span class="line">ROOT_URLCONF = <span class="string">&#x27;Dome_Datou.urls&#x27;</span></span><br><span class="line">TEMPLATES = [</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">&#x27;BACKEND&#x27;</span>: <span class="string">&#x27;django.template.backends.django.DjangoTemplates&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;DIRS&#x27;</span>: [],</span><br><span class="line">        <span class="string">&#x27;APP_DIRS&#x27;</span>: <span class="literal">True</span>,</span><br><span class="line">        <span class="string">&#x27;OPTIONS&#x27;</span>: &#123;</span><br><span class="line">            <span class="string">&#x27;context_processors&#x27;</span>: [</span><br><span class="line">                <span class="string">&#x27;django.template.context_processors.debug&#x27;</span>,</span><br><span class="line">                <span class="string">&#x27;django.template.context_processors.request&#x27;</span>,</span><br><span class="line">                <span class="comment"># &#x27;django.contrib.auth.context_processors.auth&#x27;,   # 纯净版django 剔除</span></span><br><span class="line">                <span class="comment"># &#x27;django.contrib.messages.context_processors.messages&#x27;,    # 纯净版django 剔除</span></span><br><span class="line">            ],</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">]</span><br><span class="line">WSGI_APPLICATION = <span class="string">&#x27;Dome_Datou.wsgi.application&#x27;</span></span><br><span class="line"><span class="comment"># &gt;&gt;&gt;  python3 manage.py makemigrations</span></span><br><span class="line"><span class="comment"># &gt;&gt;&gt;  python3 manage.py migrate</span></span><br><span class="line">DATABASES = &#123;</span><br><span class="line">    <span class="string">&#x27;default&#x27;</span>: &#123;</span><br><span class="line">        <span class="string">&#x27;ENGINE&#x27;</span>: <span class="string">&#x27;django.db.backends.sqlite3&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;NAME&#x27;</span>: BASE_DIR / <span class="string">&#x27;db.sqlite3&#x27;</span>,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">AUTH_PASSWORD_VALIDATORS = [</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">&#x27;NAME&#x27;</span>: <span class="string">&#x27;django.contrib.auth.password_validation.UserAttributeSimilarityValidator&#x27;</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">&#x27;NAME&#x27;</span>: <span class="string">&#x27;django.contrib.auth.password_validation.MinimumLengthValidator&#x27;</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">&#x27;NAME&#x27;</span>: <span class="string">&#x27;django.contrib.auth.password_validation.CommonPasswordValidator&#x27;</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">&#x27;NAME&#x27;</span>: <span class="string">&#x27;django.contrib.auth.password_validation.NumericPasswordValidator&#x27;</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="comment"># LANGUAGE_CODE = &#x27;en-us&#x27;    # 设置 英文</span></span><br><span class="line">LANGUAGE_CODE = <span class="string">&#x27;zh-hans&#x27;</span>    <span class="comment"># 设置中文</span></span><br><span class="line"><span class="comment"># TIME_ZONE = &#x27;UTC&#x27;</span></span><br><span class="line">TIME_ZONE = <span class="string">&#x27;Asia/Shanghai&#x27;</span>  <span class="comment"># 亚洲上海</span></span><br><span class="line"><span class="comment"># 启用国际化</span></span><br><span class="line">USE_I18N = <span class="literal">True</span></span><br><span class="line"><span class="comment"># 启用本地化</span></span><br><span class="line"><span class="comment"># USE_L10N = True</span></span><br><span class="line">USE_TZ = <span class="literal">True</span></span><br><span class="line">STATIC_URL = <span class="string">&#x27;static/&#x27;</span></span><br><span class="line">DEFAULT_AUTO_FIELD = <span class="string">&#x27;django.db.models.BigAutoField&#x27;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><font color=#00b2c2 size=5 face=宋体><strong>urls：配置</strong></font></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> django.contrib <span class="keyword">import</span> admin</span><br><span class="line"><span class="keyword">from</span> django.urls <span class="keyword">import</span> path</span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">    <span class="comment"># path(&#x27;admin/&#x27;, admin.site.urls),</span></span><br><span class="line">]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><font color=#00b2c2 size=5 face=宋体><strong>Django 多App的创建：</strong></font></p>
+<ul>
+<li><p>1、在根目录下创建目录：<code>apps</code></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 创建apps</span></span><br><span class="line"><span class="comment"># 以下命令 在项目根目录下运行 就是在有 manage.py文件的那个路径</span></span><br><span class="line"><span class="built_in">mkdir</span> apps  <span class="comment"># 创建apps文件夹</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建即将创建的 app名称文件夹</span></span><br><span class="line"><span class="built_in">mkdir</span> apps/app01</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建app01</span></span><br><span class="line">python3 manage.py startapp app01 apps/app01   <span class="comment"># 在apps/app01 中创建app01程序</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建即将创建的 app名称文件夹</span></span><br><span class="line"><span class="built_in">mkdir</span> apps/www</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建app01</span></span><br><span class="line">python3 manage.py startapp www apps/www   <span class="comment"># 在apps/www 中创建www程序</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改app下面 apps.py中的配置文件</p>
+</li>
+</ul>
+<p><img src="https://s2.loli.net/2024/05/14/jGvOfcRNmyKuEnk.png" alt="修改apps中的配置"></p>
+<ul>
+<li><p>在settings中组册app</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">INSTALLED_APPS = [</span><br><span class="line">    <span class="comment"># &#x27;django.contrib.admin&#x27;,     #  纯净版django  # django 内置后台管理，简单数据库的增删改查</span></span><br><span class="line">    <span class="comment"># &#x27;django.contrib.auth&#x27;,      #  纯净版django 剔除  # 用户登录和认证权限</span></span><br><span class="line">    <span class="comment"># &#x27;django.contrib.contenttypes&#x27;,   #  纯净版django 剔除  # 复杂表结构关系</span></span><br><span class="line">    <span class="comment"># &#x27;django.contrib.sessions&#x27;,    #  纯净版django 剔除  # 如果项目中有登录成功 让用户可以访问</span></span><br><span class="line">    <span class="comment"># &#x27;django.contrib.messages&#x27;,    #  纯净版django 剔除  # 消息展示，依赖Session</span></span><br><span class="line">    <span class="string">&#x27;django.contrib.staticfiles&#x27;</span>,   <span class="comment"># 静态资源处理，图片、css、js等</span></span><br><span class="line">    <span class="string">&#x27;apps.app01.apps.App01Config&#x27;</span></span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2024/05/14/goejlnG4syaN6ri.png" alt="image-20240514014804221"></p>
+</li>
+</ul>
+<p><font color=#00b2c2 size=5 face=宋体><strong>路由：配置</strong></font></p>
+<ul>
+<li><p>路由分发配置：</p>
+<ul>
+<li><p>访问url：<a target="_blank" rel="noopener" href="http://127.0.0.1:8000/web/user/">http://127.0.0.1:8000/web/user/</a></p>
+</li>
+<li><p>主路由：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> django.urls <span class="keyword">import</span> path, re_path, include</span><br><span class="line">urlpatterns = [</span><br><span class="line">    path(<span class="string">&quot;web/&quot;</span>, include(<span class="string">&quot;apps.www.urls&quot;</span>))</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>子路由（apps&#x2F;www）：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> django.urls <span class="keyword">import</span> path</span><br><span class="line"><span class="keyword">from</span> apps.www <span class="keyword">import</span> views</span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">    path(<span class="string">&quot;user/&quot;</span>, views.user)</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>视图配置：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> django.http <span class="keyword">import</span> HttpResponse</span><br><span class="line"><span class="comment"># Create your views here.</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">user</span>(<span class="params">request</span>):</span><br><span class="line">    <span class="keyword">return</span> HttpResponse(<span class="string">&quot;创建用户名成功 &gt;&gt;&gt; &quot;</span>)</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>路由中 <code>name</code>的使用 &#x3D;&gt; 反向生成网址，登录成功 &#x3D;&gt; 跳转页面：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> apps.app01 <span class="keyword">import</span> views</span><br><span class="line"><span class="comment"># 自定义请求 添加模块</span></span><br><span class="line"><span class="keyword">from</span> django.urls <span class="keyword">import</span> URLPattern, ResolverMatch</span><br><span class="line"><span class="keyword">from</span> django.urls.resolvers <span class="keyword">import</span> RoutePattern, RegexPattern     <span class="comment"># RoutePattern：普通路由， 正则路由： RegexPattern</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MyURLPattern</span>(<span class="title class_ inherited__">URLPattern</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">resolve</span>(<span class="params">self, path</span>):</span><br><span class="line">        <span class="keyword">match</span> = <span class="variable language_">self</span>.pattern.<span class="keyword">match</span>(path)</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">match</span>:</span><br><span class="line">            new_path, args, captured_kwargs = <span class="keyword">match</span></span><br><span class="line">            <span class="comment"># Pass any default args as **kwargs.</span></span><br><span class="line">            kwargs = &#123;**captured_kwargs, **<span class="variable language_">self</span>.default_args&#125;</span><br><span class="line">            <span class="keyword">return</span> ResolverMatch(</span><br><span class="line">                <span class="variable language_">self</span>.callback,</span><br><span class="line">                args,</span><br><span class="line">                kwargs,</span><br><span class="line">                <span class="variable language_">self</span>.pattern.name,</span><br><span class="line">                route=<span class="built_in">str</span>(<span class="variable language_">self</span>.pattern),</span><br><span class="line">                captured_kwargs=captured_kwargs,</span><br><span class="line">                extra_kwargs=<span class="variable language_">self</span>.default_args,</span><br><span class="line">            )</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MyRoutePattern</span>(<span class="title class_ inherited__">RoutePattern</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">match</span>(<span class="params">self, path</span>):</span><br><span class="line">        <span class="keyword">match</span> = <span class="variable language_">self</span>.regex.search(path)</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">match</span>:</span><br><span class="line">            <span class="comment"># RoutePattern doesn&#x27;t allow non-named groups so args are ignored.</span></span><br><span class="line">            kwargs = <span class="keyword">match</span>.groupdict()</span><br><span class="line">            <span class="keyword">for</span> key, value <span class="keyword">in</span> kwargs.items():</span><br><span class="line">                converter = <span class="variable language_">self</span>.converters[key]</span><br><span class="line">                <span class="keyword">try</span>:</span><br><span class="line">                    kwargs[key] = converter.to_python(value)</span><br><span class="line">                <span class="keyword">except</span> ValueError:</span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">            <span class="keyword">return</span> path[<span class="keyword">match</span>.end():], (), kwargs</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">urlpatterns = [</span><br><span class="line">  MyURLPattern(MyRoutePattern(<span class="string">&quot;login/&lt;str:v1&gt;&quot;</span>, name=<span class="string">&quot;n1&quot;</span>, is_endpoint=<span class="literal">True</span>), views.login, <span class="literal">None</span>, <span class="string">&quot;n1&quot;</span>),   <span class="comment"># 等价于 path(&#x27;login/&#x27;, views.login, name=&quot;n1&quot;),</span></span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">login</span>(<span class="params">request, v1</span>):</span><br><span class="line">  	url = reverse(<span class="string">&#x27;n1&#x27;</span>, kwargs=&#123;<span class="string">&quot;v1&quot;</span>: v1&#125;)   <span class="comment"># kwargs=&#123;&quot;&lt;路由中的键&gt;&quot;: &lt;用户传递进来的v1&gt;&#125;</span></span><br><span class="line">    <span class="built_in">print</span>(url) <span class="comment"># /login/sdad</span></span><br><span class="line">    <span class="keyword">return</span> HttpResponse(<span class="string">&quot;欢迎登录！&quot;</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>urls.py</code> 配置:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> django.contrib <span class="keyword">import</span> admin</span><br><span class="line"><span class="keyword">from</span> django.urls <span class="keyword">import</span> path, re_path</span><br><span class="line"><span class="keyword">from</span> apps.app01 <span class="keyword">import</span> views</span><br><span class="line"></span><br><span class="line"><span class="comment"># 自定义请求 添加模块</span></span><br><span class="line"><span class="keyword">from</span> django.urls <span class="keyword">import</span> URLPattern, ResolverMatch</span><br><span class="line"><span class="keyword">from</span> django.urls.resolvers <span class="keyword">import</span> RoutePattern, RegexPattern     <span class="comment"># RoutePattern：普通路由， 正则路由： RegexPattern</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 重写 URLPattern</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MyURLPattern</span>(<span class="title class_ inherited__">URLPattern</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">resolve</span>(<span class="params">self, path</span>):</span><br><span class="line">        <span class="keyword">match</span> = <span class="variable language_">self</span>.pattern.<span class="keyword">match</span>(path)</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">match</span>:</span><br><span class="line">            new_path, args, captured_kwargs = <span class="keyword">match</span></span><br><span class="line">            <span class="comment"># Pass any default args as **kwargs.</span></span><br><span class="line">            kwargs = &#123;**captured_kwargs, **<span class="variable language_">self</span>.default_args&#125;</span><br><span class="line">            <span class="keyword">return</span> ResolverMatch(</span><br><span class="line">                <span class="variable language_">self</span>.callback,</span><br><span class="line">                args,</span><br><span class="line">                kwargs,</span><br><span class="line">                <span class="variable language_">self</span>.pattern.name,</span><br><span class="line">                route=<span class="built_in">str</span>(<span class="variable language_">self</span>.pattern),</span><br><span class="line">                captured_kwargs=captured_kwargs,</span><br><span class="line">                extra_kwargs=<span class="variable language_">self</span>.default_args,</span><br><span class="line">            )</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重写 RoutePattern</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MyRoutePattern</span>(<span class="title class_ inherited__">RoutePattern</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">match</span>(<span class="params">self, path</span>):</span><br><span class="line">        <span class="keyword">match</span> = <span class="variable language_">self</span>.regex.search(path)</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">match</span>:</span><br><span class="line">            <span class="comment"># RoutePattern doesn&#x27;t allow non-named groups so args are ignored.</span></span><br><span class="line">            kwargs = <span class="keyword">match</span>.groupdict()</span><br><span class="line">            <span class="keyword">for</span> key, value <span class="keyword">in</span> kwargs.items():</span><br><span class="line">                converter = <span class="variable language_">self</span>.converters[key]</span><br><span class="line">                <span class="keyword">try</span>:</span><br><span class="line">                    kwargs[key] = converter.to_python(value)</span><br><span class="line">                <span class="keyword">except</span> ValueError:</span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">            <span class="keyword">return</span> path[<span class="keyword">match</span>.end():], (), kwargs</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">    <span class="comment"># 默认后台登录页面， 一般不用(自己重写)</span></span><br><span class="line">    <span class="comment"># path(&#x27;admin/&#x27;, admin.site.urls),</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># http://127.0.0.1:8000/login/    # 默认地址 无传参</span></span><br><span class="line">    <span class="comment"># http://127.0.0.1:8000/login/?a1=1&amp;a2=2   # 默认传递两个参数 ： a1=1   a2=2</span></span><br><span class="line">    MyURLPattern(MyRoutePattern(<span class="string">&quot;login/&quot;</span>, name=<span class="literal">None</span>, is_endpoint=<span class="literal">True</span>), views.login, <span class="literal">None</span>, <span class="literal">None</span>),</span><br><span class="line">    <span class="comment"># path(&#x27;login/&#x27;, views.login),</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># http://127.0.0.1:8000/info/2222/</span></span><br><span class="line">    <span class="comment"># http://127.0.0.1:8000/info/2222/?a1=1&amp;a2=2</span></span><br><span class="line">    <span class="comment"># path(&quot;info/&lt;int:v1&gt;/&quot;, views.info),</span></span><br><span class="line">    MyURLPattern(MyRoutePattern(<span class="string">&quot;info/&lt;int:v1&gt;/&quot;</span>, name=<span class="literal">None</span>, is_endpoint=<span class="literal">True</span>), views.info, <span class="literal">None</span>, <span class="literal">None</span>),</span><br><span class="line"></span><br><span class="line">    <span class="comment"># http://127.0.0.1:8000/info/2222/</span></span><br><span class="line">    <span class="comment"># http://127.0.0.1:8000/info/2222/?a1=1&amp;a2=2</span></span><br><span class="line">    <span class="comment"># path(&quot;xx/&lt;path:v2&gt;/&quot;, views.s_path),</span></span><br><span class="line">    MyURLPattern(MyRoutePattern(<span class="string">&quot;xx/&lt;path:v2&gt;/&quot;</span>, name=<span class="literal">None</span>, is_endpoint=<span class="literal">True</span>), views.s_path, <span class="literal">None</span>, <span class="literal">None</span>),</span><br><span class="line"></span><br><span class="line">    <span class="comment"># # http://127.0.0.1:8000/xx/f9aa6e73-c310-8aab-a36c-e9758d8c4a1d/</span></span><br><span class="line">    <span class="comment"># path(&quot;xx/&lt;uuid:v3&gt;/&quot;, views.uuid),</span></span><br><span class="line">    MyURLPattern(MyRoutePattern(<span class="string">&quot;xx/&lt;uuid:v3&gt;/&quot;</span>, name=<span class="literal">None</span>, is_endpoint=<span class="literal">True</span>), views.uuid, <span class="literal">None</span>, <span class="literal">None</span>),</span><br><span class="line"></span><br><span class="line">    <span class="comment"># # http://127.0.0.1:8000/other/11/kanoc/</span></span><br><span class="line">    <span class="comment"># path(&quot;other/&lt;int:v1&gt;/&lt;str:v2&gt;/&quot;, views.other),</span></span><br><span class="line">    MyURLPattern(MyRoutePattern(<span class="string">&quot;other/&lt;int:v1&gt;/&lt;str:v2&gt;/&quot;</span>, name=<span class="literal">None</span>, is_endpoint=<span class="literal">True</span>), views.other, <span class="literal">None</span>, <span class="literal">None</span>),</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 要使用 re_path 要引入文件  from django.urls import path, re_path</span></span><br><span class="line">    <span class="comment"># # http://127.0.0.1:8000/yy/2024-05-14/</span></span><br><span class="line">    <span class="comment"># re_path(r&#x27;yy/(\d&#123;4&#125;)-(\d&#123;2&#125;)-(\d&#123;2&#125;)&#x27;, views.yy),</span></span><br><span class="line">    MyURLPattern(RegexPattern(<span class="string">r&#x27;yy/(\d&#123;4&#125;)-(\d&#123;2&#125;)-(\d&#123;2&#125;)&#x27;</span>, name=<span class="literal">None</span>, is_endpoint=<span class="literal">True</span>), views.yy, <span class="literal">None</span>, <span class="literal">None</span>),</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>views.py</code> 配置:</p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> django.shortcuts <span class="keyword">import</span> render</span><br><span class="line"><span class="keyword">from</span> django.http <span class="keyword">import</span> HttpResponse</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Create your views here.</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># path(&#x27;login/&#x27;, views.login),</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">login</span>(<span class="params">request</span>):</span><br><span class="line">    <span class="built_in">print</span>(request.GET)</span><br><span class="line">    <span class="comment"># # 如果 http://127.0.0.1:8000/login/?a1=1&amp;a2=2</span></span><br><span class="line">    <span class="comment"># # 则：</span></span><br><span class="line">    <span class="comment"># a1 = request.GET.get(&#x27;a1&#x27;)   # 获取 a1的值</span></span><br><span class="line">    <span class="comment"># a2 = request.GET.get(&#x27;a2&#x27;)   # 获取 a2的值</span></span><br><span class="line">    <span class="comment"># print(a1)</span></span><br><span class="line">    <span class="comment"># print(a2)</span></span><br><span class="line">    <span class="keyword">return</span> HttpResponse(<span class="string">&quot;欢迎登录！&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># path(&quot;info/&lt;int:v1&gt;/&quot;, views.info)</span></span><br><span class="line"><span class="comment"># http://127.0.0.1:8000/info/2222/</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">info</span>(<span class="params">request, v1</span>):</span><br><span class="line">    <span class="built_in">print</span>(v1)  <span class="comment"># 结果 ：2222</span></span><br><span class="line">    <span class="built_in">print</span>(request.GET)</span><br><span class="line">    <span class="keyword">return</span> HttpResponse(<span class="string">&quot;欢迎登录！&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># path(&quot;xx/&lt;path:v2&gt;/&quot;, views.s_path),</span></span><br><span class="line"><span class="comment"># http://127.0.0.1:8000/xx/user/ps/ja/</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">s_path</span>(<span class="params">request, v2</span>):</span><br><span class="line">    <span class="built_in">print</span>(v2)  <span class="comment"># 结果 ：user/ps/ja</span></span><br><span class="line">    <span class="built_in">print</span>(request.GET)</span><br><span class="line">    <span class="keyword">return</span> HttpResponse(<span class="string">&quot;欢迎登录！&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># path(&quot;xx/&lt;uuid:v3&gt;/&quot;, views.uuid)</span></span><br><span class="line"><span class="comment"># http://127.0.0.1:8000/xx/f9aa6e73-c310-8aab-a36c-e9758d8c4a1d/</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">uuid</span>(<span class="params">request, v3</span>):</span><br><span class="line">    <span class="built_in">print</span>(v3)  <span class="comment"># 结果 ：f9aa6e73-c310-8aab-a36c-e9758d8c4a1d</span></span><br><span class="line">    <span class="built_in">print</span>(request.GET)</span><br><span class="line">    <span class="keyword">return</span> HttpResponse(<span class="string">&quot;欢迎登录！&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># path(&quot;other/&lt;int:v1&gt;/&lt;str:v2&gt;/&quot;, views.uuid),</span></span><br><span class="line"><span class="comment"># http://127.0.0.1:8000/other/11/kanoc/</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">other</span>(<span class="params">request, v1, v2</span>):</span><br><span class="line">    <span class="built_in">print</span>(v1, v2)  <span class="comment"># 结果 ：11    kanoc</span></span><br><span class="line">    <span class="built_in">print</span>(request.GET)</span><br><span class="line">    <span class="keyword">return</span> HttpResponse(<span class="string">&quot;欢迎登录！&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 此路由 为正则匹配路由， 要使用则正匹配路由 需要在路由配置文件中 引入模块 from django.urls import path, re_path</span></span><br><span class="line"><span class="comment"># re_path(r&#x27;yy/(\d&#123;4&#125;)-(\d&#123;2&#125;)-(\d&#123;2&#125;)&#x27;, views.other)</span></span><br><span class="line"><span class="comment"># http://127.0.0.1:8000/yy/2024-05-14/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">yy</span>(<span class="params">request, v1, v2, v3</span>):</span><br><span class="line">    <span class="built_in">print</span>(v1, v2, v3)  <span class="comment"># 结果 ：2024 05 14</span></span><br><span class="line">    <span class="built_in">print</span>(request.GET)</span><br><span class="line">    <span class="keyword">return</span> HttpResponse(<span class="string">&quot;欢迎登录！&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p><font color=#00b2c2 size=5 face=宋体><strong> URL-CBV：写法</strong></font></p>
+<ul>
+<li>cbv写法 django会自动定位到 请求到方法，不用自己单独的去判断<code>post</code> 、<code>get</code>…</li>
+</ul>
+<p><img src="https://s2.loli.net/2024/05/14/M7szuLmA42P1Kkw.png" alt="image-20240514215331327"></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> django.urls <span class="keyword">import</span> path</span><br><span class="line"><span class="keyword">from</span> apps.CBV <span class="keyword">import</span> views</span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">    path(<span class="string">&quot;cbv/&quot;</span>, views.CBV.as_view())</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> django.shortcuts <span class="keyword">import</span> render</span><br><span class="line"><span class="keyword">from</span> django.http <span class="keyword">import</span> HttpResponse</span><br><span class="line"><span class="keyword">from</span> django.views <span class="keyword">import</span> View</span><br><span class="line"></span><br><span class="line"><span class="comment"># Create your views here.</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">CBV</span>(<span class="title class_ inherited__">View</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">get</span>(<span class="params">self, request</span>):</span><br><span class="line">        <span class="keyword">return</span> HttpResponse(<span class="string">&quot;The CBV get&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">post</span>(<span class="params">self, request</span>):</span><br><span class="line">        <span class="keyword">return</span> HttpResponse(<span class="string">&quot;The CBV post&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+<p><font color=#00b2c2 size=5 face=宋体><strong> URL-CBV：取值</strong></font></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> django.urls <span class="keyword">import</span> path, re_path</span><br><span class="line"><span class="keyword">from</span> apps.CBV <span class="keyword">import</span> views</span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">    path(<span class="string">&quot;cbv/&lt;int:v1&gt;&quot;</span>, views.CBV.as_view()),    <span class="comment"># 传递的 v1 会放到 self.kwargs</span></span><br><span class="line">    re_path(<span class="string">&quot;cbv/(\d+)/&quot;</span>, views.CBV.as_view()),    <span class="comment"># 传递的 参数 会放到 self.args</span></span><br><span class="line">    re_path(<span class="string">&quot;cbv/(?P&lt;v1&gt;\d+)/&quot;</span>, views.CBV.as_view())    <span class="comment"># 传递的 参数 会放到 self.kwargs</span></span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> django.shortcuts <span class="keyword">import</span> render</span><br><span class="line"><span class="keyword">from</span> django.http <span class="keyword">import</span> HttpResponse</span><br><span class="line"><span class="keyword">from</span> django.views <span class="keyword">import</span> View</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">CBV</span>(<span class="title class_ inherited__">View</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">get</span>(<span class="params">self, request, v1</span>):</span><br><span class="line">       <span class="comment"># 非命名的方式 传递的参数，会放到 self.args 命名的参数，会放到self.kwargs</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="variable language_">self</span>.request, <span class="variable language_">self</span>.args, <span class="variable language_">self</span>.kwargs) </span><br><span class="line">        <span class="keyword">return</span> HttpResponse(<span class="string">&quot;The CBV get&quot;</span>)</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">post</span>(<span class="params">self, request</span>):</span><br><span class="line">        <span class="keyword">return</span> HttpResponse(<span class="string">&quot;The CBV post&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p><font color=#00b2c2 size=5 face=宋体><strong>ORM：配置</strong></font></p>
+<ul>
+<li>新建app：</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">python3 manage.py startapp app01 <span class="comment"># 在当前目录下 创建一个叫 app01的文件夹</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>settings 中组册app目录：</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">INSTALLED_APPS = [</span><br><span class="line">    <span class="comment"># &#x27;django.contrib.admin&#x27;,     #  纯净版django  # django 内置后台管理，简单数据库的增删改查</span></span><br><span class="line">    <span class="comment"># &#x27;django.contrib.auth&#x27;,      #  纯净版django 剔除  # 用户登录和认证权限</span></span><br><span class="line">    <span class="comment"># &#x27;django.contrib.contenttypes&#x27;,   #  纯净版django 剔除  # 复杂表结构关系</span></span><br><span class="line">    <span class="comment"># &#x27;django.contrib.sessions&#x27;,    #  纯净版django 剔除  # 如果项目中有登录成功 让用户可以访问</span></span><br><span class="line">    <span class="comment"># &#x27;django.contrib.messages&#x27;,    #  纯净版django 剔除  # 消息展示，依赖Session</span></span><br><span class="line">    <span class="string">&#x27;django.contrib.staticfiles&#x27;</span>,   <span class="comment"># 静态资源处理，图片、css、js等</span></span><br><span class="line">    <span class="string">&#x27;app01.apps.App01Config&#x27;</span>    <span class="comment"># 添加app</span></span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>models.py 配置:</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> django.db <span class="keyword">import</span> models</span><br><span class="line"><span class="comment"># Create your models here.</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">UserInfo</span>(models.Model):</span><br><span class="line">    username = models.CharField(verbose_name=<span class="string">&quot;用户名&quot;</span>, max_length=<span class="number">32</span>)</span><br><span class="line">    password = models.CharField(verbose_name=<span class="string">&quot;密码&quot;</span>, max_length=<span class="number">64</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>读取models 生成相应本地配置：</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>、&gt;&gt;&gt; python3 manage.py makemigrations   <span class="comment"># 生成配置  </span></span><br><span class="line"><span class="number">2</span>、&gt;&gt;&gt; python3 manage.py migrate  <span class="comment"># 载入配置</span></span><br></pre></td></tr></table></figure>
+
+<p><font color=#00b2c2 size=5 face=宋体><strong>返回数据：</strong></font></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> django.http <span class="keyword">import</span> HttpResponse, JsonResponse</span><br><span class="line"><span class="keyword">from</span> django.shortcuts <span class="keyword">import</span> render, redirect</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> HttpResponse(<span class="string">&quot;The CBV get&quot;</span>)   <span class="comment"># 返回字符串</span></span><br><span class="line"><span class="keyword">return</span> JsonResponse(&#123;<span class="string">&quot;status&quot;</span>: <span class="literal">True</span>, <span class="string">&quot;name&quot;</span>: <span class="string">&quot;小蘑菇&quot;</span>&#125;, json_dumps_params=&#123;<span class="string">&quot;ensure_ascii&quot;</span>: <span class="literal">False</span>&#125;)   <span class="comment"># 返回中文 而非 ascii 码</span></span><br><span class="line"><span class="keyword">return</span> render(request, <span class="string">&quot;demo.html&quot;</span>)   <span class="comment"># 返回html 页面</span></span><br><span class="line"><span class="keyword">return</span> redirect(<span class="string">&quot;https://www.baidu.com&quot;</span>, permanent=<span class="literal">False</span>)   <span class="comment"># 返回 302 临时重定向</span></span><br><span class="line"><span class="keyword">return</span> redirect(<span class="string">&quot;https://www.baidu.com&quot;</span>, permanent=<span class="literal">True</span>)  <span class="comment"># 返回 301 永久重定向</span></span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/django/" rel="tag"># django</a>
+              <a href="/tags/python/" rel="tag"># python</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/05/11/%E6%94%B6%E8%97%8F-%E5%B8%B8%E7%94%A8%E8%84%9A%E6%9C%AC/" rel="prev" title="收藏-常用脚本">
+      <i class="fa fa-chevron-left"></i> 收藏-常用脚本
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2024/05/13/Django-%E7%9A%84%E5%9B%BD%E9%99%85%E5%8C%96%E4%B8%8E%E6%9C%AC%E5%9C%B0%E5%8C%96%E8%AF%A6%E8%A7%A3/" rel="next" title="Django-的国际化与本地化详解">
+      Django-的国际化与本地化详解 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Kanoc Ge"
+      src="/images/452794135.jpg">
+  <p class="site-author-name" itemprop="name">Kanoc Ge</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">62</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">54</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">73</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kanoc Ge</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  <!-- 多级目录 -->
+  <script type="text/javascript" src="/js/jquery.min.js"></script>
+  <script type="text/javascript" src="/js/category.js"></script>
+</body>
+</html>
