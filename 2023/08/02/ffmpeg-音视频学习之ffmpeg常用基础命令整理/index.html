@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <style>
+    .category-all-page .category-list-item {
+      margin: 15px 10px 10px 10px;
+      list-style: none;
+      font-size: 20px;
+      }
+      .category-all-page .category-list-child {
+        list-style: none;
+        }
+  </style>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"kanoc.gitee.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="ffmpeg 音视频学习之ffmpeg常用基础命令整理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ffmpeg 音视频学习之ffmpeg常用基础命令整理">
+<meta property="og:url" content="https://kanoc.gitee.io/2023/08/02/ffmpeg-%E9%9F%B3%E8%A7%86%E9%A2%91%E5%AD%A6%E4%B9%A0%E4%B9%8Bffmpeg%E5%B8%B8%E7%94%A8%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4%E6%95%B4%E7%90%86/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="ffmpeg 音视频学习之ffmpeg常用基础命令整理">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2023/08/02/V8OkslCpx1guJvy.png">
+<meta property="og:image" content="https://s2.loli.net/2023/08/02/GmWy2dkN6BsIvbh.png">
+<meta property="article:published_time" content="2023-08-02T09:09:31.000Z">
+<meta property="article:modified_time" content="2025-06-09T10:11:25.038Z">
+<meta property="article:author" content="Kanoc Ge">
+<meta property="article:tag" content="ffmpeg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2023/08/02/V8OkslCpx1guJvy.png">
+
+<link rel="canonical" href="https://kanoc.gitee.io/2023/08/02/ffmpeg-%E9%9F%B3%E8%A7%86%E9%A2%91%E5%AD%A6%E4%B9%A0%E4%B9%8Bffmpeg%E5%B8%B8%E7%94%A8%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4%E6%95%B4%E7%90%86/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>ffmpeg 音视频学习之ffmpeg常用基础命令整理 | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-首页-|-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页 | home</a>
+
+  </li>
+        <li class="menu-item menu-item-分类-|-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类 | categories</a>
+
+  </li>
+        <li class="menu-item menu-item-标签-|-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签 | tags</a>
+
+  </li>
+        <li class="menu-item menu-item-归档-|-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档 | archives</a>
+
+  </li>
+        <li class="menu-item menu-item-关于-|-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于 | about</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/08/02/ffmpeg-%E9%9F%B3%E8%A7%86%E9%A2%91%E5%AD%A6%E4%B9%A0%E4%B9%8Bffmpeg%E5%B8%B8%E7%94%A8%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4%E6%95%B4%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/452794135.jpg">
+      <meta itemprop="name" content="Kanoc Ge">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ffmpeg 音视频学习之ffmpeg常用基础命令整理
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-08-02 17:09:31" itemprop="dateCreated datePublished" datetime="2023-08-02T17:09:31+08:00">2023-08-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-06-09 18:11:25" itemprop="dateModified" datetime="2025-06-09T18:11:25+08:00">2025-06-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/A4-FFmpeg/" itemprop="url" rel="index"><span itemprop="name">_A4-FFmpeg</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/A4-FFmpeg/%E5%8F%82%E6%95%B0%E8%AF%A6%E8%A7%A3/" itemprop="url" rel="index"><span itemprop="name">参数详解</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="ffmpeg-音视频学习之ffmpeg常用基础命令整理"><a href="#ffmpeg-音视频学习之ffmpeg常用基础命令整理" class="headerlink" title="ffmpeg 音视频学习之ffmpeg常用基础命令整理"></a><font color=#00b2c2 size=5 face=宋体><strong>ffmpeg 音视频学习之ffmpeg常用基础命令整理</strong></font></h1><span id="more"></span>
+
+<p>基于windows环境安装好必要的<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=ffmpeg&spm=1001.2101.3001.7020">ffmpeg</a>后，对ffmpeg基础命令进行一些了解：</p>
+<p>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/yun6853992/article/details/121870328">https://blog.csdn.net/yun6853992/article/details/121870328</a></p>
+<h2 id="1、ffmpeg查看版本："><a href="#1、ffmpeg查看版本：" class="headerlink" title="1、ffmpeg查看版本："></a>1、ffmpeg查看版本：</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">ffmpeg -version</span><br></pre></td></tr></table></figure>
+
+<h2 id="2、ffmpeg查询命令："><a href="#2、ffmpeg查询命令：" class="headerlink" title="2、ffmpeg查询命令："></a>2、ffmpeg查询命令：</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 基本信息：ffmpeg -h</span></span><br><span class="line"><span class="comment"># 高级信息：ffmpeg -h long</span></span><br><span class="line"><span class="comment"># 所有信息：ffmpeg -h full</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ffplay查看帮助： ffplay -h</span></span><br><span class="line"><span class="comment"># ffprobe查看帮助： ffprobe -h</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ffmpeg具体分类支持的参数查看帮助： ffmepg -h type=name</span></span><br><span class="line"><span class="comment"># 比如：		</span></span><br><span class="line">ffmpeg -h muxer=flv</span><br><span class="line">ffmpeg -h <span class="built_in">filter</span>=atempo (atempo调整音频播放速率)</span><br><span class="line">ffmpeg -h encoder=libx264</span><br></pre></td></tr></table></figure>
+
+<h2 id="3、ffmpeg分类查询命令："><a href="#3、ffmpeg分类查询命令：" class="headerlink" title="3、ffmpeg分类查询命令："></a>3、ffmpeg分类查询命令：</h2><p><img src="https://s2.loli.net/2023/08/02/V8OkslCpx1guJvy.png"></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">-version 	<span class="comment"># 显示版本 </span></span><br><span class="line">-buildconf 	<span class="comment"># 显示编译配置 </span></span><br><span class="line">-protocols 	<span class="comment"># 显示可用的协议 </span></span><br><span class="line">-formats 	<span class="comment"># 显示可用格式 (muxers+demuxers) </span></span><br><span class="line"></span><br><span class="line">-filters 	<span class="comment"># 显示可用的过滤器 </span></span><br><span class="line">-muxers 	<span class="comment"># 显示可用复用器 </span></span><br><span class="line"></span><br><span class="line">-demuxers 	<span class="comment"># 显示可用解复用器 </span></span><br><span class="line">-codecs 	<span class="comment"># 显示可用编解码器 (decoders+encoders)</span></span><br><span class="line">-decoders 	<span class="comment"># 显示可用解码器</span></span><br><span class="line">-encoders 	<span class="comment"># 显示可用编码器</span></span><br><span class="line">-layouts 	<span class="comment"># 显示标准声道名称 </span></span><br><span class="line"></span><br><span class="line">-pix_fmts 		<span class="comment"># 显示可用的像素格式 </span></span><br><span class="line">-sample_fmts 	<span class="comment"># 显示可用的音频采样 格式 </span></span><br><span class="line">-bsfs 			<span class="comment"># 显示可用比特流filter </span></span><br><span class="line">-colors 		<span class="comment"># 显示可用的颜色名称 </span></span><br></pre></td></tr></table></figure>
+
+<h2 id="4、ffmpeg基础命令："><a href="#4、ffmpeg基础命令：" class="headerlink" title="4、ffmpeg基础命令："></a>4、ffmpeg基础命令：</h2><p><font color=#f26522 size=3 face=宋体><strong>更多参考： <a target="_blank" rel="noopener" href="http://www.ffmpeg.org/ffmpeg.html">http://www.ffmpeg.org/ffmpeg.html</a></strong></font></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"> <span class="comment"># 主要参数：</span></span><br><span class="line"><span class="comment">#	◼ -i 设定输入流</span></span><br><span class="line"><span class="comment">#	◼ -f 设定输出格式(format)</span></span><br><span class="line"><span class="comment">#	◼ -ss 开始时间</span></span><br><span class="line"><span class="comment">#	◼ -t 时间长度</span></span><br><span class="line">	</span><br><span class="line"><span class="comment"># 音频参数：</span></span><br><span class="line"><span class="comment">#	◼ -aframes 		设置要输出的音频帧数</span></span><br><span class="line"><span class="comment">#	◼ -b:a 			音频码率</span></span><br><span class="line"><span class="comment">#	◼ -ar 			设定采样率</span></span><br><span class="line"><span class="comment">#	◼ -ac			设定声音的Channel数</span></span><br><span class="line"><span class="comment">#	◼ -acodec 		设定声音编解码器，如果用copy表示原始编解码数据必须被拷贝。</span></span><br><span class="line"><span class="comment">#	◼ -an 			不处理音频</span></span><br><span class="line"><span class="comment">#	◼ -af 			音频过滤器</span></span><br><span class="line">ffmpeg -i test.mp4 -b:a 192k -ar <span class="number">48000</span> -ac <span class="number">2</span> -acodec libmp3lame -aframes <span class="number">200</span> out2.mp3</span><br><span class="line"></span><br><span class="line"><span class="comment"># 视频参数：</span></span><br><span class="line"><span class="comment">#	◼ -vframes 			设置要输出的视频帧数</span></span><br><span class="line"><span class="comment">#	◼ -b 				设定视频码率</span></span><br><span class="line"><span class="comment">#	◼ -b:v 				视频码率</span></span><br><span class="line"><span class="comment">#	◼ -r 				设定帧速率</span></span><br><span class="line"><span class="comment">#	◼ -s 				设定画面的宽与高</span></span><br><span class="line"><span class="comment">#	◼ -vn 				不处理视频</span></span><br><span class="line"><span class="comment">#	◼ -aspect aspect 	设置横纵比 4:3 16:9 或 1.3333 1.7777</span></span><br><span class="line"><span class="comment">#	◼ -vcodec 			设定视频编解码器，如果用copy表示原始编解码数据必须被拷贝。</span></span><br><span class="line"><span class="comment">#	◼ -vf 				视频过滤器</span></span><br><span class="line">ffmpeg -i test.mp4 -vframes <span class="number">300</span> -b:v 300k -r <span class="number">30</span> -s 640x480 -aspect <span class="number">16</span>:<span class="number">9</span> -vcodec libx265</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="5、ffmepg使用命令提取音频或视频："><a href="#5、ffmepg使用命令提取音频或视频：" class="headerlink" title="5、ffmepg使用命令提取音频或视频："></a>5、ffmepg使用命令提取音频或视频：</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 提取音视频数据：</span></span><br><span class="line"><span class="comment"># ◼ 保留封装格式</span></span><br><span class="line">	ffmpeg -i test.mp4 -acodec copy -vn audio.mp4</span><br><span class="line">	ffmpeg -i test.mp4 -vcodec copy -an video.mp4</span><br><span class="line"><span class="comment"># ◼ 提取视频</span></span><br><span class="line">	保留编码格式：ffmpeg -i test.mp4 -vcodec copy -an test_copy.h264</span><br><span class="line">	强制格式：ffmpeg -i test.mp4 -vcodec libx264 -an test.h264</span><br><span class="line"><span class="comment"># ◼ 提取音频</span></span><br><span class="line">	保留编码格式：ffmpeg -i test.mp4 -acodec copy -vn test.aac</span><br><span class="line">	强制格式：ffmpeg -i test.mp4 -acodec libmp3lame -vn test.mp3</span><br><span class="line">	</span><br><span class="line"><span class="comment"># 提取像素格式和PCM数据：</span></span><br><span class="line"><span class="comment"># ◼ 提取YUV</span></span><br><span class="line"><span class="comment"># 	◼ 提取3秒数据，分辨率和源视频一致</span></span><br><span class="line">		ffmpeg -i test_1280x720.mp4 -t <span class="number">3</span> -pix_fmt yuv420p yuv420p_orig.yuv</span><br><span class="line"><span class="comment"># 	◼ 提取3秒数据，分辨率转为320x240</span></span><br><span class="line">		ffmpeg -i test_1280x720.mp4 -t <span class="number">3</span> -pix_fmt yuv420p -s 320x240 yuv420p_320x240.yuv</span><br><span class="line"><span class="comment"># ◼ 提取RGB</span></span><br><span class="line"><span class="comment"># 	◼ 提取3秒数据，分辨率转为320x240</span></span><br><span class="line">		ffmpeg -i test.mp4 -t <span class="number">3</span> -pix_fmt rgb24 -s 320x240 rgb24_320x240.rgb</span><br><span class="line"><span class="comment"># ◼ RGB和YUV之间的转换</span></span><br><span class="line">	ffmpeg -s 320x240 -pix_fmt yuv420p -i yuv420p_320x240.yuv -pix_fmt rgb24 rgb24_320x240_2.rgb</span><br><span class="line">	</span><br><span class="line"><span class="comment"># ◼ 提取PCM</span></span><br><span class="line">	ffmpeg -i buweishui.mp3 -ar <span class="number">48000</span> -ac <span class="number">2</span> -f s16le 48000_2_s16le.pcm</span><br><span class="line">	ffmpeg -i buweishui.mp3 -ar <span class="number">48000</span> -ac <span class="number">2</span> -sample_fmt s16 out_s16.wav</span><br><span class="line">	ffmpeg -i buweishui.mp3 -ar <span class="number">48000</span> -ac <span class="number">2</span> -codec:a pcm_s16le out2_s16le.wav</span><br><span class="line">	ffmpeg -i buweishui.mp3 -ar <span class="number">48000</span> -ac <span class="number">2</span> -f f32le 48000_2_f32le.pcm</span><br><span class="line">	ffmpeg -i test.mp4 -t <span class="number">10</span> -vn -ar <span class="number">48000</span> -ac <span class="number">2</span> -f f32le 48000_2_f32le_2.pcm</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="6、ffmpeg命令转封装："><a href="#6、ffmpeg命令转封装：" class="headerlink" title="6、ffmpeg命令转封装："></a>6、ffmpeg命令转封装：</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># ◼ 保持编码格式：</span></span><br><span class="line">	ffmpeg -i test.mp4 -vcodec copy -acodec copy test_copy.ts</span><br><span class="line">	ffmpeg -i test.mp4 -codec copy test_copy2.ts</span><br><span class="line"><span class="comment"># ◼ 改变编码格式：</span></span><br><span class="line">	ffmpeg -i test.mp4 -vcodec libx265 -acodec libmp3lame out_h265_mp3.mkv</span><br><span class="line">	</span><br><span class="line"><span class="comment"># ◼ 修改帧率：</span></span><br><span class="line">	ffmpeg -i test.mp4 -r <span class="number">15</span> -codec copy output.mp4 <span class="comment"># (错误命令)</span></span><br><span class="line">	ffmpeg -i test.mp4 -r <span class="number">15</span> output2.mp4</span><br><span class="line"><span class="comment"># ◼ 修改视频码率：</span></span><br><span class="line">	ffmpeg -i test.mp4 -b 400k output_b.mkv <span class="comment"># （此时音频也被重新编码）</span></span><br><span class="line"><span class="comment"># ◼ 修改视频码率：</span></span><br><span class="line">	ffmpeg -i test.mp4 -b:v 400k output_bv.mkv</span><br><span class="line">	</span><br><span class="line"><span class="comment"># ◼ 修改音频码率：</span></span><br><span class="line">	ffmpeg -i test.mp4 -b:a 192k output_ba.mp4</span><br><span class="line"><span class="comment"># 	如果不想重新编码video，需要加上-vcodec copy</span></span><br><span class="line"><span class="comment"># ◼ 修改音视频码率：</span></span><br><span class="line">	ffmpeg -i test.mp4 -b:v 400k -b:a 192k output_bva.mp4</span><br><span class="line">	</span><br><span class="line"><span class="comment"># ◼ 修改视频分辨率：</span></span><br><span class="line">	ffmpeg -i test.mp4 -s 480x270 output_480x270.mp4</span><br><span class="line"><span class="comment"># ◼ 修改音频采样率: </span></span><br><span class="line">	ffmpeg -i test.mp4 -ar <span class="number">44100</span> output_44100hz.mp4</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="7、ffmpeg过滤器命令："><a href="#7、ffmpeg过滤器命令：" class="headerlink" title="7、ffmpeg过滤器命令："></a>7、ffmpeg过滤器命令：</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 1：生成测试文件</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ◼ 找三个不同的视频每个视频截取10秒内容</span></span><br><span class="line">	ffmpeg -i 沙海<span class="number">02.</span>mp4 -ss <span class="number">00</span>:05:<span class="number">00</span> -t <span class="number">10</span> -codec copy <span class="number">1.</span>mp4</span><br><span class="line">	ffmpeg -i 复仇者联盟<span class="number">3.</span>mp4 -ss <span class="number">00</span>:05:<span class="number">00</span> -t <span class="number">10</span> -codec copy <span class="number">2.</span>mp4</span><br><span class="line">	ffmpeg -i 红海行动.mp4 -ss <span class="number">00</span>:05:<span class="number">00</span> -t <span class="number">10</span> -codec copy <span class="number">3.</span>mp4</span><br><span class="line"><span class="comment"># 		如果音视频格式不统一则强制统一为 -vcodec libx264 -acodec aac</span></span><br><span class="line"><span class="comment"># ◼ 将上述1.mp4/2.mp4/3.mp4转成ts格式</span></span><br><span class="line">	ffmpeg -i <span class="number">1.</span>mp4 -codec copy -vbsf h264_mp4toannexb <span class="number">1.</span>ts</span><br><span class="line">	ffmpeg -i <span class="number">2.</span>mp4 -codec copy -vbsf h264_mp4toannexb <span class="number">2.</span>ts</span><br><span class="line">	ffmpeg -i <span class="number">3.</span>mp4 -codec copy -vbsf h264_mp4toannexb <span class="number">3.</span>ts</span><br><span class="line"><span class="comment"># ◼ 转成flv格式</span></span><br><span class="line">	ffmpeg -i <span class="number">1.</span>mp4 -codec copy <span class="number">1.</span>flv</span><br><span class="line">	ffmpeg -i <span class="number">2.</span>mp4 -codec copy <span class="number">2.</span>flv</span><br><span class="line">	ffmpeg -i <span class="number">3.</span>mp4 -codec copy <span class="number">3.</span>flv</span><br><span class="line"><span class="comment"># 分离某些封装格式（例如MP4/FLV/MKV等）中的H.264的时候，需要首先写入SPS和PPS，否则会导致分离出来的数据没有SPS、PPS而无法播放。</span></span><br><span class="line"><span class="comment"># 	H.264码流的SPS和PPS信息存储在AVCodecContext结构体的extradata中。</span></span><br><span class="line"><span class="comment"># 	需要使用ffmpeg中名称为“h264_mp4toannexb”的bitstream filter处理</span></span><br><span class="line">	</span><br><span class="line"><span class="comment"># 2：开始拼接文件：</span></span><br><span class="line"><span class="comment"># ◼ 以MP4格式进行拼接</span></span><br><span class="line">	方法<span class="number">1</span>：ffmpeg -i <span class="string">&quot;concat:1.mp4|2.mp4|3.mp4&quot;</span> -codec copy out_mp4.mp4 </span><br><span class="line">	方法<span class="number">2</span>：ffmpeg -f concat -i mp4list.txt -codec copy out_mp42.mp4</span><br><span class="line"><span class="comment"># 	自己新建 mp4list.txt,在其中实现 file &#x27;1.mp4&#x27;</span></span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line"><span class="comment"># ◼ 以TS格式进行拼接</span></span><br><span class="line">	方法<span class="number">1</span>：ffmpeg -i <span class="string">&quot;concat:1.ts|2.ts|3.ts&quot;</span> -codec copy out_ts.mp4 </span><br><span class="line">	方法<span class="number">2</span>：ffmpeg -f concat -i tslist.txt -codec copy out_ts2.mp4</span><br><span class="line"><span class="comment"># 	自己新建 tslist.txt,在其中实现 file &#x27;1.ts&#x27;</span></span><br><span class="line">	</span><br><span class="line"><span class="comment"># ◼ 以FLV格式进行拼接</span></span><br><span class="line">	方法<span class="number">1</span>：ffmpeg -i <span class="string">&quot;concat:1.flv|2.flv|3.flv&quot;</span> -codec copy out_flv.mp4 </span><br><span class="line">	方法<span class="number">2</span>：ffmpeg -f concat -i flvlist.txt -codec copy out_flv2.mp4</span><br><span class="line"></span><br><span class="line"><span class="comment"># 需要验证最后结果是否正常：</span></span><br><span class="line"><span class="comment"># ◼ 方法1只适用部分封装格式，比如TS</span></span><br><span class="line"><span class="comment"># ◼ 建议：</span></span><br><span class="line"><span class="comment"># 	（1）使用方法2进行拼接</span></span><br><span class="line"><span class="comment"># 	（2）转成TS格式再进行拼接</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 3：测试不同编码拼接：</span></span><br><span class="line"><span class="comment"># ◼ 修改音频编码</span></span><br><span class="line">	ffmpeg -i <span class="number">2.</span>mp4 -vcodec copy -acodec ac3 -vbsf h264_mp4toannexb <span class="number">2.</span>ts</span><br><span class="line">	ffmpeg -i <span class="string">&quot;concat:1.ts|2.ts|3.ts&quot;</span> -codec copy out1.mp4 结果第二段没有声音</span><br><span class="line"><span class="comment"># ◼ 修改音频采样率</span></span><br><span class="line">	ffmpeg -i <span class="number">2.</span>mp4 -vcodec copy -acodec aac -ar <span class="number">96000</span> -vbsf h264_mp4toannexb <span class="number">2.</span>ts</span><br><span class="line">	ffmpeg -i <span class="string">&quot;concat:1.ts|2.ts|3.ts&quot;</span> -codec copy out2.mp4 第二段播放异常</span><br><span class="line"><span class="comment"># ◼ 修改视频编码格式</span></span><br><span class="line">	ffmpeg -i <span class="number">1.</span>mp4 -acodec copy -vcodec libx265 <span class="number">1.</span>ts</span><br><span class="line">	ffmpeg -i <span class="string">&quot;concat:1.ts|2.ts|3.ts&quot;</span> -codec copy out3.mp4 </span><br><span class="line"><span class="comment"># ◼ 修改视频分辨率</span></span><br><span class="line">	ffmpeg -i <span class="number">1.</span>mp4 -acodec copy -vcodec libx264 -s 800x472 -vbsf h264_mp4toannexb <span class="number">1.</span>ts</span><br><span class="line">	ffmpeg -i <span class="string">&quot;concat:1.ts|2.ts|3.ts&quot;</span> -codec copy out4.mp4</span><br><span class="line"><span class="comment"># ◼ 注意：</span></span><br><span class="line"><span class="comment"># 	把每个视频封装格式也统一为ts，拼接输出的时候再输出你需要的封装格式，比如MP4</span></span><br><span class="line"><span class="comment"># 	视频分辨率可以不同，但是编码格式需要统一</span></span><br><span class="line"><span class="comment"># 	音频编码格式需要统一，音频参数(采样率/声道等)也需要统一</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="8、ffmpeg-图片与视频互转："><a href="#8、ffmpeg-图片与视频互转：" class="headerlink" title="8、ffmpeg 图片与视频互转："></a>8、ffmpeg 图片与视频互转：</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># ◼ 截取一张图片</span></span><br><span class="line">	ffmpeg -i test.mp4 -y -f image2 -ss <span class="number">00</span>:<span class="number">00</span>:02 -vframes <span class="number">1</span> -s 640x360 test.jpg</span><br><span class="line">	ffmpeg -i test.mp4 -y -f image2 -ss <span class="number">00</span>:<span class="number">00</span>:02 -vframes <span class="number">1</span> -s 640x360 test.bmp</span><br><span class="line">		-i 输入</span><br><span class="line">		-y 覆盖</span><br><span class="line">		-f 格式</span><br><span class="line">		image2 一种格式</span><br><span class="line">		-ss 起始值</span><br><span class="line">		-vframes 帧 如果大于<span class="number">1</span> 那么 输出加%03d test%03d.jpg </span><br><span class="line">		-s 格式大小size</span><br><span class="line"><span class="comment"># ◼ 转换视频为图片（每帧一张图):</span></span><br><span class="line">	ffmpeg -i test.mp4 -t <span class="number">5</span> -s 640x360 -r <span class="number">15</span> frame%03d.jpg </span><br><span class="line"><span class="comment"># ◼ 图片转换为视频:</span></span><br><span class="line">	ffmpeg -f image2 -i frame%03d.jpg -r <span class="number">25</span> video.mp4</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># ◼ 从视频中生成GIF图片</span></span><br><span class="line">	ffmpeg -i test.mp4 -t <span class="number">5</span> -r <span class="number">1</span> image1.gif</span><br><span class="line">	ffmpeg -i test.mp4 -t <span class="number">5</span> -r <span class="number">25</span> -s 640x360 image2.gif</span><br><span class="line"><span class="comment"># ◼ 将 GIF 转化为 视频</span></span><br><span class="line">	ffmpeg -f gif -i image2.gif image2.mp4</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="9、ffmpeg-视频录制命令："><a href="#9、ffmpeg-视频录制命令：" class="headerlink" title="9、ffmpeg 视频录制命令："></a>9、ffmpeg 视频录制命令：</h1><p><font color=#b0171f size=2 face=宋体><strong>有时候写入MP4文件会不成功，改成flv就好</strong></font></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># ◼ 先安装dshow软件 Screen Capturer Recorder，</span></span><br><span class="line"><span class="comment"># 	项目地址：https://sourceforge.net/projects/screencapturer/files/ </span></span><br><span class="line"><span class="comment"># 	然后查看可用设备名字：</span></span><br><span class="line">		ffmpeg -list_devices true -f dshow -i dummy</span><br><span class="line"></span><br><span class="line"><span class="comment"># ◼ 录制视频（默认参数）</span></span><br><span class="line">	桌面：		 ffmpeg -f dshow -i video=<span class="string">&quot;screen-capture-recorder&quot;</span> v-out.mp4 </span><br><span class="line">	摄像头： 	 ffmpeg -f dshow -i video=<span class="string">&quot;Integrated Webcam&quot;</span> -y v-out2.flv (要根据自己摄像头名称)</span><br><span class="line"><span class="comment"># ◼ 录制声音（默认参数）</span></span><br><span class="line">	系统声音：			ffmpeg -f dshow -i audio=<span class="string">&quot;virtual-audio-capturer&quot;</span> a-out.aac</span><br><span class="line">	系统+麦克风声音：	  ffmpeg -f dshow -i audio=<span class="string">&quot;麦克风 (Realtek(R) Audio)&quot;</span> -f dshow -i audio=<span class="string">&quot;virtual-audio-capturer&quot;</span> -filter_complex amix=inputs=<span class="number">2</span>:duration=first:dropout_transition=<span class="number">2</span> a-out2.aac</span><br><span class="line"></span><br><span class="line"><span class="comment"># ◼ 查看视频录制的可选参数</span></span><br><span class="line">	ffmpeg -f dshow -list_options true -i video=<span class="string">&quot;screen-capture-recorder&quot;</span>	</span><br><span class="line"><span class="comment"># ◼ 查看音频录制的可选参数</span></span><br><span class="line">	ffmpeg -f dshow -list_options true -i audio=<span class="string">&quot;virtual-audio-capturer&quot;</span></span><br><span class="line">	ffmpeg -f dshow -list_options true -i audio=<span class="string">&quot;麦克风 (Realtek(R) Audio)&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 指定参数录制音视频：</span></span><br><span class="line">	◼ ffmpeg -f dshow -i audio=<span class="string">&quot;麦克风 (Realtek(R) Audio)&quot;</span> -f dshow -i audio=<span class="string">&quot;virtual-audio-capturer&quot;</span> -filter_complex amix=inputs=<span class="number">2</span>:duration=first:dropout_transition=<span class="number">2</span> -f dshow -video_size 1920x1080 -framerate <span class="number">15</span> -pixel_format yuv420p -i video=<span class="string">&quot;screen-capture-recorder&quot;</span> -vcodec h264_qsv -b:v 3M -y av-out.flv</span><br><span class="line">	◼ ffmpeg -f dshow -i audio=<span class="string">&quot;麦克风 (Realtek(R) Audio)&quot;</span> -f dshow -i audio=<span class="string">&quot;virtual-audio-capturer&quot;</span> -filter_complex amix=inputs=<span class="number">2</span>:duration=first:dropout_transition=<span class="number">2</span> -f dshow -i video=<span class="string">&quot;screen-capture-recorder&quot;</span> -vcodec h264_qsv -b:v 3M -r <span class="number">15</span> -y av-out2.mp4</span><br><span class="line">	◼ ffmpeg -f dshow -i audio=<span class="string">&quot;麦克风 (Realtek(R) Audio)&quot;</span> -f dshow -i audio=<span class="string">&quot;virtual-audio-capturer&quot;</span> -filter_complex amix=inputs=<span class="number">2</span>:duration=first:dropout_transition=<span class="number">2</span> -f dshow -framerate <span class="number">15</span> -pixel_format yuv420p -i video=<span class="string">&quot;screen-capture-recorder&quot;</span> -vcodec h264_qsv -b:v 3M -r <span class="number">15</span> -y av-out3.mp4</span><br></pre></td></tr></table></figure>
+
+<h2 id="10、ffmpeg直播推流-拉流命令："><a href="#10、ffmpeg直播推流-拉流命令：" class="headerlink" title="10、ffmpeg直播推流&#x2F;拉流命令："></a>10、ffmpeg直播推流&#x2F;拉流命令：</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># ◼ 直播拉流</span></span><br><span class="line">	ffplay rtmp://server/live/streamName </span><br><span class="line">	ffmpeg -i rtmp://server/live/streamName -c copy dump.flv</span><br><span class="line">		对于不是rtmp的协议 -c copy要谨慎使用</span><br><span class="line"><span class="comment"># ◼ 可用地址</span></span><br><span class="line">	HKS：rtmp://live.hkstv.hk.lxdns.com/live/hks2</span><br><span class="line">	大熊兔(点播)：rtsp://<span class="number">184.72</span><span class="number">.239</span><span class="number">.149</span>/vod/mp4://BigBuckBunny_175k.mov</span><br><span class="line">	CCTV1高清：http://ivi.bupt.edu.cn/hls/cctv1hd.m3u8</span><br><span class="line">		ffmpeg -i http://ivi.bupt.edu.cn/hls/cctv1hd.m3u8 -c copy cctv1.ts</span><br><span class="line">		ffmpeg -i http://ivi.bupt.edu.cn/hls/cctv1hd.m3u8 cctv1.flv</span><br><span class="line">		ffmpeg -i http://ivi.bupt.edu.cn/hls/cctv1hd.m3u8 -acodec aac -vcodec libx264 cctv1-<span class="number">2.</span>flv</span><br><span class="line">	CCTV3高清：http://ivi.bupt.edu.cn/hls/cctv3hd.m3u8</span><br><span class="line">	CCTV5高清：http://ivi.bupt.edu.cn/hls/cctv5hd.m3u8</span><br><span class="line">	CCTV5+高清：http://ivi.bupt.edu.cn/hls/cctv5phd.m3u8</span><br><span class="line">	CCTV6高清：http://ivi.bupt.edu.cn/hls/cctv6hd.m3u8</span><br><span class="line"></span><br><span class="line"><span class="comment"># ◼ 直播推流</span></span><br><span class="line">	ffmpeg -re -i out.mp4 -c copy flv rtmp://server/live/streamName</span><br><span class="line">		-re,表示按时间戳读取文件</span><br></pre></td></tr></table></figure>
+
+<h2 id="11、ffmpeg-filter过滤器应用："><a href="#11、ffmpeg-filter过滤器应用：" class="headerlink" title="11、ffmpeg filter过滤器应用："></a>11、ffmpeg filter过滤器应用：</h2><ul>
+<li><h3 id="1、视频裁剪："><a href="#1、视频裁剪：" class="headerlink" title="1、视频裁剪："></a><font color=#b0171f size=3 face=宋体><strong>1、视频裁剪：</strong></font></h3></li>
+</ul>
+<p><img src="https://s2.loli.net/2023/08/02/GmWy2dkN6BsIvbh.png"></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 变量 			   用于 ow 和 oh 参数的表达式中的可用变量</span></span><br><span class="line"></span><br><span class="line">x, y			对 x 的计算值(从左上角水平方向的像素个数)和 y(垂直像素的数量)，对每个帧进行评估，x的默认值为(iw - ow)/<span class="number">2</span>, y 的默认值为(ih - oh)/<span class="number">2</span></span><br><span class="line">in_w, iw 		输入的宽度</span><br><span class="line">in_h, ih 		输入的高度</span><br><span class="line">out_w,ow		输出(裁剪)宽度，默认值= iw</span><br><span class="line">out_h,oh 		输出(裁剪)高度，默认值= ih</span><br><span class="line">a 				纵横比，与 iw/ih 相同</span><br><span class="line">sar 			输入样本比例</span><br><span class="line">dar 			输入显示宽比，等于表达式 a*sar</span><br><span class="line">hsub, vsub 		水平和垂直的色度子样本值，对于像素格式 yuv422p, hsub 的值为 <span class="number">2</span>,vsub 为 <span class="number">1</span></span><br><span class="line">n 				输入帧的数目，从 <span class="number">0</span> 开始</span><br><span class="line">pos 			位置在输入框的文件中，如果不知道 NAN</span><br><span class="line">t 				时间戳以秒表示，如果输入时间戳未知</span><br><span class="line"></span><br><span class="line">ow 的值可以从 oh 得到，反之亦然，但不能从 x 和 y 中得到，因为这些值是在 ow 和 oh 之后进行的。</span><br><span class="line">x 的值可以从 y 的值中得到，反之亦然。</span><br><span class="line"><span class="comment"># 	例如，在输入框的左三、中三和右三，我们可以使用命令(iw/3*2)是开始裁剪的位置:</span></span><br><span class="line">		ffmpeg -i <span class="built_in">input</span> -vf crop=iw/<span class="number">3</span>:ih:<span class="number">0</span>:<span class="number">0</span> output </span><br><span class="line">		ffmpeg -i <span class="built_in">input</span> -vf crop=iw/<span class="number">3</span>:ih:iw/<span class="number">3</span>:<span class="number">0</span> output </span><br><span class="line">		ffmpeg -i <span class="built_in">input</span> -vf crop=iw/<span class="number">3</span>:ih:iw/<span class="number">3</span>*<span class="number">2</span>:<span class="number">0</span> output</span><br><span class="line"></span><br><span class="line">（<span class="number">1</span>）裁剪 100x100 的区域，起点为(<span class="number">12</span>,<span class="number">34</span>).</span><br><span class="line">		crop=<span class="number">100</span>:<span class="number">100</span>:<span class="number">12</span>:<span class="number">34</span></span><br><span class="line">		相同效果:</span><br><span class="line">		crop=w=<span class="number">100</span>:h=<span class="number">100</span>:x=<span class="number">12</span>:y=<span class="number">34</span></span><br><span class="line">（<span class="number">2</span>）裁剪中心区域，大小为 100x100</span><br><span class="line">		crop=<span class="number">100</span>:<span class="number">100</span></span><br><span class="line">（<span class="number">3</span>）裁剪中心区域，大小为输入视频的 <span class="number">2</span>/<span class="number">3</span></span><br><span class="line">		crop=<span class="number">2</span>/<span class="number">3</span>*in_w:<span class="number">2</span>/<span class="number">3</span>*in_h</span><br><span class="line">（<span class="number">4</span>）裁剪中心区域的正方形，高度为输入视频的高</span><br><span class="line">		crop=out_w=in_h</span><br><span class="line">		crop=in_h</span><br><span class="line">（<span class="number">5</span>）裁剪偏移左上角 <span class="number">100</span> 像素</span><br><span class="line">		crop=in_w-<span class="number">100</span>:in_h-<span class="number">100</span>:<span class="number">100</span>:<span class="number">100</span></span><br><span class="line">（<span class="number">6</span>）裁剪掉左右 <span class="number">10</span> 像素，上下 <span class="number">20</span> 像素</span><br><span class="line">		crop=in_w-<span class="number">2</span>*<span class="number">10</span>:in_h-<span class="number">2</span>*<span class="number">20</span></span><br><span class="line">（<span class="number">7</span>）裁剪右下角区域</span><br><span class="line">		crop=in_w/<span class="number">2</span>:in_h/<span class="number">2</span>:in_w/<span class="number">2</span>:in_h/<span class="number">2</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><font color=#b0171f size=3 face=宋体><strong>2、文字水印：</strong></font></li>
+</ul>
+<p>编译的时候需要支持 FreeType、FontConfig、iconv，系统中需要有相关的子库，</p>
+<p>在 FFmpeg 中增加纯字母水印可以使用 drawtext 滤镜进行支持:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">drawtext <span class="comment"># 参数相关：</span></span><br><span class="line">text 		<span class="comment"># 字符串 	   文字</span></span><br><span class="line">textfile 	<span class="comment"># 字符串 	   文字文件</span></span><br><span class="line">box 		<span class="comment"># 布尔 			文字区域背景框(缺省 false)</span></span><br><span class="line">boxcolor 	<span class="comment"># 色彩 			展示字体区域块的颜色</span></span><br><span class="line">font 		<span class="comment"># 字符串 	   字体名称（默认为 Sans 字体）</span></span><br><span class="line">fontsize 	<span class="comment"># 整数 			显示字体的大小</span></span><br><span class="line">x 			<span class="comment"># 字符串 		缺省为 0</span></span><br><span class="line">y 			<span class="comment"># 字符串 		缺省为 0</span></span><br><span class="line">alpha 		<span class="comment"># 浮点数 		透明度(默认为 1)，值从 0~1</span></span><br></pre></td></tr></table></figure>
+
+<p><font color=#f26522 size=4 face=宋体><strong>相关使用实例：</strong></font></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># （1）将文字的水印加在视频的左上角：</span></span><br><span class="line">	ffplay -i <span class="built_in">input</span>.mp4 -vf <span class="string">&quot;drawtext=fontsize=100:fontfile=FreeSerif.ttf:text=&#x27;hello world&#x27;:x=20:y=20&quot;</span></span><br><span class="line"><span class="comment"># 将字体的颜色设置为绿色：</span></span><br><span class="line">	ffplay -i <span class="built_in">input</span>.mp4 -vf <span class="string">&quot;drawtext=fontsize=100:fontfile=FreeSerif.ttf:text=&#x27;hello world&#x27;:fontcolor=green&quot;</span></span><br><span class="line"><span class="comment"># 如果想调整文字水印显示的位置，调整 x 与 y 参数的数值即可。</span></span><br><span class="line">	ffplay -i <span class="built_in">input</span>.mp4 -vf <span class="string">&quot;drawtext=fontsize=100:fontfile=FreeSerif.ttf:text=&#x27;hello world&#x27;:fontcolor=green:x=400:y=200&quot;</span></span><br><span class="line"><span class="comment"># 修改透明度</span></span><br><span class="line">	ffplay -i <span class="built_in">input</span>.mp4 -vf <span class="string">&quot;drawtext=fontsize=100:fontfile=FreeSerif.ttf:text=&#x27;helloworld&#x27;:fontcolor=green:x=400:y=200:alpha=0.5&quot;</span></span><br><span class="line">	</span><br><span class="line"><span class="comment"># （2）文字水印还可以增加一个框，然后给框加上背景颜色：</span></span><br><span class="line">	ffplay -i <span class="built_in">input</span>.mp4 -vf <span class="string">&quot;drawtext=fontsize=100:fontfile=FreeSerif.ttf:text=&#x27;hello world&#x27;:fontcolor=green:box=1:boxcolor=yellow&quot;</span></span><br><span class="line">	</span><br><span class="line"><span class="comment"># （3）有些时候文字水印希望以本地时间作为水印内容，可以在 drawtext 滤镜中配合一些特殊用法来完成，在 text 中显示本地当前时间，格式为年月日时分秒的方式，</span></span><br><span class="line">	ffplay -i <span class="built_in">input</span>.mp4 -vf <span class="string">&quot;drawtext=fontsize=60:fontfile=FreeSerif.ttf:text=&#x27;%&#123;localtime\:%Y\-%m\-%d %H-%M-%S&#125;&#x27;:fontcolor=gree</span></span><br><span class="line"><span class="string">n:box=1:boxcolor=yellow&quot;</span></span><br><span class="line"><span class="comment"># 在使用 ffmpeg 转码存储到文件时需要加上-re，否则时间不对。</span></span><br><span class="line">	ffmpeg -re -i <span class="built_in">input</span>.mp4 -vf <span class="string">&quot;drawtext=fontsize=60:fontfile=FreeSerif.ttf:text=&#x27;%&#123;localtime\:%Y\-%m\-%d %H-%M-%S&#125;&#x27;:fontcolor=gree n:box=1:boxcolor=yellow&quot;</span> out.mp4</span><br><span class="line"><span class="comment"># （4）在个别场景中，需要定时显示水印，定时不显示水印，这种方式同样可以配合 drawtext 滤镜进行处理，使用 drawtext 与 enable 配合即可，</span></span><br><span class="line"><span class="comment"># 	例如每 3 秒钟显示一次文字水印：</span></span><br><span class="line">	ffplay -i <span class="built_in">input</span>.mp4 -vf <span class="string">&quot;drawtext=fontsize=60:fontfile=FreeSerif.ttf:text=&#x27;test&#x27;:fontcolor=green:box=1:boxcolor=yellow:enable=lt(mod(t\,3)\,1)&quot;</span> </span><br><span class="line"><span class="comment"># 	在使用 ffmpeg 转码存储到文件时需要加上-re，否则时间不对。</span></span><br><span class="line"><span class="comment"># 	表达式参考：http://www.ffmpeg.org/ffmpeg-utils.html 3 Expression Evaluation </span></span><br><span class="line">		lt(x, y) Return <span class="number">1</span> <span class="keyword">if</span> x <span class="keyword">is</span> lesser than y, <span class="number">0</span> otherwise.</span><br><span class="line">		mod(x, y) Compute the remainder of division of x by y.</span><br><span class="line">		</span><br><span class="line"><span class="comment"># （5）跑马灯效果</span></span><br><span class="line">	ffplay -i <span class="built_in">input</span>.mp4 -vf <span class="string">&quot;drawtext=fontsize=100:fontfile=FreeSerif.ttf:text=&#x27;helloworld&#x27;:x=mod(100*t\,w):y=abs(sin(t))*h*0.7&quot;</span></span><br><span class="line"><span class="comment"># 修改字体透明度，修改字体颜色</span></span><br><span class="line">	ffplay -i <span class="built_in">input</span>.mp4 -vf  <span class="string">&quot;drawtext=fontsize=40:fontfile=FreeSerif.ttf:text=&#x27;liaoqingfu&#x27;:x=mod(50*t\,w):y=abs(sin(t))*h*0.7:alpha=0.5:fontcolor=white:enable=lt(mod(t\,3)\,1)&quot;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><font color=#b0171f size=3 face=宋体><strong>3、图片水印：</strong></font></li>
+</ul>
+<p><font color=#f26522 size=3 face=宋体><strong> 为视频添加图片水印可以使用 movie 滤镜，相关参数：</strong></font></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">filename		 	<span class="comment"># 字符串		输入的文件名，可以是文件，协议，设备</span></span><br><span class="line">format_name, f 		<span class="comment"># 字符串 	输入的封装格式</span></span><br><span class="line">stream_index, si 	<span class="comment"># 整数 		输入的流索引编号</span></span><br><span class="line">seek_point, sp 		<span class="comment"># 浮点数 	Seek 输入流的时间位置</span></span><br><span class="line">streams, s 			<span class="comment"># 字符串 	输入的多个流的流信息</span></span><br><span class="line">loop 				<span class="comment"># 整数 		循环次数</span></span><br><span class="line">discontinuity 		<span class="comment"># 时间差值   支持跳动的时间戳差值</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 例如：</span></span><br><span class="line">ffmpeg -i <span class="built_in">input</span>.mp4 -vf <span class="string">&quot;movie=logo.png[watermark];[in][watermark]overlay=x=10:y=10[out]&quot;</span> output.mp4</span><br><span class="line"><span class="comment"># 	➢ 原始视频文件路径：input.mp4</span></span><br><span class="line"><span class="comment"># 	➢ 水印图片路径：logo.png</span></span><br><span class="line"><span class="comment"># 	➢ 水印位置：(x,y)=(10,10)&lt;=(left,top)距离左侧、顶部各 10 像素；</span></span><br><span class="line"><span class="comment"># 	➢ 输出文件路径：output.mp4</span></span><br><span class="line">		main_w  <span class="comment"># 视频单帧图像宽度</span></span><br><span class="line">		main_h  <span class="comment"># 视频单帧图像高度</span></span><br><span class="line">		overlay_w  <span class="comment"># 水印图片的宽度</span></span><br><span class="line">		overlay_h  <span class="comment"># 水印图片的高度</span></span><br><span class="line"><span class="comment"># 	对应地可以将 overlay 参数设置成如下值来改变水印图片的位置：</span></span><br><span class="line">		左上角 <span class="number">10</span>:<span class="number">10</span></span><br><span class="line">		右上角 main_w-overlay_w-<span class="number">10</span>:<span class="number">10</span></span><br><span class="line">		左下角 <span class="number">10</span>:main_h-overlay_h-<span class="number">10</span></span><br><span class="line">		右下角 main_w-overlay_w-<span class="number">10</span>:main_h-overlay_h-<span class="number">10</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>使用实例：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 在 FFmpeg 中加入图片水印有两种方式：</span></span><br><span class="line"><span class="comment"># 	一种是通过 movie 指定水印文件路径，</span></span><br><span class="line"><span class="comment"># 	另外一种方式是通过filter 读取输入文件的流并指定为水印。</span></span><br><span class="line"><span class="comment"># 读取 movie 图片文件作为水印：</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># （1）图片 logo.png 将会打入到 input.mp4 视频中，显示在 x 坐标 50、y 坐标 20 的位置</span></span><br><span class="line">		ffplay -i <span class="built_in">input</span>.mp4 -vf <span class="string">&quot;movie=logo.png[logo];[in][logo]overlay=50:10[out]&quot;</span></span><br><span class="line"><span class="comment"># 由于 logo.png 图片的背景色是白色，所以显示起来比较生硬，如果水印图片是透明背景的，效果会更好，</span></span><br><span class="line"><span class="comment"># 下面找一张透明背景色的图片试一下：</span></span><br><span class="line">	ffplay -i <span class="built_in">input</span>.mp4 -vf <span class="string">&quot;movie=logo2.png[watermark];[in][watermark]overlay=50:10[out]&quot;</span></span><br><span class="line"><span class="comment"># （2）显示位置</span></span><br><span class="line">		ffplay -i <span class="built_in">input</span>.mp4 -vf <span class="string">&quot;movie=logo.png[watermark];[in][watermark]overlay=10:10[out]&quot;</span></span><br><span class="line">		ffplay -i <span class="built_in">input</span>.mp4 -vf <span class="string">&quot;movie=logo.png[watermark];[in][watermark]overlay=main_w-overlay_w-10:10[out]&quot;</span></span><br><span class="line">		ffplay -i <span class="built_in">input</span>.mp4 -vf <span class="string">&quot;movie=logo.png[watermark];[in][watermark]overlay=10:main_h-overlay_h-10[out]&quot;</span></span><br><span class="line">		ffplay -i <span class="built_in">input</span>.mp4 -vf <span class="string">&quot;movie=logo.png[watermark];[in][watermark]overlay=main_w-overlay_w-10:main_h-overlay_h-10[out]&quot;</span></span><br><span class="line"><span class="comment"># （3）跑马灯效果</span></span><br><span class="line">		ffplay -i <span class="built_in">input</span>.mp4 -vf <span class="string">&quot;movie=logo.png[watermark];[in][watermark]overlay=x=mod(50*t\,main_w):y=abs(sin(t))*h*0.7[out]&quot;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li><font color=#b0171f size=3 face=宋体><strong>4、生成画中画：</strong></font></li>
+</ul>
+<p><font color=#b0171f size=2 face=宋体><strong>可以通过 <strong>overlay</strong> 将 多个视频流、多个多媒体采集设备、多个视频文件合并到一个界面中，生成画中画的效果。</strong></font></p>
+<p>相关参数介绍：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">x 			字符串 		X 坐标</span><br><span class="line">y 			字符串 		Y 坐标</span><br><span class="line">eof_action 	整数 			遇到 eof 表示时的处理方式，默认为重复</span><br><span class="line">							➢ repeat(值为 <span class="number">0</span>)：重复前一帧</span><br><span class="line">							➢ endcall(值为 <span class="number">1</span>)：停止所有的流</span><br><span class="line">							➢ <span class="keyword">pass</span>(值为 <span class="number">2</span>)：保留主图层</span><br><span class="line">shortest 	布尔 			终止最短的视频时全部终止（默认 false）</span><br><span class="line"><span class="built_in">format</span> 		整数 			设置 output 的像素格式，默认为 yuv420</span><br><span class="line">							➢ yuv420 (值为 <span class="number">0</span>)</span><br><span class="line">							➢ yuv422 (值为 <span class="number">1</span>)</span><br><span class="line">							➢ yuv444 (值为 <span class="number">2</span>)</span><br><span class="line">							➢ rgb (值为 <span class="number">3</span>)</span><br><span class="line"><span class="comment"># （1）显示画中画效果</span></span><br><span class="line">		ffplay -i <span class="built_in">input</span>.mp4 -vf <span class="string">&quot;movie=sub_320x240.mp4[sub];[in][sub]overlay=x=20:y=20[out]&quot;</span></span><br><span class="line">		ffplay -i <span class="built_in">input</span>.mp4 -vf <span class="string">&quot;movie=sub_320x240.mp4[sub];[in][sub]overlay=x=20:y=20:eof_action=1[out]&quot;</span></span><br><span class="line">		ffplay -i <span class="built_in">input</span>.mp4 -vf <span class="string">&quot;movie=sub_320x240.mp4[sub];[in][sub]overlay=x=20:y=20:shortest =1[out]&quot;</span></span><br><span class="line"><span class="comment"># 缩放子画面尺寸</span></span><br><span class="line">	ffplay -i <span class="built_in">input</span>.mp4 -vf <span class="string">&quot;movie=sub_320x240.mp4,scale=640x480[sub];[in][sub]overlay=x=20:y=20[out]&quot;</span></span><br><span class="line"><span class="comment"># （2）跑马灯</span></span><br><span class="line">	ffplay -i <span class="built_in">input</span>.mp4 -vf <span class="string">&quot;movie=sub_320x240.mp4[test];[in][test]overlay=x=mod(50*t\,main_w):y=abs(sin(t))*main_h*0.7[out]&quot;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li><font color=#b0171f size=3 face=宋体><strong>5、多宫格处理：</strong></font></li>
+</ul>
+<p><font color=#b0171f size=2 face=宋体><strong>从前文中可以看出进行视频图像处理时，overlay 滤镜为关键画布，可以通过 FFmpeg建立一个画布，也可以使用默认的画布。如果想以多宫格的方式展现，则可以自己建立一个足够大的画布， 下面就来看一下多宫格展示的例子：</strong></font></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">ffmpeg -i <span class="number">1.</span>mp4 -i <span class="number">2.</span>mp4 -i <span class="number">3.</span>mp4 -i <span class="number">4.</span>mp4 -filter_complex <span class="string">&quot;nullsrc=size=640x480[base];[0:v] setpts=PTS-STARTPTS,scale=320x240[upperleft];[1:v]setpts=PTS-STARTPTS,scale=320x240[upperright];[2:v]setpts=PTS-STARTPTS, scale=320x240[lowerleft];[3:v]setpts=PTS-STARTPTS,scale=320x240[lowerright];[base][upperleft]overlay=shortest=1[tmp1];[tmp1][upperright]overlay=shortest=1:x=320[tmp2];[tmp2][lowerleft]overlay=shortest=1:y=240[tmp3];[tmp3][lowerright]overlay=shortest=1:x=320:y=240&quot;</span> out.mp4</span><br><span class="line"></span><br><span class="line"><span class="comment"># 1.2.3.4.mp4 为文件路径，out.MP4 为输出文件路径，通过 nullsrc 创建 overlay 画布，画布大小 640:480,使用[0:v][1:v][2:v][3:v]将输入的 4 个视频流去除，分别进行缩放处理，然后基于 nullsrc 生成的画布进行视频平铺，命令中自定义 upperleft,upperright,lowerleft,lowerright 进行不同位置平铺。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 只叠加左上右上的命令（输出到tmp1中，可以最后加[out]）：</span></span><br><span class="line">ffmpeg -i <span class="number">1.</span>mp4 -i <span class="number">2.</span>mp4 -i <span class="number">3.</span>mp4 -i <span class="number">4.</span>mp4 -filter_complex <span class="string">&quot;nullsrc=size=640x480[base];[0:v]setpts=PTS-STARTPTS,scale=320x240[upperleft];[1:v]setpts=PTS-STARTPTS,scale=320x240[upperright];[base][upperleft]overlay=shortest=1[tmp1];[tmp1][upperright]overlay=shortest=1:x=320&quot;</span> out2.mp4</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li><font color=#b0171f size=3 face=宋体><strong>6、视频倒放相关控制：</strong></font></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 通过ffmpeg命令行进行音视频倒放，android平台同样可以以将ffmpeg集成进去实现音视频的相关编辑</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 1.视频倒放，无音频</span></span><br><span class="line">	ffmpeg.exe -i inputfile.mp4 -filter_complex [<span class="number">0</span>:v]reverse[v] -<span class="built_in">map</span> [v] -preset superfast <span class="built_in">reversed</span>.mp4</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 2.视频倒放，音频不变</span></span><br><span class="line">	ffmpeg.exe -i inputfile.mp4 -vf reverse <span class="built_in">reversed</span>.mp4</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 3.音频倒放，视频不变</span></span><br><span class="line">	ffmpeg.exe -i inputfile.mp4 -<span class="built_in">map</span> <span class="number">0</span> -c:v copy -af <span class="string">&quot;areverse&quot;</span> reversed_audio.mp4</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 4.音视频同时倒放</span></span><br><span class="line">	ffmpeg.exe -i test.mp4 -vf reverse -af areverse -preset superfast outtest.mp4</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 6、查看音视频实际时长</span></span><br><span class="line">	ffprobe.exe  -v error -select_streams v:<span class="number">0</span> -show_entries stream=duration -of default=noprint_wrappers=<span class="number">1</span>:nokey=<span class="number">1</span> <span class="built_in">input</span>.mp4</span><br><span class="line">	ffprobe.exe  -v error -select_streams a:<span class="number">0</span> -show_entries stream=duration -of default=noprint_wrappers=<span class="number">1</span>:nokey=<span class="number">1</span> <span class="built_in">input</span>.mp4</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 7、查看NV21</span></span><br><span class="line">	ffplay.exe -i <span class="built_in">input</span>.nv21 -pix_fmt nv21 -s 4624x3472</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 8、nv21转jpg</span></span><br><span class="line">	ffmpeg -y -s 1920x1080 -pix_fmt nv21 -i image.nv21.yuv image.jpg</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 9.jpg转nv21</span></span><br><span class="line">	ffmpeg -i <span class="built_in">input</span>.jpg -pix_fmt nv21 output_1080x1920.yuv</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 10、rgba转png</span></span><br><span class="line">	ffmpeg -f rawvideo -pixel_format rgba -video_size 1080x1920 -i <span class="built_in">input</span>.raw output.png</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 11、jpg转rgba</span></span><br><span class="line">	ffmpeg -i <span class="built_in">input</span>.jpg -vcodec rawvideo -pix_fmt rgba raw1.rgb</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 12、剔除mp4中音频或视频（-map 0:0 -map 0:1）</span></span><br><span class="line">	ffmpeg.exe -i <span class="built_in">input</span>.mp4 -<span class="built_in">map</span> <span class="number">0</span>:<span class="number">0</span> -vcodec copy -acodec copy output.mp4</span><br><span class="line">		-<span class="built_in">map</span> <span class="number">0</span>:<span class="number">0</span>:  <span class="comment"># 第1个输入文件的第一个流，也就是主要的视频流。</span></span><br><span class="line">		-<span class="built_in">map</span> <span class="number">0</span>:<span class="number">1</span>:  <span class="comment"># 第1个输入文件的第二个流，是视频的声音。</span></span><br><span class="line">		-vcodec copy:  <span class="comment"># 拷贝选择的视频流。</span></span><br><span class="line">		-acodec copy: <span class="comment"># 拷贝选择的声音流</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="12、分离H264或mpeg2video视频格式数据命令："><a href="#12、分离H264或mpeg2video视频格式数据命令：" class="headerlink" title="12、分离H264或mpeg2video视频格式数据命令："></a>12、分离H264或mpeg2video视频格式数据命令：</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#提取H264:</span></span><br><span class="line">	ffmpeg -i source<span class="number">.200</span>kbps<span class="number">.768</span>x320_10s.flv -vcodec libx264 -an -f h264 source<span class="number">.200</span>kbps<span class="number">.768</span>x320_10s.h264</span><br><span class="line"><span class="comment">#提取MPEG2:</span></span><br><span class="line">	ffmpeg -i source<span class="number">.200</span>kbps<span class="number">.768</span>x320_10s.flv -vcodec mpeg2video -an -f mpeg2video source<span class="number">.200</span>kbps<span class="number">.768</span>x320_10s.mpeg2v</span><br><span class="line">	</span><br><span class="line"><span class="comment">#播放YUV</span></span><br><span class="line">	ffplay -pixel_format yuv420p -video_size 768x320 -framerate <span class="number">25</span> source<span class="number">.200</span>kbps<span class="number">.768</span>x320_10s.yuv</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="13、ffmpeg-命令查找重定向-f-fmt-对应的参数"><a href="#13、ffmpeg-命令查找重定向-f-fmt-对应的参数" class="headerlink" title="13、ffmpeg 命令查找重定向(-f fmt 对应的参数)"></a>13、ffmpeg 命令查找重定向(-f fmt 对应的参数)</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 	⽐如我们在-f fmt打算指定格式时，怎么知道什么样的格式才是适合的format？</span></span><br><span class="line"><span class="comment">#		可以通过ffmpeg -formats | findstr xx的⽅式去查找。</span></span><br><span class="line"><span class="comment">#		对于findstr，/i是忽略⼤⼩写</span></span><br><span class="line"><span class="comment"># ⽐如：</span></span><br><span class="line"><span class="comment"># 	查找Audio的裸流解复⽤器：ffmpeg -formats | findstr /i audio</span></span><br><span class="line"><span class="comment"># 	查找Video的裸流解复⽤器：ffmpeg -formats | findstr /i video</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="14、ffmpeg其他基础命令："><a href="#14、ffmpeg其他基础命令：" class="headerlink" title="14、ffmpeg其他基础命令："></a>14、ffmpeg其他基础命令：</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#查看视频元信息  比如 编码格式和比特率</span></span><br><span class="line">$ ffmpeg -i <span class="built_in">input</span>.mp4</span><br><span class="line"><span class="comment">#只查看元信息</span></span><br><span class="line">$ ffmpeg -i <span class="built_in">input</span>.mp4 -hide_banner </span><br><span class="line"></span><br><span class="line"><span class="comment">#将音频和视频合并到一个文件：</span></span><br><span class="line">$ ffmpeg -i <span class="built_in">input</span>.aac -i <span class="built_in">input</span>.mp4 output.mp4</span><br><span class="line"></span><br><span class="line"><span class="comment">#截取一张图片：</span></span><br><span class="line">$ffmpeg -ss 01:<span class="number">23</span>:<span class="number">45</span> -i <span class="built_in">input</span> -vframes <span class="number">1</span> -q:v <span class="number">2</span> output.jpg</span><br><span class="line"></span><br><span class="line"><span class="comment">#为音频添加封面：</span></span><br><span class="line">$ ffmpeg -loop <span class="number">1</span> -i cover.jpg -i <span class="built_in">input</span>.mp3 -c:v libx264 -c:a aac -b:a 192k -shortest output.mp4</span><br><span class="line"><span class="comment">#	有两个输入文件，一个是封面图片cover.jpg，另一个是音频文件input.mp3。</span></span><br><span class="line"><span class="comment">#		-loop 1参数表示图片无限循环，-shortest参数表示音频文件结束，输出视频就结束。</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="15、花屏-绿屏"><a href="#15、花屏-绿屏" class="headerlink" title="15、花屏 绿屏"></a>15、花屏 绿屏</h2><p>绿屏的主要是: 无法渲染的画面有些用黑色填充，有些用绿色填充，有些用上一帧画面填充。</p>
+<p>&#x3D;&#x3D;&#x3D;&gt; 视频参数改变， 而解码端的SPS&amp;PPS信息未及时重新获取更新，会导致画面无法正常渲染，继而导致绿屏的现象出现。</p>
+<h2 id="15-1：全屏花屏："><a href="#15-1：全屏花屏：" class="headerlink" title="15.1：全屏花屏："></a>15.1：全屏花屏：</h2><p> 正常花屏：</p>
+<p>&#x3D;&#x3D;&gt;码率特别低的时候出现的大面积马赛克，编码器每秒产生的视频数据太少。</p>
+<p>&#x3D;&#x3D;&gt;视频参数问题：</p>
+<p>&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&gt;视频源修改过视频参数(如从720P修改1080P),此时客户端用于解码的SPS&amp;PPS如果没有重新获取的话，就会出现整个画面花屏的现象。</p>
+<p>&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&gt;不会恢复。</p>
+<h2 id="15-2：局部花屏："><a href="#15-2：局部花屏：" class="headerlink" title="15.2：局部花屏："></a>15.2：局部花屏：</h2><p> SO_SNDBUF的Buffer太小，丢失P帧</p>
+<p> P帧丢失。</p>
+<p>总结：视频播放时，相关SPS和PPS参数不匹配&#x2F;丢帧</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/ffmpeg/" rel="tag"># ffmpeg</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/08/02/ffmpeg-%E5%A1%AB%E5%85%85%E6%94%B9%E5%8F%98%E9%95%BF%E5%AE%BD%E6%AF%94-16-9/" rel="prev" title="ffmpeg 填充改变长宽比 16:9">
+      <i class="fa fa-chevron-left"></i> ffmpeg 填充改变长宽比 16:9
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2023/08/14/python%E5%AE%8C%E7%BE%8E%E7%AA%81%E7%A0%B4tls-ja3/" rel="next" title="python完美突破tls/ja3">
+      python完美突破tls/ja3 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ffmpeg-%E9%9F%B3%E8%A7%86%E9%A2%91%E5%AD%A6%E4%B9%A0%E4%B9%8Bffmpeg%E5%B8%B8%E7%94%A8%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4%E6%95%B4%E7%90%86"><span class="nav-number">1.</span> <span class="nav-text">ffmpeg 音视频学习之ffmpeg常用基础命令整理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E3%80%81ffmpeg%E6%9F%A5%E7%9C%8B%E7%89%88%E6%9C%AC%EF%BC%9A"><span class="nav-number">1.1.</span> <span class="nav-text">1、ffmpeg查看版本：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E3%80%81ffmpeg%E6%9F%A5%E8%AF%A2%E5%91%BD%E4%BB%A4%EF%BC%9A"><span class="nav-number">1.2.</span> <span class="nav-text">2、ffmpeg查询命令：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3%E3%80%81ffmpeg%E5%88%86%E7%B1%BB%E6%9F%A5%E8%AF%A2%E5%91%BD%E4%BB%A4%EF%BC%9A"><span class="nav-number">1.3.</span> <span class="nav-text">3、ffmpeg分类查询命令：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4%E3%80%81ffmpeg%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4%EF%BC%9A"><span class="nav-number">1.4.</span> <span class="nav-text">4、ffmpeg基础命令：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5%E3%80%81ffmepg%E4%BD%BF%E7%94%A8%E5%91%BD%E4%BB%A4%E6%8F%90%E5%8F%96%E9%9F%B3%E9%A2%91%E6%88%96%E8%A7%86%E9%A2%91%EF%BC%9A"><span class="nav-number">1.5.</span> <span class="nav-text">5、ffmepg使用命令提取音频或视频：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6%E3%80%81ffmpeg%E5%91%BD%E4%BB%A4%E8%BD%AC%E5%B0%81%E8%A3%85%EF%BC%9A"><span class="nav-number">1.6.</span> <span class="nav-text">6、ffmpeg命令转封装：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7%E3%80%81ffmpeg%E8%BF%87%E6%BB%A4%E5%99%A8%E5%91%BD%E4%BB%A4%EF%BC%9A"><span class="nav-number">1.7.</span> <span class="nav-text">7、ffmpeg过滤器命令：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8%E3%80%81ffmpeg-%E5%9B%BE%E7%89%87%E4%B8%8E%E8%A7%86%E9%A2%91%E4%BA%92%E8%BD%AC%EF%BC%9A"><span class="nav-number">1.8.</span> <span class="nav-text">8、ffmpeg 图片与视频互转：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#9%E3%80%81ffmpeg-%E8%A7%86%E9%A2%91%E5%BD%95%E5%88%B6%E5%91%BD%E4%BB%A4%EF%BC%9A"><span class="nav-number">2.</span> <span class="nav-text">9、ffmpeg 视频录制命令：</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#10%E3%80%81ffmpeg%E7%9B%B4%E6%92%AD%E6%8E%A8%E6%B5%81-%E6%8B%89%E6%B5%81%E5%91%BD%E4%BB%A4%EF%BC%9A"><span class="nav-number">2.1.</span> <span class="nav-text">10、ffmpeg直播推流&#x2F;拉流命令：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11%E3%80%81ffmpeg-filter%E8%BF%87%E6%BB%A4%E5%99%A8%E5%BA%94%E7%94%A8%EF%BC%9A"><span class="nav-number">2.2.</span> <span class="nav-text">11、ffmpeg filter过滤器应用：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E8%A7%86%E9%A2%91%E8%A3%81%E5%89%AA%EF%BC%9A"><span class="nav-number">2.2.1.</span> <span class="nav-text">1、视频裁剪：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12%E3%80%81%E5%88%86%E7%A6%BBH264%E6%88%96mpeg2video%E8%A7%86%E9%A2%91%E6%A0%BC%E5%BC%8F%E6%95%B0%E6%8D%AE%E5%91%BD%E4%BB%A4%EF%BC%9A"><span class="nav-number">2.3.</span> <span class="nav-text">12、分离H264或mpeg2video视频格式数据命令：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13%E3%80%81ffmpeg-%E5%91%BD%E4%BB%A4%E6%9F%A5%E6%89%BE%E9%87%8D%E5%AE%9A%E5%90%91-f-fmt-%E5%AF%B9%E5%BA%94%E7%9A%84%E5%8F%82%E6%95%B0"><span class="nav-number">2.4.</span> <span class="nav-text">13、ffmpeg 命令查找重定向(-f fmt 对应的参数)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#14%E3%80%81ffmpeg%E5%85%B6%E4%BB%96%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4%EF%BC%9A"><span class="nav-number">2.5.</span> <span class="nav-text">14、ffmpeg其他基础命令：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#15%E3%80%81%E8%8A%B1%E5%B1%8F-%E7%BB%BF%E5%B1%8F"><span class="nav-number">2.6.</span> <span class="nav-text">15、花屏 绿屏</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#15-1%EF%BC%9A%E5%85%A8%E5%B1%8F%E8%8A%B1%E5%B1%8F%EF%BC%9A"><span class="nav-number">2.7.</span> <span class="nav-text">15.1：全屏花屏：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#15-2%EF%BC%9A%E5%B1%80%E9%83%A8%E8%8A%B1%E5%B1%8F%EF%BC%9A"><span class="nav-number">2.8.</span> <span class="nav-text">15.2：局部花屏：</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Kanoc Ge"
+      src="/images/452794135.jpg">
+  <p class="site-author-name" itemprop="name">Kanoc Ge</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">323</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">134</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">217</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kanoc Ge</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  <!-- 多级目录 -->
+  <script type="text/javascript" src="/js/jquery.min.js"></script>
+  <script type="text/javascript" src="/js/category.js"></script>
+</body>
+</html>
