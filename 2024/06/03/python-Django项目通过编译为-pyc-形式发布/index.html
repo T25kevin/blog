@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <style>
+    .category-all-page .category-list-item {
+      margin: 15px 10px 10px 10px;
+      list-style: none;
+      font-size: 20px;
+      }
+      .category-all-page .category-list-child {
+        list-style: none;
+        }
+  </style>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"kanoc.gitee.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="python Django项目通过编译为.pyc 形式发布：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python-Django项目通过编译为.pyc-形式发布">
+<meta property="og:url" content="https://kanoc.gitee.io/2024/06/03/python-Django%E9%A1%B9%E7%9B%AE%E9%80%9A%E8%BF%87%E7%BC%96%E8%AF%91%E4%B8%BA-pyc-%E5%BD%A2%E5%BC%8F%E5%8F%91%E5%B8%83/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="python Django项目通过编译为.pyc 形式发布：">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-06-03T06:59:07.000Z">
+<meta property="article:modified_time" content="2025-06-09T13:20:29.892Z">
+<meta property="article:author" content="Kanoc Ge">
+<meta property="article:tag" content="django">
+<meta property="article:tag" content="编译">
+<meta property="article:tag" content="pyc">
+<meta property="article:tag" content="加密">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://kanoc.gitee.io/2024/06/03/python-Django%E9%A1%B9%E7%9B%AE%E9%80%9A%E8%BF%87%E7%BC%96%E8%AF%91%E4%B8%BA-pyc-%E5%BD%A2%E5%BC%8F%E5%8F%91%E5%B8%83/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>python-Django项目通过编译为.pyc-形式发布 | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-首页-|-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页 | home</a>
+
+  </li>
+        <li class="menu-item menu-item-分类-|-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类 | categories</a>
+
+  </li>
+        <li class="menu-item menu-item-标签-|-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签 | tags</a>
+
+  </li>
+        <li class="menu-item menu-item-归档-|-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档 | archives</a>
+
+  </li>
+        <li class="menu-item menu-item-关于-|-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于 | about</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2024/06/03/python-Django%E9%A1%B9%E7%9B%AE%E9%80%9A%E8%BF%87%E7%BC%96%E8%AF%91%E4%B8%BA-pyc-%E5%BD%A2%E5%BC%8F%E5%8F%91%E5%B8%83/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/452794135.jpg">
+      <meta itemprop="name" content="Kanoc Ge">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          python-Django项目通过编译为.pyc-形式发布
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-06-03 14:59:07" itemprop="dateCreated datePublished" datetime="2024-06-03T14:59:07+08:00">2024-06-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-06-09 21:20:29" itemprop="dateModified" datetime="2025-06-09T21:20:29+08:00">2025-06-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/Django/" itemprop="url" rel="index"><span itemprop="name">Django</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><font color=#00b2c2 size=5 face=宋体><strong>python Django项目通过编译为.pyc 形式发布：</strong></font></p>
+<span id="more"></span>
+
+
+
+<h2 id="一、批量编译代码"><a href="#一、批量编译代码" class="headerlink" title="一、批量编译代码"></a>一、批量编译代码</h2><p>创建compile_pyc.py，代码如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> shutil</span><br><span class="line"><span class="keyword">from</span> py_compile <span class="keyword">import</span> <span class="built_in">compile</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">clean</span>(<span class="params">path</span>):</span><br><span class="line">    <span class="keyword">for</span> parent, dirname, filename <span class="keyword">in</span> os.walk(path):</span><br><span class="line">        <span class="keyword">for</span> <span class="built_in">dir</span> <span class="keyword">in</span> dirname:</span><br><span class="line">            <span class="keyword">if</span> <span class="built_in">dir</span> == <span class="string">&#x27;__pycache__&#x27;</span>:</span><br><span class="line">                <span class="keyword">try</span>:</span><br><span class="line">                    fullname = os.path.join(parent, <span class="built_in">dir</span>)</span><br><span class="line">                    shutil.rmtree(fullname)</span><br><span class="line">                    <span class="built_in">print</span>(<span class="string">&quot;Success clean Folder:%s&quot;</span> % fullname)</span><br><span class="line">                <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">                    <span class="built_in">print</span>(<span class="string">&quot;Can&#x27;t clean Folder:%s, reason:%s&quot;</span> % (fullname, e))</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">compile_pyc</span>(<span class="params">path</span>):</span><br><span class="line">    <span class="keyword">for</span> parent, dirname, filename <span class="keyword">in</span> os.walk(path):</span><br><span class="line">        <span class="keyword">for</span> cfile <span class="keyword">in</span> filename:</span><br><span class="line">            fullname = os.path.join(parent, cfile)</span><br><span class="line">            <span class="keyword">if</span> cfile[-<span class="number">3</span>:] == <span class="string">&#x27;.py&#x27;</span>:</span><br><span class="line">                <span class="keyword">try</span>:</span><br><span class="line">                    <span class="keyword">if</span> <span class="built_in">compile</span>(fullname):</span><br><span class="line">                        <span class="keyword">if</span> cfile != <span class="string">&#x27;settings.py&#x27;</span> <span class="keyword">and</span> cfile != <span class="string">&#x27;wsgi.py&#x27;</span>:</span><br><span class="line">                            os.remove(fullname) <span class="comment">#删除原文件，保留settings.py和wsgi.py</span></span><br><span class="line">                        <span class="built_in">print</span>(<span class="string">&quot;Success compile and remove file:%s&quot;</span> % fullname)</span><br><span class="line">                    <span class="keyword">else</span>:</span><br><span class="line">                        <span class="built_in">print</span>(<span class="string">&quot;Can&#x27;t compile file:%s,The original file has been retained&quot;</span> % fullname)</span><br><span class="line">                <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">                    <span class="built_in">print</span>(<span class="string">&quot;Can&#x27;t compile file:%s, reason:%s&quot;</span> % (fullname, e))</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">move</span>(<span class="params">path</span>):</span><br><span class="line">    <span class="keyword">for</span> parent, dirname, filename <span class="keyword">in</span> os.walk(path):</span><br><span class="line">        <span class="keyword">for</span> c_file <span class="keyword">in</span> filename:</span><br><span class="line">            fullname = os.path.join(parent, c_file)</span><br><span class="line">            <span class="keyword">if</span> c_file[-<span class="number">4</span>:] == <span class="string">&#x27;.pyc&#x27;</span>:</span><br><span class="line">                <span class="keyword">try</span>:</span><br><span class="line">                    parent_path = os.path.dirname(parent)</span><br><span class="line">                    shutil.move(fullname, parent_path)</span><br><span class="line">                    <span class="built_in">print</span>(<span class="string">&#x27;update the dir of file successfully&#x27;</span>)</span><br><span class="line">                <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">                    <span class="built_in">print</span>(<span class="string">&quot;Can&#x27;t move file:%s, reason:%s&quot;</span> % (fullname, e))</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">replace_name</span>(<span class="params">path</span>):</span><br><span class="line">    <span class="keyword">for</span> parent, dirname, filename <span class="keyword">in</span> os.walk(path):</span><br><span class="line">        <span class="keyword">for</span> c_file <span class="keyword">in</span> filename:</span><br><span class="line">            fullname = os.path.join(parent, c_file)</span><br><span class="line">            <span class="keyword">if</span> c_file[-<span class="number">4</span>:] == <span class="string">&#x27;.pyc&#x27;</span>:</span><br><span class="line">                <span class="keyword">try</span>:</span><br><span class="line">                    cfile_name = <span class="string">&#x27;&#x27;</span></span><br><span class="line">                    cfile_list = c_file.split(<span class="string">&#x27;.&#x27;</span>)</span><br><span class="line">                    version = sys.version_info</span><br><span class="line">                    replace_name = <span class="string">&#x27;cpython-&#x27;</span> + <span class="built_in">str</span>(version[<span class="number">0</span>])+<span class="built_in">str</span>(version[<span class="number">1</span>])</span><br><span class="line">                    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(cfile_list)):</span><br><span class="line">                        <span class="keyword">if</span> cfile_list[i] == replace_name:</span><br><span class="line">                            <span class="keyword">continue</span></span><br><span class="line">                        cfile_name += cfile_list[i]</span><br><span class="line">                        <span class="keyword">if</span> i == <span class="built_in">len</span>(cfile_list) - <span class="number">1</span>:</span><br><span class="line">                            <span class="keyword">continue</span></span><br><span class="line">                        cfile_name += <span class="string">&#x27;.&#x27;</span></span><br><span class="line">                    shutil.move(fullname, os.path.join(parent, cfile_name))</span><br><span class="line">                    <span class="built_in">print</span>(<span class="string">&#x27;update the name of the file successfully&#x27;</span>)</span><br><span class="line">                <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">                    <span class="built_in">print</span>(<span class="string">&quot;Can&#x27;t remove file:%s, reason:%s&quot;</span> % (fullname, e))</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(sys.argv) == <span class="number">3</span>:</span><br><span class="line">        cmd = sys.argv[<span class="number">1</span>]</span><br><span class="line">        path = sys.argv[<span class="number">2</span>]</span><br><span class="line">        <span class="keyword">if</span> os.path.exists(path) <span class="keyword">and</span> os.path.isdir(path):</span><br><span class="line">            <span class="keyword">if</span> cmd == <span class="string">&#x27;clean&#x27;</span>:</span><br><span class="line">                clean(path)</span><br><span class="line">            <span class="keyword">elif</span> cmd == <span class="string">&#x27;move&#x27;</span>:</span><br><span class="line">                move(path)</span><br><span class="line">            <span class="keyword">elif</span> cmd == <span class="string">&#x27;replace_name&#x27;</span>:</span><br><span class="line">                replace_name(path)</span><br><span class="line">            <span class="keyword">elif</span> cmd == <span class="string">&#x27;compile_pyc&#x27;</span>:</span><br><span class="line">                compile_pyc(path)</span><br><span class="line">            <span class="keyword">elif</span> cmd == <span class="string">&#x27;compile&#x27;</span>:</span><br><span class="line">                clean(path)</span><br><span class="line">                compile_pyc(path)</span><br><span class="line">                move(path)</span><br><span class="line">                replace_name(path)</span><br><span class="line">                clean(path)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">&#x27;没有该命令&#x27;</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;Not an directory or Direcotry doesn&#x27;t exist!&quot;</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;在命令行中使用以下命令:&quot;</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;\tpython3 compile_pyc.py compile_pyc PATH\t\t#生成pyc文件&quot;</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;\tpython3 compile_pyc.py move PATH\t\t#移动所有pyc文件至原位置&quot;</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;\tpython3 compile_pyc.py replace_name PATH\t\t#修改文件名文件&quot;</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;\tpython3 compile_pyc.py clean PATH\t\t#清除当前项目中所有的__pycache__文件夹及以内文件&quot;</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;\tpython3 compile_pyc.py compile PATH\t\t#一键编译pyc&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="二、运行命令"><a href="#二、运行命令" class="headerlink" title="二、运行命令"></a>二、运行命令</h2><p>逐步运行以下命令</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python3 compile_pyc.py clean &lt;PATH&gt; <span class="comment">#清除当前项目中所有的__pycache__文件夹及以内文件</span></span><br><span class="line">python3 compile_pyc.py compile_pyc &lt;PATH&gt; <span class="comment">#生成.pyc文件，并删除源文件</span></span><br><span class="line">python3 compile_pyc.py move &lt;PATH&gt; <span class="comment">#将.pyc文件移动到原py文件目录下</span></span><br><span class="line">python3 compile_pyc.py replace_name &lt;PATH&gt; <span class="comment">#去掉.pyc文件名中的版本号</span></span><br><span class="line">python3 compile_pyc.py clean &lt;PATH&gt;</span><br></pre></td></tr></table></figure>
+
+<p>或者直接运行以下一条命令就可以</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">python3 compile_pyc.py compile &lt;PATH&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="三、注意"><a href="#三、注意" class="headerlink" title="三、注意"></a>三、注意</h2><p>保留了<code>settings.py</code>和<code>wsgi.py</code>这两个文件，方便改变配置，以及之后的<code>uwsgi</code>部署</p>
+<p>多次运行，.pyc会移动错乱，保证只移动在<code>__pycache__</code>下的.pyc文件，修改move代码</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">move</span>(<span class="params">path</span>):</span><br><span class="line">    <span class="keyword">for</span> parent, dirname, filename <span class="keyword">in</span> os.walk(path):</span><br><span class="line">        <span class="keyword">for</span> c_file <span class="keyword">in</span> filename:</span><br><span class="line">            fullname = os.path.join(parent, c_file)</span><br><span class="line">            <span class="keyword">if</span> os.path.basename(parent) == <span class="string">&#x27;__pycache__&#x27;</span>:</span><br><span class="line">                <span class="keyword">if</span> c_file[-<span class="number">4</span>:] == <span class="string">&#x27;.pyc&#x27;</span>:</span><br><span class="line">                    <span class="keyword">try</span>:</span><br><span class="line">                        parent_path = os.path.dirname(parent)</span><br><span class="line">                        shutil.move(fullname, parent_path)</span><br><span class="line">                        <span class="built_in">print</span>(<span class="string">&#x27;update the dir of file successfully&#x27;</span>)</span><br><span class="line">                    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">                        <span class="built_in">print</span>(<span class="string">&quot;Can&#x27;t move file:%s, reason:%s&quot;</span> % (fullname, e))</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/django/" rel="tag"># django</a>
+              <a href="/tags/%E7%BC%96%E8%AF%91/" rel="tag"># 编译</a>
+              <a href="/tags/pyc/" rel="tag"># pyc</a>
+              <a href="/tags/%E5%8A%A0%E5%AF%86/" rel="tag"># 加密</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/05/31/django%E8%8E%B7%E5%8F%96%E8%AF%B7%E6%B1%82%E8%BF%9B%E6%9D%A5%E7%9A%84ip/" rel="prev" title="django获取请求进来的ip">
+      <i class="fa fa-chevron-left"></i> django获取请求进来的ip
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2024/06/11/%E5%9C%A8CentOS-7%E4%B8%8A%E5%AE%89%E8%A3%85Go-1-22/" rel="next" title="在CentOS-7上安装Go-1.22">
+      在CentOS-7上安装Go-1.22 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E6%89%B9%E9%87%8F%E7%BC%96%E8%AF%91%E4%BB%A3%E7%A0%81"><span class="nav-number">1.</span> <span class="nav-text">一、批量编译代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E8%BF%90%E8%A1%8C%E5%91%BD%E4%BB%A4"><span class="nav-number">2.</span> <span class="nav-text">二、运行命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E6%B3%A8%E6%84%8F"><span class="nav-number">3.</span> <span class="nav-text">三、注意</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Kanoc Ge"
+      src="/images/452794135.jpg">
+  <p class="site-author-name" itemprop="name">Kanoc Ge</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">204</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">104</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">157</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kanoc Ge</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  <!-- 多级目录 -->
+  <script type="text/javascript" src="/js/jquery.min.js"></script>
+  <script type="text/javascript" src="/js/category.js"></script>
+</body>
+</html>

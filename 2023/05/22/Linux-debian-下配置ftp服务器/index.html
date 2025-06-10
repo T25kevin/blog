@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <style>
+    .category-all-page .category-list-item {
+      margin: 15px 10px 10px 10px;
+      list-style: none;
+      font-size: 20px;
+      }
+      .category-all-page .category-list-child {
+        list-style: none;
+        }
+  </style>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"kanoc.gitee.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="Linux(debian)下配置ftp服务器：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux(debian)下配置ftp服务器">
+<meta property="og:url" content="https://kanoc.gitee.io/2023/05/22/Linux-debian-%E4%B8%8B%E9%85%8D%E7%BD%AEftp%E6%9C%8D%E5%8A%A1%E5%99%A8/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Linux(debian)下配置ftp服务器：">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-05-22T12:55:51.000Z">
+<meta property="article:modified_time" content="2025-06-09T12:41:54.573Z">
+<meta property="article:author" content="Kanoc Ge">
+<meta property="article:tag" content="系统">
+<meta property="article:tag" content="linux">
+<meta property="article:tag" content="运维">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://kanoc.gitee.io/2023/05/22/Linux-debian-%E4%B8%8B%E9%85%8D%E7%BD%AEftp%E6%9C%8D%E5%8A%A1%E5%99%A8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Linux(debian)下配置ftp服务器 | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-首页-|-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页 | home</a>
+
+  </li>
+        <li class="menu-item menu-item-分类-|-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类 | categories</a>
+
+  </li>
+        <li class="menu-item menu-item-标签-|-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签 | tags</a>
+
+  </li>
+        <li class="menu-item menu-item-归档-|-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档 | archives</a>
+
+  </li>
+        <li class="menu-item menu-item-关于-|-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于 | about</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/05/22/Linux-debian-%E4%B8%8B%E9%85%8D%E7%BD%AEftp%E6%9C%8D%E5%8A%A1%E5%99%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/452794135.jpg">
+      <meta itemprop="name" content="Kanoc Ge">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Linux(debian)下配置ftp服务器
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-05-22 20:55:51" itemprop="dateCreated datePublished" datetime="2023-05-22T20:55:51+08:00">2023-05-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-06-09 20:41:54" itemprop="dateModified" datetime="2025-06-09T20:41:54+08:00">2025-06-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/A3-linux/" itemprop="url" rel="index"><span itemprop="name">_A3-linux</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/A3-linux/%E6%8C%82%E8%BD%BD/" itemprop="url" rel="index"><span itemprop="name">挂载</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><font color=#00b2c2 size=5 face=宋体><strong>Linux(debian)下配置ftp服务器：</strong></font></p>
+<span id="more"></span>
+
+<p><font color=#00b2c2 size=4 face="宋体"><strong>如果配置不够，或者想增加用户名可以去这里寻找答案：</strong></font><a class="wp-editor-md-post-content-link" target="_blank" rel="noopener" href="https://help.aliyun.com/document_detail/60152.html"><font color=#102b6a size=3 face="宋体"><strong>点击进入</strong></fout></a><br><font color=#00b2c2 size=4 face="宋体"><strong>视频教程（有可能你打不开）：</strong></font><a class="wp-editor-md-post-content-link" target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=v1dEgUrm_Ig"><font color=#102b6a size=3 face="宋体"><strong>点击进入</strong></fout></a></p>
+<h1><font color=#00b2c2 size=5 face="宋体"><strong>除了FTP服务器，更为简单的挂载远程服务器的是直接用ssh挂载：</strong></font></h1>
+
+<pre><code class="language-shell line-numbers"># 安装sshfs服务
+sudo apt install sshfs
+sshfs <用户名>@<ip地址>:<想要挂载的远程路径> <挂载到本地的路径>
+# 例如：
+sshfs kk@211.34.109.38:/mnt/share /mnt/share
+# 取消挂载
+fusermount  -u  /mnt/share
+# fusermount  -u <本地挂载的目录>
+</code></pre>
+
+<h1><font color=#00b2c2 size=5 face="宋体"><strong>debian下配置ftp服务器：</strong></font></h1>
+
+<p><font color=#102b6a size=3 face="宋体"><strong>由于开发需要使用ftp功能，一时之间有点蒙，这玩意一直都会用，但怎么配置还是有点蒙，然后花了两个小时去恶补了下相关知识！</strong></font></p>
+<h1><font color=#00b2c2 size=5 face="宋体"><strong>安装ftp：</strong></font></h1>
+
+<p><font color=#102b6a size=3 face="宋体">直接使用命令安装即可</fout></p>
+<pre><code class="language-shell line-numbers">sudo apt install vsftpd
+# 重点：这里是vsftpd不是ftp！！！
+</code></pre>
+
+<h1><font color=#00b2c2 size=5 face="宋体"><strong>ftp服务启动：</strong></font></h1>
+
+<p><font color=#102b6a size=3 face="宋体">第一种方式：</fout></p>
+<pre><code class="language-shell line-numbers">/etc/init.d/vsftpd &#123;start|stop|restart|reload|status&#125;
+# 重点：中括号前面的不变，后面的是命令
+</code></pre>
+
+<p><font color=#102b6a size=3 face="宋体">第二种方式：</fout></p>
+<pre><code class="language-shell line-numbers">service vsftpd &#123;start|stop|restart|reload|status&#125;
+# 重点：中括号前面的不变，后面的是命令
+</code></pre>
+
+<p><font color=#102b6a size=3 face="宋体">第三种方式：</fout></p>
+<pre><code class="language-shell line-numbers">systemctl &#123;start|stop|restart|reload|status&#125; vsftpd.service
+# 重点：只有中括号中的命令在变
+# 个人更喜欢第三种，简单粗暴，有深度！
+</code></pre>
+
+<h1><font color=#00b2c2 size=5 face="宋体"><strong>开机自启：</strong></font></h1>
+
+<p><font color=#102b6a size=3 face="宋体">自动启动：</fout></p>
+<pre><code class="language-shell line-numbers">systemctl enable vsftpd.service
+</code></pre>
+
+<p><font color=#102b6a size=3 face="宋体">取消自动启动：</fout></p>
+<pre><code class="language-shell line-numbers">systemctl disable vsftpd.service
+</code></pre>
+
+<h1><font color=#00b2c2 size=5 face="宋体"><strong>修改配置：</strong></font></h1>
+
+<p><font color=#102b6a size=3 face="宋体">apt方式安装的ftp，配置文件默认在’&#x2F;etc&#x2F;vsftpd.conf</fout></p>
+<pre><code class="language-shell line-numbers">vim /etc/vsftpd.conf
+</code></pre>
+
+<p><font color=#102b6a size=3 face="宋体">我的配置如下：</fout></p>
+<pre><code class="language-shell line-numbers"># Example config file /etc/vsftpd.conf
+#
+# The default compiled in settings are fairly paranoid. This sample file
+# loosens things up a bit, to make the ftp daemon more usable.
+# Please see vsftpd.conf.5 for all compiled in defaults.
+#
+# READ THIS: This example file is NOT an exhaustive list of vsftpd options.
+# Please read the vsftpd.conf.5 manual page to get a full idea of vsftpd's
+# capabilities.
+#
+#
+# Run standalone?  vsftpd can run either from an inetd or as a standalone
+# daemon started from an initscript.
+listen=NO
+#
+# This directive enables listening on IPv6 sockets. By default, listening
+# on the IPv6 "any" address (::) will accept connections from both IPv6
+# and IPv4 clients. It is not necessary to listen on *both* IPv4 and IPv6
+# sockets. If you want that (perhaps because you want to listen on specific
+# addresses) then you must run two copies of vsftpd with two configuration
+# files.
+listen_ipv6=YES
+#
+# Allow anonymous FTP? (Disabled by default).
+anonymous_enable=YES
+#
+# Uncomment this to allow local users to log in.
+local_enable=YES
+#
+# Uncomment this to enable any form of FTP write command.
+#write_enable=YES
+#
+# Default umask for local users is 077. You may wish to change this to 022,
+# if your users expect that (022 is used by most other ftpd's)
+#local_umask=022
+#
+# Uncomment this to allow the anonymous FTP user to upload files. This only
+# has an effect if the above global write enable is activated. Also, you will
+# obviously need to create a directory writable by the FTP user.
+anon_upload_enable=YES
+#
+# Uncomment this if you want the anonymous FTP user to be able to create
+# new directories.
+#anon_mkdir_write_enable=YES
+#
+# Activate directory messages - messages given to remote users when they
+# go into a certain directory.
+dirmessage_enable=YES
+#
+# If enabled, vsftpd will display directory listings with the time
+# in  your  local  time  zone.  The default is to display GMT. The
+# times returned by the MDTM FTP command are also affected by this
+# option.
+use_localtime=YES
+#
+# Activate logging of uploads/downloads.
+xferlog_enable=YES
+#
+# Make sure PORT transfer connections originate from port 20 (ftp-data).
+connect_from_port_20=YES
+#
+# If you want, you can arrange for uploaded anonymous files to be owned by
+# a different user. Note! Using "root" for uploaded files is not
+# recommended!
+#chown_uploads=YES
+#chown_username=whoever
+#
+# You may override where the log file goes if you like. The default is shown
+# below.
+#xferlog_file=/var/log/vsftpd.log
+#
+# If you want, you can have your log file in standard ftpd xferlog format.
+# Note that the default log file location is /var/log/xferlog in this case.
+#xferlog_std_format=YES
+#
+# You may change the default value for timing out an idle session.
+#idle_session_timeout=600
+#
+# You may change the default value for timing out a data connection.
+#data_connection_timeout=120
+#
+# It is recommended that you define on your system a unique user which the
+# ftp server can use as a totally isolated and unprivileged user.
+#nopriv_user=ftpsecure
+#
+# Enable this and the server will recognise asynchronous ABOR requests. Not
+# recommended for security (the code is non-trivial). Not enabling it,
+# however, may confuse older FTP clients.
+#async_abor_enable=YES
+#
+# By default the server will pretend to allow ASCII mode but in fact ignore
+# the request. Turn on the below options to have the server actually do ASCII
+# mangling on files when in ASCII mode.
+# Beware that on some FTP servers, ASCII support allows a denial of service
+# attack (DoS) via the command "SIZE /big/file" in ASCII mode. vsftpd
+# predicted this attack and has always been safe, reporting the size of the
+# raw file.
+# ASCII mangling is a horrible feature of the protocol.
+#ascii_upload_enable=YES
+#ascii_download_enable=YES
+#
+# You may fully customise the login banner string:
+#ftpd_banner=Welcome to blah FTP service.
+#
+# You may specify a file of disallowed anonymous e-mail addresses. Apparently
+# useful for combatting certain DoS attacks.
+#deny_email_enable=YES
+# (default follows)
+#banned_email_file=/etc/vsftpd.banned_emails
+#
+# You may restrict local users to their home directories.  See the FAQ for
+# the possible risks in this before using chroot_local_user or
+# chroot_list_enable below.
+#chroot_local_user=YES
+#
+# You may specify an explicit list of local users to chroot() to their home
+# directory. If chroot_local_user is YES, then this list becomes a list of
+# users to NOT chroot().
+# (Warning! chroot'ing can be very dangerous. If using chroot, make sure that
+# the user does not have write access to the top level directory within the
+# chroot)
+chroot_local_user=YES
+chroot_list_enable=YES
+# (default follows)
+chroot_list_file=/etc/vsftpd.chroot_list
+#
+# You may activate the "-R" option to the builtin ls. This is disabled by
+# default to avoid remote users being able to cause excessive I/O on large
+# sites. However, some broken FTP clients such as "ncftp" and "mirror" assume
+# the presence of the "-R" option, so there is a strong case for enabling it.
+#ls_recurse_enable=YES
+#
+# Customization
+#
+# Some of vsftpd's settings don't fit the filesystem layout by
+# default.
+#
+# This option should be the name of a directory which is empty.  Also, the
+# directory should not be writable by the ftp user. This directory is used
+# as a secure chroot() jail at times vsftpd does not require filesystem
+# access.
+secure_chroot_dir=/var/run/vsftpd/empty
+#
+# This string is the name of the PAM service vsftpd will use.
+pam_service_name=vsftpd
+
+pasv_min_port=37564
+#设置被动模式下，建立数据传输可使用的端口范围的最大值。
+pasv_max_port=43997
+#
+# This option specifies the location of the RSA certificate to use for SSL
+# encrypted connections.
+rsa_cert_file=/etc/ssl/certs/ssl-cert-snakeoil.pem
+rsa_private_key_file=/etc/ssl/private/ssl-cert-snakeoil.key
+ssl_enable=NO
+
+#
+# Uncomment this to indicate that vsftpd use a utf8 filesystem.
+#utf8_filesystem=YES
+
+</code></pre>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%B3%BB%E7%BB%9F/" rel="tag"># 系统</a>
+              <a href="/tags/linux/" rel="tag"># linux</a>
+              <a href="/tags/%E8%BF%90%E7%BB%B4/" rel="tag"># 运维</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/05/22/Django-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="prev" title="Django_学习笔记">
+      <i class="fa fa-chevron-left"></i> Django_学习笔记
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2023/05/22/Linux%E4%B8%8B-%E7%BB%99cp%E5%92%8Cmv%E5%91%BD%E4%BB%A4%E4%B8%AD%E6%B7%BB%E5%8A%A0%E8%BF%9B%E5%BA%A6%E6%9D%A1/" rel="next" title="Linux下_给cp和mv命令中添加进度条">
+      Linux下_给cp和mv命令中添加进度条 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">除了FTP服务器，更为简单的挂载远程服务器的是直接用ssh挂载：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">debian下配置ftp服务器：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">安装ftp：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">4.</span> <span class="nav-text">ftp服务启动：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">5.</span> <span class="nav-text">开机自启：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">6.</span> <span class="nav-text">修改配置：</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Kanoc Ge"
+      src="/images/452794135.jpg">
+  <p class="site-author-name" itemprop="name">Kanoc Ge</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">204</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">104</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">157</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kanoc Ge</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  <!-- 多级目录 -->
+  <script type="text/javascript" src="/js/jquery.min.js"></script>
+  <script type="text/javascript" src="/js/category.js"></script>
+</body>
+</html>

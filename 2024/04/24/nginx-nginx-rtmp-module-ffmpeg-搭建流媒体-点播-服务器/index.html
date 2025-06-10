@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <style>
+    .category-all-page .category-list-item {
+      margin: 15px 10px 10px 10px;
+      list-style: none;
+      font-size: 20px;
+      }
+      .category-all-page .category-list-child {
+        list-style: none;
+        }
+  </style>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"kanoc.gitee.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="一、nginx编译安装 nginx-rtmp-module">
+<meta property="og:type" content="article">
+<meta property="og:title" content="nginx+nginx-rtmp-module+ffmpeg-搭建流媒体-点播-服务器">
+<meta property="og:url" content="https://kanoc.gitee.io/2024/04/24/nginx-nginx-rtmp-module-ffmpeg-%E6%90%AD%E5%BB%BA%E6%B5%81%E5%AA%92%E4%BD%93-%E7%82%B9%E6%92%AD-%E6%9C%8D%E5%8A%A1%E5%99%A8/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="一、nginx编译安装 nginx-rtmp-module">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2024/04/24/K12IrgkMCOUqoTl.png">
+<meta property="og:image" content="https://s2.loli.net/2024/04/24/dVAwjsRSQJniZPC.png">
+<meta property="article:published_time" content="2024-04-24T15:41:13.000Z">
+<meta property="article:modified_time" content="2025-06-09T13:03:11.653Z">
+<meta property="article:author" content="Kanoc Ge">
+<meta property="article:tag" content="ffmpeg">
+<meta property="article:tag" content="nginx">
+<meta property="article:tag" content="流媒体点播">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2024/04/24/K12IrgkMCOUqoTl.png">
+
+<link rel="canonical" href="https://kanoc.gitee.io/2024/04/24/nginx-nginx-rtmp-module-ffmpeg-%E6%90%AD%E5%BB%BA%E6%B5%81%E5%AA%92%E4%BD%93-%E7%82%B9%E6%92%AD-%E6%9C%8D%E5%8A%A1%E5%99%A8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>nginx+nginx-rtmp-module+ffmpeg-搭建流媒体-点播-服务器 | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-首页-|-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页 | home</a>
+
+  </li>
+        <li class="menu-item menu-item-分类-|-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类 | categories</a>
+
+  </li>
+        <li class="menu-item menu-item-标签-|-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签 | tags</a>
+
+  </li>
+        <li class="menu-item menu-item-归档-|-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档 | archives</a>
+
+  </li>
+        <li class="menu-item menu-item-关于-|-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于 | about</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2024/04/24/nginx-nginx-rtmp-module-ffmpeg-%E6%90%AD%E5%BB%BA%E6%B5%81%E5%AA%92%E4%BD%93-%E7%82%B9%E6%92%AD-%E6%9C%8D%E5%8A%A1%E5%99%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/452794135.jpg">
+      <meta itemprop="name" content="Kanoc Ge">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          nginx+nginx-rtmp-module+ffmpeg-搭建流媒体-点播-服务器
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-04-24 23:41:13" itemprop="dateCreated datePublished" datetime="2024-04-24T23:41:13+08:00">2024-04-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-06-09 21:03:11" itemprop="dateModified" datetime="2025-06-09T21:03:11+08:00">2025-06-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/A4-FFmpeg/" itemprop="url" rel="index"><span itemprop="name">_A4-FFmpeg</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/A4-FFmpeg/%E7%82%B9%E6%92%AD%E6%9C%8D%E5%8A%A1%E5%99%A8/" itemprop="url" rel="index"><span itemprop="name">点播服务器</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><font color=#00b2c2 size=5 face=宋体><strong>一、nginx编译安装 <code>nginx-rtmp-module</code></strong></font></p>
+<span id="more"></span>
+
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 项目地址：https://github.com/arut/nginx-rtmp-module</span></span><br><span class="line"><span class="comment"># git clone https://github.com/arut/nginx-rtmp-module.git</span></span><br><span class="line">wget https://github.com/arut/nginx-rtmp-module/archive/refs/heads/master.zip</span><br><span class="line"></span><br><span class="line"><span class="comment"># 复制下载的文件copy到 </span></span><br><span class="line">/www/server/nginx-rtmp-module</span><br><span class="line"></span><br><span class="line"><span class="comment"># 进入宝塔nginx 安装bash文件目录</span></span><br><span class="line"><span class="built_in">cd</span>  /www/server/panel/install/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改文件，添加模块 nginx.sh</span></span><br><span class="line">--add-module=/www/server/nginx-rtmp-module</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装命令</span></span><br><span class="line">bash nginx.sh install 1.21</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2024/04/24/K12IrgkMCOUqoTl.png" alt="img"></p>
+<p><img src="https://s2.loli.net/2024/04/24/dVAwjsRSQJniZPC.png" alt="未命名 5"></p>
+<h1 id="使用nginx搭建音视频点播服务——基于HLS协议"><a href="#使用nginx搭建音视频点播服务——基于HLS协议" class="headerlink" title="使用nginx搭建音视频点播服务——基于HLS协议"></a>使用nginx搭建音视频点播服务——基于HLS协议</h1><ul>
+<li>本文参考自<a target="_blank" rel="noopener" href="https://blog.csdn.net/SeeDoubleU/article/details/121805174">https://blog.csdn.net/SeeDoubleU/article/details/121805174</a></li>
+</ul>
+<p><font color=#f26522 size=5 face=宋体><strong>1 音视频技术：</strong></font></p>
+<ul>
+<li><p>1.1 流媒体</p>
+<ul>
+<li>在网络上传输音、视频等多媒体信息，主要有下载和流式传输两种方案。下载的方式对于体积较大的音、视频数据而言，在使用前下载整个媒体文件耗时很大；流媒体（streaming media）传输提供了一种低延时的方式来避免这个问题，流媒体技术是指将多媒体数据压缩后，经过网络分段发送，在网上即时传输音、视频数据供用户播放的一种技术。</li>
+</ul>
+</li>
+<li><p>1.2 点播与直播</p>
+<ul>
+<li>点播（VOD，video on demand）即根据用户需求播放，音视频内容一般已经存放在服务器上了，不同于先下载再播放，点播要求即点即播，各大音视频网站（喜马拉雅、优酷、爱奇艺等）提供的服务就是VOD服务。</li>
+<li>直播（Live）需要对音视频内容实时录制，在录制同时以“流”的形式推送到服务器，服务器在收到用户的播放请求后，会将媒体流传输到用户的播放器进行播放，并对延迟有较高的要求，各大直播平台（斗鱼、虎牙等）提供的服务就是直播服务。</li>
+</ul>
+</li>
+<li><p>1.3 HLS流媒体协议</p>
+<ul>
+<li>HLS（HTTP Live Streaming）自适应码率流媒体传输协议，来自Apple公司，该协议基于Http协议，HLS诞生之初旨在能够从iPhone中删除flash，如今已成为使用最广泛的协议。HLS的优缺点也比较明显。</li>
+</ul>
+</li>
+<li><p>HLS的优点：</p>
+<ul>
+<li><blockquote>
+<p>Html5能够直接支持HLS，有浏览器就能播放，不需要安装额外的app，不用考虑防火墙或者代理问题；HLS也支持最新的H.265编解码器，H.265编码的质量要比H.264高很多。</p>
+<p>HLS的缺点：</p>
+<p>​    因为HLS基本是采用了点播切片的方式实现的直播，在直播上相对于其它协议有较高的延迟（5~8秒延迟）。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<p><code>除了HLS协议之外，相关的协议还有RTP/RTCP、RTSP、RTMP、MSS、DASH、HDS、WEBRTC、RIST、SRT等……它们都有各自的优缺点。</code></p>
+<ul>
+<li><p>HLS的原理：</p>
+<ul>
+<li>首先将一个完整音视频分成多个ts格式音视频文件切片，并生成m3u8索引文件，用户下载m3u8索引文件，通过m3u8文件中每段ts切片的索引地址来播放具体的ts切片，在m3u8中可以指定播放相关的参数。</li>
+</ul>
+</li>
+<li><p>1.4 CDN</p>
+<ul>
+<li>CDN（Content Delivery Network）内容分发网络，是为了改善网络服务质量而产生的，它是构建在现有网络基础之上的智能虚拟网络，通过负载均衡、内容分发、调度等完成资源就近获取的目标。</li>
+<li>CDN的基本原理是采用各种缓存服务器，将这些缓存服务器分布到用户访问相对集中的地区或网络中，在用户访问网站时，利用全局负载技术将用户的访问指向距离最近的工作正常的缓存服务器上，由缓存服务器直接响应用户请求，使用户就近获取所需内容，降低网络拥塞，提高用户访问响应速度和命中率，CDN网络的诞生大大地改善了互联网的服务质量。</li>
+<li>在互联网上的流媒体服务为了实现更优质的用户体验，一般都需要经过CDN节点进行内容分发。点播、直播技术的选择需要考虑大环境下主流CDN服务供应商能够提供的服务支持，各家对协议的支持也不一样（像阿里云CDN支持RTMP输入，RTMP、FLV、HLS输出），点播需要考虑输出，直播需要考虑输入与输出两端。</li>
+</ul>
+</li>
+</ul>
+</br>
+
+<hr>
+</br>
+
+<h4 id="2-搭建点播服务（音视频同理）："><a href="#2-搭建点播服务（音视频同理）：" class="headerlink" title="2 搭建点播服务（音视频同理）："></a><font color=#f26522 size=5 face=宋体><strong>2 搭建点播服务（音视频同理）：</strong></font></h4><ul>
+<li><h4 id="2-1-nginx服务器"><a href="#2-1-nginx服务器" class="headerlink" title="2.1 nginx服务器"></a>2.1 nginx服务器</h4><ul>
+<li>nginx是一个代理服务器，首先需要在Linux上搭建nginx服务，具体的流程可以参考<a target="_blank" rel="noopener" href="https://blog.csdn.net/SeeDoubleU/article/details/121727292">nginx的安装流程</a><a target="_blank" rel="noopener" href="https://blog.csdn.net/SeeDoubleU/article/details/121805174#fn1">1</a>，搭建视频点播服务器会用到nginx-vod-<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=module&spm=1001.2101.3001.7020">module</a>模块，按照安装流程添加该模块到nginx中，搭建点播服务使用的具体环境如下：</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">系统版本：CentOS Linux release 7.9 2009(Core)</span><br><span class="line">nginx版本：1.20.1</span><br><span class="line">nginx-vod-module版本：1.28</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><h4 id="2-2-nginx-vod-module模块"><a href="#2-2-nginx-vod-module模块" class="headerlink" title="2.2 nginx-vod-module模块"></a>2.2 nginx-vod-module模块</h4><ul>
+<li><blockquote>
+<p>nginx-vod-module模块是基于nginx来提供VOD（video on demand）服务的第三方模块，它支持基于DASH、HDS、HLS、MSS的点播服务搭建。</p>
+<p>nginx-vod-module下载地址：<a target="_blank" rel="noopener" href="https://github.com/kaltura/nginx-vod-module/archive/refs/tags/1.28.tar.gz">https://github.com/kaltura/nginx-vod-module/archive/refs/tags/1.28.tar.gz</a></p>
+<p>在nginx进行安装配置的过程中，需要使用<code>--add-module=</code>选项来添加第三方模块一起进行编译，相关的步骤可以参考模块的github网址：</p>
+<p>nginx-vod-module的github网址：<a target="_blank" rel="noopener" href="https://github.com/kaltura/nginx-vod-module">https://github.com/kaltura/nginx-vod-module</a></p>
+<p>在配置nginx进行编译的时候使用的配置参数如下：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">./configure --prefix=/web/webserver/nginx-vod-hls --with-http_stub_status_module --with-http_gzip_static_module --with-http_gunzip_module --with-file-aio --with-threads --with-cc-opt=“-O3” --with-http_ssl_module --with-openssl-opt=<span class="built_in">enable</span> --with-http_mp4_module --with-stream --add-module=…/nginx-vod-module-master</span><br></pre></td></tr></table></figure>
+
+<p>配置中主要是附加了一些常规模块，打开了一些配置开关，其中：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">–with-file-aio 异步io支持，强烈推荐，只在local、mapped模式下</span><br><span class="line">–with-threads (nginx 1.7.11+) 支持使用线程池异步打开文件(要求在nginx.conf中配置vod_open_file_thread_pool)，只在local、mapped模式下</span><br><span class="line">–with-cc-opt=“-O3” 附加编译器优化，减少视频解析和帧处理的耗时</span><br></pre></td></tr></table></figure>
+
+<p>配置、编译、安装都完成之后，即可在nginx的配置文件中使用nginx-vod-module模块提供的关键字了。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><h4 id="2-3-配置nginx点播服务"><a href="#2-3-配置nginx点播服务" class="headerlink" title="2.3 配置nginx点播服务"></a>2.3 配置nginx点播服务</h4></li>
+<li><h5 id="2-3-1-local模式"><a href="#2-3-1-local模式" class="headerlink" title="2.3.1 local模式"></a>2.3.1 local模式</h5></li>
+<li><p>2.3.1.1 常规配置</p>
+</li>
+</ul>
+<p>在nginx的配置文件中，添加对应的location配置：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">location /vod &#123;</span><br><span class="line">    vod hls; <span class="comment"># 协议使用hls模式</span></span><br><span class="line">    vod_mode <span class="built_in">local</span>; <span class="comment"># 访问模式指定为local模式</span></span><br><span class="line">    </span><br><span class="line">    vod_align_segments_to_key_frames on; <span class="comment"># 每个切片以关键帧开头</span></span><br><span class="line">    vod_manifest_segment_durations_mode accurate; <span class="comment"># 精确显示每个切片的长度</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 解决浏览器跨域问题</span></span><br><span class="line">    add_header Access-Control-Allow-Headers <span class="string">&#x27;*&#x27;</span>;</span><br><span class="line">    add_header Access-Control-Expose-Headers <span class="string">&#x27;Server,range,Content-Length,Content-Range&#x27;</span>;</span><br><span class="line">    add_header Access-Control-Allow-Methods <span class="string">&#x27;GET, HEAD, OPTIONS&#x27;</span>;</span><br><span class="line">    add_header Access-Control-Allow-Origin <span class="string">&#x27;*&#x27;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">alias</span> /media; <span class="comment"># 视频文件路径</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">nginx.conf文件修改后，nginx需要reload才能生效配置。</span><br></pre></td></tr></table></figure>
+
+<p>在服务器上对应的视频文件目录结构：</p>
+<figure class="highlight txt"><table><tr><td class="code"><pre><span class="line">/media/example0001.mp4</span><br></pre></td></tr></table></figure>
+
+<p>URL播放地址（假设nginx配置在ip为192.168.192.128的地址上）：</p>
+<figure class="highlight txt"><table><tr><td class="code"><pre><span class="line">http://192.168.192.128/vod/example0001.mp4/index.m3u8</span><br></pre></td></tr></table></figure>
+
+<p>使用相应的html5播放器或者本地播放器打开，即可观看该地址的视频点播。若使用本地播放器，推荐使用<a target="_blank" rel="noopener" href="https://www.videolan.org/vlc/">VLC media player</a>。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#EXTM3U</span></span><br><span class="line"><span class="comment">#EXT-X-TARGETDURATION:17</span></span><br><span class="line"><span class="comment">#EXT-X-ALLOW-CACHE:YES</span></span><br><span class="line"><span class="comment">#EXT-X-PLAYLIST-TYPE:VOD</span></span><br><span class="line"><span class="comment">#EXT-X-VERSION:3</span></span><br><span class="line"><span class="comment">#EXT-X-MEDIA-SEQUENCE:1</span></span><br><span class="line"><span class="comment">#EXTINF:10.000,</span></span><br><span class="line">http://192.168.192.128/vod/example0001.mp4/seg-1-v1-a1.ts</span><br><span class="line"><span class="comment">#EXTINF:10.000,</span></span><br><span class="line">http://192.168.192.128/vod/example0001.mp4/seg-2-v1-a1.ts</span><br><span class="line"><span class="comment">#EXTINF:10.000,</span></span><br><span class="line">http://192.168.192.128/vod/example0001.mp4/seg-3-v1-a1.ts</span><br><span class="line">……</span><br><span class="line">……</span><br><span class="line">……</span><br><span class="line"><span class="comment">#EXTINF:7.760,</span></span><br><span class="line">http://192.168.192.128/vod/example0001.mp4/seg-347-v1-a1.ts</span><br><span class="line"><span class="comment">#EXT-X-ENDLIST</span></span><br></pre></td></tr></table></figure>
+
+<p>通过对nginx进行配置可以控制m3u8文件的生成规则，以此来控制切片的大小、状态等播放相关的属性，具体可以查看nginx-vod-module模块的<a target="_blank" rel="noopener" href="https://github.com/kaltura/nginx-vod-module/blob/master/README.md">文档</a><a target="_blank" rel="noopener" href="https://blog.csdn.net/SeeDoubleU/article/details/121805174#fn2">2</a>。</p>
+<ul>
+<li>2.3.1.2 local模式下的多码率自适应</li>
+</ul>
+<blockquote>
+<p>使用常规配置，仅更改访问的URL播放地址即可支持多码率自适应功能，HLS根据用户当前可用带宽的大小自适应匹配对应码率的视频。</p>
+<p>在服务器上对应的视频文件目录结构(后缀low表示同一视频的低清晰度版本)：</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/media/example0001.mp4</span><br><span class="line">/media/example0001_low.mp4</span><br></pre></td></tr></table></figure>
+
+<p>URL播放地址：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">http://192.168.192.128/vod/example,0001,0001_low,.mp4.urlset/master.m3u8</span><br></pre></td></tr></table></figure>
+
+<p>多码率自适应其实是多个URL组合的结构，上述master.m3u8表示以下2个index.m3u8的组合：</p>
+<blockquote>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">http://192.168.192.128/vod/example0001.mp4/index.m3u8</span><br><span class="line">http://192.168.192.128/vod/example0001_low.mp4/index.m3u8</span><br></pre></td></tr></table></figure></blockquote>
+<p>nginx-vod-module会根据master指定的多个视频自动计算配置适合的带宽，master.m3u8文件的内容如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#EXTM3U</span><br><span class="line">#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=613135,RESOLUTION=1280x720,FRAME-RATE=25.000,CODECS=&quot;avc1.640029,mp4a.40.2&quot;</span><br><span class="line">http://192.168.192.128/vod_json/mapped.json/index-f1-v1-a1.m3u8</span><br><span class="line">#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=226233,RESOLUTION=760x428,FRAME-RATE=25.000,CODECS=&quot;avc1.42c01e,mp4a.40.2&quot;</span><br><span class="line">http://192.168.192.128/vod_json/mapped.json/index-f2-v1-a1.m3u8</span><br><span class="line"></span><br><span class="line">#EXT-X-I-FRAME-STREAM-INF:BANDWIDTH=193615,RESOLUTION=1280x720,CODECS=&quot;avc1.640029&quot;,URI=&quot;http://192.168.192.128/vod_json/mapped.json/iframes-f1-v1-a1.m3u8&quot;</span><br><span class="line">#EXT-X-I-FRAME-STREAM-INF:BANDWIDTH=58630,RESOLUTION=760x428,CODECS=&quot;avc1.42c01e&quot;,URI=&quot;http://192.168.192.128/vod_json/mapped.json/iframes-f2-v1-a1.m3u8&quot;</span><br></pre></td></tr></table></figure>
+
+<p>index后面跟随的v1表示第一条视频轨道，a1表示第一条音轨。</p>
+<ul>
+<li>2.3.1.3 local模式下的字幕</li>
+</ul>
+<p>可以为视频添加字幕，支持srt等格式，不过最终在流媒体中显示成webvtt格式。</p>
+<p>在服务器上对应的字幕文件目录结构：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/media/example0001.srt</span><br></pre></td></tr></table></figure>
+
+<p>URL播放地址：（与多码率自适应的URL地址规则相同）</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">http://192.168.192.128/vod/,example0001.mp4,example0001.srt,.urlset/master.m3u8</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><h5 id="2-3-2-mapped模式"><a href="#2-3-2-mapped模式" class="headerlink" title="2.3.2 mapped模式"></a>2.3.2 mapped模式</h5></li>
+</ul>
+<blockquote>
+<p>mapped模式使用json文件来对视频进行配置，可以把附加在URL中的各种参数放在对应的json文件里进行配置。</p>
+</blockquote>
+<ul>
+<li>2.3.2.1 常规配置</li>
+</ul>
+<p>在nginx的配置文件中，添加对应的location配置：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">location /vod_json &#123;</span><br><span class="line">    vod hls; <span class="comment"># 协议使用hls模</span></span><br><span class="line">    vod_mode mapped; <span class="comment"># 访问模式指定为mapped模式</span></span><br><span class="line"></span><br><span class="line">    vod_align_segments_to_key_frames on; <span class="comment"># 每个切片以关键帧开头</span></span><br><span class="line">    <span class="comment">#vod_manifest_segment_durations_mode accurate; # 精确显示每个切片的长度</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 解决浏览器跨域问</span></span><br><span class="line">    add_header Access-Control-Allow-Headers <span class="string">&#x27;*&#x27;</span>;</span><br><span class="line">    add_header Access-Control-Expose-Headers <span class="string">&#x27;Server,range,Content-Length,Content-Range&#x27;</span>;</span><br><span class="line">    add_header Access-Control-Allow-Methods <span class="string">&#x27;GET, HEAD, OPTIONS&#x27;</span>;</span><br><span class="line">    add_header Access-Control-Allow-Origin <span class="string">&#x27;*&#x27;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">alias</span> /media/cjcwgl; <span class="comment"># 视频文件路径</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>发现一个Bug：在mapped模式下配置vod_manifest_segment_durations_mode参数会导致m3u8的最后一个切片的#EXTINF时长异常地长。</code></p>
+<p>在服务器上对应的视频文件目录结构：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/media/cjcwgl/hdh/cwgl0101.mp4</span><br></pre></td></tr></table></figure>
+
+<p>json文件路径为：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/media/cjcwgl/simple.json</span><br></pre></td></tr></table></figure>
+
+<p>simple.json文件的内容：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;sequences&quot;</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="string">&quot;clips&quot;</span>: [</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="string">&quot;type&quot;</span>: <span class="string">&quot;source&quot;</span>,</span><br><span class="line">                    <span class="string">&quot;path&quot;</span>: <span class="string">&quot;/media/cjcwgl/hdh/cwgl0101.mp4&quot;</span></span><br><span class="line">                &#125;</span><br><span class="line">            ]</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>URL播放地址：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">http://192.168.192.128/vod_json/simple.json/index.m3u8</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>2.3.2.2 mapped模式下的多码率自适应</li>
+</ul>
+<p>在服务器上对应的视频文件目录结构（hdh目录下为高清版本，hdk目录下为普通版本）：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/media/cjcwgl/hdh/cwgl0101.mp4</span><br><span class="line">/media/cjcwgl/hdk/cwgl0101.mp4</span><br></pre></td></tr></table></figure>
+
+<p>json文件路径为：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/media/cjcwgl/mapped.json</span><br></pre></td></tr></table></figure>
+
+<p>mapped.json文件的内容：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;sequences&quot;</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="string">&quot;clips&quot;</span>: [</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="string">&quot;type&quot;</span>: <span class="string">&quot;source&quot;</span>,</span><br><span class="line">                    <span class="string">&quot;path&quot;</span>: <span class="string">&quot;/media/cjcwgl/hdh/cwgl0101.mp4&quot;</span></span><br><span class="line">                &#125;</span><br><span class="line">            ]</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="string">&quot;clips&quot;</span>: [</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="string">&quot;type&quot;</span>: <span class="string">&quot;source&quot;</span>,</span><br><span class="line">                    <span class="string">&quot;path&quot;</span>: <span class="string">&quot;/media/cjcwgl/hdk/cwgl0101.mp4&quot;</span></span><br><span class="line">                &#125;</span><br><span class="line">            ]</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>json文件修改后，重新访问URL即可生效配置，不需要对nginx进行reload。</p>
+<p>URL播放地址：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">http://192.168.192.128/vod_json/mapped.json/master.m3u8</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>2.3.2.3 HLS协议的多码率自适应逻辑</li>
+</ul>
+<p>HLS的多码率自适应逻辑是依据前一个ts切片的下载速度来作为是否切换码率的依据。</p>
+<p>示例：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#EXTM3U</span></span><br><span class="line"><span class="comment">#EXT-X-STREAM-INF:……BANDWIDTH=700000</span></span><br><span class="line">http://……/index-f1-v1-a1.m3u8</span><br><span class="line"><span class="comment">#EXT-X-STREAM-INF:……BANDWIDTH=1300000</span></span><br><span class="line">http://……/index-f2-v1-a1.m3u8</span><br><span class="line"><span class="comment">#EXT-X-STREAM-INF:……BANDWIDTH=2300000</span></span><br><span class="line">http://……/index-f3-v1-a1.m3u8</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>  上述master.m3u8包含三个码率500K，900K和1400K相应的index.m3u8，在播放视频的时候， 第一个切片取的是master.m3u8中排在首位的index.m3u8中的首个ts切片。<br>  当配置了码率自适应之后， 在每次下载完一个ts切片的时候，会依据该切片的下载速度的80%来决定是否要切换码率， 如果当前切片的下载速度分别为：<br>1M &#x3D; 那么其80%速度为 800K， 低于1300K， 那么下一个切片会下载500K码率；<br>2M &#x3D; 其80%速度为 1600K， 高于1300K低于2300K， 下一个切片会下载1300K码率；<br>3M &#x3D; 其80%速度为 2400K， 高于2300K， 下一个切片会下载2300K码率。</p>
+<ul>
+<li>2.3.2.3 mapped模式下的字幕</li>
+</ul>
+<p>在mapped模式下添加字幕相当于将字幕做为一个clips加入视频中，做法与多码率自适应相同。</p>
+<p>在服务器上对应的字幕文件目录结构：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/media/cjcwgl/hdh/cwgl0101.srt</span><br></pre></td></tr></table></figure>
+
+<p>json文件路径为：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/media/cjcwgl/mapped.json</span><br></pre></td></tr></table></figure>
+
+<p>mapped.json文件的内容：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;sequences&quot;</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="string">&quot;clips&quot;</span>: [</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="string">&quot;type&quot;</span>: <span class="string">&quot;source&quot;</span>,</span><br><span class="line">                    <span class="string">&quot;path&quot;</span>: <span class="string">&quot;/media/cjcwgl/hdh/cwgl0101.mp4&quot;</span></span><br><span class="line">                &#125;</span><br><span class="line">            ]</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="string">&quot;clips&quot;</span>: [</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="string">&quot;type&quot;</span>: <span class="string">&quot;source&quot;</span>,</span><br><span class="line">                    <span class="string">&quot;path&quot;</span>: <span class="string">&quot;/media/cjcwgl/hdk/cwgl0101.srt&quot;</span></span><br><span class="line">                &#125;</span><br><span class="line">            ]</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>json文件修改后，重新访问URL即可生效配置，不需要对nginx进行reload。</p>
+<p>URL播放地址不需要修改：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">http://192.168.192.128/vod_json/mapped.json/master.m3u8</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>2.3.2.4 mapped模式下的倍速播放</li>
+</ul>
+<p>在服务器上对应的视频文件目录结构：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/media/cjcwgl/hdh/cwgl0101.mp4</span><br></pre></td></tr></table></figure>
+
+<p>json文件路径为：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/media/cjcwgl/mapped2.json</span><br></pre></td></tr></table></figure>
+
+<p>mapped2.json文件的内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;sequences&quot;: [</span><br><span class="line">        &#123;</span><br><span class="line">        &quot;clips&quot;: [</span><br><span class="line">            &#123;</span><br><span class="line">                &quot;type&quot;: &quot;rateFilter&quot;,</span><br><span class="line">                &quot;rate&quot;: 2.0,</span><br><span class="line">                &quot;source&quot;: &#123;</span><br><span class="line">                    &quot;type&quot;: &quot;source&quot;,</span><br><span class="line">                    &quot;path&quot;: &quot;/media/cjcwgl/hdh/cwgl0101.mp4&quot;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            ]</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>URL播放地址：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">http://192.168.192.128/vod_json/mapped2.json/index.m3u8</span><br></pre></td></tr></table></figure>
+
+<p>如果倍速播放的各种配置都正确，但是无法播放，在.&#x2F;logs&#x2F;error.log中显示filter no supported的相关信息，则很有可能是缺少libavcodec与libavfilter库的支持。</p>
+<ul>
+<li>2.3.2.5 安装ffmpeg提供libavcodec、libavfilter库支持</li>
+</ul>
+<p>如果在点播服务中需要支持倍速输出、视频与音轨的分离等操作，需要额外的库libavcodec与libavfilter的支持，它们都基于ffmpeg，通过安装ffmpeg可提供相关的库支持，步骤如下：</p>
+<p>安装libfdk-aac：</p>
+<blockquote>
+<p>安装包获取地址：<a target="_blank" rel="noopener" href="https://github.com/mstorsjo/fdk-aac/releases">https://github.com/mstorsjo/fdk-aac/releases</a><br>安装包名：fdk-aac-2.0.1.tar.gz<br>解压：tar -zxvf fdk-aac-2.0.1.tar.gz<br>进目录：cd fdk-aac-2.0.1<br>生成配置：.&#x2F;autogen.sh</p>
+<blockquote>
+<p>如果出现错误：“.&#x2F;autogen.sh:行2: autoreconf: 未找到命令”，需要先安装autoconf、automake、libtool：<br>在centos7.9下可以使用yum安装：<br>yum install autoconf automake libtool<br>在centos6.5下如果使用yum无法成功安装，则需要进行手动安装：</p>
+<blockquote>
+<p>安装autoconf<br>下载：wget <a target="_blank" rel="noopener" href="http://mirrors.kernel.org/gnu/autoconf/autoconf-2.65.tar.gz">http://mirrors.kernel.org/gnu/autoconf/autoconf-2.65.tar.gz</a><br>解压：tar -xzvf autoconf-2.65.tar.gz<br>进目录：cd autoconf-2.65<br>配置：.&#x2F;configure</p>
+<blockquote>
+<p>可能在autocon的安装过程中还需要perl，安装perl：<br>下载：wget <a target="_blank" rel="noopener" href="https://www.cpan.org/src/5.0/perl-5.34.0.tar.gz">https://www.cpan.org/src/5.0/perl-5.34.0.tar.gz</a><br>解压：tar -xzvf perl-5.34.0.tar.gz<br>进目录：cd perl-5.34.0<br>配置：.&#x2F;Configure -des -Dprefix&#x3D;&#x2F;usr&#x2F;local&#x2F;perl<br>编译：make<br>安装：make install</p>
+</blockquote>
+<p>重新进行配置：.&#x2F;configure<br>编译：make<br>安装：make install</p>
+<p>安装automake<br>下载：wget <a target="_blank" rel="noopener" href="http://mirrors.kernel.org/gnu/automake/automake-1.11.tar.gz">http://mirrors.kernel.org/gnu/automake/automake-1.11.tar.gz</a><br>解压：tar -xzvf automake-1.11.tar.gz<br>进目录：cd automake-1.11<br>配置：.&#x2F;configure<br>编译：make<br>安装：make install</p>
+<p>安装libtool<br>下载：wget <a target="_blank" rel="noopener" href="http://mirrors.kernel.org/gnu/libtool/libtool-2.2.6b.tar.gz">http://mirrors.kernel.org/gnu/libtool/libtool-2.2.6b.tar.gz</a><br>解压：tar -xzvf libtool-2.2.6b.tar.gz<br>进目录：cd libtool-2.2.6b<br>配置：.&#x2F;configure<br>编译：make<br>安装：make install</p>
+</blockquote>
+</blockquote>
+<p>重新生成配置：<code>./autogen.sh</code><br>配置：<code>./configure --enable-shared</code><br>编译：<code>make</code><br>安装：<code>make install</code></p>
+</blockquote>
+<p>安装ffmpeg：</p>
+<blockquote>
+<p>安装包获取地址：<a target="_blank" rel="noopener" href="https://ffmpeg.org/download.html#releases">https://ffmpeg.org/download.html#releases</a><br>安装包：ffmpeg-4.4.tar.gz<br>配置：<code>./configure --enable-shared --enable-libfdk-aac</code></p>
+<blockquote>
+<p>如果出现提示：“nasm&#x2F;yasm not found or too old.”，需安装nasm或者yasm其中之一：<br>在centos7.9下的可以使用yum进行安装：<br>yum install nasm<br>在centos6.5下如果无法使用yum安装，则需要手动安装：<br>下载：wget <a target="_blank" rel="noopener" href="https://www.nasm.us/pub/nasm/releasebuilds/2.13.03/nasm-2.13.03.tar.gz">https://www.nasm.us/pub/nasm/releasebuilds/2.13.03/nasm-2.13.03.tar.gz</a><br>解压：tar -xvf nasm-2.13.03.tar.gz<br>进目录：cd nasm-2.13.03<br>配置：.&#x2F;configure<br>编译：make<br>安装：make install</p>
+<p>如果出现警告：“WARNING: using libfdk without pkg-config”，则需要配置PKG_CONFIG_PATH如下：<br>export PKG_CONFIG_PATH&#x3D;&#x2F;usr&#x2F;local&#x2F;lib&#x2F;pkgconfig<br>查看是否配置成功：<br>echo $PKG_CONFIG_PATH</p>
+</blockquote>
+<p>然后重新配置：<code>./configure --enable-shared --enable-libfdk-aac</code><br>编译：<code>make</code><br>安装：<code>make install</code></p>
+</blockquote>
+<p>注：</p>
+<blockquote>
+<p>如果需要ffmpeg支持libx264视频编码，需要安装配置时加入<code>--enable-libx264 --enable-gpl</code>选项，步骤如下：</p>
+<blockquote>
+<p>安装libx264：<br>下载地址：<a target="_blank" rel="noopener" href="https://code.videolan.org/videolan/x264/-/tree/stable">https://code.videolan.org/videolan/x264/-/tree/stable</a><br>.&#x2F;configure –enable-shared<br>make<br>make install</p>
+</blockquote>
+<p>如果需要ffmpeg支持drawtext水印滤镜功能，需要安装配置时加入<code>--enable-libfreetype --enable-libfontconfig --enable-libfribidi</code>选项，步骤如下：</p>
+<blockquote>
+<p>安装freetype：<br>yum install freetype freetype-devel<br>安装fontconfig<br>yum install fontconfig fontconfig-devel<br>安装fribidi<br>yum install fribidi fribidi-devel</p>
+</blockquote>
+<p>–enable-libfdk-aac –enable-nonfree 提供fdk-aac音频编码支持<br>–enable-libx264 –enable-gpl 提供libx264视频编码支持<br>–enable-libfreetype 提供drawtext滤镜支持<br>–enable-libfontconfig 提供drawtext滤镜里的多种字体支持<br>–enable-libfribidi 进一步提升对drawtext滤镜的支持(字体变形)</p>
+</blockquote>
+<p>配置共享动态库：</p>
+<blockquote>
+<p>编辑配置文件命令：<code>vi /etc/ld.so.conf</code><br>在末尾加入库路径：<code>/usr/local/lib</code><br>使配置生效命令：<code>ldconfig</code></p>
+</blockquote>
+<p>配置环境变量：</p>
+<blockquote>
+<p>编辑文件：<code>vi /etc/profile</code><br>在末尾加入：<code>export PATH=&quot;/usr/local/lib:$PATH&quot;</code><br>使配置文件生效：<code>source /etc/profile</code></p>
+</blockquote>
+<p>测试ffmpeg是否安装成功：</p>
+<blockquote>
+<p>在命令行执行：<code>ffmpeg</code><br>如果安装成功，会出现如下信息：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ffmpeg version 4.4 Copyright (c) 2000-2021 the FFmpeg developers</span><br><span class="line">  built with gcc 4.8.5 (GCC) 20150623 (Red Hat 4.8.5-44)</span><br><span class="line">  configuration: --enable-shared --enable-libfdk-aac</span><br><span class="line">  libavutil      56. 70.100 / 56. 70.100</span><br><span class="line">  libavcodec     58.134.100 / 58.134.100</span><br><span class="line">  libavformat    58. 76.100 / 58. 76.100</span><br><span class="line">  libavdevice    58. 13.100 / 58. 13.100</span><br><span class="line">  libavfilter     7.110.100 /  7.110.100</span><br><span class="line">  libswscale      5.  9.100 /  5.  9.100</span><br><span class="line">  libswresample   3.  9.100 /  3.  9.100</span><br><span class="line">Hyper fast Audio and Video encoder</span><br><span class="line">usage: ffmpeg [options] [[infile options] -i infile]... &#123;[outfile options] outfile&#125;...</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>信息中显示libavcodec与libavfilter库的相关版本。</p>
+</blockquote>
+<p>安装成功ffmpeg之后，就有了libavcodec与libavfilter库支持，此时需要重新编译nginx，这样才能把这两个库编译进nginx，即重新执行nginx的configure-&gt;make-&gt;make install三个步骤。</p>
+<p>在<code>./configure ……</code>配置过程中，如果nginx能够正确找到libavcodec与libavfilter库，则会显示如下信息片段：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">……</span><br><span class="line">checking for libavcodec ... found</span><br><span class="line">checking for libswscale ... found</span><br><span class="line">checking for libavfilter ... found</span><br><span class="line">……</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>配置成功后，进行编译<code>make</code>，最后安装<code>make install</code>，至此已经成功在nginx中添加了libavcodec与libavfilter库支持。</p>
+<blockquote>
+<p>在安装之前如果nginx已经在运行中，需要先<code>./nginx -s stop</code>，否则可能出现文件占用的问题。</p>
+</blockquote>
+<h5 id="2-3-3-内容加密"><a href="#2-3-3-内容加密" class="headerlink" title="2.3.3 内容加密"></a>2.3.3 内容加密</h5><p>通过搭建点播&#x2F;直播服务器并对外提供付费内容服务是大多数视频平台的核心业务，为了防止付费内容被复制转发，都会通过一些加密技术来对内容进行保护。<br>  下面使用一个上游php服务器对当前的点播服务提供秘钥，以此来对点播内容进行加密保护，提供加密服务的服务器需要能够处理php脚本，可以参考使用nginx服务器搭建php环境。上游的php服务主要有两个功能，对外提供加密秘钥以及解密秘钥。<br>2.3.3.1 加密秘钥</p>
+<p>HLS中的加密秘钥是以json格式表示的：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[</span><br><span class="line">    &#123;</span><br><span class="line">        &quot;key&quot;: &quot;GzoNU9Dfwc//Iq3/zbzMUw==&quot;,</span><br><span class="line">        &quot;key_id&quot;: &quot;GzoNU9Dfwc//Iq3/zbzMUw==&quot;</span><br><span class="line">    &#125;</span><br><span class="line">]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>对HLS而言，key是必须的，key_id并没有意义，但是模块由于兼容问题所以需要key_id，因为别的协议（DASH）需要它，而iv是可选的，表示偏移量。</p>
+</blockquote>
+<p>在php服务器上配置的加密秘钥请求地址为：<a target="_blank" rel="noopener" href="http://192.168.192.182/base64key/base64key.php%EF%BC%8C%E8%84%9A%E6%9C%AC%E6%96%87%E4%BB%B6base64key.php%E7%9A%84%E5%AE%9E%E9%99%85%E5%86%85%E5%AE%B9%E5%A6%82%E4%B8%8B%EF%BC%9A%EF%BC%88%E4%B8%BA%E4%BA%86%E6%96%B9%E4%BE%BF%EF%BC%8C%E7%9B%B4%E6%8E%A5%E4%BD%BF%E7%94%A8%E6%98%8E%E6%96%87%EF%BC%89">http://192.168.192.182/base64key/base64key.php，脚本文件base64key.php的实际内容如下：（为了方便，直接使用明文）</a></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$str = &#x27;[&#123;&quot;key&quot;: &quot;GzoNU9Dfwc//Iq3/zbzMUw==&quot;,&quot;key_id&quot;: &quot;GzoNU9Dfwc//Iq3/zbzMUw==&quot;&#125;]&#x27;;</span><br><span class="line">echo $str;</span><br><span class="line">?&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>确保对加密秘钥请求地址的访问能够得到加密秘钥即可。</p>
+<p>2.3.3.2 解密秘钥</p>
+<p>HLS的解密秘钥是加密秘钥经过简单的base64解码之后的字符串，无可读性，经常是一串乱码：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">: S�����&quot;��ͼ�S</span><br></pre></td></tr></table></figure>
+
+<p>在php服务器上配置的解密秘钥请求地址为：<a target="_blank" rel="noopener" href="http://192.168.192.182/decodeKey.php%EF%BC%8C%E8%84%9A%E6%9C%AC%E6%96%87%E4%BB%B6decodeKey.php%E7%9A%84%E5%AE%9E%E9%99%85%E5%86%85%E5%AE%B9%E5%A6%82%E4%B8%8B%EF%BC%9A">http://192.168.192.182/decodeKey.php，脚本文件decodeKey.php的实际内容如下：</a></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">header(&#x27;Access-Control-Allow-Origin:*&#x27;); // 运行跨域</span><br><span class="line">header(&#x27;Access-Control-Allow-Methods:OPTIONS, GET, POST&#x27;); // 允许option，get，post请求</span><br><span class="line">header(&#x27;Access-Control-Allow-Headers:x-requested-with&#x27;); // 允许x-requested-with请求头</span><br><span class="line"></span><br><span class="line">$str = &#x27;GzoNU9Dfwc//Iq3/zbzMUw==&#x27;;</span><br><span class="line">echo base64_decode($str);</span><br><span class="line">?&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>2.3.3.3 location配置</p>
+<p>配置完上游的php秘钥服务器之后，需要在nginx的配置中添加加密的方式、加密秘钥地址、解密秘钥地址，并启用加密。</p>
+<blockquote>
+<p>这里的加密使用DRM方式，需要分别配置加密地址和解密地址；如果使用seed直接在本机生成秘钥的方式，会自动生成加密和解密秘钥。</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># hls直播，local模式 + DRM加密</span><br><span class="line"># http://192.168.192.128/vod/example.mp4/index.m3u8</span><br><span class="line">location /vod &#123;</span><br><span class="line">    vod hls; # 开启vod模块</span><br><span class="line">    vod_mode local; # 访问模式指定为local</span><br><span class="line">    vod_align_segments_to_key_frames on; # 每个切片以关键帧开头</span><br><span class="line">    vod_manifest_segment_durations_mode accurate; # 精确显示每个切片的长度</span><br><span class="line"></span><br><span class="line">    # 直接使用种子生成key，进行加密（加密方式一）</span><br><span class="line">    # vod_hls_encryption_method aes-128; # 加密算法</span><br><span class="line">    # vod_secret_key &quot;1234567890123456&quot;; # 用于生成加密密钥的种子seed，自动生成加密秘钥和解密秘钥</span><br><span class="line"></span><br><span class="line">    # 使用drm加密（加密方式二）</span><br><span class="line">    vod_hls_encryption_method aes-128; # 加密算法</span><br><span class="line">    vod_drm_enabled on; # 使用drm方式提供key</span><br><span class="line">    vod_drm_upstream_location /base64key; # 上游服务器地址</span><br><span class="line">    vod_drm_request_uri /base64key.php; # 获取加密密钥，base64编码后的可读json格式</span><br><span class="line">    vod_hls_encryption_key_uri http://192.168.192.182/decodeKey.php; # 获取解密密钥，无base64编码的乱码格式</span><br><span class="line"></span><br><span class="line">    add_header Access-Control-Allow-Headers &#x27;*&#x27;;</span><br><span class="line">    add_header Access-Control-Expose-Headers &#x27;Server,range,Content-Length,Content-Range&#x27;;</span><br><span class="line">    add_header Access-Control-Allow-Methods &#x27;GET, HEAD, OPTIONS&#x27;;</span><br><span class="line">    add_header Access-Control-Allow-Origin &#x27;*&#x27;;</span><br><span class="line"></span><br><span class="line">    alias /media;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># 上游服务器配置，存储drm信息</span><br><span class="line">location /base64key &#123; # location路径需要与服务器的文件夹路径一致</span><br><span class="line">    #proxy_set_header Host $host;</span><br><span class="line">    #proxy_set_header X-Real-IP $remote_addr;</span><br><span class="line">    #proxy_set_header X-Forwarder-For $proxy_add_x_forwarded_for;</span><br><span class="line">    proxy_pass http://192.168.192.182;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>在播放端不需要进行额外的更改，即可正常播放视频，但此时的视频在传输过程中已是加密状态。</p>
+<blockquote>
+<p>播放的媒体内容经过DRM，虽然示例中在播放上看起来并没有什么不同的感觉，但下载保存的内容切片如果不经过DRM的验证则是无法播放的。</p>
+</blockquote>
+<h5 id="2-3-4-完整的nginx-conf文件"><a href="#2-3-4-完整的nginx-conf文件" class="headerlink" title="2.3.4 完整的nginx.conf文件"></a>2.3.4 完整的nginx.conf文件</h5><p>nginx的完整配置文件，<code>/nginx安装路径/conf/nginx.conf</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#user root;</span><br><span class="line">worker_processes  1;</span><br><span class="line"></span><br><span class="line">events &#123;</span><br><span class="line">    worker_connections  1024;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">http &#123;</span><br><span class="line">    include       mime.types;</span><br><span class="line">    default_type  application/octet-stream;</span><br><span class="line"></span><br><span class="line">    sendfile        on;</span><br><span class="line"></span><br><span class="line">    keepalive_timeout  65;</span><br><span class="line"></span><br><span class="line">    server &#123;</span><br><span class="line">        listen       80;</span><br><span class="line">        server_name  localhost;</span><br><span class="line"></span><br><span class="line">        autoindex on;</span><br><span class="line"></span><br><span class="line">        location /vod &#123;</span><br><span class="line">            vod hls; # 开启vod模块</span><br><span class="line">            vod_mode local; # 访问模式指定为local</span><br><span class="line">            </span><br><span class="line">            vod_align_segments_to_key_frames on; # 每个切片以关键帧开头</span><br><span class="line">            vod_manifest_segment_durations_mode accurate; # 精确显示每个切片的长度</span><br><span class="line"></span><br><span class="line">            # 直接使用种子生成key，进行加密（加密方式一）</span><br><span class="line">            # vod_hls_encryption_method aes-128; # 加密算法</span><br><span class="line">            # vod_secret_key &quot;1234567890123456&quot;; # 用于生成加密密钥的种子seed，自动生成加密秘钥和解密秘钥</span><br><span class="line"></span><br><span class="line">            # 使用drm加密（加密方式二）</span><br><span class="line">            vod_hls_encryption_method aes-128; # 加密算法</span><br><span class="line">            vod_drm_enabled on; # 使用drm方式提供key</span><br><span class="line">            vod_drm_upstream_location /base64key; # 上游服务器地址</span><br><span class="line">            vod_drm_request_uri /base64key.php; # 获取加密密钥，base64编码后的可读json格式</span><br><span class="line">            vod_hls_encryption_key_uri http://192.168.192.182/decodeKey.php; # 获取解密密钥，无base64编码的乱码格式</span><br><span class="line"></span><br><span class="line">            add_header Access-Control-Allow-Headers &#x27;*&#x27;;</span><br><span class="line">            add_header Access-Control-Expose-Headers &#x27;Server,range,Content-Length,Content-Range&#x27;;</span><br><span class="line">            add_header Access-Control-Allow-Methods &#x27;GET, HEAD, OPTIONS&#x27;;</span><br><span class="line">            add_header Access-Control-Allow-Origin &#x27;*&#x27;;</span><br><span class="line"></span><br><span class="line">            alias /media;</span><br><span class="line">        &#125;</span><br><span class="line">        # 上游服务器配置，存储drm信息</span><br><span class="line">        location /base64key &#123; # location路径需要与服务器的文件夹路径一致</span><br><span class="line">            #proxy_set_header Host $host;</span><br><span class="line">            #proxy_set_header X-Real-IP $remote_addr;</span><br><span class="line">            #proxy_set_header X-Forwarder-For $proxy_add_x_forwarded_for;</span><br><span class="line">            </span><br><span class="line">            proxy_pass http://192.168.192.182;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        location /vod_json &#123;</span><br><span class="line">            vod hls;</span><br><span class="line">            vod_mode mapped;</span><br><span class="line"></span><br><span class="line">            vod_align_segments_to_key_frames on; # 每个切片以关键帧开头</span><br><span class="line">            </span><br><span class="line">            add_header Access-Control-Allow-Headers &#x27;*&#x27;;</span><br><span class="line">            add_header Access-Control-Expose-Headers &#x27;Server,range,Content-Length,Content-Range&#x27;;</span><br><span class="line">            add_header Access-Control-Allow-Methods &#x27;GET, HEAD, OPTIONS&#x27;;</span><br><span class="line">            add_header Access-Control-Allow-Origin &#x27;*&#x27;;</span><br><span class="line"></span><br><span class="line">            alias /media/cjcwgl;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        location /data &#123;</span><br><span class="line">            alias /media;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        location / &#123;</span><br><span class="line">            root   html;</span><br><span class="line">            index  index.html index.htm;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        #error_page  404              /404.html;</span><br><span class="line"></span><br><span class="line">        # redirect server error pages to the static page /50x.html</span><br><span class="line">        #</span><br><span class="line">        error_page   500 502 503 504  /50x.html;</span><br><span class="line">        location = /50x.html &#123;</span><br><span class="line">            root   html;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-关于nginx-vod-module模块"><a href="#3-关于nginx-vod-module模块" class="headerlink" title="3 关于nginx-vod-module模块"></a>3 关于nginx-vod-module模块</h3><p>  模块里还有很多功能，比如加密传输、数据缓存、代理上游服务等，但文档里只提供了几个基本的例子，遇到问题的话可以在github的<a target="_blank" rel="noopener" href="https://github.com/kaltura/nginx-vod-module/issues">issues</a><a target="_blank" rel="noopener" href="https://blog.csdn.net/SeeDoubleU/article/details/121805174#fn3">3</a>里寻找相应的问题。</p>
+<p>nginx安装流程: <a target="_blank" rel="noopener" href="https://blog.csdn.net/SeeDoubleU/article/details/121727292">https://blog.csdn.net/SeeDoubleU/article/details/121727292</a> ↩︎</p>
+<p>nginx-vod-module文档: <a target="_blank" rel="noopener" href="https://github.com/kaltura/nginx-vod-module/blob/master/README.md">https://github.com/kaltura/nginx-vod-module/blob/master/README.md</a> ↩︎</p>
+<p>github issues: <a target="_blank" rel="noopener" href="https://github.com/kaltura/nginx-vod-module/issues">https://github.com/kaltura/nginx-vod-module/issues</a> ↩︎</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/ffmpeg/" rel="tag"># ffmpeg</a>
+              <a href="/tags/nginx/" rel="tag"># nginx</a>
+              <a href="/tags/%E6%B5%81%E5%AA%92%E4%BD%93%E7%82%B9%E6%92%AD/" rel="tag"># 流媒体点播</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/04/24/scp%E5%91%BD%E4%BB%A4/" rel="prev" title="Scp命令">
+      <i class="fa fa-chevron-left"></i> Scp命令
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2024/05/01/pip-%E6%9B%B4%E6%8D%A2%E6%BA%90/" rel="next" title="pip-更换源">
+      pip-更换源 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8nginx%E6%90%AD%E5%BB%BA%E9%9F%B3%E8%A7%86%E9%A2%91%E7%82%B9%E6%92%AD%E6%9C%8D%E5%8A%A1%E2%80%94%E2%80%94%E5%9F%BA%E4%BA%8EHLS%E5%8D%8F%E8%AE%AE"><span class="nav-number">1.</span> <span class="nav-text">使用nginx搭建音视频点播服务——基于HLS协议</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E6%90%AD%E5%BB%BA%E7%82%B9%E6%92%AD%E6%9C%8D%E5%8A%A1%EF%BC%88%E9%9F%B3%E8%A7%86%E9%A2%91%E5%90%8C%E7%90%86%EF%BC%89%EF%BC%9A"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">2 搭建点播服务（音视频同理）：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-nginx%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">2.1 nginx服务器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-nginx-vod-module%E6%A8%A1%E5%9D%97"><span class="nav-number">1.0.0.3.</span> <span class="nav-text">2.2 nginx-vod-module模块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-%E9%85%8D%E7%BD%AEnginx%E7%82%B9%E6%92%AD%E6%9C%8D%E5%8A%A1"><span class="nav-number">1.0.0.4.</span> <span class="nav-text">2.3 配置nginx点播服务</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-1-local%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.0.0.4.1.</span> <span class="nav-text">2.3.1 local模式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-2-mapped%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.0.0.4.2.</span> <span class="nav-text">2.3.2 mapped模式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-3-%E5%86%85%E5%AE%B9%E5%8A%A0%E5%AF%86"><span class="nav-number">1.0.0.4.3.</span> <span class="nav-text">2.3.3 内容加密</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-4-%E5%AE%8C%E6%95%B4%E7%9A%84nginx-conf%E6%96%87%E4%BB%B6"><span class="nav-number">1.0.0.4.4.</span> <span class="nav-text">2.3.4 完整的nginx.conf文件</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%85%B3%E4%BA%8Enginx-vod-module%E6%A8%A1%E5%9D%97"><span class="nav-number">1.0.1.</span> <span class="nav-text">3 关于nginx-vod-module模块</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Kanoc Ge"
+      src="/images/452794135.jpg">
+  <p class="site-author-name" itemprop="name">Kanoc Ge</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">204</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">104</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">157</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kanoc Ge</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  <!-- 多级目录 -->
+  <script type="text/javascript" src="/js/jquery.min.js"></script>
+  <script type="text/javascript" src="/js/category.js"></script>
+</body>
+</html>

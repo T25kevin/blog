@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <style>
+    .category-all-page .category-list-item {
+      margin: 15px 10px 10px 10px;
+      list-style: none;
+      font-size: 20px;
+      }
+      .category-all-page .category-list-child {
+        list-style: none;
+        }
+  </style>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"kanoc.gitee.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="OpenVPN Access Server 安装与配置、使用：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OpenVPN-Access-Server-安装与配置、使用">
+<meta property="og:url" content="https://kanoc.gitee.io/2024/06/24/OpenVPN-Access-Server-%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE%E3%80%81%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="OpenVPN Access Server 安装与配置、使用：">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2024/06/25/xEVmAwib8N2cutl.png">
+<meta property="og:image" content="https://s2.loli.net/2024/06/25/aKCBEwGd9eOPzNI.png">
+<meta property="og:image" content="https://s2.loli.net/2024/06/25/EarR84ZKyGiWNHk.png">
+<meta property="og:image" content="https://s2.loli.net/2024/06/25/mk2PACIst5QM31p.png">
+<meta property="og:image" content="https://s2.loli.net/2024/06/25/5fJHuCLNoMPiqsD.png">
+<meta property="og:image" content="https://s2.loli.net/2024/06/25/wlko6WFguryPtxN.png">
+<meta property="article:published_time" content="2024-06-24T12:55:47.000Z">
+<meta property="article:modified_time" content="2025-06-09T13:07:21.555Z">
+<meta property="article:author" content="Kanoc Ge">
+<meta property="article:tag" content="代理">
+<meta property="article:tag" content="梯子">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2024/06/25/xEVmAwib8N2cutl.png">
+
+<link rel="canonical" href="https://kanoc.gitee.io/2024/06/24/OpenVPN-Access-Server-%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE%E3%80%81%E4%BD%BF%E7%94%A8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>OpenVPN-Access-Server-安装与配置、使用 | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-首页-|-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页 | home</a>
+
+  </li>
+        <li class="menu-item menu-item-分类-|-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类 | categories</a>
+
+  </li>
+        <li class="menu-item menu-item-标签-|-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签 | tags</a>
+
+  </li>
+        <li class="menu-item menu-item-归档-|-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档 | archives</a>
+
+  </li>
+        <li class="menu-item menu-item-关于-|-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于 | about</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2024/06/24/OpenVPN-Access-Server-%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE%E3%80%81%E4%BD%BF%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/452794135.jpg">
+      <meta itemprop="name" content="Kanoc Ge">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          OpenVPN-Access-Server-安装与配置、使用
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-06-24 20:55:47" itemprop="dateCreated datePublished" datetime="2024-06-24T20:55:47+08:00">2024-06-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-06-09 21:07:21" itemprop="dateModified" datetime="2025-06-09T21:07:21+08:00">2025-06-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/A8-%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">_A8-工具</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/A8-%E5%B7%A5%E5%85%B7/%E6%A2%AF%E5%AD%90/" itemprop="url" rel="index"><span itemprop="name">梯子</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="OpenVPN-Access-Server-安装与配置、使用："><a href="#OpenVPN-Access-Server-安装与配置、使用：" class="headerlink" title="OpenVPN Access Server 安装与配置、使用："></a><font color=#00b2c2 size=5 face=宋体><strong>OpenVPN Access Server 安装与配置、使用：</strong></font></h2><span id="more"></span>
+
+<h3 id="官方安装教程：传送门"><a href="#官方安装教程：传送门" class="headerlink" title="官方安装教程：传送门"></a><font color=red size=4 face=宋体><strong>官方安装教程：<a target="_blank" rel="noopener" href="https://as-portal.openvpn.com/instructions/cloud-image">传送门</a></strong></font></h3><p><font color=red size=4 face=宋体><strong>破解文件：<a target="_blank" rel="noopener" href="https://bd.bcebos.com/v1/xly-icafe/pyovpn-2.0-py3.6-20240625053307-h7bdew.egg">baidu下载</a>、<a target="_blank" rel="noopener" href="https://wwwqe.lanzoul.com/ipk2K22n558b">蓝奏云下载</a></strong></font>  (下载完成后更名为：<code>pyovpn-2.0-py3.6.egg</code>)</p>
+<p><img src="https://s2.loli.net/2024/06/25/xEVmAwib8N2cutl.png" alt="image-20240625033359487"></p>
+<h3 id="Centos7-安装："><a href="#Centos7-安装：" class="headerlink" title="Centos7 安装："></a><font color=#f26522 size=4 face=宋体><strong>Centos7 安装：</strong></font></h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 要安装 Access Server，请使用官方存储库。以 root 权限登录 Linux 系统，然后输入以下命令以添加存储库并安装软件包“openvpn-as”。客户端捆绑包将自动安装。</span></span><br><span class="line"></span><br><span class="line">yum -y install centos-release-scl-rh</span><br><span class="line">yum -y install https://<span class="keyword">as</span>-repository.openvpn.net/<span class="keyword">as</span>-repo-centos7.rpm</span><br><span class="line"></span><br><span class="line"><span class="comment"># yum 查看软件包支持的所有版本</span></span><br><span class="line">yum <span class="built_in">list</span> openvpn-<span class="keyword">as</span> --showduplicates | sort -r   <span class="comment"># &lt;openvpn-as&gt; 为软件版本</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装指定版本 openvpn-as</span></span><br><span class="line"><span class="comment"># yum -y install openvpn-as   # 这是直接安装最新版本的 openvpn Access Server 但是测试破解的软件为 2.11.2 python3.6</span></span><br><span class="line">yum install openvpn-<span class="keyword">as</span>-<span class="number">2.11</span><span class="number">.2_72</span>c0e923-CentOS7      <span class="comment"># 安装软件为 &lt;openvpn-as.x86_64&gt; 去掉 &lt;.x86_64&gt; 加上 &lt;2.11.2_72c0e923-CentOS7&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="ubuntu-24-x86-安装："><a href="#ubuntu-24-x86-安装：" class="headerlink" title="ubuntu 24 x86 安装："></a><font color=#f26522 size=4 face=宋体><strong>ubuntu 24 x86 安装：</strong></font></h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 要安装 Access Server，请使用官方存储库。以 root 权限登录 Linux 系统，然后输入以下命令以添加存储库并安装软件包“openvpn-as”。客户端捆绑包将自动安装。</span></span><br><span class="line"></span><br><span class="line">apt update &amp;&amp; apt -y install ca-certificates wget net-tools gnupg</span><br><span class="line"></span><br><span class="line">wget https://<span class="keyword">as</span>-repository.openvpn.net/<span class="keyword">as</span>-repo-public.asc -qO /etc/apt/trusted.gpg.d/<span class="keyword">as</span>-repository.asc</span><br><span class="line"></span><br><span class="line">echo <span class="string">&quot;deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/as-repository.asc] http://as-repository.openvpn.net/as/debian noble main&quot;</span>&gt;/etc/apt/sources.<span class="built_in">list</span>.d/openvpn-<span class="keyword">as</span>-repo.<span class="built_in">list</span></span><br><span class="line">apt update &amp;&amp; apt -y install openvpn-<span class="keyword">as</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Debian-12-安装："><a href="#Debian-12-安装：" class="headerlink" title="Debian 12 安装："></a><font color=#f26522 size=4 face=宋体><strong>Debian 12 安装：</strong></font></h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 要安装 Access Server，请使用官方存储库。以 root 权限登录 Linux 系统，然后输入以下命令以添加存储库并安装软件包“openvpn-as”。客户端捆绑包将自动安装。</span></span><br><span class="line"></span><br><span class="line">apt update &amp;&amp; apt -y install ca-certificates wget net-tools gnupg</span><br><span class="line"></span><br><span class="line">wget https://<span class="keyword">as</span>-repository.openvpn.net/<span class="keyword">as</span>-repo-public.asc -qO /etc/apt/trusted.gpg.d/<span class="keyword">as</span>-repository.asc</span><br><span class="line"></span><br><span class="line">echo <span class="string">&quot;deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/as-repository.asc] http://as-repository.openvpn.net/as/debian bookworm main&quot;</span>&gt;/etc/apt/sources.<span class="built_in">list</span>.d/openvpn-<span class="keyword">as</span>-repo.<span class="built_in">list</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看 openvpn-as 可安装版本</span></span><br><span class="line">apt <span class="built_in">list</span> -a openvpn-<span class="keyword">as</span></span><br><span class="line"><span class="comment"># 或者 </span></span><br><span class="line">apt-cache madison openvpn-<span class="keyword">as</span></span><br><span class="line"></span><br><span class="line">apt update &amp;&amp; apt -y install openvpn-<span class="keyword">as</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Red-Hat-9-安装："><a href="#Red-Hat-9-安装：" class="headerlink" title="Red Hat 9 安装："></a><font color=#f26522 size=4 face=宋体><strong>Red Hat 9 安装：</strong></font></h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 要安装 Access Server，请使用官方存储库。以 root 权限登录 Linux 系统，然后输入以下命令以添加存储库并安装软件包“openvpn-as”。客户端捆绑包将自动安装。</span></span><br><span class="line"></span><br><span class="line">yum -y remove openvpn-<span class="keyword">as</span>-yum</span><br><span class="line">yum -y install https://<span class="keyword">as</span>-repository.openvpn.net/<span class="keyword">as</span>-repo-rhel9.rpm</span><br><span class="line">yum -y install openvpn-<span class="keyword">as</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="在-Docker-上安装："><a href="#在-Docker-上安装：" class="headerlink" title="在 Docker 上安装："></a><font color=#f26522 size=4 face=宋体><strong>在 Docker 上安装：</strong></font></h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 1、拉取docker镜像</span></span><br><span class="line">docker pull openvpn/openvpn-<span class="keyword">as</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2、运行镜像</span></span><br><span class="line"><span class="comment"># 将 &lt;path to data&gt; 替换为用于存储 Access Server 配置文件的首选文件路径。</span></span><br><span class="line">docker run -d \</span><br><span class="line">  --name=openvpn-<span class="keyword">as</span> --cap-add=NET_ADMIN \</span><br><span class="line">  -p <span class="number">943</span>:<span class="number">943</span> -p <span class="number">443</span>:<span class="number">443</span> -p <span class="number">1194</span>:<span class="number">1194</span>/udp \</span><br><span class="line">  -v &lt;path to data&gt;:/openvpn \</span><br><span class="line">  openvpn/openvpn-<span class="keyword">as</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 3、打开 Web 界面</span></span><br><span class="line"><span class="comment"># 您可以在 https://HOST-IP:943/admin</span></span><br><span class="line"><span class="comment"># 中找到 Web 界面</span></span><br><span class="line"><span class="comment"># 用户名是 openvpn</span></span><br><span class="line"><span class="comment"># 您可以使用以下命令在 docker 日志中找到自动生成的密码：</span></span><br><span class="line">docker logs -f openvpn-<span class="keyword">as</span></span><br></pre></td></tr></table></figure>
+
+<p><font color=red size=4 face=宋体><strong>备注：如果以上都无法满足你，请根据传送门 跳转自官方教程进行安装</strong></font></p>
+<h4 id="安装完成-会显示类似如下的内容："><a href="#安装完成-会显示类似如下的内容：" class="headerlink" title="安装完成 会显示类似如下的内容："></a>安装完成 会显示类似如下的内容：</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">+++++++++++++++++++++++++++++++++++++++++++++++</span><br><span class="line">Access Server 已成功安装在 /usr/local/openvpn_as</span><br><span class="line">配置日志文件已写入 /usr/local/openvpn_as/init.log</span><br><span class="line"></span><br><span class="line">Access Server Web UI 可在此处获得：</span><br><span class="line">管理 UI：https://192.168.102.130:943/admin</span><br><span class="line">客户端 UI：https://192.168.102.130:943</span><br><span class="line">以“openvpn”身份登录，使用“RR4ImyhwbFFq”继续</span><br><span class="line">（可以在管理 UI 上更改密码）</span><br><span class="line">+++++++++++++++++++++++++++++++++++++++++++++++</span><br></pre></td></tr></table></figure>
+
+<p><font color=#00b2c2 size=5 face=宋体><strong>开放端口：</strong></font></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">80 tcp    # 网站访问端口</span><br><span class="line">443 tcp   # 网站ssl访问端口(openvpn 也会用到)</span><br><span class="line">943 tcp   # openvpn access server  网页访问端口</span><br><span class="line">945 tcp	  # openvpn access server  网页访问端口</span><br><span class="line">1194 udp	# openvpn access server  流量转发端口</span><br></pre></td></tr></table></figure>
+
+<h4 id="支持的破解软件版本-openvpn-Access-Server-2-11-2"><a href="#支持的破解软件版本-openvpn-Access-Server-2-11-2" class="headerlink" title="支持的破解软件版本 openvpn Access Server 2.11.2"></a>支持的破解软件版本 openvpn Access Server 2.11.2</h4><p><img src="https://s2.loli.net/2024/06/25/aKCBEwGd9eOPzNI.png" alt="image-20240625051029802"></p>
+<h4 id="设置无密码连接openvpn"><a href="#设置无密码连接openvpn" class="headerlink" title="设置无密码连接openvpn"></a>设置无密码连接openvpn</h4><p><img src="https://s2.loli.net/2024/06/25/EarR84ZKyGiWNHk.png" alt="image-20240624223442179"></p>
+<p><img src="https://s2.loli.net/2024/06/25/mk2PACIst5QM31p.png" alt="image-20240624223747805"></p>
+<p><img src="https://s2.loli.net/2024/06/25/5fJHuCLNoMPiqsD.png" alt="image-20240624224101676"></p>
+<p><img src="https://s2.loli.net/2024/06/25/wlko6WFguryPtxN.png" alt="image-20240624224511569"></p>
+<p><font color=#00b2c2 size=5 face=宋体><strong>相关命令：</strong></font></p>
+<p>下面附2.10.3及以上版本密码重置教程，这个和以前不一样，有默认密码了。<br>重置默认 openvpn 帐户管理权限</p>
+<p><code>注意</code>：如果您当前没有使用最新版本的 Access Server 2.10.3，我们建议您阅读旧版本的说明。</p>
+<p>管理帐户，默认称为openvpn，可以是操作系统中的引导帐户，也可以是 Access Server 本身的内部本地身份验证系统中的管理帐户。我们建议使用本地帐户，这是自 Access Server 2.10 版以来的默认帐户。</p>
+<p>这些是常见的管理用户登录问题：</p>
+<p>您丢失了用户名和&#x2F;或密码。<br>该帐户与已失效的外部身份验证系统相关联。<br>该帐户上设置了拒绝登录标志。<br>有 MFA 要求，您丢失了密钥。<br>该帐户在多次登录失败后（暂时）被锁定。<br>您可以在 Access Server 的命令行上以 root 用户身份执行以下命令，以创建或重置用户名为openvpn的本地管理员帐户。它考虑了上述所有情况，并应为您提供一个本地openvpn管理帐户，您可以使用该帐户登录到 Admin Web UI。</p>
+<p><code>使用指定密码创建/重置openvpn管理本地帐户：</code></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/local/openvpn_as/scripts </span><br><span class="line">./sacli --user <span class="string">&quot;openvpn&quot;</span> --key <span class="string">&quot;prop_superuser&quot;</span> --value <span class="string">&quot;true&quot;</span> UserPropPut </span><br><span class="line">./sacli --user <span class="string">&quot;openvpn&quot;</span> --key <span class="string">&quot;user_auth_type&quot;</span> --value <span class="string">&quot; local&quot;</span> UserPropPut </span><br><span class="line">./sacli --user <span class="string">&quot;openvpn&quot;</span> --new_pass=&lt;PASSWORD&gt; SetLocalPassword </span><br><span class="line">./sacli start</span><br></pre></td></tr></table></figure>
+<p><code>如果帐户需要，请禁用拒绝登录标志并重置 MFA：</code></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">./sacli --user <span class="string">&quot;openvpn&quot;</span> --key <span class="string">&quot;prop_deny&quot;</span> --value <span class="string">&quot;false&quot;</span> UserPropPut </span><br><span class="line">./sacli --user <span class="string">&quot;openvpn&quot;</span> --key <span class="string">&quot;prop_google_auth&quot;</span> UserPropDel </span><br><span class="line">./sacli --user <span class="string">&quot;openvpn&quot;</span> --lock 0 GoogleAuthRegen </span><br><span class="line">./sacli start</span><br></pre></td></tr></table></figure>
+
+<p><code>重置密码锁定策略以防万一它被触发：</code></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">./sacli --key <span class="string">&quot;vpn.server.lockout_policy.reset_time&quot;</span> --value <span class="string">&quot;1&quot;</span> ConfigPut </span><br><span class="line">./sacli start </span><br><span class="line"><span class="built_in">sleep</span> 2 </span><br><span class="line">./sacli --key <span class="string">&quot;vpn.server.lockout_policy.reset_time&quot;</span> ConfigDel </span><br><span class="line">./sacli start</span><br></pre></td></tr></table></figure>
+
+<p>尝试使用openvpn和您指定的密码再次登录到 Admin Web UI 。<br>关于单用户多并发登陆的问题，我在WEB页面打开了多会话，但是没有用，我在官方看到的方案，但是没有成功，以下是官方回复：</p>
+<p>配置数据库中每个用户多个会话设置的实际配置参数是“vpn.server.duplicate_cn”。</p>
+<p><code>您可以在命令行上以 root 用户身份手动设置它；</code></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/usr/local/openvpn_as/scripts/sacli --key <span class="string">&quot;vpn.server.duplicate_cn&quot;</span> --value <span class="string">&quot;true&quot;</span> ConfigPut</span><br><span class="line">/usr/local/openvpn_as/scripts/sacli start</span><br></pre></td></tr></table></figure>
+
+<p><code>可以用false关闭，true开启它在。如果你删除它，它会变成默认值，我相信这是真的；</code></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/usr/local/openvpn_as/scripts/sacli --key <span class="string">&quot;vpn.server.duplicate_cn&quot;</span> ConfigDel</span><br><span class="line">/usr/local/openvpn_as/scripts/sacli start</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E4%BB%A3%E7%90%86/" rel="tag"># 代理</a>
+              <a href="/tags/%E6%A2%AF%E5%AD%90/" rel="tag"># 梯子</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/06/11/%E5%9C%A8CentOS-7%E4%B8%8A%E5%AE%89%E8%A3%85Go-1-22/" rel="prev" title="在CentOS-7上安装Go-1.22">
+      <i class="fa fa-chevron-left"></i> 在CentOS-7上安装Go-1.22
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2024/06/26/Django-ORM-%E5%AD%98%E5%82%A8JSON%E6%95%B0%E6%8D%AE/" rel="next" title="Django-ORM-存储JSON数据">
+      Django-ORM-存储JSON数据 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#OpenVPN-Access-Server-%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE%E3%80%81%E4%BD%BF%E7%94%A8%EF%BC%9A"><span class="nav-number">1.</span> <span class="nav-text">OpenVPN Access Server 安装与配置、使用：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%98%E6%96%B9%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B%EF%BC%9A%E4%BC%A0%E9%80%81%E9%97%A8"><span class="nav-number">1.1.</span> <span class="nav-text">官方安装教程：传送门</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Centos7-%E5%AE%89%E8%A3%85%EF%BC%9A"><span class="nav-number">1.2.</span> <span class="nav-text">Centos7 安装：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ubuntu-24-x86-%E5%AE%89%E8%A3%85%EF%BC%9A"><span class="nav-number">1.3.</span> <span class="nav-text">ubuntu 24 x86 安装：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Debian-12-%E5%AE%89%E8%A3%85%EF%BC%9A"><span class="nav-number">1.4.</span> <span class="nav-text">Debian 12 安装：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Red-Hat-9-%E5%AE%89%E8%A3%85%EF%BC%9A"><span class="nav-number">1.5.</span> <span class="nav-text">Red Hat 9 安装：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8-Docker-%E4%B8%8A%E5%AE%89%E8%A3%85%EF%BC%9A"><span class="nav-number">1.6.</span> <span class="nav-text">在 Docker 上安装：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E5%AE%8C%E6%88%90-%E4%BC%9A%E6%98%BE%E7%A4%BA%E7%B1%BB%E4%BC%BC%E5%A6%82%E4%B8%8B%E7%9A%84%E5%86%85%E5%AE%B9%EF%BC%9A"><span class="nav-number">1.6.1.</span> <span class="nav-text">安装完成 会显示类似如下的内容：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%94%AF%E6%8C%81%E7%9A%84%E7%A0%B4%E8%A7%A3%E8%BD%AF%E4%BB%B6%E7%89%88%E6%9C%AC-openvpn-Access-Server-2-11-2"><span class="nav-number">1.6.2.</span> <span class="nav-text">支持的破解软件版本 openvpn Access Server 2.11.2</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E6%97%A0%E5%AF%86%E7%A0%81%E8%BF%9E%E6%8E%A5openvpn"><span class="nav-number">1.6.3.</span> <span class="nav-text">设置无密码连接openvpn</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Kanoc Ge"
+      src="/images/452794135.jpg">
+  <p class="site-author-name" itemprop="name">Kanoc Ge</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">204</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">104</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">157</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kanoc Ge</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  <!-- 多级目录 -->
+  <script type="text/javascript" src="/js/jquery.min.js"></script>
+  <script type="text/javascript" src="/js/category.js"></script>
+</body>
+</html>
