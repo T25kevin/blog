@@ -6,7 +6,7 @@
   <link href="https://kanoc.gitee.io/atom.xml" rel="self"/>
   
   <link href="https://kanoc.gitee.io/"/>
-  <updated>2025-06-09T10:06:55.744Z</updated>
+  <updated>2025-06-09T03:57:07.693Z</updated>
   <id>https://kanoc.gitee.io/</id>
   
   <author>
@@ -15,6 +15,62 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>破解cloudflare拦截神器_puppeteer</title>
+    <link href="https://kanoc.gitee.io/2025/02/25/%E7%A0%B4%E8%A7%A3cloudflare%E6%8B%A6%E6%88%AA%E7%A5%9E%E5%99%A8-puppeteer/"/>
+    <id>https://kanoc.gitee.io/2025/02/25/%E7%A0%B4%E8%A7%A3cloudflare%E6%8B%A6%E6%88%AA%E7%A5%9E%E5%99%A8-puppeteer/</id>
+    <published>2025-02-24T18:52:13.000Z</published>
+    <updated>2025-06-09T03:57:07.693Z</updated>
+    
+    <content type="html"><![CDATA[<p><font color=#00b2c2 size=5 face=宋体><strong>破解cloudflare拦截神器_puppeteer</strong></font></p><span id="more"></span><h3 id="安装番外：安装node-js环境"><a href="#安装番外：安装node-js环境" class="headerlink" title="安装番外：安装node.js环境"></a>安装番外：安装node.js环境</h3><h4 id="安装nvm管理器"><a href="#安装nvm管理器" class="headerlink" title="安装nvm管理器"></a>安装<code>nvm</code>管理器</h4><ul><li>第1步：mac 安装：</li></ul><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">brew install nvm</span><br></pre></td></tr></table></figure><ul><li>第2_1步：命令安装：</li></ul><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash</span><br><span class="line">或</span><br><span class="line">$ wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash</span><br></pre></td></tr></table></figure><ul><li>第2_2步：国内安装</li></ul><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash</span><br><span class="line">或</span><br><span class="line">$ wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash</span><br></pre></td></tr></table></figure><ul><li>第3步：添加环境</li></ul><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 1、这是本地不存在配置文件的时候提示需要添加的配置</span></span><br><span class="line"><span class="built_in">export</span> NVM_DIR=<span class="string">&quot;<span class="variable">$HOME</span>/.nvm&quot;</span></span><br><span class="line">[ -s <span class="string">&quot;<span class="variable">$NVM_DIR</span>/nvm.sh&quot;</span> ] &amp;&amp; \. <span class="string">&quot;<span class="variable">$NVM_DIR</span>/nvm.sh&quot;</span>  <span class="comment"># This loads nvm</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2、这是本地存在配置文件的时候提示需要添加的配置（推荐）</span></span><br><span class="line"><span class="built_in">export</span> NVM_DIR=<span class="string">&quot;<span class="variable">$HOME</span>/.nvm&quot;</span></span><br><span class="line">[ -s <span class="string">&quot;<span class="variable">$NVM_DIR</span>/nvm.sh&quot;</span> ] &amp;&amp; \. <span class="string">&quot;<span class="variable">$NVM_DIR</span>/nvm.sh&quot;</span>  <span class="comment"># This loads nvm</span></span><br><span class="line">[ -s <span class="string">&quot;<span class="variable">$NVM_DIR</span>/bash_completion&quot;</span> ] &amp;&amp; \. <span class="string">&quot;<span class="variable">$NVM_DIR</span>/bash_completion&quot;</span>  <span class="comment"># This loads nvm bash_completion</span></span><br></pre></td></tr></table></figure><ul><li>第4步：加载环境：</li></ul><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">source</span> ~/.zshrc</span><br></pre></td></tr></table></figure><ul><li>第5步：测试安装是否成功</li></ul><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ nvm -v</span><br><span class="line">或</span><br><span class="line">$ nvm use system</span><br></pre></td></tr></table></figure><ul><li>第6步：<code>nvm</code>相关命令</li></ul><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">nvm install stable</span><br><span class="line">nvm install &lt;version&gt;     <span class="comment"># 安装指定版本 node</span></span><br><span class="line">nvm uninstall &lt;version&gt;   <span class="comment"># 删除指定版本 node</span></span><br><span class="line"></span><br><span class="line">nvm use &lt;version&gt;         <span class="comment"># 切换使用指定的版本 node</span></span><br><span class="line">nvm <span class="built_in">alias</span> default &lt;version&gt;   <span class="comment"># 永久版本 - 所有窗口生效指定版本</span></span><br><span class="line"></span><br><span class="line">nvm <span class="built_in">ls</span>    <span class="comment"># 列出所有安装的版本</span></span><br><span class="line">nvm ls-remote   <span class="comment"># 列出所有远程服务器的版本（官方 node version list）</span></span><br><span class="line">nvm current   <span class="comment"># 显示当前的版本</span></span><br><span class="line">nvm <span class="built_in">alias</span> &lt;name&gt; &lt;version&gt;   <span class="comment"># 给不同的版本号添加别名</span></span><br><span class="line">nvm <span class="built_in">unalias</span> &lt;name&gt;   <span class="comment"># 删除已定义的别名</span></span><br><span class="line"></span><br><span class="line">nvm reinstall-packages &lt;version&gt;     <span class="comment"># 在当前版本 node 环境下，重新全局安装指定版本号的 npm 包</span></span><br></pre></td></tr></table></figure><h3 id="第一步：安装puppeteer"><a href="#第一步：安装puppeteer" class="headerlink" title="第一步：安装puppeteer"></a>第一步：安装puppeteer</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm i puppeteer</span><br></pre></td></tr></table></figure><h3 id="第二步：-安装插件-puppeteer-extra、puppeteer-extra-plugin-stealth"><a href="#第二步：-安装插件-puppeteer-extra、puppeteer-extra-plugin-stealth" class="headerlink" title="第二步： 安装插件 puppeteer-extra、puppeteer-extra-plugin-stealth"></a>第二步： 安装插件 puppeteer-extra、puppeteer-extra-plugin-stealth</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install puppeteer-extra puppeteer-extra-plugin-stealth express</span><br></pre></td></tr></table></figure><h3 id="第三步：使用nodejs获取数据："><a href="#第三步：使用nodejs获取数据：" class="headerlink" title="第三步：使用nodejs获取数据："></a>第三步：使用nodejs获取数据：</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> puppeteer = <span class="built_in">require</span>(<span class="string">&#x27;puppeteer-extra&#x27;</span>)</span><br><span class="line"><span class="keyword">const</span> <span class="title class_">StealthPlugin</span> = <span class="built_in">require</span>(<span class="string">&#x27;puppeteer-extra-plugin-stealth&#x27;</span>)</span><br><span class="line">puppeteer.<span class="title function_">use</span>(<span class="title class_">StealthPlugin</span>())</span><br><span class="line"><span class="keyword">const</span> &#123;executablePath&#125; = <span class="built_in">require</span>(<span class="string">&#x27;puppeteer&#x27;</span>)</span><br><span class="line"></span><br><span class="line">puppeteer.<span class="title function_">launch</span>(&#123; <span class="attr">headless</span>: <span class="literal">false</span>, <span class="attr">executablePath</span>: <span class="title function_">executablePath</span>() &#125;).<span class="title function_">then</span>(<span class="keyword">async</span> browser =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> page = <span class="keyword">await</span> browser.<span class="title function_">newPage</span>()</span><br><span class="line">    <span class="keyword">await</span> page.<span class="title function_">goto</span>(<span class="string">&#x27;https://xxx.com&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 使用 Promise 来等待</span></span><br><span class="line">    <span class="keyword">await</span> <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function"><span class="params">resolve</span> =&gt;</span> <span class="built_in">setTimeout</span>(resolve, <span class="number">2000</span>))  <span class="comment">// 等待 2 秒</span></span><br><span class="line">    <span class="comment">// 获取页面的文本内容</span></span><br><span class="line">    <span class="keyword">const</span> pageContent = <span class="keyword">await</span> page.<span class="title function_">evaluate</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">document</span>.<span class="property">body</span>.<span class="property">innerText</span>;  <span class="comment">// 获取页面的所有文本</span></span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 打印页面文本内容</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(pageContent);</span><br><span class="line">    <span class="keyword">await</span> page.<span class="title function_">screenshot</span>(&#123; <span class="attr">path</span>: <span class="string">&#x27;cointracker_home.png&#x27;</span>, <span class="attr">fullPage</span>: <span class="literal">true</span> &#125;)</span><br><span class="line">    <span class="keyword">await</span> browser.<span class="title function_">close</span>()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure><h3 id="第四步：当然你也可以把他写成接口"><a href="#第四步：当然你也可以把他写成接口" class="headerlink" title="第四步：当然你也可以把他写成接口"></a>第四步：当然你也可以把他写成接口</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">.....</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;&lt;font color=#00b2c2 size=5 face=宋体&gt;&lt;strong&gt;破解cloudflare拦截神器_puppeteer&lt;/strong&gt;&lt;/font&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="_A7-逆向" scheme="https://kanoc.gitee.io/categories/A7-%E9%80%86%E5%90%91/"/>
+    
+    <category term="puppeteer" scheme="https://kanoc.gitee.io/categories/A7-%E9%80%86%E5%90%91/puppeteer/"/>
+    
+    
+    <category term="nodejs" scheme="https://kanoc.gitee.io/tags/nodejs/"/>
+    
+    <category term="逆向" scheme="https://kanoc.gitee.io/tags/%E9%80%86%E5%90%91/"/>
+    
+    <category term="puppeteer" scheme="https://kanoc.gitee.io/tags/puppeteer/"/>
+    
+    <category term="后端" scheme="https://kanoc.gitee.io/tags/%E5%90%8E%E7%AB%AF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>内存小于-1G，宝塔面板-9.0.0-无法安装-mysql-解决方法</title>
+    <link href="https://kanoc.gitee.io/2024/08/08/%E5%86%85%E5%AD%98%E5%B0%8F%E4%BA%8E-1G%EF%BC%8C%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF-9-0-0-%E6%97%A0%E6%B3%95%E5%AE%89%E8%A3%85-mysql-%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/"/>
+    <id>https://kanoc.gitee.io/2024/08/08/%E5%86%85%E5%AD%98%E5%B0%8F%E4%BA%8E-1G%EF%BC%8C%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF-9-0-0-%E6%97%A0%E6%B3%95%E5%AE%89%E8%A3%85-mysql-%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/</id>
+    <published>2024-08-08T04:36:15.000Z</published>
+    <updated>2025-06-09T03:53:29.745Z</updated>
+    
+    <content type="html"><![CDATA[<p><font color=#00b2c2 size=5 face=宋体><strong>内存小于 1G，宝塔面板<code>9.0.0</code>无法安装<code>mysql</code>解决方法</strong></font></p><span id="more"></span><p>宝塔官方限制了内存小于<code>1G</code>无法安装<code>mysql</code></p><p><font color=#00b2c2 size=5 face=宋体><strong>解决方法：</strong></font></p><p>找到路径：<code>/www/server/panel/class</code> 下的 <code>panelPlugin.py</code></p><p><img src="https://s2.loli.net/2024/08/09/XxNRyJokGCQa6e9.png" alt="image-20240808124006141"></p><p>定位到&gt;&gt;&gt; 关键字 <code>limit_list</code> 将如下注释掉即可</p><p><img src="https://s2.loli.net/2024/08/08/WutVP8LYhXv9rxN.png" alt="image-20240808123340813"></p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;&lt;font color=#00b2c2 size=5 face=宋体&gt;&lt;strong&gt;内存小于 1G，宝塔面板&lt;code&gt;9.0.0&lt;/code&gt;无法安装&lt;code&gt;mysql&lt;/code&gt;解决方法&lt;/strong&gt;&lt;/font&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="_A3-linux" scheme="https://kanoc.gitee.io/categories/A3-linux/"/>
+    
+    <category term="宝塔面板" scheme="https://kanoc.gitee.io/categories/A3-linux/%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF/"/>
+    
+    
+    <category term="系统" scheme="https://kanoc.gitee.io/tags/%E7%B3%BB%E7%BB%9F/"/>
+    
+    <category term="运维" scheme="https://kanoc.gitee.io/tags/%E8%BF%90%E7%BB%B4/"/>
+    
+    <category term="宝塔" scheme="https://kanoc.gitee.io/tags/%E5%AE%9D%E5%A1%94/"/>
+    
+  </entry>
   
   <entry>
     <title>【爬虫】巧用-js2py-（附带bug解决）</title>
@@ -61,6 +117,60 @@
     
     
     <category term="中文解压密码" scheme="https://kanoc.gitee.io/tags/%E4%B8%AD%E6%96%87%E8%A7%A3%E5%8E%8B%E5%AF%86%E7%A0%81/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>清除 宝塔面板 + Linux ssh 登陆日志</title>
+    <link href="https://kanoc.gitee.io/2024/01/16/%E6%B8%85%E9%99%A4-%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF-Linux-ssh-%E7%99%BB%E9%99%86%E6%97%A5%E5%BF%97/"/>
+    <id>https://kanoc.gitee.io/2024/01/16/%E6%B8%85%E9%99%A4-%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF-Linux-ssh-%E7%99%BB%E9%99%86%E6%97%A5%E5%BF%97/</id>
+    <published>2024-01-16T11:21:22.000Z</published>
+    <updated>2025-06-09T03:58:57.212Z</updated>
+    
+    <content type="html"><![CDATA[<p><font color=#00b2c2 size=5 face=宋体><strong>清除 宝塔面板 + Linux ssh 登陆日志：</strong></font></p><span id="more"></span><p><font color=#f26522 size=4 face=宋体><strong><strong>1、登录宝塔面板，会在“面板操作日志”里，留下我们的登录信息</strong></strong></font></p><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">/www/server/panel/data/default.db    <span class="comment"># 用navicat打开清除</span></span><br></pre></td></tr></table></figure><p><font color=#f26522 size=4 face=宋体><strong><strong>2、清除 Linux SSH 登陆的 日志信息</strong></strong></font></p><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 下面的命令 直接执行即可</span></span><br><span class="line">cat /dev/null &gt; /var/log/wtmp</span><br><span class="line">cat /dev/null &gt; /var/log/btmp</span><br><span class="line">cat /dev/null &gt; /var/log/lastlog</span><br><span class="line">cat /dev/null &gt; /var/log/secure</span><br></pre></td></tr></table></figure><p><font color=#f26522 size=4 face=宋体><strong><strong>3、Windows 清除远程桌面登陆</strong></strong></font></p><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 步骤1. 按“Win + R”键，然后输入“CMD”打开命令提示符</span></span><br><span class="line"><span class="comment"># 步骤2. 然后依次输入以下命令，并在每个命令输入完成按下回车键</span></span><br><span class="line">reg delete “HKEY_CURRENT_USER\Software\Microsoft\Terminal Server Client\Default” /va /f</span><br><span class="line">reg delete “HKEY_CURRENT_USER\Software\Microsoft\Terminal Server Client\Servers” /f</span><br><span class="line">reg add “HKEY_CURRENT_USER\Software\Microsoft\Terminal Server Client\Servers”</span><br><span class="line"><span class="keyword">del</span> /ah %homepath%\documents\default.rdp</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;&lt;font color=#00b2c2 size=5 face=宋体&gt;&lt;strong&gt;清除 宝塔面板 + Linux ssh 登陆日志：&lt;/strong&gt;&lt;/font&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="_A3-linux" scheme="https://kanoc.gitee.io/categories/A3-linux/"/>
+    
+    <category term="宝塔面板" scheme="https://kanoc.gitee.io/categories/A3-linux/%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF/"/>
+    
+    
+    <category term="系统" scheme="https://kanoc.gitee.io/tags/%E7%B3%BB%E7%BB%9F/"/>
+    
+    <category term="运维" scheme="https://kanoc.gitee.io/tags/%E8%BF%90%E7%BB%B4/"/>
+    
+    <category term="宝塔" scheme="https://kanoc.gitee.io/tags/%E5%AE%9D%E5%A1%94/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>逆向 参考站点记录</title>
+    <link href="https://kanoc.gitee.io/2023/12/25/%E9%80%86%E5%90%91%20%E5%8F%82%E8%80%83%E7%AB%99%E7%82%B9%E8%AE%B0%E5%BD%95/"/>
+    <id>https://kanoc.gitee.io/2023/12/25/%E9%80%86%E5%90%91%20%E5%8F%82%E8%80%83%E7%AB%99%E7%82%B9%E8%AE%B0%E5%BD%95/</id>
+    <published>2023-12-24T19:14:28.000Z</published>
+    <updated>2025-06-09T08:20:27.975Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="逆向-JS-参考非常具有指导性-：数据科学SourceResearch"><a href="#逆向-JS-参考非常具有指导性-：数据科学SourceResearch" class="headerlink" title="逆向 JS 参考非常具有指导性 ：数据科学SourceResearch"></a>逆向 JS 参考非常具有指导性 ：<a href="https://www.resourch.com/">数据科学SourceResearch</a></h4><span id="more"></span><h4 id="12-种方法来隐藏您的机器人自动化检测，如何使-Selenium-不可检测和隐身：https-www-itblogcn-com-article-2034-html"><a href="#12-种方法来隐藏您的机器人自动化检测，如何使-Selenium-不可检测和隐身：https-www-itblogcn-com-article-2034-html" class="headerlink" title="12 种方法来隐藏您的机器人自动化检测，如何使 Selenium 不可检测和隐身：https://www.itblogcn.com/article/2034.html"></a>12 种方法来隐藏您的机器人自动化检测，如何使 Selenium 不可检测和隐身：<a href="https://www.itblogcn.com/article/2034.html">https://www.itblogcn.com/article/2034.html</a></h4><h4 id="網絡爬蟲-cloudflare五秒等待驗證逆向破解：https-www-twblogs-net-a-5d8c8d4fbd9eee5327001af8"><a href="#網絡爬蟲-cloudflare五秒等待驗證逆向破解：https-www-twblogs-net-a-5d8c8d4fbd9eee5327001af8" class="headerlink" title="網絡爬蟲-cloudflare五秒等待驗證逆向破解：https://www.twblogs.net/a/5d8c8d4fbd9eee5327001af8"></a>網絡爬蟲-cloudflare五秒等待驗證逆向破解：<a href="https://www.twblogs.net/a/5d8c8d4fbd9eee5327001af8">https://www.twblogs.net/a/5d8c8d4fbd9eee5327001af8</a></h4><h5 id="逆向lin狗-大佬-https-developer-aliyun-com-profile-iaxsqtcumsgky-highScore-1-spm-a2c6h-24874632-expert-profile-5-27efd78f3t7PF1"><a href="#逆向lin狗-大佬-https-developer-aliyun-com-profile-iaxsqtcumsgky-highScore-1-spm-a2c6h-24874632-expert-profile-5-27efd78f3t7PF1" class="headerlink" title="逆向lin狗 大佬 &#x3D;&gt;https://developer.aliyun.com/profile/iaxsqtcumsgky/highScore_1?spm=a2c6h.24874632.expert-profile.5.27efd78f3t7PF1"></a>逆向lin狗 大佬 &#x3D;&gt;<a href="https://developer.aliyun.com/profile/iaxsqtcumsgky/highScore_1?spm=a2c6h.24874632.expert-profile.5.27efd78f3t7PF1">https://developer.aliyun.com/profile/iaxsqtcumsgky/highScore_1?spm=a2c6h.24874632.expert-profile.5.27efd78f3t7PF1</a></h5><h4 id="Cloudflare-小记：https-blog-csdn-net-weixin-58584029-article-details-128719446"><a href="#Cloudflare-小记：https-blog-csdn-net-weixin-58584029-article-details-128719446" class="headerlink" title="Cloudflare 小记：https://blog.csdn.net/weixin_58584029/article/details/128719446"></a><font color=#00b2c2 size=5 face=宋体><strong>Cloudflare 小记：</strong></font><a href="https://blog.csdn.net/weixin_58584029/article/details/128719446">https://blog.csdn.net/weixin_58584029/article/details/128719446</a></h4><h5 id="Selenium真正绕过webdriver检测-https-www-cnblogs-com-Wl55387370-p-16553574-html"><a href="#Selenium真正绕过webdriver检测-https-www-cnblogs-com-Wl55387370-p-16553574-html" class="headerlink" title="     Selenium真正绕过webdriver检测                      https://www.cnblogs.com/Wl55387370/p/16553574.html"></a><a href="https://www.cnblogs.com/Wl55387370/p/16553574.html">     Selenium真正绕过webdriver检测         </a>             <a href="https://www.cnblogs.com/Wl55387370/p/16553574.html">https://www.cnblogs.com/Wl55387370/p/16553574.html</a></h5><h6 id="关键词搜索：selenium绕过检测"><a href="#关键词搜索：selenium绕过检测" class="headerlink" title="关键词搜索：selenium绕过检测"></a>关键词搜索：selenium绕过检测</h6>]]></content>
+    
+    
+    <summary type="html">&lt;h4 id=&quot;逆向-JS-参考非常具有指导性-：数据科学SourceResearch&quot;&gt;&lt;a href=&quot;#逆向-JS-参考非常具有指导性-：数据科学SourceResearch&quot; class=&quot;headerlink&quot; title=&quot;逆向 JS 参考非常具有指导性 ：数据科学SourceResearch&quot;&gt;&lt;/a&gt;逆向 JS 参考非常具有指导性 ：&lt;a href=&quot;https://www.resourch.com/&quot;&gt;数据科学SourceResearch&lt;/a&gt;&lt;/h4&gt;</summary>
+    
+    
+    
+    <category term="_A7-逆向" scheme="https://kanoc.gitee.io/categories/A7-%E9%80%86%E5%90%91/"/>
+    
+    <category term="参考" scheme="https://kanoc.gitee.io/categories/A7-%E9%80%86%E5%90%91/%E5%8F%82%E8%80%83/"/>
+    
+    
+    <category term="逆向" scheme="https://kanoc.gitee.io/tags/%E9%80%86%E5%90%91/"/>
+    
+    <category term="记录" scheme="https://kanoc.gitee.io/tags/%E8%AE%B0%E5%BD%95/"/>
+    
+    <category term="Cloudflare" scheme="https://kanoc.gitee.io/tags/Cloudflare/"/>
     
   </entry>
   
@@ -165,6 +275,31 @@
   </entry>
   
   <entry>
+    <title>逆向_反爬 指纹攻破策略</title>
+    <link href="https://kanoc.gitee.io/2023/05/26/%E9%80%86%E5%90%91-%E5%8F%8D%E7%88%AC-%E6%8C%87%E7%BA%B9%E6%94%BB%E7%A0%B4%E7%AD%96%E7%95%A5/"/>
+    <id>https://kanoc.gitee.io/2023/05/26/%E9%80%86%E5%90%91-%E5%8F%8D%E7%88%AC-%E6%8C%87%E7%BA%B9%E6%94%BB%E7%A0%B4%E7%AD%96%E7%95%A5/</id>
+    <published>2023-05-26T11:37:40.000Z</published>
+    <updated>2025-06-09T03:54:53.414Z</updated>
+    
+    <content type="html"><![CDATA[<p><font color=#00b2c2 size=5 face=宋体><strong>逆向_反爬 指纹攻破策略：</strong></font></p><span id="more"></span><p>关于 cloudflare 出5秒盾规律：</p><ul><li>开始我以为是所有的网页都会出现5秒盾，但是后面我发现用浏览器打开有些网页，是不触发5秒盾的</li><li>毕竟5秒盾还是影响用户浏览的。</li><li>经过测试，在requests下会发送很多指纹，这些指纹大大的超过了，一个正常浏览器该有的指纹。</li><li>cloudflare 是根据给出的指纹检测的 该请求是由浏览器发出，还是由爬虫发出的</li></ul><br><hr><br><p><font color=red size=6 face=宋体><strong>解决办法：</strong></font></p><ul><li><font color=#f26522 size=4 face=宋体><strong>神奇的 python 第三方库 curl_cffi</strong></font></li><li>库说明  &gt;&gt;&gt; <font color=red size=3 face=宋体><strong>curl_cffi</strong></font> 库封装支持原生模拟浏览器TLS&#x2F;JA3 指纹的Python 库</li></ul><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">pip3 install curl_cffi   <span class="comment"># 安装库</span></span><br></pre></td></tr></table></figure><br><p><font color=#00b2c2 size=5 face=宋体><strong>请求方式：</strong></font></p><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> curl_cffi <span class="keyword">import</span> requests  <span class="comment"># 导入 curl_cffi 库</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 请求</span></span><br><span class="line">r = requests.get(url, impersonate=<span class="string">&quot;chrome101&quot;</span>, timeout=(<span class="number">5</span>, <span class="number">10</span>))</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;&lt;font color=#00b2c2 size=5 face=宋体&gt;&lt;strong&gt;逆向_反爬 指纹攻破策略：&lt;/strong&gt;&lt;/font&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="_A7-逆向" scheme="https://kanoc.gitee.io/categories/A7-%E9%80%86%E5%90%91/"/>
+    
+    <category term="curl_cffi" scheme="https://kanoc.gitee.io/categories/A7-%E9%80%86%E5%90%91/curl-cffi/"/>
+    
+    
+    <category term="逆向" scheme="https://kanoc.gitee.io/tags/%E9%80%86%E5%90%91/"/>
+    
+    <category term="记录" scheme="https://kanoc.gitee.io/tags/%E8%AE%B0%E5%BD%95/"/>
+    
+  </entry>
+  
+  <entry>
     <title>关于GitHub静态文件加速</title>
     <link href="https://kanoc.gitee.io/2023/05/22/%E5%85%B3%E4%BA%8EGitHub%E9%9D%99%E6%80%81%E6%96%87%E4%BB%B6%E5%8A%A0%E9%80%9F/"/>
     <id>https://kanoc.gitee.io/2023/05/22/%E5%85%B3%E4%BA%8EGitHub%E9%9D%99%E6%80%81%E6%96%87%E4%BB%B6%E5%8A%A0%E9%80%9F/</id>
@@ -198,6 +333,31 @@
     
     
     <summary type="html">&lt;p&gt;&lt;font color=#00b2c2 size=5 face=宋体&gt;&lt;strong&gt;猫耳FM（MissEvan）加密参数破解代码及接口汇总&lt;/strong&gt;&lt;/font&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="_A7-逆向" scheme="https://kanoc.gitee.io/categories/A7-%E9%80%86%E5%90%91/"/>
+    
+    <category term="app" scheme="https://kanoc.gitee.io/categories/A7-%E9%80%86%E5%90%91/app/"/>
+    
+    
+    <category term="逆向" scheme="https://kanoc.gitee.io/tags/%E9%80%86%E5%90%91/"/>
+    
+    <category term="记录" scheme="https://kanoc.gitee.io/tags/%E8%AE%B0%E5%BD%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>逆向app记录</title>
+    <link href="https://kanoc.gitee.io/2023/05/22/%E9%80%86%E5%90%91app%E8%AE%B0%E5%BD%95/"/>
+    <id>https://kanoc.gitee.io/2023/05/22/%E9%80%86%E5%90%91app%E8%AE%B0%E5%BD%95/</id>
+    <published>2023-05-22T14:58:30.000Z</published>
+    <updated>2025-06-09T03:55:41.855Z</updated>
+    
+    <content type="html"><![CDATA[<p>函数入口：</p><span id="more"></span><p><img src="https://s2.loli.net/2023/05/26/fsRG6vZlICrO7e8.png" alt="image-20230309145137516"></p><p><img src="https://s2.loli.net/2023/05/26/4HF7qlDZmwr51NM.png" alt="image-20230309150703294"></p><p><img src="https://s2.loli.net/2023/05/26/DW1COxUHVk9vGE8.png" alt="image-20230309150720478"></p><p><img src="https://s2.loli.net/2023/05/26/8ZuoQLAgrEBbOYK.png" alt="image-20230309222050257"></p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;函数入口：&lt;/p&gt;</summary>
     
     
     
@@ -361,154 +521,6 @@
     <category term="云" scheme="https://kanoc.gitee.io/tags/%E4%BA%91/"/>
     
     <category term="免费项目" scheme="https://kanoc.gitee.io/tags/%E5%85%8D%E8%B4%B9%E9%A1%B9%E7%9B%AE/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>那些让人惊奇的云项目(第三弹_网络和ddns)</title>
-    <link href="https://kanoc.gitee.io/2023/05/22/%E9%82%A3%E4%BA%9B%E8%AE%A9%E4%BA%BA%E6%83%8A%E5%A5%87%E7%9A%84%E4%BA%91%E9%A1%B9%E7%9B%AE-%E7%AC%AC%E4%B8%89%E5%BC%B9-%E7%BD%91%E7%BB%9C%E5%92%8Cddns/"/>
-    <id>https://kanoc.gitee.io/2023/05/22/%E9%82%A3%E4%BA%9B%E8%AE%A9%E4%BA%BA%E6%83%8A%E5%A5%87%E7%9A%84%E4%BA%91%E9%A1%B9%E7%9B%AE-%E7%AC%AC%E4%B8%89%E5%BC%B9-%E7%BD%91%E7%BB%9C%E5%92%8Cddns/</id>
-    <published>2023-05-22T13:32:24.000Z</published>
-    <updated>2025-06-09T03:44:25.032Z</updated>
-    
-    <content type="html"><![CDATA[<hr /><p>DDNS需要公网IP，基本上就是隔一段时间访问一下接口，连接和传输数据是不会消耗服务商的流量的。</p><span id="more"></span><p>内网穿透需要消耗服务器的流量。<br>还有点对点&#x2F;内网打洞的技术，但是需要两边都安装软件：xtcp，n2n，moon，zerotier one</p><h2>1. frp</h2><ul><li>https://www.natfrp.org/ Sakura Frp</li><li>https://bob.kim/frp 博主自己搭的</li><li>https://www.lu8.win/ ngrok、frp、n2n、nps、免费域名</li><li>https://napyy.com/</li><li>https://qydev.com 限速1M</li></ul><h2>2. ngrok</h2><p>1.x开源但现在已经停止维护了；2.x不开源。</p><ul><li>https://ngrok.com/ 官网，服务器在国外</li><li>https://natapp.cn/ 免费的需实名认证</li><li>https://www.ngrok.cc/ Sunny Ngrok，不过官网说也支持frp</li><li>https://www.tunnelnat.com/ 虽然也写了frp，但好像只有ngrok有免费通道</li></ul><h2>3. 其它开源的</h2><ul><li>https://github.com/ffay/lanproxy Java</li><li>http://wdom.net/ 免费20分钟</li><li>https://github.com/inlets/inlets</li></ul><h2>4. 其它不开源的</h2><ul><li>https://hsk.oray.com/ 花生壳，注册需要手机号；DDNS和内网穿透都支持？后者免费速度1M。</li><li>https://www.kingdriod.cn/ 神卓，免费速度1M；需要实名认证上传身份证</li><li>http://www.luyouxia.com/ 路由侠</li><li>https://www.notr.tech/ 免费3小时</li><li>https://www.nsloop.com/ 量子互联，写的不限流量</li><li>http://www.mofasuidao.cn/ 魔法隧道，写的是“免费创建账户”</li><li>http://www.youtusoft.com/ 网络通</li><li>https://xiaomy.net/ 网云穿</li><li>https://localhost.run/ 无需注册？</li></ul><h2>5. 免费DDNS</h2><ul><li>https://dyndnss.net/eng/</li><li>https://freedns.afraid.org/</li><li>https://www.duckdns.org/</li><li>https://www.noip.com/</li><li>https://www.spdyn.de/ 只有德语？</li><li>https://dynv6.com/</li></ul>]]></content>
-    
-    
-    <summary type="html">&lt;hr /&gt;
-
-&lt;p&gt;DDNS需要公网IP，基本上就是隔一段时间访问一下接口，连接和传输数据是不会消耗服务商的流量的。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="_S9-折腾" scheme="https://kanoc.gitee.io/categories/S9-%E6%8A%98%E8%85%BE/"/>
-    
-    <category term="白嫖" scheme="https://kanoc.gitee.io/categories/S9-%E6%8A%98%E8%85%BE/%E7%99%BD%E5%AB%96/"/>
-    
-    
-    <category term="云" scheme="https://kanoc.gitee.io/tags/%E4%BA%91/"/>
-    
-    <category term="免费项目" scheme="https://kanoc.gitee.io/tags/%E5%85%8D%E8%B4%B9%E9%A1%B9%E7%9B%AE/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>那些让人惊奇的云项目(第四弹_云)</title>
-    <link href="https://kanoc.gitee.io/2023/05/22/%E9%82%A3%E4%BA%9B%E8%AE%A9%E4%BA%BA%E6%83%8A%E5%A5%87%E7%9A%84%E4%BA%91%E9%A1%B9%E7%9B%AE-%E7%AC%AC%E5%9B%9B%E5%BC%B9-%E4%BA%91/"/>
-    <id>https://kanoc.gitee.io/2023/05/22/%E9%82%A3%E4%BA%9B%E8%AE%A9%E4%BA%BA%E6%83%8A%E5%A5%87%E7%9A%84%E4%BA%91%E9%A1%B9%E7%9B%AE-%E7%AC%AC%E5%9B%9B%E5%BC%B9-%E4%BA%91/</id>
-    <published>2023-05-22T13:29:10.000Z</published>
-    <updated>2025-06-09T03:52:09.509Z</updated>
-    
-    <content type="html"><![CDATA[<h1>云</h1><span id="more"></span><p>IaaS指提供系统（可以自己选）或者储存空间之类的硬件，软件要自己手动装；PaaS提供语言环境和框架（可以自己选）；SaaS只能使用开发好的软件（卖软件本身）；BaaS一般类似于非关系数据库，但各家不通用，有时还有一些其它东西。</p><h2>1. 其他人的集合</h2><ul><li>https://education.github.com/pack GitHub学生包，需用教育邮箱验证。各种福利，可从DigitalOcean上手</li><li>https://github.com/ripienaar/free-for-dev</li><li>https://github.com/AchoArnold/discount-for-student-dev</li><li>https://github.com/ivmm/Student-resources</li><li>https://www.freeforstudents.org/</li><li>https://github.com/255kb/stack-on-a-budget</li><li>https://github.com/Ibexoft/awesome-startup-tools-list</li><li>https://www.cokemine.com/</li></ul><h2>2. Paas</h2><ul><li>https://www.heroku.com/ java go py docker。国内访问不佳</li><li>https://fly.io/docs/pricing/ py node go 静态，感觉很完美</li><li>https://www.deta.sh/ py3.7 node12 内存128MB，依赖250MB，大概率不支持DBMS，支持定时任务。有类dict数据库和10GB存储且可独立使用</li><li>https://www.pythonanywhere.com/ 限制非常多，几乎就和虚拟主机差不多了，免费账户不允许访问白名单之外的网站。但好歹能提供一个自动https的web app</li><li>https://www.divio.com/ docker</li><li>https://www.clever-cloud.com/en/pricing 看介绍送20€，但应该只会送一次，可以用4个月</li><li>https://cloud.google.com/appengine/docs/ 标准环境有一点储存空间和流量，要求启用API即要求绑卡，柔性环境(.NET)必须启用结算。国内无法访问</li><li>https://clustered.com/pricing 现在只免费14天，永久免费的plan还没出，但至少从2020年11月就是这样了</li><li>https://www.koyeb.com docker node py go，首页被RST</li><li>https://railway.app/ node py go java，用了类似于heroku的buildpacks，RST</li></ul><h3>2.1. .net</h3><ul><li>https://appharbor.com 看起来比较好，支持3.1。好像不支持5：https://support.appharbor.com/discussions/problems/117063-net-5-support</li><li>https://freeasphosting.net/ 网站说了一大堆学习的东西，不过说支持.NET5</li><li>https://www.gearhost.com/ 看起来比较好，支持3.1。还支持PHP7和node。现在开了CF屏蔽大陆IP</li><li>https://order.aspify.com/en/freehosting/ 100MB硬盘100MB数据库，支持5。但之前不让注册说服务在中国不可用</li><li>https://somee.com/ 被墙了，且IP被封了</li><li>https://www.myasp.net/hosting_plans 免费两个月但好像能免费续期</li></ul><h2>3. 云端空间/IDE</h2><ul><li>https://cloudstudio.net VSC，服务器在上海，每日限时四小时</li><li>https://www.gitpod.io/ VSC，免费版每月50小时，支持在本地打开；专业版在学生包里免费6个月但要求Primary Email是学校的账户</li><li>GitHub Workspaces：可能收费</li><li>https://workspaces.openshift.com/ 魔改VSC，不支持扩展，国内访问慢；之前是codenvy和che.openshift.io</li><li>https://repl.it/ 有免费版；专业版在学生包里免费3个月</li><li>https://paiza.cloud/en/ 日产，好像还支持SSH连上去</li><li>https://codetasty.com/</li><li>https://www.suishencode.com/ 国内的，code-server，不知道为什么全网都搜不到信息</li><li>https://next.tech/ 学生包中有</li><li>https://ide.goorm.io/pricing 可以建立五个工作区，可以用SSH连上去。好像是自制的，界面完成度蛮高的，有终端，但没有intellisense，只能玩玩</li><li>https://www.tutorialspoint.com/codingground.htm http://codepad.org/ https://ideone.com/ https://coliru.stacked-crooked.com/ https://wandbox.org/ https://tio.run https://code.xueersi.com/ide/code/1 https://jsrun.net/ 无需登录，能执行许多语言，但只能说能运行代码，称不上IDE</li></ul><h3>3.1. 前端在线IDE</h3><ul><li>https://jsbin.com 简洁，无需注册</li><li>https://codepen.io/ 可不注册</li><li>https://stackblitz.com/</li><li>https://codesandbox.io/</li><li>https://bit.dev/</li><li>https://runkit.com 类似于jupyter notebook，也能创建api，以及把js的codeblock变得可运行</li><li>https://www.codeply.com/</li><li>https://plnkr.co/ 比较简陋</li><li>https://jsfiddle.net/ 我这里打不开，且感觉是他们封的我们</li></ul><h3>3.2. Jupyter Notebook/Lab</h3><ul><li>https://colab.research.google.com/ 有免费gpu额度，国内无法直接打开。免费版无终端</li><li>https://tianchi.aliyun.com/notebook-ai/home 免费gpu 60小时/年。登录要用阿里云账号，不想记住密码，每次都要用手机扫很麻烦，有时还要短信二次验证</li><li>https://aistudio.baidu.com/aistudio/projectoverview/private 内存8G，磁盘100G，work目录永久保存，实名认证有一些GPU资源；长时间不用无法自动重连</li><li>https://www.kaggle.com 验证电话后有免费gpu和外网，能连续运行9小时，有机器学习的教程</li><li>https://www.heywhale.com/home/project 国产</li><li>https://datalore.jetbrains.com/</li><li>https://cocalc.com/doc/jupyter-notebook.html</li><li>https://jupyter.org/try 官方，资源非常少，有C++；mybinder可以从GitHub仓库建立临时NB</li><li>https://kogence.com/app/landing/pricing</li><li>https://deepnote.com 免费额度750小时，5G空间</li><li>https://www.dclab.run/project_list.html 国产</li><li>https://software.intel.com/content/www/cn/zh/develop/tools/devcloud.html</li></ul><h2>4. 数据库</h2><ul><li>https://db4free.net/ mysql 200M</li><li>https://www.freemysqlhosting.net/ mysql 5.5，5MB，每周会收到要手动操作来延期的邮件</li><li>https://mlab.com/ https://www.mongodb.com/pricing 500MB；后者学生包中有</li><li>https://app.redislabs.com/ redis，30M</li><li>https://www.elephantsql.com/plans.html pg</li><li>https://remotemysql.com/ mysql 100M</li><li>https://www.elephantsql.com/ pg 20M</li><li>https://www.freesqldatabase.com/ mysql 5MB</li></ul><h2>5. BaaS</h2><ul><li>https://bmob.cn/</li><li>https://leancloud.cn/pricing/</li><li>https://firebase.google.cn/pricing 用处：https://zhuanlan.zhihu.com/p/95334890</li><li>https://www.zhihu.com/question/34124789/answer/72495188</li><li>https://maxleap.cn/s/web/zh_cn/devcenter-pricing.html</li><li>https://www.8base.com GraphQL</li><li>JSON<ul><li>https://jsonstores.com/ 100个JSON对象，每个最大2MB</li><li>https://jsonbin.io/</li><li>https://extendsclass.com/json-storage.html</li><li>https://json.psty.io/</li><li>https://www.jsonstorage.net/ 有无需注册的</li><li>https://db.neelr.dev/ 无需注册，打开网页时自动生成一个TOKEN。但国内打不开</li></ul></li></ul><h2>6. Managed K8S</h2><ul><li>https://www.openshift.com/products/online/ 每60天清除</li><li>https://okteto.com/pricing 免费版2CPU，4G内存，10G储存。刚注册送一个月pro，不付款自动降到免费版。免费版24小时不活动就sleep。原意是为开发者日常开发使用的</li><li>https://usekrucible.com 一个月能用25小时，自己分配</li><li>https://kubernauts.sh/ 宣传免费版有1CPU，1G内存；申请注册后没收到任何邮件，无法登录</li><li>https://labs.play-with-k8s.com/ 好像每天只有四小时；https://labs.play-with-docker.com/</li><li>zarvis.ai staroid.com 网页都用的是Google的服务器，无法直接访问</li><li>https://kubesail.com/ 停止免费版了，不过还是能作为管理平台</li><li>https://loft.sh/ 好像只是客户端或者管理平台</li><li>挂了的：k8spin.cloud tryk8s.com</li></ul><h2>7. Serverless/Node Paas（无状态的api）</h2><ul><li>https://glitch.com/</li><li>https://workers.cloudflare.com/ ；https://github.com/booster-labs/rocket-booster</li><li>https://vercel.com/ node go py</li><li>https://deno.com/deploy</li><li>https://pipedream.com/</li><li>https://keen.io/</li><li>https://www.openode.io/pricing</li><li>https://www.cloud66.com/node/ 免费一个月</li><li>https://www.jexia.com/</li><li>https://www.openode.io/</li><li>https://encore.dev/ RST</li><li>谷歌的functions有一些免费额度，但一定会产生部署费用，最少$0.03/mo</li><li>国内的云服务厂商一般都有FaaS服务，也有一定的免费额度，但问题是公网流出流量是没有免费额度的</li><li>https://www.slappforge.com/sigma 仅开发平台</li><li>https://catalyst.zoho.com/ 有免费的</li></ul><h2>8. 静态网页托管（必须要能自动更新）</h2><ul><li>https://surge.sh/</li><li>https://www.netlify.com/</li><li>https://render.com/ 收费版有PaaS，但免费版只能Static</li><li>https://cloudcannon.com</li><li>https://tiiny.host 只能存活7天？</li><li>https://pages.cloudflare.com/</li></ul><h2>9. 也许可用的IaaS</h2><ul><li>euserv，德国的，只有IPV6，亲测确实可以，但硬盘很慢 https://github.com/YG-tsj/EUserv-warp</li><li>https://open.iot.10086.cn/cloud/introduction/cloud-server OneNET移动的，MQ、对象储存、可视化、CI都有一定的免费额度</li><li>https://activity.xinruiyun.cn/free/ 新睿云，发个广告可以免费用一个月的ECS</li><li>https://www.oracle.com/cn/cloud/free/ 体验文章：https://51.ruyo.net/14138.html 不支持prepaid card；https://www.blueskyxn.com/202109/5232.html</li><li>https://51.ruyo.net/14583.html Azure</li><li>https://www.atlantic.net/ <del>免费12个月</del>现在好像变成免费一个月了，需要信用卡</li><li>谷歌云、Amazon、Azure、Yandex Cloud：注册后都会送一些额度</li></ul><h3>9.1. <a class="wp-editor-md-post-content-link" href="https://www.ibm.com/cn-zh/cloud/free">IBM Cloud</a></h3><ul><li>Lite(轻量)版无需信用卡，没有到期时间，完全不会变到付费套餐上，额度到了就无法使用，30天不活动自动删除，一共44项服务</li><li>Cloud Foundry：PaaS 256M内存，支持Java Node .NET GO PHP Py。10天不活动就休眠。apic.mybluemix.net和mybluemix.net都被墙了。要用ibmcloud命令行</li><li>对象储存：25GB储存，5GB出站；Cloudant JSON文档数据库：1GB；DB2数据库：200MB，每90天要邮件延期</li><li>机器翻译：但无ja-zh模型，只能和en互转，每月100万字符</li><li>API Gateway：转发一次到另一个endpoint上，能用于静态文件的反代，能设定密钥验证和限制速率，显示调用频率。免费调用100万次但是没写每月，之后限速</li><li>Cloud for Education：持续时间一小时的ECS，能用RDP连上但卡到完全无法使用，好像无外部互联网连接</li><li>机器学习</li><li>Docker Registry：储存0.5GB，流量5GB</li><li>Event Streams：Kafka</li><li>那些“软件”虽然有非常多免费的，但必须部署到k8s上；k8s也有免费套餐，但lite无法创建，因为流量和IP可能要收费</li><li>函数计算：虽然有一点免费额度，但是无lite版</li></ul><h3>9.2. <a class="wp-editor-md-post-content-link" href="https://cloud.tencent.com/act/free">腾讯云</a></h3><ul><li>对象储存：免费半年</li><li>CDN：免费半年</li><li>Serverless：免费一年</li><li>文件储存：免费10G</li><li>机器翻译：免费500万字符/月，开通免费版必不会收任何费用</li><li>云托管 CloudBase Run：不知道干什么用的</li></ul><h3>9.3. <a class="wp-editor-md-post-content-link" href="https://free.aliyun.com">阿里云</a></h3><ul><li>ECS：https://www.aliyun.com/daily-act/ecs/free 需要实名认证且未购买过任何产品，有个t6的ECS可以免费试用一年</li><li>MaxCompute大数据计算服务开发者版https://www.aliyun.com/product/odps</li><li>云效DevOps有一些免费额度，包括5GB Maven仓库</li><li>机器翻译通用版：每月100万字符免费额度</li></ul><h2>10. 低代码平台/aPaaS</h2><ul><li>指不用写很多代码就能设计出软件，有可视化工具</li><li>大部分都是BPM平台，即 表单+工作流审批，适合企业建立业务逻辑在线办公</li><li>往往与平台本身严重绑定，难以复用和维护，切换平台代价大，开发者自身难以提升</li></ul><h3>10.1. 国内的</h3><ul><li>https://github.com/taowen/awesome-lowcode 收集</li><li>https://www.aliwork.com/ 宜搭，阿里+钉钉</li><li>https://www.apicloud.com/ 云端开发管理类</li><li>https://www.mingdao.com/ 明道云</li><li>https://www.jiandaoyun.com/ 简道云</li><li>https://www.huoban.com/ 伙伴云</li><li>https://qingflow.com/ 轻流</li><li>https://www.steedos.com/pricing/platform/ 华炎魔方，开源，私有部署免费</li><li>https://baidu.gitee.io/amis/docs/index 开源，偏程序员</li><li>https://modao.cc/ 墨刀，原型设计工具</li><li>https://www.imgcook.com/ 淘宝，由设计稿生成界面</li><li>https://www.huaweicloud.com/product/appcube.html 华为云应用魔方，太新</li><li>https://www.informat.cn/ 织信</li><li>https://seatable.cn/ 在线协同表格和信息管理工具，类似于excel，本体不开源但开源了一些组件</li><li>https://www.baishuyun.com/ 百数云</li><li>网页感觉不太好的<ul><li>https://www.iyunbiao.com/ 云表</li><li>https://www.grapecity.com.cn/solutions/huozige 活字格</li><li>https://www.learun.cn/ 力软敏捷框架</li><li>https://www.ivx.cn 号称零代码开发Web App和小程序，前身是ih5.cn，不是BPM</li><li>https://wuyuan.io/ https://enhancer.io/ 无远开发平台，个人使用免费，商业收费</li><li>https://www.wudaima.com/ 宜创无代码，官网的footer的链接都是废的，一点也不透明</li><li>https://www.bn100.com/ 柏思科技/Workfine</li></ul></li><li>收费的<ul><li>https://h3yun.com/ 氚云，只免费15天，集成钉钉 https://www.cloudpivot.cn/ 云枢 https://www.h3bpm.com/ 都是“奥哲”公司的</li><li>https://www.newdao.net/ 牛刀，免费两周</li><li>https://www.clickpaas.com/ 不支持个人</li><li>https://www.dadayun.cn/ 搭搭云 没有注册的地方</li></ul></li><li>没有https的： http://www.joget.cn/ 捷得 、http://www.putdb.com/ WebBuilder 、http://www.mf999.com/ 魔方网表(纯表单类)、http://www.delit.cn/ 度量快速开发平台、http://www.jinyunweb.com 进云、http://dev.easydo.cn 易开发、http://www.jepaas.com/ 、</li></ul><h3>10.2. 国外的</h3><ul><li>https://anvil.works/ py全栈，前端Drag and Drop UI，后端和数据储存用的是该网站的库</li><li>https://www.outsystems.com/pricing-and-editions/ 开发移动应用，是该行的老大；前端组件比较多，后台相对弱一点儿；注册需要姓名，邮箱</li><li>https://www.mendix.com/ 开发移动应用，后台能力比较强（有微流系统）</li><li>https://free.caspio.com/ Database-Powered Apps</li><li>https://thunkable.com 开发移动应用</li><li>https://www.appsheet.com/ 无法直接打开</li><li>https://www.zoho.com/creator/ 网页在我这里打开巨慢。可以一直用免费版只要不使用高级特性</li><li>https://airtable.com/</li><li>https://zenkit.com/ 无法直接打开</li><li>Google的App Maker（G Suite收费）、微软的PowerApps（收费10$/mo）</li><li>https://www.dronahq.com/</li><li>https://zhuanlan.zhihu.com/p/375252561</li><li>https://www.odoo.com/zh_CN/ 开源</li><li>https://bubble.io/ 新出的</li></ul><h2>11. 未分类</h2><ul><li>https://www.litespeedtech.com/experience-litespeed-for-free 一个月有效？需要姓名，电话，邮箱，地址。好像只有wordpress，还是只有软件？</li><li>https://github-students.educationhost.co.uk/ 免费一年</li><li>有可能与Jupyter有关：<ul><li>https://www.dataquest.io/plans-pricing/</li><li>https://mode.com/compare-plans/</li><li>https://kyso.io/pricing</li></ul></li><li>https://studio.azureml.net/ 可视化机器学习实验工具，可不登陆使用</li><li>https://quic.cloud/ Wordpress cache cdn</li><li>https://apis.baidu.com/</li><li>https://platform.sh/pricing/ 好像只免费30天</li></ul>]]></content>
-    
-    
-    <summary type="html">&lt;h1&gt;云&lt;/h1&gt;</summary>
-    
-    
-    
-    <category term="_S9-折腾" scheme="https://kanoc.gitee.io/categories/S9-%E6%8A%98%E8%85%BE/"/>
-    
-    <category term="白嫖" scheme="https://kanoc.gitee.io/categories/S9-%E6%8A%98%E8%85%BE/%E7%99%BD%E5%AB%96/"/>
-    
-    
-    <category term="云" scheme="https://kanoc.gitee.io/tags/%E4%BA%91/"/>
-    
-    <category term="免费项目" scheme="https://kanoc.gitee.io/tags/%E5%85%8D%E8%B4%B9%E9%A1%B9%E7%9B%AE/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>关于Jet Brains历史版本获取</title>
-    <link href="https://kanoc.gitee.io/2023/03/20/%E5%85%B3%E4%BA%8EJet-Brains%E5%8E%86%E5%8F%B2%E7%89%88%E6%9C%AC%E8%8E%B7%E5%8F%96/"/>
-    <id>https://kanoc.gitee.io/2023/03/20/%E5%85%B3%E4%BA%8EJet-Brains%E5%8E%86%E5%8F%B2%E7%89%88%E6%9C%AC%E8%8E%B7%E5%8F%96/</id>
-    <published>2023-03-20T00:38:15.000Z</published>
-    <updated>2025-06-09T03:24:50.181Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="关于Jet-Brains历史版本获取："><a href="#关于Jet-Brains历史版本获取：" class="headerlink" title="关于Jet Brains历史版本获取："></a><font color=#00b2c2 size=5 face=宋体><strong><strong>关于Jet Brains历史版本获取：</strong></strong></font></h1><span id="more"></span><p><font color=#b0171f size=4 face=宋体><strong><strong>官网给出的下载链接永远是最新的，但是最新的往往是需要收费的，所以以下链接可以直接定位到官网的历史版本下载地址，然后就可以尽情的去嗨皮了：</strong></strong></font></p><p><font color=#f26522 size=4 face=宋体><strong><strong>pycharm历史版本下载地址:      <a href="https://www.jetbrains.com/zh-cn/pycharm/download/other.html">点击下载</a></strong></strong></font></p><p><font color=#f26522 size=4 face=宋体><strong><strong>idea历史版本下载地址:     <a href="https://www.jetbrains.com/zh-cn/idea/download/other.html">点击下载</a></strong></strong></font></p><p><font color=#f26522 size=4 face=宋体><strong><strong>WebStorm历史版本下载地址:      <a href="https://www.jetbrains.com/zh-cn/webstorm/download/other.html">点击下载</a></strong></strong></font></p><p><font color=#f26522 size=4 face=宋体><strong><strong>Pycharm激活教程:      <a href="https://www.yuque.com/lanchuan-vm6pi/buhvby/irtn6mlnmt1vuzgx?singleDoc">点击进入</a></strong></strong></font></p>]]></content>
-    
-    
-    <summary type="html">&lt;h1 id=&quot;关于Jet-Brains历史版本获取：&quot;&gt;&lt;a href=&quot;#关于Jet-Brains历史版本获取：&quot; class=&quot;headerlink&quot; title=&quot;关于Jet Brains历史版本获取：&quot;&gt;&lt;/a&gt;&lt;font color=#00b2c2 size=5 face=宋体&gt;&lt;strong&gt;&lt;strong&gt;关于Jet Brains历史版本获取：&lt;/strong&gt;&lt;/strong&gt;&lt;/font&gt;&lt;/h1&gt;</summary>
-    
-    
-    
-    <category term="_A5-安装教程" scheme="https://kanoc.gitee.io/categories/A5-%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/"/>
-    
-    <category term="Jet Brains历史版本" scheme="https://kanoc.gitee.io/categories/A5-%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/Jet-Brains%E5%8E%86%E5%8F%B2%E7%89%88%E6%9C%AC/"/>
-    
-    
-    <category term="IDEA" scheme="https://kanoc.gitee.io/tags/IDEA/"/>
-    
-    <category term="破解" scheme="https://kanoc.gitee.io/tags/%E7%A0%B4%E8%A7%A3/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>来自程序员的情人节礼物！</title>
-    <link href="https://kanoc.gitee.io/2023/03/20/%E6%9D%A5%E8%87%AA%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%83%85%E4%BA%BA%E8%8A%82%E7%A4%BC%E7%89%A9%EF%BC%81/"/>
-    <id>https://kanoc.gitee.io/2023/03/20/%E6%9D%A5%E8%87%AA%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%83%85%E4%BA%BA%E8%8A%82%E7%A4%BC%E7%89%A9%EF%BC%81/</id>
-    <published>2023-03-20T00:33:06.000Z</published>
-    <updated>2025-06-09T03:28:00.920Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="来自程序员的情人节礼物！"><a href="#来自程序员的情人节礼物！" class="headerlink" title="来自程序员的情人节礼物！"></a><font color=#00b2c2 size=5 face=宋体><strong><strong>来自程序员的情人节礼物！</strong></strong></font></h1><span id="more"></span><p><font color=#f26522 size=4 face=宋体><strong><strong>Linux复制:</strong></strong></font></p><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">python3 <span class="comment"># 点击copy  打开终端 粘贴剪贴板 即可！8秒之后自动关闭</span></span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;\n&#x27;</span>.join([<span class="string">&#x27;&#x27;</span>.join([(<span class="string">&#x27;love&#x27;</span>[(x-y) % <span class="built_in">len</span>(<span class="string">&#x27;love&#x27;</span>)] <span class="keyword">if</span> ((x*<span class="number">0.05</span>)**<span class="number">2</span>+(y*<span class="number">0.1</span>)**<span class="number">2</span>-<span class="number">1</span>)**<span class="number">3</span>-(x*<span class="number">0.05</span>)**<span class="number">2</span>*(y*<span class="number">0.1</span>)**<span class="number">3</span> &lt;= <span class="number">0</span> <span class="keyword">else</span> <span class="string">&#x27; &#x27;</span>)<span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(-<span class="number">120</span>, <span class="number">30</span>)])<span class="keyword">for</span> y <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">30</span>, -<span class="number">30</span>, -<span class="number">1</span>)]))</span><br><span class="line">time.sleep(<span class="number">8</span>)</span><br><span class="line">exit()</span><br><span class="line">exit</span><br></pre></td></tr></table></figure><p><font color=#f26522 size=4 face=宋体><strong><strong>Windos下cmd复制:</strong></strong></font></p><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">python &amp;::点击copy  打开终端 粘贴剪贴板 即可！<span class="number">8</span>秒之后自动关闭</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;\n&#x27;</span>.join([<span class="string">&#x27;&#x27;</span>.join([(<span class="string">&#x27;love&#x27;</span>[(x-y) % <span class="built_in">len</span>(<span class="string">&#x27;love&#x27;</span>)] <span class="keyword">if</span> ((x*<span class="number">0.05</span>)**<span class="number">2</span>+(y*<span class="number">0.1</span>)**<span class="number">2</span>-<span class="number">1</span>)**<span class="number">3</span>-(x*<span class="number">0.05</span>)**<span class="number">2</span>*(y*<span class="number">0.1</span>)**<span class="number">3</span> &lt;= <span class="number">0</span> <span class="keyword">else</span> <span class="string">&#x27; &#x27;</span>)<span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(-<span class="number">120</span>, <span class="number">30</span>)])<span class="keyword">for</span> y <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">30</span>, -<span class="number">30</span>, -<span class="number">1</span>)]))</span><br><span class="line">time.sleep(<span class="number">8</span>)</span><br><span class="line">exit()</span><br><span class="line">exit</span><br></pre></td></tr></table></figure>]]></content>
-    
-    
-    <summary type="html">&lt;h1 id=&quot;来自程序员的情人节礼物！&quot;&gt;&lt;a href=&quot;#来自程序员的情人节礼物！&quot; class=&quot;headerlink&quot; title=&quot;来自程序员的情人节礼物！&quot;&gt;&lt;/a&gt;&lt;font color=#00b2c2 size=5 face=宋体&gt;&lt;strong&gt;&lt;strong&gt;来自程序员的情人节礼物！&lt;/strong&gt;&lt;/strong&gt;&lt;/font&gt;&lt;/h1&gt;</summary>
-    
-    
-    
-    <category term="_S9-折腾" scheme="https://kanoc.gitee.io/categories/S9-%E6%8A%98%E8%85%BE/"/>
-    
-    <category term="代码运行礼物" scheme="https://kanoc.gitee.io/categories/S9-%E6%8A%98%E8%85%BE/%E4%BB%A3%E7%A0%81%E8%BF%90%E8%A1%8C%E7%A4%BC%E7%89%A9/"/>
-    
-    
-    <category term="礼物" scheme="https://kanoc.gitee.io/tags/%E7%A4%BC%E7%89%A9/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>安装chrome_ 使用selenium</title>
-    <link href="https://kanoc.gitee.io/2023/03/20/%E5%AE%89%E8%A3%85chrome-%E4%BD%BF%E7%94%A8selenium/"/>
-    <id>https://kanoc.gitee.io/2023/03/20/%E5%AE%89%E8%A3%85chrome-%E4%BD%BF%E7%94%A8selenium/</id>
-    <published>2023-03-19T20:34:07.000Z</published>
-    <updated>2025-06-09T03:23:14.699Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="安装chrome-使用selenium"><a href="#安装chrome-使用selenium" class="headerlink" title="安装chrome_ 使用selenium"></a><font color=#00b2c2 size=5 face=宋体><strong><strong>安装chrome_ 使用selenium</strong></strong></font></h1><span id="more"></span><h1 id="1、查看-chrome-版本"><a href="#1、查看-chrome-版本" class="headerlink" title="1、查看 chrome 版本"></a><font color=#f26522 size=4 face=宋体><strong><strong>1、查看 chrome 版本</strong></strong></font></h1><ul><li>chrome_历史版本下载 &#x3D;&gt; <a href="https://chromium.cypress.io/linux/">适用于 Linux 的最新版本 (cypress.io)</a></li><li><a href="https://blog.csdn.net/China_hdy/article/details/126739461">CentOS7安装chrome和chromedriver_centos chromedriver-CSDN博客</a></li></ul><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">google-chrome --version</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">centos7  selenium 版本更新</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">执行 wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm下载最新Linux的chrome</span></span><br><span class="line">wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">下载之后执行<span class="built_in">sudo</span> yum localinstall google-chrome-stable_current_x86_64.rpm安装本地的rpm包则会替换之前版本的chrome</span></span><br><span class="line">sudo yum localinstall google-chrome-stable_current_x86_64.rpm</span><br></pre></td></tr></table></figure><hr><p><font color=#f26522 size=4 face=宋体><strong><strong>2、更新 || 禁止自动更新chrome</strong></strong></font></p><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">禁止自动更新</span></span><br><span class="line">echo &#x27;exclude=google-chrome-stable&#x27; &gt;&gt; /etc/yum.conf</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">更新 chrome</span></span><br><span class="line">sudo yum update google-chrome-stable</span><br></pre></td></tr></table></figure><hr><p><font color=#f26522 size=4 face=宋体><strong><strong>3、安装chrome</strong></strong></font></p><p><font color=#b0171f size=3 face=宋体><strong>首先安装google的epel源</strong></font></p><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">vi /etc/yum.repos.d/google.repo</span><br><span class="line"></span><br><span class="line">[google]</span><br><span class="line">name=Google-x86_64</span><br><span class="line">baseurl=http://dl.google.com/linux/rpm/stable/x86_64</span><br><span class="line">enabled=<span class="number">1</span></span><br><span class="line">gpgcheck=<span class="number">0</span></span><br><span class="line">gpgkey=https://dl-ssl.google.com/linux/linux_signing_key.pub </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">yum update  <span class="comment"># 更新</span></span><br><span class="line">yum install google-chrome-stable  <span class="comment"># 安装</span></span><br></pre></td></tr></table></figure><hr><p><font color=#f26522 size=4 face=宋体><strong><strong>4、chromedriver下载</strong></strong></font></p><p><a href="https://npm.taobao.org/mirrors/chromedriver/">淘宝源 下载</a><br><a href="http://chromedriver.storage.googleapis.com/index.html">官方源 下载</a></p><p><a href="https://googlechromelabs.github.io/chrome-for-testing/">chromedriver新版本(116+)</a></p><p>找到chrome对应的chromedriver 版本，并下载</p><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">wget https://chromedriver.storage.googleapis.com/74.0.3729.6/chromedriver_linux64.zip</span><br></pre></td></tr></table></figure><p>将下载的chromedriver 放到脚本同级目录调用</p><hr><p><font color=#f26522 size=4 face=宋体><strong><strong>5 、为chromedriver授权</strong></strong></font></p><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">chmod 755 chromedriver</span><br></pre></td></tr></table></figure><hr><p><font color=#f26522 size=4 face=宋体><strong><strong>6、测试代码 ts.py</strong></strong></font></p><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line"><span class="keyword">from</span> selenium.webdriver.chrome.options <span class="keyword">import</span> Options</span><br><span class="line"></span><br><span class="line">chrome_options = Options()</span><br><span class="line">chrome_options.add_argument(<span class="string">&quot;--headless&quot;</span>)</span><br><span class="line">chrome_options.add_argument(<span class="string">&#x27;--disable-gpu&#x27;</span>)</span><br><span class="line">chrome_options.add_argument(<span class="string">&#x27;--no-sandbox&#x27;</span>)    <span class="comment"># 禁止沙箱模式，否则肯能会报错遇到chrome异常</span></span><br><span class="line">url=<span class="string">&quot;https://www.west.cn/login.asp&quot;</span></span><br><span class="line">brower=webdriver.Chrome(executable_path=<span class="string">&quot;./chromedriver&quot;</span>, chrome_options=chrome_options)</span><br><span class="line">brower.get(url)</span><br><span class="line"><span class="built_in">print</span>(brower.current_url)</span><br><span class="line">brower.get(<span class="string">&quot;https://www.west.cn/Manager/&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(brower.current_url)</span><br><span class="line">brower.quit()</span><br></pre></td></tr></table></figure><hr><p><font color=#f26522 size=4 face=宋体><strong><strong>7、测试结果</strong></strong></font></p><p><img src="https://s2.loli.net/2022/10/23/gGApHus5ODlxSTi.png" alt="img"></p>]]></content>
-    
-    
-    <summary type="html">&lt;h1 id=&quot;安装chrome-使用selenium&quot;&gt;&lt;a href=&quot;#安装chrome-使用selenium&quot; class=&quot;headerlink&quot; title=&quot;安装chrome_ 使用selenium&quot;&gt;&lt;/a&gt;&lt;font color=#00b2c2 size=5 face=宋体&gt;&lt;strong&gt;&lt;strong&gt;安装chrome_ 使用selenium&lt;/strong&gt;&lt;/strong&gt;&lt;/font&gt;&lt;/h1&gt;</summary>
-    
-    
-    
-    <category term="_A7-逆向" scheme="https://kanoc.gitee.io/categories/A7-%E9%80%86%E5%90%91/"/>
-    
-    <category term="selenium" scheme="https://kanoc.gitee.io/categories/A7-%E9%80%86%E5%90%91/selenium/"/>
-    
-    
-    <category term="反爬" scheme="https://kanoc.gitee.io/tags/%E5%8F%8D%E7%88%AC/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>非常不错的 404 Error 源码</title>
-    <link href="https://kanoc.gitee.io/2023/03/20/%E9%9D%9E%E5%B8%B8%E4%B8%8D%E9%94%99%E7%9A%84-404-Error-%E6%BA%90%E7%A0%81/"/>
-    <id>https://kanoc.gitee.io/2023/03/20/%E9%9D%9E%E5%B8%B8%E4%B8%8D%E9%94%99%E7%9A%84-404-Error-%E6%BA%90%E7%A0%81/</id>
-    <published>2023-03-19T20:02:12.000Z</published>
-    <updated>2025-06-09T03:27:29.719Z</updated>
-    
-    <content type="html"><![CDATA[<p><font color=#00b2c2 size=5 face=宋体><strong><strong>非常不错的 404 Error 源码</strong></strong></font></p><span id="more"></span><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span> <span class="keyword">PUBLIC</span> <span class="string">&quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot;</span> <span class="string">&quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.w3.org/1999/xhtml&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;Content-Type&quot;</span> <span class="attr">content</span>=<span class="string">&quot;text/html; charset=utf-8&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>404-对不起！您访问的页面不存在<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css"><span class="selector-class">.head404</span>&#123; <span class="attribute">width</span>:<span class="number">580px</span>; <span class="attribute">height</span>:<span class="number">234px</span>; <span class="attribute">margin</span>:<span class="number">50px</span> auto <span class="number">0</span> auto; <span class="attribute">background</span>:<span class="built_in">url</span>(<span class="string">https://www.daixiaorui.com/Public/images/head404.png</span>) no-repeat; &#125;</span></span><br><span class="line"><span class="language-css"><span class="selector-class">.txtbg404</span>&#123; <span class="attribute">width</span>:<span class="number">499px</span>; <span class="attribute">height</span>:<span class="number">169px</span>; <span class="attribute">margin</span>:<span class="number">10px</span> auto <span class="number">0</span> auto; <span class="attribute">background</span>:<span class="built_in">url</span>(<span class="string">https://www.daixiaorui.com/Public/images/txtbg404.png</span>) no-repeat;&#125;</span></span><br><span class="line"><span class="language-css"><span class="selector-class">.txtbg404</span> <span class="selector-class">.txtbox</span>&#123; <span class="attribute">width</span>:<span class="number">390px</span>; <span class="attribute">position</span>:relative; <span class="attribute">top</span>:<span class="number">30px</span>; <span class="attribute">left</span>:<span class="number">60px</span>;<span class="attribute">color</span>:<span class="number">#eee</span>; <span class="attribute">font-size</span>:<span class="number">13px</span>;&#125;</span></span><br><span class="line"><span class="language-css"><span class="selector-class">.txtbg404</span> <span class="selector-class">.txtbox</span> <span class="selector-tag">p</span> &#123;<span class="attribute">margin</span>:<span class="number">5px</span> <span class="number">0</span>; <span class="attribute">line-height</span>:<span class="number">18px</span>;&#125;</span></span><br><span class="line"><span class="language-css"><span class="selector-class">.txtbg404</span> <span class="selector-class">.txtbox</span> <span class="selector-class">.paddingbox</span> &#123; <span class="attribute">padding-top</span>:<span class="number">15px</span>;&#125;</span></span><br><span class="line"><span class="language-css"><span class="selector-class">.txtbg404</span> <span class="selector-class">.txtbox</span> <span class="selector-tag">p</span> <span class="selector-tag">a</span> &#123; <span class="attribute">color</span>:<span class="number">#eee</span>; <span class="attribute">text-decoration</span>:none;&#125;</span></span><br><span class="line"><span class="language-css"><span class="selector-class">.txtbg404</span> <span class="selector-class">.txtbox</span> <span class="selector-tag">p</span> <span class="selector-tag">a</span><span class="selector-pseudo">:hover</span> &#123; <span class="attribute">color</span>:<span class="number">#FC9D1D</span>; <span class="attribute">text-decoration</span>:underline;&#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">bgcolor</span>=<span class="string">&quot;#494949&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;head404&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;txtbg404&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;txtbox&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">p</span>&gt;</span>对不起，您请求的页面不存在、或已被删除、或暂时不可用<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;paddingbox&quot;</span>&gt;</span>请点击以下链接继续浏览网页<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">p</span>&gt;</span>》<span class="tag">&lt;<span class="name">a</span> <span class="attr">style</span>=<span class="string">&quot;cursor:pointer&quot;</span> <span class="attr">onclick</span>=<span class="string">&quot;history.back()&quot;</span>&gt;</span>返回上一页面<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">p</span>&gt;</span>》<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;https://www.daixiaorui.com&quot;</span>&gt;</span>返回网站首页<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure><p><img src="https://s2.loli.net/2023/02/15/fYTaDKZgrhQsvjz.png" alt="image-20230215210409562"></p>]]></content>
-    
-    
-    <summary type="html">&lt;p&gt;&lt;font color=#00b2c2 size=5 face=宋体&gt;&lt;strong&gt;&lt;strong&gt;非常不错的 404 Error 源码&lt;/strong&gt;&lt;/strong&gt;&lt;/font&gt;&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="_A2-前端" scheme="https://kanoc.gitee.io/categories/A2-%E5%89%8D%E7%AB%AF/"/>
-    
-    <category term="html" scheme="https://kanoc.gitee.io/categories/A2-%E5%89%8D%E7%AB%AF/html/"/>
-    
-    
-    <category term="html" scheme="https://kanoc.gitee.io/tags/html/"/>
-    
-    <category term="源码" scheme="https://kanoc.gitee.io/tags/%E6%BA%90%E7%A0%81/"/>
     
   </entry>
   

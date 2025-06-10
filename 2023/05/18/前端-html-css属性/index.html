@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <style>
+    .category-all-page .category-list-item {
+      margin: 15px 10px 10px 10px;
+      list-style: none;
+      font-size: 20px;
+      }
+      .category-all-page .category-list-child {
+        list-style: none;
+        }
+  </style>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"kanoc.gitee.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="前端 html css属性">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端 html css属性">
+<meta property="og:url" content="https://kanoc.gitee.io/2023/05/18/%E5%89%8D%E7%AB%AF-html-css%E5%B1%9E%E6%80%A7/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="前端 html css属性">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2022/06/08/Mb2xYeqFTdaBuHX.png">
+<meta property="article:published_time" content="2023-05-18T12:51:01.000Z">
+<meta property="article:modified_time" content="2025-06-09T03:58:23.350Z">
+<meta property="article:author" content="Kanoc Ge">
+<meta property="article:tag" content="前端">
+<meta property="article:tag" content="css">
+<meta property="article:tag" content="html">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2022/06/08/Mb2xYeqFTdaBuHX.png">
+
+<link rel="canonical" href="https://kanoc.gitee.io/2023/05/18/%E5%89%8D%E7%AB%AF-html-css%E5%B1%9E%E6%80%A7/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>前端 html css属性 | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-首页-|-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页 | home</a>
+
+  </li>
+        <li class="menu-item menu-item-分类-|-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类 | categories</a>
+
+  </li>
+        <li class="menu-item menu-item-标签-|-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签 | tags</a>
+
+  </li>
+        <li class="menu-item menu-item-归档-|-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档 | archives</a>
+
+  </li>
+        <li class="menu-item menu-item-关于-|-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于 | about</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/05/18/%E5%89%8D%E7%AB%AF-html-css%E5%B1%9E%E6%80%A7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/452794135.jpg">
+      <meta itemprop="name" content="Kanoc Ge">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          前端 html css属性
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-05-18 20:51:01" itemprop="dateCreated datePublished" datetime="2023-05-18T20:51:01+08:00">2023-05-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-06-09 11:58:23" itemprop="dateModified" datetime="2025-06-09T11:58:23+08:00">2025-06-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/A2-%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">_A2-前端</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/A2-%E5%89%8D%E7%AB%AF/html/" itemprop="url" rel="index"><span itemprop="name">html</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="前端-html-css属性"><a href="#前端-html-css属性" class="headerlink" title="前端 html css属性"></a><font color=#00b2c2 size=5 face=宋体><strong>前端 html css属性</strong></font></h1><span id="more"></span>
+
+<br>
+
+<br>
+
+<hr>
+<br>
+
+<p><font color=#f26522 size=4 face=宋体><strong>css之文本属性</strong></font></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">font-size   <span class="comment"># 字体大小    单位是px 浏览器默认是16px   设计图常用字号是12px</span></span><br><span class="line"></span><br><span class="line">font-family    <span class="comment"># 字体    当字体是中文字体、英文字体中有空格时，需要加引号；多个字体中间用逗号链接，先解析第1个字体，如果没有，则解析第2个字体，以此类推</span></span><br><span class="line"></span><br><span class="line">color    <span class="comment"># 颜色      color：red；   color:#ff0;   color:rgb(255,0,0); 0-255</span></span><br><span class="line"></span><br><span class="line">font-weight     <span class="comment"># 加粗 font-weight:bolder(更粗的)、bold(加粗)、normal(常规)、font-weight:100-900;       100-500不加粗   600-900加粗</span></span><br><span class="line"></span><br><span class="line">font-style   <span class="comment"># 倾斜   font-style:italic(倾斜字体)、oblique(倾斜的文字)、normal(常规显示)</span></span><br><span class="line"></span><br><span class="line">text-align   <span class="comment"># 文字水平对齐     text-align:left;    水平靠左      text-align:right;   水平靠右        text-align:center;   水平居中          text-align:justify;  水平两端对齐  但是只对多行起作用</span></span><br><span class="line">line-height       <span class="comment"># 行高            line-height的数据=height的数据，可以实现单行文本垂直居中</span></span><br><span class="line">text-indent        <span class="comment">#  首行缩进      text-indent 可以取负值，    text-indent属性只对第一行起作用   2em  不管字体大小，都是空出两个字体</span></span><br><span class="line">letter-spacing       <span class="comment"># 字间距   控制文字和文字之间的间距</span></span><br><span class="line">text-decoration       <span class="comment">#  文本修饰      none（没有）、 underline（下划线）、overline（上划线）、line-through（删除线）</span></span><br><span class="line">font               <span class="comment"># 文字简写         fout-style   font-weight    font-size   line-height  fout-family         fout:italic    顺序不能变，必须同时指定fontsize和font-family属性时才起作用</span></span><br></pre></td></tr></table></figure>
+
+<br>
+
+<br>
+
+<hr>
+<br>
+
+<p><font color=#f26522 size=4 face=宋体><strong>背景图片</strong></font></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">background-size:  图片大小    例如 background-size: 20px 20px     可以是百分比   cover 完全覆盖、contain  宽高放大至当前盒子最大</span><br><span class="line">background-color: 背景颜色;</span><br><span class="line">background-image: 背景图片;    例如 background-image: url();</span><br><span class="line">background-repeat: 背景图片的平铺;     background-repeat: no-repeat(不平铺)、repeat(默认平铺)、repeat-x(x轴平铺)、repeat-y(y轴平铺)</span><br><span class="line">background-position: 背景图片定位;     background-position: 水平位置   锤子位置  可以给负值</span><br><span class="line">background-attachment: 背景图片的固定;   background-attachment: scroll(滚动)、fixed(固定,固定在浏览器的窗口里面)</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://s2.loli.net/2022/06/08/Mb2xYeqFTdaBuHX.png" alt="图片属性"></p>
+<br>
+
+<br>
+
+<hr>
+<p><br><font color=#f26522 size=4 face=宋体><strong>浮动</strong></font></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">浮动</span><br><span class="line"><span class="built_in">float</span>:right;    右浮动。</span><br><span class="line"><span class="built_in">float</span>: left;    左浮动</span><br><span class="line"><span class="built_in">float</span>: none;    不浮动</span><br><span class="line"></span><br><span class="line">第一种 清浮动</span><br><span class="line">直接写死，让前元素的宽高等于现元素，不常用</span><br><span class="line"></span><br><span class="line">第二种 在现元素中使用</span><br><span class="line">clear: left;   清除左浮动</span><br><span class="line">clear: right;  清除右浮动</span><br><span class="line">clear: none;   不清除浮动</span><br><span class="line">clear: both;   清除前面所有浮动</span><br><span class="line"></span><br><span class="line">第三种 在已经使用浮动的父元素中使用空盒子，然后  style=<span class="string">&quot;clear:both&quot;</span></span><br><span class="line">第四中 在父元素中使用 overflow: hidden style=<span class="string">&quot;overflow: hidden;&quot;</span></span><br></pre></td></tr></table></figure>
+
+<br>
+
+<br>
+
+<hr>
+<p><br><font color=#f26522 size=4 face=宋体><strong>盒子模型——padding属性</strong></font></p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="attribute">padding</span>: <span class="number">10px</span>;       一个值   四个方向都是<span class="number">10px</span></span><br><span class="line"><span class="attribute">padding</span>: <span class="number">10px</span> <span class="number">20px</span>       两个值    上下<span class="number">10px</span>    左右<span class="number">20px</span></span><br><span class="line">padding: <span class="number">10px</span>   <span class="number">20px</span>  <span class="number">30px</span>         三个值   上<span class="number">10px</span>    左右<span class="number">20px</span>     下<span class="number">30px</span></span><br><span class="line">padding:  <span class="number">10px</span> <span class="number">20px</span> <span class="number">30px</span> <span class="number">40px</span>      四个值   逆时针    上  右  下 左 </span><br></pre></td></tr></table></figure>
+
+<br>
+
+<br>
+
+<hr>
+<p><br><font color=#f26522 size=4 face=宋体><strong>盒子模型——边框属性（border）</strong></font></p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="attribute">border</span>: <span class="number">1px</span>  solid red        边框大小为<span class="number">1px</span>       <span class="built_in">solid</span>(实线)        红色</span><br><span class="line"></span><br><span class="line">border:支持属性    样式&gt;&gt;&gt;   <span class="built_in">solid</span>(实线)     <span class="built_in">double</span>(双实线)      <span class="built_in">dashed</span>(虚线)    <span class="built_in">dotted</span>(点状线)</span><br><span class="line"></span><br><span class="line">可拆分成</span><br><span class="line">border-width:    可设置<span class="number">4</span>个值     逆时针    上  右  下 左</span><br><span class="line">border-color:     可设置<span class="number">4</span>个值     逆时针    上  右  下 左</span><br><span class="line">border-style:     可设置<span class="number">4</span>个值     逆时针    上  右  下 左</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">盒子特性</span><br><span class="line">上下盒子外边距会取最大的一个值</span><br><span class="line">左右盒子会相互叠加</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">外边距会作用在父盒子身上</span><br><span class="line">    解决办法：</span><br><span class="line">        <span class="number">1</span>、子盒子margin-top ==&gt; 父盒子的padding-top    ,将子盒子的外边距转换成父盒子的内边距，注意高度计算</span><br><span class="line">        <span class="number">2</span>、给父盒子设置边框  border</span><br><span class="line">        <span class="number">3</span>、添加浮动效果，子盒子或者父盒子都可以</span><br><span class="line">        <span class="number">4</span>、overflow: hidden.    BFC构建</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<br>
+
+<br>
+
+<hr>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag"># 前端</a>
+              <a href="/tags/css/" rel="tag"># css</a>
+              <a href="/tags/html/" rel="tag"># html</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/03/20/%E5%85%B3%E4%BA%8EJet-Brains%E5%8E%86%E5%8F%B2%E7%89%88%E6%9C%AC%E8%8E%B7%E5%8F%96/" rel="prev" title="关于Jet Brains历史版本获取">
+      <i class="fa fa-chevron-left"></i> 关于Jet Brains历史版本获取
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2023/05/22/%E9%82%A3%E4%BA%9B%E8%AE%A9%E4%BA%BA%E6%83%8A%E5%A5%87%E7%9A%84%E4%BA%91%E9%A1%B9%E7%9B%AE-%E7%AC%AC%E5%9B%9B%E5%BC%B9-%E4%BA%91/" rel="next" title="那些让人惊奇的云项目(第四弹_云)">
+      那些让人惊奇的云项目(第四弹_云) <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E7%AB%AF-html-css%E5%B1%9E%E6%80%A7"><span class="nav-number">1.</span> <span class="nav-text">前端 html css属性</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Kanoc Ge"
+      src="/images/452794135.jpg">
+  <p class="site-author-name" itemprop="name">Kanoc Ge</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">28</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">29</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kanoc Ge</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  <!-- 多级目录 -->
+  <script type="text/javascript" src="/js/jquery.min.js"></script>
+  <script type="text/javascript" src="/js/category.js"></script>
+</body>
+</html>
