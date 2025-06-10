@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <style>
+    .category-all-page .category-list-item {
+      margin: 15px 10px 10px 10px;
+      list-style: none;
+      font-size: 20px;
+      }
+      .category-all-page .category-list-child {
+        list-style: none;
+        }
+  </style>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"kanoc.gitee.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="golang 有哪些快速开发的web框架？：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="golang-项目中-web框架的对比">
+<meta property="og:url" content="https://kanoc.gitee.io/2024/03/26/golang-%E9%A1%B9%E7%9B%AE%E4%B8%AD-web%E6%A1%86%E6%9E%B6%E7%9A%84%E5%AF%B9%E6%AF%94/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="golang 有哪些快速开发的web框架？：">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-6d8759da8b8de5bb0109142a0093dbe2_720w.webp">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-d2ab1ecc8944671d9ed53c74c94dbaa1_720w.webp">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-26c2047240759a367ce48638a5d8fef6_720w.webp">
+<meta property="article:published_time" content="2024-03-26T15:30:35.000Z">
+<meta property="article:modified_time" content="2025-06-09T10:44:41.636Z">
+<meta property="article:author" content="Kanoc Ge">
+<meta property="article:tag" content="go">
+<meta property="article:tag" content="web框架">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic3.zhimg.com/80/v2-6d8759da8b8de5bb0109142a0093dbe2_720w.webp">
+
+<link rel="canonical" href="https://kanoc.gitee.io/2024/03/26/golang-%E9%A1%B9%E7%9B%AE%E4%B8%AD-web%E6%A1%86%E6%9E%B6%E7%9A%84%E5%AF%B9%E6%AF%94/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>golang-项目中-web框架的对比 | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-首页-|-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页 | home</a>
+
+  </li>
+        <li class="menu-item menu-item-分类-|-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类 | categories</a>
+
+  </li>
+        <li class="menu-item menu-item-标签-|-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签 | tags</a>
+
+  </li>
+        <li class="menu-item menu-item-归档-|-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档 | archives</a>
+
+  </li>
+        <li class="menu-item menu-item-关于-|-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于 | about</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2024/03/26/golang-%E9%A1%B9%E7%9B%AE%E4%B8%AD-web%E6%A1%86%E6%9E%B6%E7%9A%84%E5%AF%B9%E6%AF%94/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/452794135.jpg">
+      <meta itemprop="name" content="Kanoc Ge">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          golang-项目中-web框架的对比
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-03-26 23:30:35" itemprop="dateCreated datePublished" datetime="2024-03-26T23:30:35+08:00">2024-03-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-06-09 18:44:41" itemprop="dateModified" datetime="2025-06-09T18:44:41+08:00">2025-06-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Golang/" itemprop="url" rel="index"><span itemprop="name">Golang</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Golang/%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">基础</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><font color=#00b2c2 size=5 face=宋体><strong>golang 有哪些快速开发的web框架？：</strong></font></p>
+<span id="more"></span>
+
+<p><strong>不BB，直接上干货。</strong></p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">下面的框架涵盖了 Go 语言开发中所有可能用到的开源Web 框架。</span><br></pre></td></tr></table></figure>
+
+<p><strong>看完之后，你绝对可以找到适合自己的框架。</strong></p>
+<h2 id="企业级常用-Web-框架"><a href="#企业级常用-Web-框架" class="headerlink" title="企业级常用 Web 框架"></a>企业级常用 Web 框架</h2><h3 id="iris（比较推荐）"><a href="#iris（比较推荐）" class="headerlink" title="iris（比较推荐）"></a><font color=#f26522 size=6 face=宋体><strong>iris（比较推荐）</strong></font></h3><p>Web: 性能测试：8</p>
+<p>开源（海外）</p>
+<p>Web框架</p>
+<p>目前发展最快的Go Web框架。提供完整的MVC功能并且面向未来。</p>
+<p><strong>项目地址</strong>：<a href="https://link.zhihu.com/?target=https://github.com/kataras/iris">github.com&#x2F;kataras&#x2F;iris</a></p>
+<p><strong>优点：</strong></p>
+<p>主要侧重于Web开发，提供了Web开发的一系列功能组件，基于MVC开发模式。iris这一年发展比较快，从一个Web Server的组件，也慢慢朝着beego的设计方向努力。</p>
+<p><strong>缺点：</strong></p>
+<p>号称性能最强，结果平平。非模块化设计。最近两年开始朝beego方向发展，但整体框架能力还不完备，需要加油。</p>
+<p><img src="https://pic3.zhimg.com/80/v2-6d8759da8b8de5bb0109142a0093dbe2_720w.webp" alt="img"></p>
+<h3 id="beego"><a href="#beego" class="headerlink" title="beego"></a><font color=#f26522 size=6 face=宋体><strong>beego</strong></font></h3><p>Web: 性能测试：8</p>
+<p>开源（国内）</p>
+<p>Web框架</p>
+<p><strong>项目地址</strong>：<a href="https://link.zhihu.com/?target=https://github.com/beego/beego">github.com&#x2F;beego&#x2F;beego</a></p>
+<p><strong>优点：</strong></p>
+<p>开源的比较早，最早的一款功能比较全面的Golang开发框架，一直在Golang领域有着比较大的影响力，作者谢大多年组织着国内影响力比较大GopherCN活动。beego有着比较丰富的开发模块、开箱即用，提供了基于MVC设计模式的项目结构、开发工具链，主要定位为Web开发，当然也可以用于非Web项目开发。</p>
+<p><strong>缺点：</strong></p>
+<p>起步较早，自谢大创业后，近几年发展较慢。非模块化设计，对第三方重量级模块依赖较多。</p>
+<h3 id="gin"><a href="#gin" class="headerlink" title="gin"></a><font color=#f26522 size=6 face=宋体><strong>gin</strong></font></h3><p><strong>Web: 性能测试：9</strong></p>
+<p><strong>Web框架</strong></p>
+<p><strong>项目地址</strong>：<a href="https://link.zhihu.com/?target=https://github.com/gin-gonic/gin">github.com&#x2F;gin-gonic&#x2F;gin</a></p>
+<p><strong>优点：</strong></p>
+<p>专注于轻量级的Web Server，比较简单，易于理解，路由和中间件设计不错，可以看做替代标准库net&#x2F;http.Server的路由加强版web server。献给爱造轮子的朋友们。</p>
+<p><strong>缺点：</strong></p>
+<p>功能简单易用，既是优点，也是缺点。</p>
+<h3 id="goframe"><a href="#goframe" class="headerlink" title="goframe"></a><font color=#f26522 size=6 face=宋体><strong>goframe</strong></font></h3><p>Web: 性能测试：8</p>
+<p>开源（国内）</p>
+<p><strong>项目地址</strong>：<a href="https://link.zhihu.com/?target=https://github.com/gogf/gf">github.com&#x2F;gogf&#x2F;gf</a></p>
+<p><strong>模块化框架</strong></p>
+<p><strong>优点：</strong></p>
+<p>主要以工程化和企业级方向为主，特别是模块化设计和工程化设计思想非常棒。针对业务项目而言，提供了开发规范、项目规范、命名规范、设计模式、开发工具链、丰富的模块、高质量代码和文档，社区活跃。作者也是资深的PHP开发者，PHP转Go的小伙伴会倍感亲切。</p>
+<p>**缺点：**开源时间较晚，推广过于佛系，目前主要面向国内用户，未推广海外。</p>
+<h2 id="Go语言学习资料推荐"><a href="#Go语言学习资料推荐" class="headerlink" title="Go语言学习资料推荐"></a>Go语言学习资料推荐</h2><h3 id="30-天入门-Go-语言"><a href="#30-天入门-Go-语言" class="headerlink" title="30 天入门 Go 语言"></a><strong>30 天入门 Go 语言</strong></h3><p><a href="https://link.zhihu.com/?target=https://mp.weixin.qq.com/s/2ux5nnExKXIdxxQR3Z6vKQ">Go语言学习路线图</a></p>
+<p><a href="https://link.zhihu.com/?target=https://mp.weixin.qq.com/s/ije6vF-yVR4GoKPVH3cdUg">前言：Go 语言为什么这么火？</a></p>
+<p><a href="https://link.zhihu.com/?target=https://mp.weixin.qq.com/s/v3SK5CxtdTXx38i3m1TDtg">Day1:Go语言入门篇</a></p>
+<p><a href="https://link.zhihu.com/?target=https://mp.weixin.qq.com/s?__biz=MzI1MjkxNDU4OQ==&mid=2247484089&idx=1&sn=0f79f77fb36ae5d11a1b607090af35b4&chksm=e9dd3c4bdeaab55d55265f50c0e7974a12a108e6248d6d622409219cd9651bf9ddce718ad02e&scene=178&cur_album_id=2106348088293376002%23rd">Day2：Go语言发展史，如何学习Go语言？</a></p>
+<p><a href="https://link.zhihu.com/?target=https://mp.weixin.qq.com/s?__biz=MzI1MjkxNDU4OQ==&mid=2247484159&idx=1&sn=56235262b4bcb951ff16a2f887eb8c61&chksm=e9dd3c0ddeaab51bf2e2a49d50b8a2d8df2c9697f93f07dde148e6e422414ae461adee030241&scene=178&cur_album_id=2106348088293376002%23rd">Day3: C语言与Go语言对比学习（关键字、标识符、注释等系列知识）</a></p>
+<p><a href="https://link.zhihu.com/?target=https://mp.weixin.qq.com/s?__biz=MzI1MjkxNDU4OQ==&mid=2247484192&idx=1&sn=a384304d424d3f5673b8ff347898c548&chksm=e9dd3dd2deaab4c4f2871f65913e04b7be1e2a00dacce1c6d6074874a8d2dcd407448fdd25d0&scene=178&cur_album_id=2106348088293376002%23rd">Day4: Go 语言程序组成（开始实践编写Go语言程序）</a></p>
+<p><a href="https://link.zhihu.com/?target=https://mp.weixin.qq.com/s?__biz=MzI1MjkxNDU4OQ==&mid=2247484232&idx=1&sn=f8995471c0133b2284898df08c004219&chksm=e9dd3dbadeaab4ac963b5b96fe138cecaa9aac1c1464f9071a55ec069a3764289b236801ea85&scene=178&cur_album_id=2106348088293376002%23rd">Day5: Go语言编码风格</a></p>
+<p><a href="https://link.zhihu.com/?target=https://mp.weixin.qq.com/s?__biz=MzI1MjkxNDU4OQ==&mid=2247484250&idx=1&sn=43595cfd10e3fdddf193f144fd3e24e4&chksm=e9dd3da8deaab4bea30bffa2d41f069c2432c3c9c8ec67a3c0933b239f9d22d2db73c64aaa55&scene=178&cur_album_id=2106348088293376002%23rd">Day6: Go 语言基础知识巩固加强</a></p>
+<p><a href="https://link.zhihu.com/?target=https://mp.weixin.qq.com/s?__biz=MzI1MjkxNDU4OQ==&mid=2247484299&idx=1&sn=047b9bb53f63cdfa7b6754c13d9ab68b&chksm=e9dd3d79deaab46ff5dceaae19d9b77a07695b1b041217c32fa65fb4e500151e2890ca7fc2e3&scene=178&cur_album_id=2106348088293376002%23rd">Day7: Go语言变量与变量定义大全解</a></p>
+<p><a href="https://link.zhihu.com/?target=https://mp.weixin.qq.com/s/x5apTYjJIxDCAHUvS5j_ig">Day8: Go语言数据类型转换</a></p>
+<p><a href="https://link.zhihu.com/?target=https://mp.weixin.qq.com/s/Py7Mv4Ue5K0ulnPYVnV8fg">Day9: Go语言常量相关知识点</a></p>
+<p><a href="https://link.zhihu.com/?target=https://mp.weixin.qq.com/s/URjA2g_32toxrp6UAwPmCQ">Day10: Go语言输出输入函数</a></p>
+<p><a href="https://link.zhihu.com/?target=https://mp.weixin.qq.com/s/5oRGYi6dSCeljM6zTvyUYQ">Day11: Go语言命令行详细解读</a></p>
+<p><a href="https://link.zhihu.com/?target=https://mp.weixin.qq.com/s/Ov0bhzs6zTI8PGNsA-KxHA">Day12: Go语言运算符（各类运算符详细讲解）</a></p>
+<p><a href="https://link.zhihu.com/?target=https://mp.weixin.qq.com/s/x65RcVsFIoGdwNoP7QT7-w">Day13: Go语言流程控制</a></p>
+<p><a href="https://link.zhihu.com/?target=https://mp.weixin.qq.com/s/LqEglWaYksPtkszCCPl8xA">Day14: Go语言函数与闭包等知识点</a></p>
+<p><a href="https://link.zhihu.com/?target=https://mp.weixin.qq.com/s/USqjlB6wG0w0yb-V8fB9MQ">Day15: Go语言数组与切片等知识讲解</a></p>
+<p><a href="https://link.zhihu.com/?target=https://mp.weixin.qq.com/s/twqhfQ13oEXKoBtxd24ipA">Day16: Go语言字典与结构体大全解</a></p>
+<p><a href="https://link.zhihu.com/?target=https://mp.weixin.qq.com/s/Ti5bgeQdKhnRDOlxkSjefw">Day17: Go语言方法与接口保姆级讲解</a></p>
+<p><a href="https://link.zhihu.com/?target=https://mp.weixin.qq.com/s/__UUZFFSnNq_4uwUzIT2mA">Day18: Go语言面向对象各类知识点讲解</a></p>
+<p><a href="https://link.zhihu.com/?target=https://mp.weixin.qq.com/s/K6pDuD9MmHLxrAfol2VJGQ">Day19: Go语言异常处理各类知识讲解</a></p>
+<p><a href="https://link.zhihu.com/?target=https://mp.weixin.qq.com/s/mYxATpMXyxeW5dHEl0iLKA">Day20: Go语言字符串与正则表达式大全解</a></p>
+<p><a href="https://link.zhihu.com/?target=https://mp.weixin.qq.com/s/n-cd4D010hitdrNnPVWt4A">Day21: Go语言和C语言交叉访问</a></p>
+<p><a href="https://link.zhihu.com/?target=https://mp.weixin.qq.com/s/-E9wB4-TqiDdVGXA9yeRLw">Day22: Go语言操作文件</a></p>
+<p><a href="https://link.zhihu.com/?target=https://mp.weixin.qq.com/s/47a26-HLSKxMM0hjl7SSAg">Day23: Go语言并发编程知识讲解</a></p>
+<p><a href="https://link.zhihu.com/?target=https://mp.weixin.qq.com/s/y7F0aSNBVvDhe7uwyQIV4g">Day24: Go语言多线程同步与生产者消费问题详细解读</a></p>
+<p><a href="https://link.zhihu.com/?target=https://mp.weixin.qq.com/s/qJYB9iExAgJxZ6DLCP2rBg">Day25:Go语言管道(Channel)</a></p>
+<p><a href="https://link.zhihu.com/?target=https://mp.weixin.qq.com/s/6rbB_QgTjvqsPp2qmVXOYA">Day26: Go 语言定时器</a></p>
+<p><a href="https://link.zhihu.com/?target=https://mp.weixin.qq.com/s/M-BD8Auty_t9B93F82MUCw">Day27: Go语言指针操作教程（持续更新ing）</a></p>
+<h3 id="Go-语言电子书推荐"><a href="#Go-语言电子书推荐" class="headerlink" title="Go 语言电子书推荐"></a>Go 语言电子书推荐</h3><p><a href="https://link.zhihu.com/?target=https://pan.baidu.com/s/1sE6RQ5We5ciLtkkWAaSyyQ">Go并发实战链接：</a>提取码：41zd</p>
+<p><a href="https://link.zhihu.com/?target=https://pan.baidu.com/s/1yo_weXsbl_tMXjJrVPMI-A">Go语言编程链接</a> 提取码：dcu3</p>
+<p><a href="https://link.zhihu.com/?target=https://pan.baidu.com/s/1MNkUhJT-ZQA5D7-tGAX-Lg">Go语言标准库链接</a>：提取码：8kx9</p>
+<p><a href="https://link.zhihu.com/?target=https://pan.baidu.com/s/1db91f8NGAzhMicPGdxuBPA">Go语言程序设计：</a>提取码：2uqt</p>
+<p><a href="https://link.zhihu.com/?target=https://pan.baidu.com/s/19xZJsF8KyCGp2fO4VYvPmA">Go语言圣经</a>：提取码：7emu</p>
+<p><a href="https://link.zhihu.com/?target=https://pan.baidu.com/s/143UFM4Uoir_yGRgSgt7hsA">Go语言实战</a>：提取码：f7o2</p>
+<p><a href="https://link.zhihu.com/?target=https://pan.baidu.com/s/1qnle6ZlgtSYANwjN4spS8Q">Go语言学习</a>笔记：提取码：7il3</p>
+<h3 id="Go书籍在线推荐阅读："><a href="#Go书籍在线推荐阅读：" class="headerlink" title="Go书籍在线推荐阅读："></a>Go书籍在线推荐阅读：</h3><h3 id="《深入解析Go》"><a href="#《深入解析Go》" class="headerlink" title="《深入解析Go》"></a><a href="https://link.zhihu.com/?target=https://github.com/tiancaiamao/go-internals">《深入解析Go》</a></h3><blockquote>
+<p>这本书适合对 Go 底层的东西比较感兴趣的朋友阅读，也是作者抽空写的一本开源的书籍《深入解析Go》。写这本书不表示我能力很强，而是我愿意分享，和大家一起分享对Go语言的内部实现的一些研究。作者一直认为知识是用来分享的，让更多的人分享自己拥有的一切知识这个才是人生最大的快乐。</p>
+</blockquote>
+<h3 id="《Go实战开发》"><a href="#《Go实战开发》" class="headerlink" title="《Go实战开发》"></a><a href="https://link.zhihu.com/?target=https://github.com/astaxie/Go-in-Action">《Go实战开发》</a></h3><blockquote>
+<p>这本书适合有Go语言基础的朋友阅读，没有任何基础的建议不要阅读学习，建议去 GitHub 阅读 <a href="https://link.zhihu.com/?target=https://github.com/coderit666/GoGuide">GoGuide</a>开源项目，有编程基础的可以通过这本书进阶学习 Go。</p>
+</blockquote>
+<h3 id="《Go入门指南》"><a href="#《Go入门指南》" class="headerlink" title="《Go入门指南》"></a><a href="https://link.zhihu.com/?target=https://github.com/Unknwon/the-way-to-go_ZH_CN">《Go入门指南》</a></h3><blockquote>
+<p>这是作者在完成阅读这本名叫 《The Way to Go》 之后，决定每天抽出一点时间来进行翻译的工作，并且以开源的形式免费分享给有需要的 Go 语言爱好者，适合初学者学习。</p>
+</blockquote>
+<h3 id="《Go语言标准库》"><a href="#《Go语言标准库》" class="headerlink" title="《Go语言标准库》"></a><a href="https://link.zhihu.com/?target=https://github.com/polaris1119/The-Golang-Standard-Library-by-Example">《Go语言标准库》</a></h3><blockquote>
+<p>这是 Go语言标准库，学习 Go 语言首选。</p>
+</blockquote>
+<h3 id="《Go-Web-编程》"><a href="#《Go-Web-编程》" class="headerlink" title="《Go Web 编程》"></a><a href="https://link.zhihu.com/?target=https://github.com/astaxie/build-web-application-with-golang">《Go Web 编程》</a></h3><blockquote>
+<p>这本书适合学习完成Go语言基础+前端基础的朋友去学习进阶Go-Web 相关的知识。</p>
+</blockquote>
+<h3 id="《Go语言博客实践》"><a href="#《Go语言博客实践》" class="headerlink" title="《Go语言博客实践》"></a><a href="https://link.zhihu.com/?target=https://github.com/achun/Go-Blog-In-Action">《Go语言博客实践》</a></h3><blockquote>
+<p>中文名<strong>Go语言博客实践</strong>. 是对<a href="https://link.zhihu.com/?target=https://github.com/typepress/typepress">TypePress</a>开发过程中的想法, 方法, 探讨等任何方面同步整理成的电子书。</p>
+</blockquote>
+<h3 id="《Go语言学习笔记》"><a href="#《Go语言学习笔记》" class="headerlink" title="《Go语言学习笔记》"></a><a href="https://link.zhihu.com/?target=https://github.com/qyuhen/book">《Go语言学习笔记》</a></h3><blockquote>
+<p>这本书主要是作者记录学习Go语言的笔记，适合初学者学习。</p>
+</blockquote>
+<h3 id="《Go语言高级编程》"><a href="#《Go语言高级编程》" class="headerlink" title="《Go语言高级编程》"></a><a href="https://link.zhihu.com/?target=https://github.com/chai2010/advanced-go-programming-book">《Go语言高级编程》</a></h3><blockquote>
+<p>本书涵盖 CGO、Go 汇编语言、RPC 实现、Web 框架实现、分布式系统等高阶主题，针对Go语言有一定经验想深入了解Go语言各种高级用法的开发人员。对于刚学习 Go 语言的读者，建议去学习Go语言开源项目 <a href="https://link.zhihu.com/?target=https://github.com/coderit666/GoGuide">GoGuide</a>。</p>
+</blockquote>
+<h3 id="Effective-Go-英文版"><a href="#Effective-Go-英文版" class="headerlink" title="Effective Go 英文版"></a><a href="https://link.zhihu.com/?target=https://golang.org/doc/effective_go.html">Effective Go</a> 英文版</h3><blockquote>
+<p>这是一本英文版的Go语言书籍，建议你有英语基础再去阅读。</p>
+</blockquote>
+<h3 id="The-Way-to-Go-中文版"><a href="#The-Way-to-Go-中文版" class="headerlink" title="The Way to Go 中文版"></a><a href="https://link.zhihu.com/?target=https://github.com/Unknwon/the-way-to-go_ZH_CN">The Way to Go</a> 中文版</h3><blockquote>
+<p>《The Way to Go》中文译本，中文正式名《<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=Go+%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra=%7B%22sourceType%22:%22answer%22,%22sourceId%22:2229767926%7D">Go 入门指南</a>》</p>
+</blockquote>
+<h3 id="Go语言学习导航"><a href="#Go语言学习导航" class="headerlink" title="Go语言学习导航"></a>Go语言学习导航</h3><p><strong><a href="https://link.zhihu.com/?target=https://hao.golangstack.com/">Golang 学习导航</a></strong></p>
+<blockquote>
+<p><strong>网站中含有 GO 语言开源图书、Go语言开发工具、Go语言入门教程、Go语言进阶教程、Go语言官方资源、Go语言 Web 框架、Go语言微服务资源、Go语言领域大牛。</strong></p>
+</blockquote>
+<p><img src="https://pic2.zhimg.com/80/v2-d2ab1ecc8944671d9ed53c74c94dbaa1_720w.webp" alt="img"></p>
+<p><img src="https://pic3.zhimg.com/80/v2-26c2047240759a367ce48638a5d8fef6_720w.webp" alt="img"></p>
+<p>最后，如果觉得大叔的分享对你有帮助，欢迎<strong>关注我</strong></p>
+<p><a target="_blank" rel="noopener" href="https://www.zhihu.com/people/669446be2fffd5481e8a1fa99f91c2e4">@Go语言入门到精通</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/go/" rel="tag"># go</a>
+              <a href="/tags/web%E6%A1%86%E6%9E%B6/" rel="tag"># web框架</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/03/20/django-%E8%B7%A8%E5%9F%9F%E6%94%AF%E6%8C%81%E9%85%8D%E7%BD%AE/" rel="prev" title="django-跨域支持配置">
+      <i class="fa fa-chevron-left"></i> django-跨域支持配置
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2024/03/27/go-%E5%AE%89%E8%A3%85%E5%B9%B6%E9%83%A8%E7%BD%B2%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84-gin-web%E6%8E%A5%E5%8F%A3/" rel="next" title="go-安装并部署一个简单的-gin-web接口">
+      go-安装并部署一个简单的-gin-web接口 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%81%E4%B8%9A%E7%BA%A7%E5%B8%B8%E7%94%A8-Web-%E6%A1%86%E6%9E%B6"><span class="nav-number">1.</span> <span class="nav-text">企业级常用 Web 框架</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#iris%EF%BC%88%E6%AF%94%E8%BE%83%E6%8E%A8%E8%8D%90%EF%BC%89"><span class="nav-number">1.1.</span> <span class="nav-text">iris（比较推荐）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#beego"><span class="nav-number">1.2.</span> <span class="nav-text">beego</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gin"><span class="nav-number">1.3.</span> <span class="nav-text">gin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#goframe"><span class="nav-number">1.4.</span> <span class="nav-text">goframe</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Go%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%96%99%E6%8E%A8%E8%8D%90"><span class="nav-number">2.</span> <span class="nav-text">Go语言学习资料推荐</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#30-%E5%A4%A9%E5%85%A5%E9%97%A8-Go-%E8%AF%AD%E8%A8%80"><span class="nav-number">2.1.</span> <span class="nav-text">30 天入门 Go 语言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go-%E8%AF%AD%E8%A8%80%E7%94%B5%E5%AD%90%E4%B9%A6%E6%8E%A8%E8%8D%90"><span class="nav-number">2.2.</span> <span class="nav-text">Go 语言电子书推荐</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go%E4%B9%A6%E7%B1%8D%E5%9C%A8%E7%BA%BF%E6%8E%A8%E8%8D%90%E9%98%85%E8%AF%BB%EF%BC%9A"><span class="nav-number">2.3.</span> <span class="nav-text">Go书籍在线推荐阅读：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E3%80%8A%E6%B7%B1%E5%85%A5%E8%A7%A3%E6%9E%90Go%E3%80%8B"><span class="nav-number">2.4.</span> <span class="nav-text">《深入解析Go》</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E3%80%8AGo%E5%AE%9E%E6%88%98%E5%BC%80%E5%8F%91%E3%80%8B"><span class="nav-number">2.5.</span> <span class="nav-text">《Go实战开发》</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E3%80%8AGo%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97%E3%80%8B"><span class="nav-number">2.6.</span> <span class="nav-text">《Go入门指南》</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E3%80%8AGo%E8%AF%AD%E8%A8%80%E6%A0%87%E5%87%86%E5%BA%93%E3%80%8B"><span class="nav-number">2.7.</span> <span class="nav-text">《Go语言标准库》</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E3%80%8AGo-Web-%E7%BC%96%E7%A8%8B%E3%80%8B"><span class="nav-number">2.8.</span> <span class="nav-text">《Go Web 编程》</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E3%80%8AGo%E8%AF%AD%E8%A8%80%E5%8D%9A%E5%AE%A2%E5%AE%9E%E8%B7%B5%E3%80%8B"><span class="nav-number">2.9.</span> <span class="nav-text">《Go语言博客实践》</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E3%80%8AGo%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%8B"><span class="nav-number">2.10.</span> <span class="nav-text">《Go语言学习笔记》</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E3%80%8AGo%E8%AF%AD%E8%A8%80%E9%AB%98%E7%BA%A7%E7%BC%96%E7%A8%8B%E3%80%8B"><span class="nav-number">2.11.</span> <span class="nav-text">《Go语言高级编程》</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Effective-Go-%E8%8B%B1%E6%96%87%E7%89%88"><span class="nav-number">2.12.</span> <span class="nav-text">Effective Go 英文版</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Way-to-Go-%E4%B8%AD%E6%96%87%E7%89%88"><span class="nav-number">2.13.</span> <span class="nav-text">The Way to Go 中文版</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E5%AF%BC%E8%88%AA"><span class="nav-number">2.14.</span> <span class="nav-text">Go语言学习导航</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Kanoc Ge"
+      src="/images/452794135.jpg">
+  <p class="site-author-name" itemprop="name">Kanoc Ge</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">257</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">115</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">182</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kanoc Ge</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  <!-- 多级目录 -->
+  <script type="text/javascript" src="/js/jquery.min.js"></script>
+  <script type="text/javascript" src="/js/category.js"></script>
+</body>
+</html>

@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <style>
+    .category-all-page .category-list-item {
+      margin: 15px 10px 10px 10px;
+      list-style: none;
+      font-size: 20px;
+      }
+      .category-all-page .category-list-child {
+        list-style: none;
+        }
+  </style>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"kanoc.gitee.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="javascript_数组的常用方法：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="javascript_数组的常用方法">
+<meta property="og:url" content="https://kanoc.gitee.io/2023/03/20/javascript-%E6%95%B0%E7%BB%84%E7%9A%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="javascript_数组的常用方法：">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2022/06/30/FjRgShmaDV4QMO7.png">
+<meta property="og:image" content="https://s2.loli.net/2022/06/30/9SMX2eRNO7gsjVU.png">
+<meta property="article:published_time" content="2023-03-20T00:47:59.000Z">
+<meta property="article:modified_time" content="2025-06-09T12:35:37.205Z">
+<meta property="article:author" content="Kanoc Ge">
+<meta property="article:tag" content="javascript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2022/06/30/FjRgShmaDV4QMO7.png">
+
+<link rel="canonical" href="https://kanoc.gitee.io/2023/03/20/javascript-%E6%95%B0%E7%BB%84%E7%9A%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>javascript_数组的常用方法 | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-首页-|-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页 | home</a>
+
+  </li>
+        <li class="menu-item menu-item-分类-|-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类 | categories</a>
+
+  </li>
+        <li class="menu-item menu-item-标签-|-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签 | tags</a>
+
+  </li>
+        <li class="menu-item menu-item-归档-|-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档 | archives</a>
+
+  </li>
+        <li class="menu-item menu-item-关于-|-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于 | about</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2023/03/20/javascript-%E6%95%B0%E7%BB%84%E7%9A%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/452794135.jpg">
+      <meta itemprop="name" content="Kanoc Ge">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          javascript_数组的常用方法
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-03-20 08:47:59" itemprop="dateCreated datePublished" datetime="2023-03-20T08:47:59+08:00">2023-03-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-06-09 20:35:37" itemprop="dateModified" datetime="2025-06-09T20:35:37+08:00">2025-06-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/A2-%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">_A2-前端</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/A2-%E5%89%8D%E7%AB%AF/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="javascript-数组的常用方法："><a href="#javascript-数组的常用方法：" class="headerlink" title="javascript_数组的常用方法："></a><font color=#00b2c2 size=5 face=宋体><strong><strong>javascript_数组的常用方法：</strong></strong></font></h1><span id="more"></span>
+
+<p><img src="https://s2.loli.net/2022/06/30/FjRgShmaDV4QMO7.png" alt="img"></p>
+<p><font color=#f26522 size=4 face=宋体><strong><strong>1. push()方法：将数据追加到数组的末尾：</strong></strong></font></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="number">1.</span><span class="title function_">push</span>()</span><br><span class="line">    语法：数组.<span class="title function_">push</span>(数据)</span><br><span class="line">    作用：将数据 &lt;追加&gt; 到数组的 &lt;末尾&gt;</span><br><span class="line">    返回值：追加数据后数组的 &lt;最新的长度&gt;</span><br><span class="line"></span><br><span class="line">例如：</span><br><span class="line">    <span class="keyword">var</span> arr = [<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>, <span class="number">400</span>]   <span class="comment">//准备一个原始数组</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(arr)   <span class="comment">//第一次输出arr </span></span><br><span class="line">    res = arr.<span class="title function_">push</span>(<span class="string">&#x27;追加的&#x27;</span>)   <span class="comment">//使用方法push</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(arr)   <span class="comment">//第二次输出arr</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(res)   <span class="comment">//输出res</span></span><br><span class="line"></span><br><span class="line">输出结果：</span><br><span class="line">    第一次<span class="attr">arr</span>: [<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>, <span class="number">400</span>]</span><br><span class="line">    第二次<span class="attr">arr</span>: [<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>, <span class="number">400</span>, <span class="string">&#x27;追加的&#x27;</span>]</span><br><span class="line">    res返回值: <span class="number">5</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><font color=#f26522 size=4 face=宋体><strong><strong>2. pop()方法：删除数组的最后一个数据：</strong></strong></font></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="number">2.</span><span class="title function_">pop</span>()</span><br><span class="line">    语法：数组.<span class="title function_">pop</span>()    <span class="comment">//可以不用传递参数</span></span><br><span class="line">    作用：删除数组的 &lt;最后一个&gt; 数据</span><br><span class="line">    返回值：被删除的数据</span><br><span class="line"></span><br><span class="line">例如：</span><br><span class="line">    <span class="keyword">var</span> arr = [<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>, <span class="number">400</span>]     <span class="comment">//准备一个原始数组</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(arr)   <span class="comment">//第一次输出arr </span></span><br><span class="line">    res = arr.<span class="title function_">pop</span>()    <span class="comment">//使用方法pop</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(arr)   <span class="comment">//第二次输出arr</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(res)    <span class="comment">//输出res</span></span><br><span class="line">输出结果：</span><br><span class="line">    第一次<span class="attr">arr</span>: [<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>, <span class="number">400</span>]</span><br><span class="line">    第二次<span class="attr">arr</span>: [<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>]</span><br><span class="line">    res返回值: <span class="number">400</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><font color=#f26522 size=4 face=宋体><strong><strong>3. unshift()方法： 将数据添加到数组的 &lt;最前面&gt; ：</strong></strong></font></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="number">3.</span><span class="title function_">unshift</span>()</span><br><span class="line">    语法：数组.<span class="title function_">unshift</span>(数据)</span><br><span class="line">    作用：将数据 &lt;添加&gt; 到数组的 &lt;最前&gt;</span><br><span class="line">    返回值：添加数据后数组的  &lt;最新长度&gt;</span><br><span class="line"></span><br><span class="line">例如：</span><br><span class="line">    <span class="keyword">var</span> arr = [<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>, <span class="number">400</span>]     <span class="comment">//准备一个原始数组</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(arr)   <span class="comment">//第一次输出arr </span></span><br><span class="line">    res = arr.<span class="title function_">unshift</span>(<span class="string">&#x27;添加的&#x27;</span>)   <span class="comment">//使用方法unshift</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(arr)   <span class="comment">//第二次输出arr</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(res)    <span class="comment">//输出res</span></span><br><span class="line"></span><br><span class="line">输出结果：</span><br><span class="line">    第一次<span class="attr">arr</span>: [<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>, <span class="number">400</span>]</span><br><span class="line">    第二次<span class="attr">arr</span>: [<span class="string">&#x27;添加的&#x27;</span>,<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>, <span class="number">400</span>]</span><br><span class="line">    res返回值: <span class="number">5</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><font color=#f26522 size=4 face=宋体><strong><strong>4. shift()方法： 删除数组 &lt;最前一个&gt; 数据：</strong></strong></font></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="number">4.</span><span class="title function_">shift</span>()</span><br><span class="line">    语法：数组.<span class="title function_">shift</span>()</span><br><span class="line">    作用: 删除数组 最前一个 数据</span><br><span class="line">    返回值 ：被删除的数据</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">例如：</span><br><span class="line">    <span class="keyword">var</span> arr = [<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>, <span class="number">400</span>]       <span class="comment">//准备一个原始数组</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(arr)     <span class="comment">//第一次输出arr </span></span><br><span class="line">    res = arr.<span class="title function_">shift</span>()   <span class="comment">//使用方法shift</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(arr)   <span class="comment">//第二次输出arr</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(res)    <span class="comment">//输出res</span></span><br><span class="line"></span><br><span class="line">输出结果：</span><br><span class="line">    第一次<span class="attr">arr</span>: [<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>, <span class="number">400</span>]</span><br><span class="line">    第二次<span class="attr">arr</span>: [<span class="number">200</span>, <span class="number">300</span>, <span class="number">400</span>]</span><br><span class="line">    res返回值: <span class="number">100</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><font color=#f26522 size=4 face=宋体><strong><strong>5. reverse()方法： 反转数组：</strong></strong></font></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="number">5.</span><span class="title function_">shift</span>()</span><br><span class="line">    语法：数组.<span class="title function_">reverse</span>()</span><br><span class="line">    作用: 将数组反转</span><br><span class="line">    返回值 ：反转后的数组</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">例如：</span><br><span class="line">    <span class="keyword">var</span> arr = [<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>, <span class="number">400</span>]       <span class="comment">//准备一个原始数组</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(arr)     <span class="comment">//第一次输出arr </span></span><br><span class="line">    res = arr.<span class="title function_">reverse</span>()    <span class="comment">//使用方法reverse</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(arr)   <span class="comment">//第二次输出arr</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(res)    <span class="comment">//输出res</span></span><br><span class="line"></span><br><span class="line">输出结果：</span><br><span class="line">    第一次<span class="attr">arr</span>: [<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>, <span class="number">400</span>]</span><br><span class="line">    第二次<span class="attr">arr</span>: [<span class="number">400</span>, <span class="number">300</span>, <span class="number">200</span>, <span class="number">100</span>]</span><br><span class="line">    res返回值: [<span class="number">400</span>, <span class="number">300</span>, <span class="number">200</span>, <span class="number">100</span>]</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><font color=#f26522 size=4 face=宋体><strong><strong>6. splice()方法： 删除 数组中若干数据，并选择是否插入新的数据：</strong></strong></font></p>
+<p><img src="https://s2.loli.net/2022/06/30/9SMX2eRNO7gsjVU.png" alt="img"></p>
+<hr>
+<p><font color=#f26522 size=4 face=宋体><strong><strong>7. sort()方法： 对数组排序：</strong></strong></font></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="number">7.</span><span class="title function_">sort</span>()</span><br><span class="line">    语法：数组.<span class="title function_">sort</span>()</span><br><span class="line">         数组.<span class="title function_">sort</span>( <span class="keyword">function</span> (<span class="params">a,b</span>) &#123; <span class="keyword">return</span> a - b &#125; )  升序</span><br><span class="line">         数组.<span class="title function_">sort</span>( <span class="keyword">function</span> (<span class="params">a,b</span>) &#123; <span class="keyword">return</span> b - a &#125; )  降序</span><br><span class="line">    作用: 将数组进行 排序</span><br><span class="line">    返回值 ：排序好的 新数组</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">例如：</span><br><span class="line">    <span class="keyword">var</span> arr = [<span class="number">11</span>, <span class="number">1</span>, <span class="number">22</span>, <span class="number">13</span>, <span class="number">45</span>, <span class="number">32</span>, <span class="number">2</span>]       <span class="comment">//准备一个原始数组</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(arr)     <span class="comment">//第一次输出arr </span></span><br><span class="line">    res = arr.<span class="title function_">sort</span>()    <span class="comment">//使用方法reverse</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(arr)   <span class="comment">//第二次输出arr</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(res)    <span class="comment">//输出res</span></span><br><span class="line"></span><br><span class="line">输出结果：</span><br><span class="line">    第一次<span class="attr">arr</span>: [<span class="number">11</span>, <span class="number">1</span>, <span class="number">22</span>, <span class="number">13</span>, <span class="number">45</span>, <span class="number">32</span>, <span class="number">2</span>]</span><br><span class="line">    第二次<span class="attr">arr</span>: [<span class="number">1</span>, <span class="number">11</span>, <span class="number">13</span>, <span class="number">2</span>, <span class="number">22</span>, <span class="number">32</span>, <span class="number">45</span>]</span><br><span class="line">    res返回值: [<span class="number">1</span>, <span class="number">11</span>, <span class="number">13</span>, <span class="number">2</span>, <span class="number">22</span>, <span class="number">32</span>, <span class="number">45</span>]</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><font color=#f26522 size=4 face=宋体><strong><strong>8. join()方法： 将数组链接成字符串：</strong></strong></font></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="number">8.</span><span class="title function_">join</span>()</span><br><span class="line">    语法：数组.<span class="title function_">join</span>(连接符)</span><br><span class="line">    作用: 将数组用 &lt;连接符&gt;  链接成为一个 &lt;字符串&gt;</span><br><span class="line">    返回值 ：链接好的 字符串</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><font color=#f26522 size=4 face=宋体><strong><strong>9. concat()方法： 将数组链接成字符串：</strong></strong></font></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="number">9.</span><span class="title function_">concat</span>()</span><br><span class="line">    语法：数组.<span class="title function_">concat</span>(其他数组)</span><br><span class="line">    作用: 将其他数组和数组  &lt;拼接&gt;  在一起  </span><br><span class="line">    返回值 ：拼接好的  新数组</span><br><span class="line"></span><br><span class="line">例如：</span><br><span class="line">    <span class="keyword">var</span> arr = [<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>, <span class="number">400</span>]       <span class="comment">//准备一个原始数组</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(arr)     <span class="comment">//第一次输出arr </span></span><br><span class="line">    <span class="keyword">var</span> res = arr.<span class="title function_">concat</span>( [<span class="number">500</span>, <span class="number">600</span>] )</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(arr)   <span class="comment">//第二次输出arr</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(res)    <span class="comment">//输出res</span></span><br><span class="line"></span><br><span class="line">输出结果：</span><br><span class="line">    第一次<span class="attr">arr</span>: [<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>, <span class="number">400</span>]   </span><br><span class="line">    第二次<span class="attr">arr</span>: [<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>, <span class="number">400</span>]   原始数据不发生变化</span><br><span class="line">    res返回值: [<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>, <span class="number">400</span>, <span class="number">500</span>, <span class="number">600</span>]   返回值  新拼接好的数组</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><font color=#f26522 size=4 face=宋体><strong><strong>10. slice()方法： 截取数组：</strong></strong></font></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="number">10.</span><span class="title function_">slice</span>()</span><br><span class="line">    语法：数组.<span class="title function_">slice</span>(开始索引, 结束索引)   <span class="comment">//当不传递参数，默认返回所有数据   当传递一个参数 默认是从第几个数据开始截取</span></span><br><span class="line">        开始索引: 默认是<span class="number">0</span>,</span><br><span class="line">        结束索引: 默认是 数组长度</span><br><span class="line">    作用:  &lt;截取&gt; 数组中的某些数据</span><br><span class="line">    返回值 ：以 &lt;新数组&gt; 的形式返回截取出来的数据</span><br><span class="line"></span><br><span class="line">例如：</span><br><span class="line">    <span class="keyword">var</span> arr = [<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>, <span class="number">400</span>]       <span class="comment">//准备一个原始数组</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(arr)     <span class="comment">//第一次输出arr </span></span><br><span class="line">    <span class="keyword">var</span> res = arr.<span class="title function_">slice</span>( <span class="number">1</span>, <span class="number">3</span>)</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(arr)   <span class="comment">//第二次输出arr</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(res)    <span class="comment">//输出res</span></span><br><span class="line"></span><br><span class="line">输出结果：</span><br><span class="line">    第一次<span class="attr">arr</span>: [<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>, <span class="number">400</span>]   </span><br><span class="line">    第二次<span class="attr">arr</span>: [<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>, <span class="number">400</span>]   原始数据不发生变化</span><br><span class="line">    res返回值: [<span class="number">200</span>, <span class="number">300</span>]   <span class="comment">// 返回值  截取后的新数组  </span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><font color=#f26522 size=4 face=宋体><strong><strong>11. indexOf()方法： 查找 &lt;数据&gt; 在数据中的索引位置：</strong></strong></font></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="number">11.</span><span class="title function_">indexOf</span>()</span><br><span class="line">    语法：数组.<span class="title function_">indexOF</span>(数据)</span><br><span class="line">    作用: 查找 &lt;数据&gt; 在数组中的 &lt;索引&gt; 位置 </span><br><span class="line">    返回值 ：</span><br><span class="line">        有该数据， 返回 &lt;第一次出现&gt; 的索引位置</span><br><span class="line">        没有该数据， 返回 -<span class="number">1</span></span><br><span class="line"></span><br><span class="line">例如：</span><br><span class="line">    <span class="keyword">var</span> arr = [<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>, <span class="number">200</span>]       <span class="comment">//准备一个原始数组</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(arr)     <span class="comment">//第一次输出arr </span></span><br><span class="line">    <span class="keyword">var</span> res = arr.<span class="title function_">indexOf</span>( <span class="number">200</span> )</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(arr)   <span class="comment">//第二次输出arr</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(res)    <span class="comment">//输出res</span></span><br><span class="line"></span><br><span class="line">输出结果：</span><br><span class="line">    第一次<span class="attr">arr</span>: [<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>, <span class="number">200</span>]   </span><br><span class="line">    第二次<span class="attr">arr</span>: [<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>, <span class="number">200</span>]   原始数据不发生变化</span><br><span class="line">    res返回值: <span class="number">1</span>   返回值  返回该数据在列表中的索引位置</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><font color=#f26522 size=4 face=宋体><strong><strong>12. forEach()方法： 将数组链接成字符串：</strong></strong></font></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="number">12.</span><span class="title function_">forEach</span>()</span><br><span class="line">    语法：数组.<span class="title function_">forEach</span>( <span class="keyword">function</span> (<span class="params">item, index, arr</span>) &#123;&#125;)</span><br><span class="line">        数组.<span class="title function_">forEach</span>( <span class="keyword">function</span> (<span class="params">数据, 索引， 数组</span>) &#123;执行内容&#125;)</span><br><span class="line">    作用: 遍历数组</span><br><span class="line">    返回值 ：没有返回值</span><br><span class="line"></span><br><span class="line">例如：</span><br><span class="line">    <span class="keyword">var</span> arr = [<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>, <span class="number">400</span>]       <span class="comment">//准备一个原始数组</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(arr)     <span class="comment">//第一次输出arr </span></span><br><span class="line">    arr.<span class="title function_">forEach</span>( <span class="keyword">function</span> (<span class="params">item, index, arr</span>) &#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(item);  <span class="comment">//输出数据</span></span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(index);  <span class="comment">// 输出索引</span></span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(arr);  <span class="comment">//输出列表</span></span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;------------------------------&#x27;</span>)</span><br><span class="line">        &#125;)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><font color=#f26522 size=4 face=宋体><strong><strong>13.map()方法： 映射数组</strong></strong></font></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="number">13.</span><span class="title function_">map</span>()</span><br><span class="line">    语法：数组.<span class="title function_">map</span>( <span class="keyword">function</span> (<span class="params">item, index, arr</span>) &#123;&#125;)</span><br><span class="line">    作用: 映射数组</span><br><span class="line">    返回值 ：映射后的 &lt;新数组&gt;</span><br><span class="line"></span><br><span class="line">例如：</span><br><span class="line">    <span class="keyword">var</span> arr = [<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>, <span class="number">400</span>]       <span class="comment">//准备一个原始数组</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(arr)     <span class="comment">//第一次输出arr </span></span><br><span class="line">    <span class="keyword">var</span> res = arr.<span class="title function_">map</span>( <span class="keyword">function</span> (<span class="params">item, index, arr</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> item*<span class="number">10</span>    <span class="comment">//每一项都 乘以 10</span></span><br><span class="line">        &#125;)</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(res)</span><br><span class="line"></span><br><span class="line">输出结果：</span><br><span class="line">    第一次<span class="attr">arr</span>: [<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>, <span class="number">400</span>]   </span><br><span class="line"></span><br><span class="line">    res返回值: [<span class="number">1000</span>, <span class="number">2000</span>, <span class="number">3000</span>, <span class="number">4000</span>]   返回值  新拼接好的数组</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><font color=#f26522 size=4 face=宋体><strong><strong>14.fileter()方法： 过滤 数组：</strong></strong></font></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="number">14.</span><span class="title function_">fileter</span>()</span><br><span class="line">    语法：数组.<span class="title function_">fileter</span>( <span class="keyword">function</span> (<span class="params">item, index, arr</span>) &#123;&#125; )</span><br><span class="line">    作用: 过滤数组</span><br><span class="line">    返回值 ：过滤后的 新数组</span><br><span class="line"></span><br><span class="line">例如：</span><br><span class="line">    <span class="keyword">var</span> arr = [<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>, <span class="number">400</span>]       <span class="comment">//准备一个原始数组</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(arr)     <span class="comment">//第一次输出arr </span></span><br><span class="line">    <span class="keyword">var</span> res = arr.<span class="title function_">filter</span>( <span class="keyword">function</span> (<span class="params">item, index, arr</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> item &gt; <span class="number">150</span></span><br><span class="line">        &#125;)</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(res)</span><br><span class="line"></span><br><span class="line">输出结果：</span><br><span class="line">    第一次<span class="attr">arr</span>: [<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>, <span class="number">400</span>]   </span><br><span class="line">    res返回值: [<span class="number">200</span>, <span class="number">300</span>, <span class="number">400</span>]   返回值  所有满足 大于<span class="number">150</span>的项 列表</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><font color=#f26522 size=4 face=宋体><strong><strong>15. every()方法： 判断数是不是 每一项 都满足条件：</strong></strong></font></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="number">15.</span><span class="title function_">every</span>()</span><br><span class="line">    语法：数组.<span class="title function_">every</span>( <span class="keyword">function</span> (<span class="params">item, index, arr</span>) &#123;&#125; )</span><br><span class="line">    作用: 判断数是不是 每一项 都满足条件</span><br><span class="line">    返回值 ：一个布尔值</span><br><span class="line"></span><br><span class="line">例如：</span><br><span class="line">    <span class="keyword">var</span> arr = [<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>, <span class="number">400</span>]       <span class="comment">//准备一个原始数组</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(arr)     <span class="comment">//第一次输出arr </span></span><br><span class="line">    <span class="keyword">var</span> res = arr.<span class="title function_">every</span>( <span class="keyword">function</span> (<span class="params">item, index, arr</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> item &gt; <span class="number">150</span></span><br><span class="line">        &#125;)</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(res)</span><br><span class="line"></span><br><span class="line">输出结果：</span><br><span class="line">    第一次<span class="attr">arr</span>: [<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>, <span class="number">400</span>]   </span><br><span class="line">    res返回值: <span class="literal">false</span>   <span class="comment">// 返回值  布尔值   数组里面不是每一项都大于150</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><font color=#f26522 size=4 face=宋体><strong><strong>16. some()方法： 判断数组中是不是有某一项满足条件：</strong></strong></font></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="number">15.</span><span class="title function_">every</span>()</span><br><span class="line">    语法：数组.<span class="title function_">every</span>( <span class="keyword">function</span> (<span class="params">item, index, arr</span>) &#123;&#125; )</span><br><span class="line">    作用: 判断数组中 是不是有 某一项 满足条件</span><br><span class="line">    返回值 ：一个布尔值</span><br><span class="line"></span><br><span class="line">例如：</span><br><span class="line">    <span class="keyword">var</span> arr = [<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>, <span class="number">400</span>]       <span class="comment">//准备一个原始数组</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(arr)     <span class="comment">//第一次输出arr </span></span><br><span class="line">    <span class="keyword">var</span> res = arr.<span class="title function_">some</span>( <span class="keyword">function</span> (<span class="params">item, index, arr</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> item &gt; <span class="number">150</span></span><br><span class="line">        &#125;)</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(res)</span><br><span class="line"></span><br><span class="line">输出结果：</span><br><span class="line">    第一次<span class="attr">arr</span>: [<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>, <span class="number">400</span>]   </span><br><span class="line">    res返回值: <span class="literal">true</span>   <span class="comment">// 返回值  布尔值   数组里面不是每一项都大于150</span></span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/javascript/" rel="tag"># javascript</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/03/20/javascript-%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/" rel="prev" title="javascript_字符串的常用方法">
+      <i class="fa fa-chevron-left"></i> javascript_字符串的常用方法
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2023/03/20/javascript-for-%E5%BE%AA%E7%8E%AF%E8%AF%AD%E5%8F%A5/" rel="next" title="javascript_for 循环语句">
+      javascript_for 循环语句 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#javascript-%E6%95%B0%E7%BB%84%E7%9A%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95%EF%BC%9A"><span class="nav-number">1.</span> <span class="nav-text">javascript_数组的常用方法：</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Kanoc Ge"
+      src="/images/452794135.jpg">
+  <p class="site-author-name" itemprop="name">Kanoc Ge</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">257</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">115</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">182</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kanoc Ge</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  <!-- 多级目录 -->
+  <script type="text/javascript" src="/js/jquery.min.js"></script>
+  <script type="text/javascript" src="/js/category.js"></script>
+</body>
+</html>
