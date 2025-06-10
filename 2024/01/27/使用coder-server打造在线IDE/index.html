@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <style>
+    .category-all-page .category-list-item {
+      margin: 15px 10px 10px 10px;
+      list-style: none;
+      font-size: 20px;
+      }
+      .category-all-page .category-list-child {
+        list-style: none;
+        }
+  </style>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"kanoc.gitee.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="使用coder-server打造在线IDE：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用coder-server打造在线IDE">
+<meta property="og:url" content="https://kanoc.gitee.io/2024/01/27/%E4%BD%BF%E7%94%A8coder-server%E6%89%93%E9%80%A0%E5%9C%A8%E7%BA%BFIDE/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="使用coder-server打造在线IDE：">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2024/01/27/xsLaieJVWdAmqNP.png">
+<meta property="og:image" content="https://s2.loli.net/2024/01/27/S3OjfvNbCHYm9hK.png">
+<meta property="og:image" content="https://s2.loli.net/2024/01/27/ClBLONA4EgbaZH5.png">
+<meta property="og:image" content="https://s2.loli.net/2024/01/27/pkbsfB8w5rvVyM1.png">
+<meta property="og:image" content="https://s2.loli.net/2024/01/27/1HuUbnL8NZvj62T.png">
+<meta property="og:image" content="https://s2.loli.net/2024/01/27/luRLOitqv37s1I2.png">
+<meta property="article:published_time" content="2024-01-27T13:31:01.000Z">
+<meta property="article:modified_time" content="2025-06-09T04:02:04.886Z">
+<meta property="article:author" content="Kanoc Ge">
+<meta property="article:tag" content="在线编辑">
+<meta property="article:tag" content="部署">
+<meta property="article:tag" content="开发">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2024/01/27/xsLaieJVWdAmqNP.png">
+
+<link rel="canonical" href="https://kanoc.gitee.io/2024/01/27/%E4%BD%BF%E7%94%A8coder-server%E6%89%93%E9%80%A0%E5%9C%A8%E7%BA%BFIDE/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>使用coder-server打造在线IDE | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-首页-|-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页 | home</a>
+
+  </li>
+        <li class="menu-item menu-item-分类-|-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类 | categories</a>
+
+  </li>
+        <li class="menu-item menu-item-标签-|-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签 | tags</a>
+
+  </li>
+        <li class="menu-item menu-item-归档-|-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档 | archives</a>
+
+  </li>
+        <li class="menu-item menu-item-关于-|-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于 | about</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2024/01/27/%E4%BD%BF%E7%94%A8coder-server%E6%89%93%E9%80%A0%E5%9C%A8%E7%BA%BFIDE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/452794135.jpg">
+      <meta itemprop="name" content="Kanoc Ge">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          使用coder-server打造在线IDE
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-01-27 21:31:01" itemprop="dateCreated datePublished" datetime="2024-01-27T21:31:01+08:00">2024-01-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-06-09 12:02:04" itemprop="dateModified" datetime="2025-06-09T12:02:04+08:00">2025-06-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/A8-%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">_A8-工具</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/A8-%E5%B7%A5%E5%85%B7/%E5%9C%A8%E7%BA%BF%E7%BC%96%E8%BE%91%E5%99%A8/" itemprop="url" rel="index"><span itemprop="name">在线编辑器</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><font color=#00b2c2 size=5 face=宋体><strong>使用coder-server打造在线IDE：</strong></font></p>
+<span id="more"></span>
+
+<h2 id="前言："><a href="#前言：" class="headerlink" title="前言："></a><font color=#f26522 size=4 face=宋体><strong>前言：</strong></font></h2><p>在平时的学习工作中，我们经常会用到代码编辑器，Vscode已经成为我们的首选。但是本地编辑器有个弊端就是当我们在家庭和公司之间移动的时候，无法连续编码。这个时候就有很多新兴的在线编辑器（web IDE）出现了，目前我最常用的就是腾讯的cloudstudio，但是其每天免费4小时的使用时长在某些时候可能不够用，这个时候我们就需要拥有自己的在线编辑器了。今天我们就一起来介绍下在线编辑器coder-server环境的搭建和基础使用。</p>
+<h2 id="关于cloud-studio"><a href="#关于cloud-studio" class="headerlink" title="关于cloud_studio"></a><font color=#f26522 size=4 face=宋体><strong>关于cloud_studio</strong></font></h2><p>首先声明，这不是广告。仅仅因为其免费好用。</p>
+<p>我们可以在<a target="_blank" rel="noopener" href="https://coding.net/">coding.net</a>注册账号，登录后，点击导航栏的Cloud Studio即可进入。<br><img src="https://s2.loli.net/2024/01/27/xsLaieJVWdAmqNP.png" alt="cloudstudio"></p>
+<p>然后我们根据自己需要的环境类型创建虚拟环境即可。</p>
+<p><img src="https://s2.loli.net/2024/01/27/S3OjfvNbCHYm9hK.png" alt="环境类型"></p>
+<p>然后你就得到了一个非常方便好用的在线编辑器。</p>
+<p><img src="https://s2.loli.net/2024/01/27/ClBLONA4EgbaZH5.png" alt="cloudstudio8c4g"></p>
+<blockquote>
+<p>从上图可以看到，这台服务器的性能还是很不错的，8核4G很强了，免费的还要什么自行车。</p>
+</blockquote>
+<p>cloudstudio非常适合白嫖党，但是今天它不是主角。</p>
+<h2 id="coder-server："><a href="#coder-server：" class="headerlink" title="coder-server："></a><font color=#00b2c2 size=5 face=宋体><strong>coder-server：</strong></font></h2><p>coder-server一个开源的基于vscode开发的在线编辑器工具。其支持二进制部署、Docker部署、HemlChart部署，目前还不支持windows部署，但是已经足够我们使用了。</p>
+<p>具体部署可以参考官方文档：<a target="_blank" rel="noopener" href="https://coder.com/docs/code-server/latest/install%E3%80%82">https://coder.com/docs/code-server/latest/install。</a></p>
+<p>这里我们选择相对简单快捷的方式，Docker部署。</p>
+<h3 id="前置条件"><a href="#前置条件" class="headerlink" title="前置条件"></a><font color=#f26522 size=4 face=宋体><strong>前置条件</strong></font></h3><p>在部署coder-server前，你需要准备一台Linux虚机（建议CentOS 7），你可以去云厂商购买（用于生产），也可以使用VMware在个人电脑创建虚机（用于学习）。</p>
+<p>我是购买的腾讯云的轻量应用服务器。</p>
+<h3 id="拉取coder-server镜像"><a href="#拉取coder-server镜像" class="headerlink" title="拉取coder-server镜像"></a><font color=#f26522 size=4 face=宋体><strong>拉取coder-server镜像</strong></font></h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker pull codercom/code-server</span><br></pre></td></tr></table></figure>
+
+<h3 id="启动coder-server"><a href="#启动coder-server" class="headerlink" title="启动coder-server"></a><font color=#f26522 size=4 face=宋体><strong>启动coder-server</strong></font></h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker run -d  --name coder-server -p 8082:8080 -e PASSWORD=123 codercom/code-server:latest</span><br></pre></td></tr></table></figure>
+
+<p>启动完成后，我们需要在云服务器的防火墙菜单中打开8082端口，然后就可以使用云服务器的公网ip进行登录使用了。（如果你是本地虚拟机，不需要处理防火墙，直接在浏览器访问虚拟机的ip:8082即可）</p>
+<h3 id="访问coder-server"><a href="#访问coder-server" class="headerlink" title="访问coder-server"></a><font color=#f26522 size=4 face=宋体><strong>访问coder-server</strong></font></h3><p>我们在浏览器访问云服务器的公网ip:8082。</p>
+<p><img src="https://s2.loli.net/2024/01/27/pkbsfB8w5rvVyM1.png" alt="coder-server登录界面"></p>
+<p>输入密码123登录。<br><img src="https://s2.loli.net/2024/01/27/1HuUbnL8NZvj62T.png" alt="loginok"></p>
+<p>哇哦，这不就是vscode本vscode嘛。</p>
+<h3 id="安装插件："><a href="#安装插件：" class="headerlink" title="安装插件："></a><font color=#00b2c2 size=5 face=宋体><strong>安装插件：</strong></font></h3><p>coder-server和vscode一样，支持安装插件，我选择了几个常用的插件安装测试，均完美支持。</p>
+<p><img src="https://s2.loli.net/2024/01/27/luRLOitqv37s1I2.png" alt="plugin"></p>
+<p>编码体验</p>
+<p>简单体验了下，实际编码体验和vscode没有差别。大家可以放心使用。</p>
+<h3 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a><font color=#f26522 size=4 face=宋体><strong>Tips</strong></font></h3><p>因为coder-server专注于编辑器而对语言本身稍有忽略，比如其内置的python没有pip3工具，需要自己安装；而且内置的deb源速度较慢，需要自行替换。</p>
+<h4 id="修改deb源"><a href="#修改deb源" class="headerlink" title="修改deb源"></a><font color=#f26522 size=4 face=宋体><strong>修改deb源</strong></font></h4><p>因为自带的vi不要用，所以我们使用以下方式修改deb源，参考：<a target="_blank" rel="noopener" href="https://www.u1s1.vip/archives/tools">常用工具大全</a>。</p>
+<ol>
+<li>复制国内源地址到编辑器的文件aaa中</li>
+<li>使用命令 <code>cat aaa &gt; /etc/apt/sources.list</code></li>
+<li>使用命令<code>apt update</code>更新源</li>
+</ol>
+<h4 id="安装pip3"><a href="#安装pip3" class="headerlink" title="安装pip3"></a><font color=#f26522 size=4 face=宋体><strong>安装pip3</strong></font></h4><p>在完成了修改deb源和更新deb源之后，我们就可以使用命令<code>apt install python3-pip</code>来安装pip3了。</p>
+<p>安装完成后，你就可以安装你所需要的库了。</p>
+<p>亲测可行。赶快行动起来吧。</p>
+<p>到此，结束。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%9C%A8%E7%BA%BF%E7%BC%96%E8%BE%91/" rel="tag"># 在线编辑</a>
+              <a href="/tags/%E9%83%A8%E7%BD%B2/" rel="tag"># 部署</a>
+              <a href="/tags/%E5%BC%80%E5%8F%91/" rel="tag"># 开发</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/01/16/%E6%B8%85%E9%99%A4-%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF-Linux-ssh-%E7%99%BB%E9%99%86%E6%97%A5%E5%BF%97/" rel="prev" title="清除 宝塔面板 + Linux ssh 登陆日志">
+      <i class="fa fa-chevron-left"></i> 清除 宝塔面板 + Linux ssh 登陆日志
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2024/02/04/%E8%A7%A3%E5%8E%8B%E5%AF%86%E7%A0%81%E6%98%AF%E4%B8%AD%E6%96%87-%E6%80%8E%E4%B9%88%E5%8A%9E%EF%BC%9F/" rel="next" title="解压密码是中文 怎么办？">
+      解压密码是中文 怎么办？ <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80%EF%BC%9A"><span class="nav-number">1.</span> <span class="nav-text">前言：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8Ecloud-studio"><span class="nav-number">2.</span> <span class="nav-text">关于cloud_studio</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#coder-server%EF%BC%9A"><span class="nav-number">3.</span> <span class="nav-text">coder-server：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E7%BD%AE%E6%9D%A1%E4%BB%B6"><span class="nav-number">3.1.</span> <span class="nav-text">前置条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8B%89%E5%8F%96coder-server%E9%95%9C%E5%83%8F"><span class="nav-number">3.2.</span> <span class="nav-text">拉取coder-server镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8coder-server"><span class="nav-number">3.3.</span> <span class="nav-text">启动coder-server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BF%E9%97%AEcoder-server"><span class="nav-number">3.4.</span> <span class="nav-text">访问coder-server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E6%8F%92%E4%BB%B6%EF%BC%9A"><span class="nav-number">3.5.</span> <span class="nav-text">安装插件：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tips"><span class="nav-number">3.6.</span> <span class="nav-text">Tips</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9deb%E6%BA%90"><span class="nav-number">3.6.1.</span> <span class="nav-text">修改deb源</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%89%E8%A3%85pip3"><span class="nav-number">3.6.2.</span> <span class="nav-text">安装pip3</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Kanoc Ge"
+      src="/images/452794135.jpg">
+  <p class="site-author-name" itemprop="name">Kanoc Ge</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">44</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">46</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">62</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kanoc Ge</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  <!-- 多级目录 -->
+  <script type="text/javascript" src="/js/jquery.min.js"></script>
+  <script type="text/javascript" src="/js/category.js"></script>
+</body>
+</html>
