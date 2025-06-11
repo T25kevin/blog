@@ -6,7 +6,7 @@
   <link href="https://kanoc.gitee.io/atom.xml" rel="self"/>
   
   <link href="https://kanoc.gitee.io/"/>
-  <updated>2025-06-11T06:51:50.173Z</updated>
+  <updated>2025-06-11T14:42:30.450Z</updated>
   <id>https://kanoc.gitee.io/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Go_后端、前端加密套装</title>
+    <link href="https://kanoc.gitee.io/2025/06/11/Go-%E5%90%8E%E7%AB%AF%E3%80%81%E5%89%8D%E7%AB%AF%E5%8A%A0%E5%AF%86%E5%A5%97%E8%A3%85/"/>
+    <id>https://kanoc.gitee.io/2025/06/11/Go-%E5%90%8E%E7%AB%AF%E3%80%81%E5%89%8D%E7%AB%AF%E5%8A%A0%E5%AF%86%E5%A5%97%E8%A3%85/</id>
+    <published>2025-06-11T14:38:21.000Z</published>
+    <updated>2025-06-11T14:42:30.450Z</updated>
+    
+    <content type="html"><![CDATA[<p><font color=#00b2c2 size=5 face=宋体><strong>Go_后端、前端加密套装</strong></font></p><span id="more"></span><h3 id="Go-后端加密增强"><a href="#Go-后端加密增强" class="headerlink" title="Go 后端加密增强:"></a>Go 后端加密增强:</h3><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">marshalResponse</span><span class="params">(response JsonResponse)</span></span> []<span class="type">byte</span> &#123;</span><br><span class="line">    jsonData, _ := json.Marshal(response)</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 使用AES加密 (需安装 crypto/aes, crypto/cipher)</span></span><br><span class="line">    encrypted := encryptAES(jsonData, <span class="string">&quot;your-32-byte-secret-key-1234567890abc&quot;</span>)</span><br><span class="line">    <span class="keyword">return</span> []<span class="type">byte</span>(base64.StdEncoding.EncodeToString(encrypted))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">encryptAES</span><span class="params">(data []<span class="type">byte</span>, key <span class="type">string</span>)</span></span> []<span class="type">byte</span> &#123;</span><br><span class="line">    block, _ := aes.NewCipher([]<span class="type">byte</span>(key))</span><br><span class="line">    gcm, _ := cipher.NewGCM(block)</span><br><span class="line">    nonce := <span class="built_in">make</span>([]<span class="type">byte</span>, gcm.NonceSize())</span><br><span class="line">    rand.Read(nonce)</span><br><span class="line">    <span class="keyword">return</span> gcm.Seal(nonce, nonce, data, <span class="literal">nil</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="Python-解密增强"><a href="#Python-解密增强" class="headerlink" title="Python 解密增强:"></a>Python 解密增强:</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> Cryptodome.Cipher <span class="keyword">import</span> AES</span><br><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">decode_encrypted</span>(<span class="params">encrypted_str, key</span>):</span><br><span class="line">    encrypted_data = base64.b64decode(encrypted_str)</span><br><span class="line">    nonce = encrypted_data[:<span class="number">12</span>]</span><br><span class="line">    ciphertext = encrypted_data[<span class="number">12</span>:]</span><br><span class="line">    cipher = AES.new(key.encode(), AES.MODE_GCM, nonce=nonce)</span><br><span class="line">    <span class="keyword">return</span> json.loads(cipher.decrypt(ciphertext).decode(<span class="string">&#x27;utf-8&#x27;</span>))</span><br></pre></td></tr></table></figure><h3 id="JavaScript-解密增强："><a href="#JavaScript-解密增强：" class="headerlink" title="JavaScript 解密增强："></a>JavaScript 解密增强：</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">decryptResponse</span>(<span class="params">encryptedStr, key</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> encryptedData = <span class="title class_">Uint8Array</span>.<span class="title function_">from</span>(<span class="title function_">atob</span>(encryptedStr), <span class="function"><span class="params">c</span> =&gt;</span> c.<span class="title function_">charCodeAt</span>(<span class="number">0</span>));</span><br><span class="line">    <span class="keyword">const</span> iv = encryptedData.<span class="title function_">slice</span>(<span class="number">0</span>, <span class="number">12</span>);</span><br><span class="line">    <span class="keyword">const</span> ciphertext = encryptedData.<span class="title function_">slice</span>(<span class="number">12</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">const</span> cryptoKey = <span class="keyword">await</span> crypto.<span class="property">subtle</span>.<span class="title function_">importKey</span>(</span><br><span class="line">        <span class="string">&quot;raw&quot;</span>, </span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">TextEncoder</span>().<span class="title function_">encode</span>(key),</span><br><span class="line">        &#123; <span class="attr">name</span>: <span class="string">&quot;AES-GCM&quot;</span> &#125;,</span><br><span class="line">        <span class="literal">false</span>,</span><br><span class="line">        [<span class="string">&quot;decrypt&quot;</span>]</span><br><span class="line">    );</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">const</span> decrypted = <span class="keyword">await</span> crypto.<span class="property">subtle</span>.<span class="title function_">decrypt</span>(</span><br><span class="line">        &#123; <span class="attr">name</span>: <span class="string">&quot;AES-GCM&quot;</span>, iv &#125;,</span><br><span class="line">        cryptoKey,</span><br><span class="line">        ciphertext</span><br><span class="line">    );</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="title class_">JSON</span>.<span class="title function_">parse</span>(<span class="keyword">new</span> <span class="title class_">TextDecoder</span>().<span class="title function_">decode</span>(decrypted));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><ol><li><strong>增强方案</strong>：<ul><li>添加 AES-GCM 加密</li><li>需要前后端共享密钥</li><li>适用于需要真正加密保护的场景</li></ul></li></ol>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;&lt;font color=#00b2c2 size=5 face=宋体&gt;&lt;strong&gt;Go_后端、前端加密套装&lt;/strong&gt;&lt;/font&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Golang" scheme="https://kanoc.gitee.io/categories/Golang/"/>
+    
+    <category term="加密、解密" scheme="https://kanoc.gitee.io/categories/Golang/%E5%8A%A0%E5%AF%86%E3%80%81%E8%A7%A3%E5%AF%86/"/>
+    
+    
+    <category term="Golang" scheme="https://kanoc.gitee.io/tags/Golang/"/>
+    
+    <category term="加密、解密" scheme="https://kanoc.gitee.io/tags/%E5%8A%A0%E5%AF%86%E3%80%81%E8%A7%A3%E5%AF%86/"/>
+    
+    <category term="Python" scheme="https://kanoc.gitee.io/tags/Python/"/>
+    
+    <category term="JavaScript" scheme="https://kanoc.gitee.io/tags/JavaScript/"/>
+    
+  </entry>
   
   <entry>
     <title>Go_发起网络请求模版(基于官方net库)</title>
@@ -500,31 +529,6 @@
     <category term="工具" scheme="https://kanoc.gitee.io/tags/%E5%B7%A5%E5%85%B7/"/>
     
     <category term="虚拟机" scheme="https://kanoc.gitee.io/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Docker-Volume-数据持久化方案</title>
-    <link href="https://kanoc.gitee.io/2025/03/14/Docker-Volume-%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%E6%96%B9%E6%A1%88/"/>
-    <id>https://kanoc.gitee.io/2025/03/14/Docker-Volume-%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%E6%96%B9%E6%A1%88/</id>
-    <published>2025-03-14T07:19:50.000Z</published>
-    <updated>2025-06-09T08:45:51.994Z</updated>
-    
-    <content type="html"><![CDATA[<p><font color=#00b2c2 size=5 face=宋体><strong>Docker Volume 数据持久化方案：</strong></font></p><span id="more"></span><h3 id="使用-Docker-Volume-代替直接挂载"><a href="#使用-Docker-Volume-代替直接挂载" class="headerlink" title="使用 Docker Volume 代替直接挂载"></a>使用 Docker Volume 代替直接挂载</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 创建 volume</span></span><br><span class="line">docker volume create mongo_data</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除卷</span></span><br><span class="line">docker volume <span class="built_in">rm</span> mongo_data</span><br><span class="line"><span class="comment"># 运行容器</span></span><br><span class="line">docker run -d --restart=always -p 27017:27017 --name mymongo -v volume:/data/db -e MONGO_LOG_MAX_SIZE=5242880 mongo:latest --wiredTigerCacheSizeGB 1 --auth</span><br></pre></td></tr></table></figure><h3 id="查看-Volume-物理路径（MacOS）"><a href="#查看-Volume-物理路径（MacOS）" class="headerlink" title="查看 Volume 物理路径（MacOS）"></a>查看 Volume 物理路径（MacOS）</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker volume inspect mongo_data</span><br></pre></td></tr></table></figure><h4 id="输出示例："><a href="#输出示例：" class="headerlink" title="输出示例："></a>输出示例：</h4><p>实际数据存储在 Docker 虚拟机中，避免直接操作宿主机文件系统。</p><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">[</span><br><span class="line">    &#123;</span><br><span class="line">        &quot;CreatedAt&quot;: &quot;<span class="number">2025</span>-<span class="number">03</span>-<span class="number">14</span>T05:XX:XXZ&quot;,</span><br><span class="line">        &quot;Driver&quot;: &quot;local&quot;,</span><br><span class="line">        &quot;Mountpoint&quot;: &quot;/var/lib/docker/volumes/mongo_data/_data&quot;,</span><br><span class="line">        &quot;Name&quot;: &quot;mongo_data&quot;,</span><br><span class="line">        &quot;Options&quot;: null,</span><br><span class="line">        &quot;Scope&quot;: &quot;local&quot;</span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure><h3 id="进入mongo容器"><a href="#进入mongo容器" class="headerlink" title="进入mongo容器"></a>进入<code>mongo</code>容器</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker <span class="built_in">exec</span> -it mymongo /bin/bash</span><br></pre></td></tr></table></figure><p><img src="https://s2.loli.net/2025/03/14/DZOC8ImKc2T59G3.png" alt="image"></p><p>注意：这里的mymongo是容器的名字，不是镜像的名字。（忘记容器名字，可使用docker ps -a 查看容器名）<br><img src="https://s2.loli.net/2025/03/14/V7NiL5AWElx16va.png" alt="image"><br>2.3.2.进入<code>mongosh</code>中</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 进入mongo shell</span></span><br><span class="line">mongosh</span><br></pre></td></tr></table></figure><p>注：<code>mongosh 6.0</code>版本之后使用，<code>mongo 6.0</code>版本之前使用，博主就是在这里出问题的，博主安装最新<code>mongodb</code>版本，但是使用的是 <code>mongo</code> 所以一直出现问题：<code>bash: mongo: command not found</code><br><img src="https://s2.loli.net/2025/03/14/9VQ3fFU5I4BJXe8.png" alt="image"></p><p><img src="https://s2.loli.net/2025/03/14/FPByZHwLNp7dRUv.png" alt="image"><br>2.3.3.进入<code>admin</code>数据库</p><figure class="highlight perl"><table><tr><td class="code"><pre><span class="line"><span class="keyword">use</span> admin</span><br></pre></td></tr></table></figure><p><img src="https://s2.loli.net/2025/03/14/McbuCipRfOx1e3o.png" alt="image"><br>2.3.4 创建一个用户，<code>mongodb</code>默认没有用户</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 1.这里创建用户名为root，密码为mongo2023，角色（该用户的权限）为root，数据库为admin（你们按照你们自己的设置）</span></span><br><span class="line"><span class="comment"># 用户名：root，密码：mongo2023，角色：root，数据库：admin</span></span><br><span class="line"></span><br><span class="line">db.createUser(&#123;user:<span class="string">&#x27;root&#x27;</span>,<span class="built_in">pwd</span>:<span class="string">&#x27;mongo2023&#x27;</span>,roles:[&#123;role:<span class="string">&#x27;root&#x27;</span>,db:<span class="string">&#x27;admin&#x27;</span>&#125;]&#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2.认证登录db.auth(&#x27;用户名&#x27;,&#x27;密码&#x27;)，打印1则代表认证通过</span></span><br><span class="line">db.auth(<span class="string">&#x27;root&#x27;</span>,<span class="string">&#x27;mongo2023&#x27;</span>)</span><br></pre></td></tr></table></figure><p><img src="https://s2.loli.net/2025/03/14/KWStwbdhveoZOYU.png" alt="image"><br>到这里就完成了创建用户和设置密码，如果要退出 Ctrl+D 或者 exit 退出mongodb</p>]]></content>
-    
-    
-    <summary type="html">&lt;p&gt;&lt;font color=#00b2c2 size=5 face=宋体&gt;&lt;strong&gt;Docker Volume 数据持久化方案：&lt;/strong&gt;&lt;/font&gt;&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="Docker" scheme="https://kanoc.gitee.io/categories/Docker/"/>
-    
-    <category term="持久化" scheme="https://kanoc.gitee.io/categories/Docker/%E6%8C%81%E4%B9%85%E5%8C%96/"/>
-    
-    
-    <category term="数据库" scheme="https://kanoc.gitee.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
-    
-    <category term="持久化" scheme="https://kanoc.gitee.io/tags/%E6%8C%81%E4%B9%85%E5%8C%96/"/>
     
   </entry>
   
