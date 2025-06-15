@@ -38,7 +38,7 @@
 <meta property="og:description" content="Ubuntu配置安装GPU转码">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-05-26T14:07:58.000Z">
-<meta property="article:modified_time" content="2025-06-10T01:07:50.100Z">
+<meta property="article:modified_time" content="2025-06-15T05:09:47.342Z">
 <meta property="article:author" content="Kanoc Ge">
 <meta property="article:tag" content="转码">
 <meta property="article:tag" content="gpu">
@@ -237,7 +237,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-06-10 09:07:50" itemprop="dateModified" datetime="2025-06-10T09:07:50+08:00">2025-06-10</time>
+                <time title="修改时间：2025-06-15 13:09:47" itemprop="dateModified" datetime="2025-06-15T13:09:47+08:00">2025-06-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -297,7 +297,7 @@
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-ubuntu2204.pin</span><br><span class="line">sudo mv cuda-ubuntu2204.pin /etc/apt/preferences.d/cuda-repository-pin-600</span><br><span class="line">wget https://developer.download.nvidia.com/compute/cuda/12.9.0/local_installers/cuda-repo-ubuntu2204-12-9-local_12.9.0-575.51.03-1_amd64.deb</span><br><span class="line">sudo dpkg -i cuda-repo-ubuntu2204-12-9-local_12.9.0-575.51.03-1_amd64.deb</span><br><span class="line">sudo cp /var/cuda-repo-ubuntu2204-12-9-local/cuda-*-keyring.gpg /usr/share/keyrings/</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get -y install cuda-toolkit-12-9</span><br></pre></td></tr></table></figure>
 
 <h4 id="3-添加变量"><a href="#3-添加变量" class="headerlink" title="(3) 添加变量"></a>(3) 添加变量</h4><p>虽然系统显示 <code>cuda-toolkit-12-9</code> 已安装，但 <code>nvcc</code> 的路径未添加到系统环境变量中。此时需要手动将 CUDA 的二进制目录加入 <code>PATH</code>：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">export</span> PATH=/usr/local/cuda/bin:<span class="variable">$PATH</span></span><br><span class="line"><span class="built_in">source</span> ~/.bashrc</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">export</span> PATH=/usr/local/cuda/bin:<span class="variable">$PATH</span></span><br><span class="line"><span class="built_in">source</span> ~/.bashrc</span><br><span class="line"></span><br><span class="line"><span class="comment">## root 用户添加环境变量</span></span><br><span class="line">vim /etc/environment</span><br><span class="line">添加 PATH=<span class="string">&quot;/usr/local/cuda/bin&quot;</span></span><br></pre></td></tr></table></figure>
 
 <h4 id="4-验证-CUDA"><a href="#4-验证-CUDA" class="headerlink" title="(4) 验证 CUDA"></a>(4) 验证 CUDA</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">nvcc --version</span><br></pre></td></tr></table></figure>
 
