@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <style>
+    .category-all-page .category-list-item {
+      margin: 15px 10px 10px 10px;
+      list-style: none;
+      font-size: 20px;
+      }
+      .category-all-page .category-list-child {
+        list-style: none;
+        }
+  </style>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"kanoc.gitee.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="civitai上的模型使用教程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="civitai上的模型使用教程">
+<meta property="og:url" content="https://kanoc.gitee.io/2025/07/24/civitai%E4%B8%8A%E7%9A%84%E6%A8%A1%E5%9E%8B%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="civitai上的模型使用教程">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-07-24T09:49:35.000Z">
+<meta property="article:modified_time" content="2025-07-24T09:56:55.264Z">
+<meta property="article:author" content="Kanoc Ge">
+<meta property="article:tag" content="教程">
+<meta property="article:tag" content="模型">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://kanoc.gitee.io/2025/07/24/civitai%E4%B8%8A%E7%9A%84%E6%A8%A1%E5%9E%8B%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>civitai上的模型使用教程 | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-首页-|-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页 | home</a>
+
+  </li>
+        <li class="menu-item menu-item-分类-|-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类 | categories</a>
+
+  </li>
+        <li class="menu-item menu-item-标签-|-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签 | tags</a>
+
+  </li>
+        <li class="menu-item menu-item-归档-|-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档 | archives</a>
+
+  </li>
+        <li class="menu-item menu-item-关于-|-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于 | about</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2025/07/24/civitai%E4%B8%8A%E7%9A%84%E6%A8%A1%E5%9E%8B%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/452794135.jpg">
+      <meta itemprop="name" content="Kanoc Ge">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          civitai上的模型使用教程
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2025-07-24 17:49:35 / 修改时间：17:56:55" itemprop="dateCreated datePublished" datetime="2025-07-24T17:49:35+08:00">2025-07-24</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/AI%E4%B8%8E%E6%A8%A1%E5%9E%8B/" itemprop="url" rel="index"><span itemprop="name">AI与模型</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/AI%E4%B8%8E%E6%A8%A1%E5%9E%8B/%E6%A8%A1%E5%9E%8B/" itemprop="url" rel="index"><span itemprop="name">模型</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><font color=#00b2c2 size=5 face=宋体><strong>civitai上的模型使用教程</strong></font></p>
+<span id="more"></span>
+
+<ul>
+<li><p><strong><code>Civitai</code>上的模型非常多，但是这些模型需要怎么使用呢 ？请根据该文章指导、部署模型</strong></p>
+</li>
+<li><p><strong><code>Civitai</code> 上的模型大多是 <code>Stable Diffusion</code> 兼容模型</strong>，主要分为 <code>Checkpoint</code> <code>（.ckpt/.safetensors）</code>、<code>Lora</code>、<code>VAE</code>、<code>Embedding</code> 等。用法核心就是：<br> <strong>下载模型——放进指定文件夹——用兼容的 <code>WebUI</code> 或工具加载即可。</strong></p>
+</li>
+</ul>
+<p>下面详细讲下<strong>新手实际怎么用</strong>：</p>
+<hr>
+<h2 id="1-准备环境"><a href="#1-准备环境" class="headerlink" title="1. 准备环境"></a>1. <strong>准备环境</strong></h2><p>最常用、最方便的方式就是用**<code>Stable Diffusion WebUI（AUTOMATIC1111</code>）**，支持 <code>Windows</code>、<code>Linux</code>、<code>Mac</code>，支持 <code>Docker</code>。</p>
+<ul>
+<li>推荐新手直接上 <code>AUTOMATIC1111 WebUI</code></li>
+<li>也可以用 <code>ComfyUI</code>、<code>Vlad</code>、<code>InvokeAI</code> 等，但用法类似</li>
+</ul>
+<hr>
+<h2 id="2-下载安装-WebUI"><a href="#2-下载安装-WebUI" class="headerlink" title="2. 下载安装 WebUI"></a>2. <strong>下载安装 WebUI</strong></h2><ul>
+<li>官方地址：<a target="_blank" rel="noopener" href="https://github.com/AUTOMATIC1111/stable-diffusion-webui">https://github.com/AUTOMATIC1111/stable-diffusion-webui</a></li>
+<li>或者直接找别人封装好的整合包</li>
+<li>支持本地运行、<code>Docker</code>、<code>Colab</code></li>
+</ul>
+<hr>
+<h2 id="3-下载-Civitai-上的模型"><a href="#3-下载-Civitai-上的模型" class="headerlink" title="3. 下载 Civitai 上的模型"></a>3. <strong>下载 Civitai 上的模型</strong></h2><ul>
+<li>找到你想用的模型页面（比如 <code>ChilloutMix</code>、<code>Anything</code>、动漫、写实等）</li>
+<li>点 <code>Download</code>，下载 <code>ckpt</code> 或 <code>safetensors</code> 格式的文件（大部分几百 MB 到几 GB）</li>
+</ul>
+<hr>
+<h2 id="4-放到正确的文件夹"><a href="#4-放到正确的文件夹" class="headerlink" title="4. 放到正确的文件夹"></a>4. <strong>放到正确的文件夹</strong></h2><p>假设你用的是 <code>AUTOMATIC1111</code> <code>WebUI</code>，常见文件夹如下：</p>
+<table>
+<thead>
+<tr>
+<th>模型类型</th>
+<th>放到哪个目录</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>主模型（ckpt, safetensors）</td>
+<td><code>models/Stable-diffusion/</code></td>
+</tr>
+<tr>
+<td>LoRA</td>
+<td><code>models/Lora/</code></td>
+</tr>
+<tr>
+<td>VAE</td>
+<td><code>models/VAE/</code></td>
+</tr>
+<tr>
+<td>Embedding</td>
+<td><code>embeddings/</code></td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>文件夹位置就是 <code>WebUI</code> 主目录下的对应文件夹。</p>
+</blockquote>
+<hr>
+<h2 id="5-在-WebUI-中选择模型并使用"><a href="#5-在-WebUI-中选择模型并使用" class="headerlink" title="5. 在 WebUI 中选择模型并使用"></a>5. <strong>在 WebUI 中选择模型并使用</strong></h2><ol>
+<li>启动 WebUI（运行 <code>webui-user.bat</code> 或 <code>python launch.py</code>，或者 docker 启动命令）</li>
+<li>浏览器打开 <code>http://127.0.0.1:7860</code></li>
+<li>在**右上角“Stable Diffusion checkpoint”**下拉菜单选择你刚下的模型</li>
+<li><code>LoRA</code>&#x2F;<code>Embedding</code> 也可以在 <code>prompt</code> 里引用或者侧边栏选择</li>
+<li>输入 <code>prompt</code>，生成图片</li>
+</ol>
+<hr>
+<h2 id="6-LoRA-VAE-Embedding-的用法"><a href="#6-LoRA-VAE-Embedding-的用法" class="headerlink" title="6. LoRA&#x2F;VAE&#x2F;Embedding 的用法"></a>6. <strong>LoRA&#x2F;VAE&#x2F;Embedding 的用法</strong></h2><ul>
+<li><code>LoRA</code>：<code>Prompt</code> 里加 <code>&quot;&lt;lora:模型名:权重&gt;&quot;</code>，比如 <code>&lt;lora:xxx:0.8&gt;</code></li>
+<li><code>VAE</code>：主界面 VAE 下拉选择</li>
+<li><code>Embedding</code>：直接在 <code>prompt</code> 用训练时指定的触发词</li>
+</ul>
+<hr>
+<h2 id="7-注意事项"><a href="#7-注意事项" class="headerlink" title="7. 注意事项"></a>7. <strong>注意事项</strong></h2><ul>
+<li>部分模型需要特定 <code>VAE</code>，否则容易偏色</li>
+<li>记得看模型页面的说明和推荐参数</li>
+<li>有些新模型只支持 <code>SDXL</code> 或 <code>SD1.5/2.1</code>，版本不要搞错</li>
+</ul>
+<hr>
+<h1 id="一句话总结"><a href="#一句话总结" class="headerlink" title="一句话总结"></a><strong>一句话总结</strong></h1><blockquote>
+<p><strong><code>Civitai</code> 上下的模型就是给 <code>Stable Diffusion</code> 用的，下载到指定文件夹，在 <code>WebUI</code> 里选中就能用了。</strong></p>
+</blockquote>
+<hr>
+<h2 id="如果你用-Docker-或-Linux"><a href="#如果你用-Docker-或-Linux" class="headerlink" title="如果你用 Docker 或 Linux"></a>如果你用 <code>Docker</code> 或 <code>Linux</code></h2><p>只要把模型文件放到挂载目录里就行，路径同上。<br> <code>Docker</code> 示例（假设本地有 <code>models</code> 文件夹）：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">-v /你的模型目录:/stable-diffusion-webui/models/Stable-diffusion</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%95%99%E7%A8%8B/" rel="tag"># 教程</a>
+              <a href="/tags/%E6%A8%A1%E5%9E%8B/" rel="tag"># 模型</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2025/07/03/Go_%E6%A8%A1%E5%9D%97%E5%8C%96_%E5%91%BD%E4%BB%A4%E8%BF%90%E8%A1%8C%E7%A8%8B%E5%BA%8F_%E4%BC%A0%E9%80%92%E5%8F%82%E6%95%B0/" rel="prev" title="Go_模块化_命令运行程序_传递参数">
+      <i class="fa fa-chevron-left"></i> Go_模块化_命令运行程序_传递参数
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%87%86%E5%A4%87%E7%8E%AF%E5%A2%83"><span class="nav-number">1.</span> <span class="nav-text">1. 准备环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85-WebUI"><span class="nav-number">2.</span> <span class="nav-text">2. 下载安装 WebUI</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E4%B8%8B%E8%BD%BD-Civitai-%E4%B8%8A%E7%9A%84%E6%A8%A1%E5%9E%8B"><span class="nav-number">3.</span> <span class="nav-text">3. 下载 Civitai 上的模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E6%94%BE%E5%88%B0%E6%AD%A3%E7%A1%AE%E7%9A%84%E6%96%87%E4%BB%B6%E5%A4%B9"><span class="nav-number">4.</span> <span class="nav-text">4. 放到正确的文件夹</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E5%9C%A8-WebUI-%E4%B8%AD%E9%80%89%E6%8B%A9%E6%A8%A1%E5%9E%8B%E5%B9%B6%E4%BD%BF%E7%94%A8"><span class="nav-number">5.</span> <span class="nav-text">5. 在 WebUI 中选择模型并使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-LoRA-VAE-Embedding-%E7%9A%84%E7%94%A8%E6%B3%95"><span class="nav-number">6.</span> <span class="nav-text">6. LoRA&#x2F;VAE&#x2F;Embedding 的用法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">7.</span> <span class="nav-text">7. 注意事项</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E5%8F%A5%E8%AF%9D%E6%80%BB%E7%BB%93"><span class="nav-number"></span> <span class="nav-text">一句话总结</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E6%9E%9C%E4%BD%A0%E7%94%A8-Docker-%E6%88%96-Linux"><span class="nav-number">1.</span> <span class="nav-text">如果你用 Docker 或 Linux</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Kanoc Ge"
+      src="/images/452794135.jpg">
+  <p class="site-author-name" itemprop="name">Kanoc Ge</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">340</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">144</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">230</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kanoc Ge</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  <!-- 多级目录 -->
+  <script type="text/javascript" src="/js/jquery.min.js"></script>
+  <script type="text/javascript" src="/js/category.js"></script>
+</body>
+</html>
