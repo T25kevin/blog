@@ -30,15 +30,15 @@
     var CONFIG = {"hostname":"kanoc.gitee.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
   </script>
 
-  <meta name="description" content="Frp内网穿透">
+  <meta name="description" content="Frps内网穿透">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Frp内网穿透">
 <meta property="og:url" content="https://kanoc.gitee.io/2024/04/17/Frp%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Frp内网穿透">
+<meta property="og:description" content="Frps内网穿透">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-04-17T13:02:39.000Z">
-<meta property="article:modified_time" content="2025-06-09T10:14:34.714Z">
+<meta property="article:modified_time" content="2025-07-27T15:00:45.980Z">
 <meta property="article:author" content="Kanoc Ge">
 <meta property="article:tag" content="内网穿透">
 <meta name="twitter:card" content="summary">
@@ -235,7 +235,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-06-09 18:14:34" itemprop="dateModified" datetime="2025-06-09T18:14:34+08:00">2025-06-09</time>
+                <time title="修改时间：2025-07-27 23:00:45" itemprop="dateModified" datetime="2025-07-27T23:00:45+08:00">2025-07-27</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -262,17 +262,43 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="Frp内网穿透"><a href="#Frp内网穿透" class="headerlink" title="Frp内网穿透"></a><font color=#00b2c2 size=5 face=宋体><strong>Frp内网穿透</strong></font></h1><span id="more"></span>
+        <h1 id="Frps内网穿透"><a href="#Frps内网穿透" class="headerlink" title="Frps内网穿透"></a><font color=#00b2c2 size=5 face=宋体><strong>Frps内网穿透</strong></font></h1><span id="more"></span>
 
 <p><font color=#f26522 size=3 face=宋体><strong><strong>如果你觉得网上的一键穿透脚本不安全，可以使用该教程，进行自己配置</strong></strong></font></p>
 <p><font color=#b0171f size=3 face=宋体><strong><strong>1、 先下载frp配置包，这是我自己配置好的：</strong></strong></font></p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">wget https://bd.bcebos.com/v1/xly-icafe/frp_0.42.0_linux_amd64_hww2t8.tar-20220621121041-9cyxar.gz</span><br></pre></td></tr></table></figure>
 
-<p><font color=#b0171f size=3 face=宋体><strong><strong>2、编辑 开启开机自动启动</strong></strong></font></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">vim /etc/systemd/system/frps.service</span><br><span class="line"></span><br><span class="line"># 把下方内容复制到文件中</span><br><span class="line">[Unit]</span><br><span class="line">Description=frps server</span><br><span class="line">Documentation=network.target.syslog.target</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">ExecStart=/root/frp/frps -c /root/frp/frps.ini</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+<p><font color=#b0171f size=3 face=宋体><strong><strong>2.1、编辑 开启开机自动启动(Centos)</strong></strong></font></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">vim /etc/systemd/system/frps.service</span><br><span class="line"></span><br><span class="line"><span class="comment"># 把下方内容复制到文件中</span></span><br><span class="line">[Unit]</span><br><span class="line">Description=frps server</span><br><span class="line">Documentation=network.target.syslog.target</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">ExecStart=/root/frp/frps -c /root/frp/frps.ini</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+
+
+
+<p><font color=#b0171f size=3 face=宋体><strong><strong>2.2、编辑 开启开机自动启动(Ubuntu)</strong></strong></font></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">vim /etc/systemd/system/frps.service</span><br><span class="line"></span><br><span class="line"><span class="comment"># 把下方内容复制到文件中</span></span><br><span class="line">[Unit]</span><br><span class="line">Description=frps server</span><br><span class="line">Documentation=network.target.syslog.target</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">ExecStart=/root/frp/frps -c /root/frp/frps.ini</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+
+
 
 <p><font color=#b0171f size=3 face=宋体><strong><strong>3、启动服务，并设置为开机自动启动</strong></strong></font></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">systemctl start frps   #启动服务</span><br><span class="line">systemctl enable frps    # 开机自动启动</span><br><span class="line">systemctl status frps    # 查看状态</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl start frps   <span class="comment">#启动服务</span></span><br><span class="line">systemctl <span class="built_in">enable</span> frps    <span class="comment"># 开机自动启动</span></span><br><span class="line">systemctl status frps    <span class="comment"># 查看状态</span></span><br></pre></td></tr></table></figure>
+
+<p><font color=#00b2c2 size=5 face=宋体><strong>Frpc配置</strong></font></p>
+<h4 id="1、下载程序包："><a href="#1、下载程序包：" class="headerlink" title="1、下载程序包："></a>1、下载程序包：</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">wget -O Frp.zip https://bd.bcebos.com/v1/xly-icafe/frp-20250727224157-d5unfm.zip</span><br></pre></td></tr></table></figure>
+
+<h4 id="2、解压缩"><a href="#2、解压缩" class="headerlink" title="2、解压缩"></a>2、解压缩</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">unzip Frp.zip</span><br></pre></td></tr></table></figure>
+
+<h4 id="3、配置连接信息"><a href="#3、配置连接信息" class="headerlink" title="3、配置连接信息"></a>3、配置连接信息</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[common] <span class="comment"># 连接 frps 的信息</span></span><br><span class="line">server_addr = 1.2.3.4   <span class="comment"># 服务器ip</span></span><br><span class="line">server_port = 7000  <span class="comment"># 服务器配置端口</span></span><br><span class="line">token = my_secure_token   <span class="comment"># 连接token</span></span><br><span class="line"></span><br><span class="line">[web]</span><br><span class="line"><span class="built_in">type</span> = tcp   <span class="comment"># 使用 TCP 通信</span></span><br><span class="line">local_ip = 127.0.0.1  <span class="comment"># 你要暴露的本地服务地址</span></span><br><span class="line">local_port = 8080    <span class="comment"># 本地服务监听端口</span></span><br><span class="line">remote_port = 8080   <span class="comment"># 映射到服务器上的端口</span></span><br><span class="line"></span><br><span class="line">[mysql]</span><br><span class="line"><span class="built_in">type</span> = tcp   <span class="comment"># 使用 TCP 通信</span></span><br><span class="line">local_ip = 127.0.0.1  <span class="comment"># 你要暴露的本地服务地址</span></span><br><span class="line">local_port = 3306    <span class="comment"># 本地服务监听端口</span></span><br><span class="line">remote_port = 6001   <span class="comment"># 映射到服务器上的端口</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="🧠-配置解释"><a href="#🧠-配置解释" class="headerlink" title="🧠 配置解释"></a>🧠 配置解释</h3><ul>
+<li><code>[common]</code>：连接 frps 的信息</li>
+<li><code>[web]</code>：你要映射的服务；名字可以自定义<ul>
+<li><code>type = tcp</code>：使用 TCP 通信</li>
+<li><code>local_ip = 127.0.0.1</code>：你要暴露的本地服务地址</li>
+<li><code>local_port = 8080</code>：本地服务监听端口</li>
+<li><code>remote_port = 8080</code>：映射到服务器上的端口</li>
+</ul>
+</li>
+</ul>
+<h4 id="4、启动客户端"><a href="#4、启动客户端" class="headerlink" title="4、启动客户端"></a>4、启动客户端</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">./frpc -c ./frpc.ini</span><br></pre></td></tr></table></figure>
 
 
     </div>
@@ -357,7 +383,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Frp%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F"><span class="nav-number">1.</span> <span class="nav-text">Frp内网穿透</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Frps%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F"><span class="nav-number">1.</span> <span class="nav-text">Frps内网穿透</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81%E4%B8%8B%E8%BD%BD%E7%A8%8B%E5%BA%8F%E5%8C%85%EF%BC%9A"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">1、下载程序包：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81%E8%A7%A3%E5%8E%8B%E7%BC%A9"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">2、解压缩</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3%E3%80%81%E9%85%8D%E7%BD%AE%E8%BF%9E%E6%8E%A5%E4%BF%A1%E6%81%AF"><span class="nav-number">1.0.0.3.</span> <span class="nav-text">3、配置连接信息</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%A7%A0-%E9%85%8D%E7%BD%AE%E8%A7%A3%E9%87%8A"><span class="nav-number">1.0.1.</span> <span class="nav-text">🧠 配置解释</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4%E3%80%81%E5%90%AF%E5%8A%A8%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="nav-number">1.0.1.1.</span> <span class="nav-text">4、启动客户端</span></a></li></ol></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -372,18 +398,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">340</span>
+          <span class="site-state-item-count">342</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">142</span>
+        <span class="site-state-item-count">146</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">230</span>
+        <span class="site-state-item-count">231</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
