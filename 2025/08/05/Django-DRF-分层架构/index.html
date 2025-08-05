@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <style>
+    .category-all-page .category-list-item {
+      margin: 15px 10px 10px 10px;
+      list-style: none;
+      font-size: 20px;
+      }
+      .category-all-page .category-list-child {
+        list-style: none;
+        }
+  </style>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"kanoc.gitee.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="Django DRF 分层架构最佳实践">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Django-DRF-分层架构">
+<meta property="og:url" content="https://kanoc.gitee.io/2025/08/05/Django-DRF-%E5%88%86%E5%B1%82%E6%9E%B6%E6%9E%84/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Django DRF 分层架构最佳实践">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-08-05T06:37:47.000Z">
+<meta property="article:modified_time" content="2025-08-05T06:47:56.637Z">
+<meta property="article:author" content="Kanoc Ge">
+<meta property="article:tag" content="docker">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://kanoc.gitee.io/2025/08/05/Django-DRF-%E5%88%86%E5%B1%82%E6%9E%B6%E6%9E%84/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Django-DRF-分层架构 | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-首页-|-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页 | home</a>
+
+  </li>
+        <li class="menu-item menu-item-分类-|-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类 | categories</a>
+
+  </li>
+        <li class="menu-item menu-item-标签-|-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签 | tags</a>
+
+  </li>
+        <li class="menu-item menu-item-归档-|-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档 | archives</a>
+
+  </li>
+        <li class="menu-item menu-item-关于-|-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于 | about</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kanoc.gitee.io/2025/08/05/Django-DRF-%E5%88%86%E5%B1%82%E6%9E%B6%E6%9E%84/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/452794135.jpg">
+      <meta itemprop="name" content="Kanoc Ge">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Django-DRF-分层架构
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2025-08-05 14:37:47 / 修改时间：14:47:56" itemprop="dateCreated datePublished" datetime="2025-08-05T14:37:47+08:00">2025-08-05</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/main/" itemprop="url" rel="index"><span itemprop="name">main</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/main/s/" itemprop="url" rel="index"><span itemprop="name">s</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><font color=#00b2c2 size=5 face=宋体><strong>Django DRF 分层架构最佳实践</strong></font></p>
+<span id="more"></span>
+
+<h1 id="Django-DRF-分层架构最佳实践（ViewSet-Service-统一Response格式）"><a href="#Django-DRF-分层架构最佳实践（ViewSet-Service-统一Response格式）" class="headerlink" title="Django DRF 分层架构最佳实践（ViewSet + Service + 统一Response格式）"></a>Django DRF 分层架构最佳实践（ViewSet + Service + 统一Response格式）</h1><h2 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">apps/article/</span><br><span class="line">├── views.py               # 接口层（ViewSet）</span><br><span class="line">├── services.py            # 业务逻辑层</span><br><span class="line">├── serializers.py         # 序列化器</span><br><span class="line">├── response.py            # 统一返回格式封装</span><br><span class="line">├── urls.py                # URL注册</span><br><span class="line">├── models.py              # 模型（假定已存在）</span><br></pre></td></tr></table></figure>
+
+<h2 id="response-py-—-统一Response返回格式"><a href="#response-py-—-统一Response返回格式" class="headerlink" title="response.py — 统一Response返回格式"></a>response.py — 统一Response返回格式</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> rest_framework.response <span class="keyword">import</span> Response  <span class="comment"># 导入DRF的Response对象</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 统一返回格式类</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">R</span>:</span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">success</span>(<span class="params">data=<span class="literal">None</span>, msg=<span class="string">&#x27;success&#x27;</span>, code=<span class="number">200</span></span>):  <span class="comment"># 成功响应</span></span><br><span class="line">        <span class="keyword">return</span> Response(&#123;  <span class="comment"># 返回格式化Response</span></span><br><span class="line">            <span class="string">&#x27;code&#x27;</span>: code,  <span class="comment"># 状态码</span></span><br><span class="line">            <span class="string">&#x27;msg&#x27;</span>: msg,    <span class="comment"># 提示信息</span></span><br><span class="line">            <span class="string">&#x27;data&#x27;</span>: data   <span class="comment"># 返回数据</span></span><br><span class="line">        &#125;, status=<span class="number">200</span>)  <span class="comment"># HTTP 200状态</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">fail</span>(<span class="params">msg=<span class="string">&#x27;error&#x27;</span>, code=<span class="number">400</span>, data=<span class="literal">None</span></span>):  <span class="comment"># 失败响应</span></span><br><span class="line">        <span class="keyword">return</span> Response(&#123;  <span class="comment"># 返回格式化Response</span></span><br><span class="line">            <span class="string">&#x27;code&#x27;</span>: code,  <span class="comment"># 状态码</span></span><br><span class="line">            <span class="string">&#x27;msg&#x27;</span>: msg,    <span class="comment"># 错误信息</span></span><br><span class="line">            <span class="string">&#x27;data&#x27;</span>: data   <span class="comment"># 错误数据</span></span><br><span class="line">        &#125;, status=<span class="number">400</span>)  <span class="comment"># HTTP 400状态</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">paginate</span>(<span class="params">paginator</span>):  <span class="comment"># 分页数据封装</span></span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            <span class="string">&#x27;count&#x27;</span>: paginator.paginator.count,  <span class="comment"># 总条数</span></span><br><span class="line">            <span class="string">&#x27;page&#x27;</span>: paginator.number,            <span class="comment"># 当前页</span></span><br><span class="line">            <span class="string">&#x27;page_size&#x27;</span>: paginator.paginator.per_page,  <span class="comment"># 每页数量</span></span><br><span class="line">            <span class="string">&#x27;results&#x27;</span>: <span class="built_in">list</span>(paginator)           <span class="comment"># 当前页数据列表</span></span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="services-py-—-业务逻辑层"><a href="#services-py-—-业务逻辑层" class="headerlink" title="services.py — 业务逻辑层"></a>services.py — 业务逻辑层</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> .models <span class="keyword">import</span> Article, Income, Advertisement, Category, ArticleBlock  <span class="comment"># 导入模型</span></span><br><span class="line"><span class="keyword">from</span> django.db.models <span class="keyword">import</span> Q  <span class="comment"># 导入Q表达式用于复杂查询</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 文章业务逻辑服务</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ArticleService</span>:</span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">get_filtered_articles</span>(<span class="params">params</span>):  <span class="comment"># 获取筛选后的文章列表</span></span><br><span class="line">        queryset = Article.objects.select_related(<span class="string">&#x27;category&#x27;</span>)  <span class="comment"># 查询文章并关联分类</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> params.get(<span class="string">&#x27;category&#x27;</span>):  <span class="comment"># 分类筛选</span></span><br><span class="line">            queryset = queryset.<span class="built_in">filter</span>(category_id=params[<span class="string">&#x27;category&#x27;</span>])</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> params.get(<span class="string">&#x27;search&#x27;</span>):  <span class="comment"># 搜索关键词筛选</span></span><br><span class="line">            search = params[<span class="string">&#x27;search&#x27;</span>]  <span class="comment"># 获取search参数</span></span><br><span class="line">            queryset = queryset.<span class="built_in">filter</span>(  <span class="comment"># 多字段模糊搜索</span></span><br><span class="line">                Q(title__icontains=search) |  <span class="comment"># 标题包含关键词</span></span><br><span class="line">                Q(description__icontains=search)  <span class="comment"># 描述包含关键词</span></span><br><span class="line">            )</span><br><span class="line"></span><br><span class="line">        tag = params.get(<span class="string">&#x27;tag&#x27;</span>)  <span class="comment"># 获取tag参数</span></span><br><span class="line">        <span class="keyword">if</span> tag == <span class="string">&#x27;free&#x27;</span>:  <span class="comment"># 免费筛选</span></span><br><span class="line">            queryset = queryset.<span class="built_in">filter</span>(is_free=<span class="literal">True</span>)</span><br><span class="line">        <span class="keyword">elif</span> tag == <span class="string">&#x27;vip_free&#x27;</span>:  <span class="comment"># VIP免费筛选</span></span><br><span class="line">            queryset = queryset.<span class="built_in">filter</span>(is_vip_free=<span class="literal">True</span>)</span><br><span class="line">        <span class="keyword">elif</span> tag == <span class="string">&#x27;m_series&#x27;</span>:  <span class="comment"># 支持M系列筛选</span></span><br><span class="line">            queryset = queryset.<span class="built_in">filter</span>(support_m_series=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> queryset.order_by(<span class="string">&#x27;-created_at&#x27;</span>)  <span class="comment"># 按创建时间倒序</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 收入业务逻辑服务</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">IncomeService</span>:</span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">get_user_incomes</span>(<span class="params">user, income_type=<span class="literal">None</span></span>):  <span class="comment"># 获取用户收入记录</span></span><br><span class="line">        queryset = Income.objects.<span class="built_in">filter</span>(user=user)  <span class="comment"># 筛选当前用户收入</span></span><br><span class="line">        <span class="keyword">if</span> income_type:  <span class="comment"># 按收入类型过滤</span></span><br><span class="line">            queryset = queryset.<span class="built_in">filter</span>(income_type=income_type)</span><br><span class="line">        <span class="keyword">return</span> queryset</span><br><span class="line"></span><br><span class="line"><span class="comment"># 广告业务逻辑服务</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">AdvertisementService</span>:</span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">list_ads</span>():  <span class="comment"># 获取广告列表</span></span><br><span class="line">        <span class="keyword">return</span> Advertisement.objects.<span class="built_in">all</span>()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 分类业务逻辑服务</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">CategoryService</span>:</span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">list_categories</span>():  <span class="comment"># 获取启用分类</span></span><br><span class="line">        <span class="keyword">return</span> Category.objects.<span class="built_in">filter</span>(is_active=<span class="literal">True</span>).order_by(<span class="string">&#x27;order&#x27;</span>, <span class="string">&#x27;name&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 文章区块业务逻辑服务</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ArticleBlockService</span>:</span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">list_blocks</span>(<span class="params">article_id=<span class="literal">None</span></span>):  <span class="comment"># 获取文章区块</span></span><br><span class="line">        queryset = ArticleBlock.objects.<span class="built_in">all</span>()  <span class="comment"># 查询所有区块</span></span><br><span class="line">        <span class="keyword">if</span> article_id:  <span class="comment"># 按文章ID过滤</span></span><br><span class="line">            queryset = queryset.<span class="built_in">filter</span>(article_id=article_id)</span><br><span class="line">        <span class="keyword">return</span> queryset.order_by(<span class="string">&#x27;order&#x27;</span>)  <span class="comment"># 按顺序排序</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="serializers-py-—-序列化器"><a href="#serializers-py-—-序列化器" class="headerlink" title="serializers.py — 序列化器"></a>serializers.py — 序列化器</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> rest_framework <span class="keyword">import</span> serializers  <span class="comment"># 导入DRF序列化器</span></span><br><span class="line"><span class="keyword">from</span> .models <span class="keyword">import</span> Article, Income, Advertisement, Category, ArticleBlock  <span class="comment"># 导入模型</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 文章列表序列化器</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ArticleListSerializer</span>(serializers.ModelSerializer):</span><br><span class="line">    category_name = serializers.CharField(source=<span class="string">&#x27;category.name&#x27;</span>, read_only=<span class="literal">True</span>)  <span class="comment"># 显示分类名称</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">class</span> <span class="title class_">Meta</span>:</span><br><span class="line">        model = Article  <span class="comment"># 绑定模型</span></span><br><span class="line">        fields = [<span class="string">&#x27;id&#x27;</span>, <span class="string">&#x27;title&#x27;</span>, <span class="string">&#x27;category_name&#x27;</span>, <span class="string">&#x27;created_at&#x27;</span>]  <span class="comment"># 序列化字段</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 文章详情序列化器</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ArticleSerializer</span>(serializers.ModelSerializer):</span><br><span class="line">    <span class="keyword">class</span> <span class="title class_">Meta</span>:</span><br><span class="line">        model = Article  <span class="comment"># 绑定模型</span></span><br><span class="line">        fields = <span class="string">&#x27;__all__&#x27;</span>  <span class="comment"># 全部字段</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 收入序列化器</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">IncomeSerializer</span>(serializers.ModelSerializer):</span><br><span class="line">    <span class="keyword">class</span> <span class="title class_">Meta</span>:</span><br><span class="line">        model = Income  <span class="comment"># 绑定模型</span></span><br><span class="line">        fields = <span class="string">&#x27;__all__&#x27;</span>  <span class="comment"># 全部字段</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 广告序列化器</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">AdvertisementSerializer</span>(serializers.ModelSerializer):</span><br><span class="line">    <span class="keyword">class</span> <span class="title class_">Meta</span>:</span><br><span class="line">        model = Advertisement  <span class="comment"># 绑定模型</span></span><br><span class="line">        fields = <span class="string">&#x27;__all__&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 分类序列化器</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">CategorySerializer</span>(serializers.ModelSerializer):</span><br><span class="line">    <span class="keyword">class</span> <span class="title class_">Meta</span>:</span><br><span class="line">        model = Category  <span class="comment"># 绑定模型</span></span><br><span class="line">        fields = <span class="string">&#x27;__all__&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 文章区块序列化器</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ArticleBlockSerializer</span>(serializers.ModelSerializer):</span><br><span class="line">    <span class="keyword">class</span> <span class="title class_">Meta</span>:</span><br><span class="line">        model = ArticleBlock  <span class="comment"># 绑定模型</span></span><br><span class="line">        fields = <span class="string">&#x27;__all__&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="views-py-—-接口层（ViewSet）"><a href="#views-py-—-接口层（ViewSet）" class="headerlink" title="views.py — 接口层（ViewSet）"></a>views.py — 接口层（ViewSet）</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> rest_framework <span class="keyword">import</span> viewsets, permissions  <span class="comment"># 导入DRF视图集与权限</span></span><br><span class="line"><span class="keyword">from</span> django.core.paginator <span class="keyword">import</span> Paginator  <span class="comment"># Django分页器</span></span><br><span class="line"><span class="keyword">from</span> .serializers <span class="keyword">import</span> (  <span class="comment"># 导入序列化器</span></span><br><span class="line">    ArticleSerializer, ArticleListSerializer, IncomeSerializer,</span><br><span class="line">    AdvertisementSerializer, CategorySerializer, ArticleBlockSerializer</span><br><span class="line">)</span><br><span class="line"><span class="keyword">from</span> .services <span class="keyword">import</span> (  <span class="comment"># 导入服务层</span></span><br><span class="line">    ArticleService, IncomeService,</span><br><span class="line">    AdvertisementService, CategoryService, ArticleBlockService</span><br><span class="line">)</span><br><span class="line"><span class="keyword">from</span> .response <span class="keyword">import</span> R  <span class="comment"># 导入统一返回格式</span></span><br><span class="line"><span class="keyword">from</span> django.shortcuts <span class="keyword">import</span> get_object_or_404  <span class="comment"># 获取对象或返回404</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 文章接口视图集</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ArticleViewSet</span>(viewsets.ViewSet):</span><br><span class="line">    permission_classes = [permissions.AllowAny]  <span class="comment"># 所有人可访问</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">list</span>(<span class="params">self, request</span>):  <span class="comment"># 文章列表接口</span></span><br><span class="line">        queryset = ArticleService.get_filtered_articles(request.query_params)  <span class="comment"># 调用服务获取数据</span></span><br><span class="line">        page = <span class="built_in">int</span>(request.GET.get(<span class="string">&#x27;page&#x27;</span>, <span class="number">1</span>))  <span class="comment"># 获取页码</span></span><br><span class="line">        size = <span class="built_in">int</span>(request.GET.get(<span class="string">&#x27;page_size&#x27;</span>, <span class="number">10</span>))  <span class="comment"># 获取每页数量</span></span><br><span class="line">        paginator = Paginator(queryset, size)  <span class="comment"># 创建分页器</span></span><br><span class="line">        page_obj = paginator.get_page(page)  <span class="comment"># 获取当前页对象</span></span><br><span class="line"></span><br><span class="line">        serializer = ArticleListSerializer(page_obj, many=<span class="literal">True</span>)  <span class="comment"># 序列化数据</span></span><br><span class="line">        data = R.paginate(page_obj)  <span class="comment"># 格式化分页数据</span></span><br><span class="line">        data[<span class="string">&#x27;results&#x27;</span>] = serializer.data  <span class="comment"># 填充结果集</span></span><br><span class="line">        <span class="keyword">return</span> R.success(data)  <span class="comment"># 返回成功响应</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">retrieve</span>(<span class="params">self, request, pk=<span class="literal">None</span></span>):  <span class="comment"># 文章详情接口</span></span><br><span class="line">        article = get_object_or_404(Article, pk=pk)  <span class="comment"># 获取文章或404</span></span><br><span class="line">        serializer = ArticleSerializer(article)  <span class="comment"># 序列化文章</span></span><br><span class="line">        <span class="keyword">return</span> R.success(serializer.data)  <span class="comment"># 返回成功响应</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 收入接口视图集</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">IncomeViewSet</span>(viewsets.ViewSet):</span><br><span class="line">    permission_classes = [permissions.IsAuthenticated]  <span class="comment"># 需要登录</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">list</span>(<span class="params">self, request</span>):  <span class="comment"># 收入列表接口</span></span><br><span class="line">        queryset = IncomeService.get_user_incomes(request.user, request.GET.get(<span class="string">&#x27;income_type&#x27;</span>))  <span class="comment"># 获取收入数据</span></span><br><span class="line">        serializer = IncomeSerializer(queryset, many=<span class="literal">True</span>)  <span class="comment"># 序列化收入</span></span><br><span class="line">        <span class="keyword">return</span> R.success(serializer.data)  <span class="comment"># 返回成功响应</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 广告接口视图集</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">AdvertisementViewSet</span>(viewsets.ViewSet):</span><br><span class="line">    permission_classes = [permissions.AllowAny]  <span class="comment"># 所有人可访问</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">list</span>(<span class="params">self, request</span>):  <span class="comment"># 广告列表接口</span></span><br><span class="line">        queryset = AdvertisementService.list_ads()  <span class="comment"># 获取广告数据</span></span><br><span class="line">        serializer = AdvertisementSerializer(queryset, many=<span class="literal">True</span>)  <span class="comment"># 序列化广告</span></span><br><span class="line">        <span class="keyword">return</span> R.success(serializer.data)  <span class="comment"># 返回成功响应</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 分类接口视图集</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">CategoryViewSet</span>(viewsets.ViewSet):</span><br><span class="line">    permission_classes = [permissions.AllowAny]  <span class="comment"># 所有人可访问</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">list</span>(<span class="params">self, request</span>):  <span class="comment"># 分类列表接口</span></span><br><span class="line">        queryset = CategoryService.list_categories()  <span class="comment"># 获取分类数据</span></span><br><span class="line">        serializer = CategorySerializer(queryset, many=<span class="literal">True</span>)  <span class="comment"># 序列化分类</span></span><br><span class="line">        <span class="keyword">return</span> R.success(serializer.data)  <span class="comment"># 返回成功响应</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 文章区块接口视图集</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ArticleBlockViewSet</span>(viewsets.ViewSet):</span><br><span class="line">    permission_classes = [permissions.AllowAny]  <span class="comment"># 所有人可访问</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">list</span>(<span class="params">self, request</span>):  <span class="comment"># 文章区块列表接口</span></span><br><span class="line">        queryset = ArticleBlockService.list_blocks(request.GET.get(<span class="string">&#x27;article&#x27;</span>))  <span class="comment"># 获取区块数据</span></span><br><span class="line">        serializer = ArticleBlockSerializer(queryset, many=<span class="literal">True</span>)  <span class="comment"># 序列化区块</span></span><br><span class="line">        <span class="keyword">return</span> R.success(serializer.data)  <span class="comment"># 返回成功响应</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="urls-py-—-URL路由注册"><a href="#urls-py-—-URL路由注册" class="headerlink" title="urls.py — URL路由注册"></a>urls.py — URL路由注册</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> rest_framework.routers <span class="keyword">import</span> DefaultRouter  <span class="comment"># 导入DRF路由器</span></span><br><span class="line"><span class="keyword">from</span> .views <span class="keyword">import</span> (  <span class="comment"># 导入所有视图集</span></span><br><span class="line">    ArticleViewSet, IncomeViewSet,</span><br><span class="line">    AdvertisementViewSet, CategoryViewSet, ArticleBlockViewSet</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">router = DefaultRouter()  <span class="comment"># 创建路由器实例</span></span><br><span class="line">router.register(<span class="string">r&#x27;articles&#x27;</span>, ArticleViewSet, basename=<span class="string">&#x27;articles&#x27;</span>)  <span class="comment"># 文章接口</span></span><br><span class="line">router.register(<span class="string">r&#x27;incomes&#x27;</span>, IncomeViewSet, basename=<span class="string">&#x27;incomes&#x27;</span>)  <span class="comment"># 收入接口</span></span><br><span class="line">router.register(<span class="string">r&#x27;advertisements&#x27;</span>, AdvertisementViewSet, basename=<span class="string">&#x27;advertisements&#x27;</span>)  <span class="comment"># 广告接口</span></span><br><span class="line">router.register(<span class="string">r&#x27;categories&#x27;</span>, CategoryViewSet, basename=<span class="string">&#x27;categories&#x27;</span>)  <span class="comment"># 分类接口</span></span><br><span class="line">router.register(<span class="string">r&#x27;article-blocks&#x27;</span>, ArticleBlockViewSet, basename=<span class="string">&#x27;article-blocks&#x27;</span>)  <span class="comment"># 文章区块接口</span></span><br><span class="line"></span><br><span class="line">urlpatterns = router.urls  <span class="comment"># URL列表</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="API返回示例"><a href="#API返回示例" class="headerlink" title="API返回示例"></a>API返回示例</h2><h3 id="成功返回："><a href="#成功返回：" class="headerlink" title="成功返回："></a>成功返回：</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;code&quot;</span>: <span class="number">200</span>,  <span class="comment"># 状态码</span></span><br><span class="line">    <span class="string">&quot;msg&quot;</span>: <span class="string">&quot;success&quot;</span>,  <span class="comment"># 提示信息</span></span><br><span class="line">    <span class="string">&quot;data&quot;</span>: &#123;  <span class="comment"># 返回数据</span></span><br><span class="line">        <span class="string">&quot;count&quot;</span>: <span class="number">100</span>,  <span class="comment"># 总条数</span></span><br><span class="line">        <span class="string">&quot;page&quot;</span>: <span class="number">1</span>,     <span class="comment"># 当前页码</span></span><br><span class="line">        <span class="string">&quot;page_size&quot;</span>: <span class="number">10</span>,  <span class="comment"># 每页数量</span></span><br><span class="line">        <span class="string">&quot;results&quot;</span>: [  <span class="comment"># 数据列表</span></span><br><span class="line">            &#123;<span class="string">&quot;id&quot;</span>: <span class="number">1</span>, <span class="string">&quot;title&quot;</span>: <span class="string">&quot;标题1&quot;</span>, <span class="string">&quot;category_name&quot;</span>: <span class="string">&quot;分类A&quot;</span>, <span class="string">&quot;created_at&quot;</span>: <span class="string">&quot;2025-08-01T00:00:00Z&quot;</span>&#125;,</span><br><span class="line">            &#123;<span class="string">&quot;id&quot;</span>: <span class="number">2</span>, <span class="string">&quot;title&quot;</span>: <span class="string">&quot;标题2&quot;</span>, <span class="string">&quot;category_name&quot;</span>: <span class="string">&quot;分类B&quot;</span>, <span class="string">&quot;created_at&quot;</span>: <span class="string">&quot;2025-08-02T00:00:00Z&quot;</span>&#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="失败返回："><a href="#失败返回：" class="headerlink" title="失败返回："></a>失败返回：</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;code&quot;: 400,  # 状态码</span><br><span class="line">    &quot;msg&quot;: &quot;Invalid Parameter&quot;,  # 错误信息</span><br><span class="line">    &quot;data&quot;: null  # 返回数据</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="这个项目架构保证："><a href="#这个项目架构保证：" class="headerlink" title="这个项目架构保证："></a>这个项目架构保证：</h2><ol>
+<li>ViewSet层非常薄，只负责接口请求与响应。</li>
+<li>业务逻辑Service层独立，复杂逻辑全在services.py，代码易维护、可复用。</li>
+<li>统一Response返回格式，所有接口code&#x2F;msg&#x2F;data标准化，便于前后端对接。</li>
+<li>分页逻辑封装好，不用每个接口重复写分页代码。</li>
+<li>URL路由全部由DRF Router自动生成，新增接口只需注册即可。</li>
+</ol>
+<blockquote>
+<p>这是DRF在中大型项目里最推荐的架构方式，简单接口写法不变，复杂业务拆到Service，ViewSet永远不会变屎山。</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/docker/" rel="tag"># docker</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2025/08/01/ubuntu-Raid5%E9%98%B5%E5%88%97%E5%88%9B%E5%BB%BA/" rel="prev" title="ubuntu_Raid5阵列创建">
+      <i class="fa fa-chevron-left"></i> ubuntu_Raid5阵列创建
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Django-DRF-%E5%88%86%E5%B1%82%E6%9E%B6%E6%9E%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5%EF%BC%88ViewSet-Service-%E7%BB%9F%E4%B8%80Response%E6%A0%BC%E5%BC%8F%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">Django DRF 分层架构最佳实践（ViewSet + Service + 统一Response格式）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="nav-number">1.1.</span> <span class="nav-text">目录结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#response-py-%E2%80%94-%E7%BB%9F%E4%B8%80Response%E8%BF%94%E5%9B%9E%E6%A0%BC%E5%BC%8F"><span class="nav-number">1.2.</span> <span class="nav-text">response.py — 统一Response返回格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#services-py-%E2%80%94-%E4%B8%9A%E5%8A%A1%E9%80%BB%E8%BE%91%E5%B1%82"><span class="nav-number">1.3.</span> <span class="nav-text">services.py — 业务逻辑层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#serializers-py-%E2%80%94-%E5%BA%8F%E5%88%97%E5%8C%96%E5%99%A8"><span class="nav-number">1.4.</span> <span class="nav-text">serializers.py — 序列化器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#views-py-%E2%80%94-%E6%8E%A5%E5%8F%A3%E5%B1%82%EF%BC%88ViewSet%EF%BC%89"><span class="nav-number">1.5.</span> <span class="nav-text">views.py — 接口层（ViewSet）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#urls-py-%E2%80%94-URL%E8%B7%AF%E7%94%B1%E6%B3%A8%E5%86%8C"><span class="nav-number">1.6.</span> <span class="nav-text">urls.py — URL路由注册</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#API%E8%BF%94%E5%9B%9E%E7%A4%BA%E4%BE%8B"><span class="nav-number">1.7.</span> <span class="nav-text">API返回示例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%88%90%E5%8A%9F%E8%BF%94%E5%9B%9E%EF%BC%9A"><span class="nav-number">1.7.1.</span> <span class="nav-text">成功返回：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%B1%E8%B4%A5%E8%BF%94%E5%9B%9E%EF%BC%9A"><span class="nav-number">1.7.2.</span> <span class="nav-text">失败返回：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%99%E4%B8%AA%E9%A1%B9%E7%9B%AE%E6%9E%B6%E6%9E%84%E4%BF%9D%E8%AF%81%EF%BC%9A"><span class="nav-number">1.8.</span> <span class="nav-text">这个项目架构保证：</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Kanoc Ge"
+      src="/images/452794135.jpg">
+  <p class="site-author-name" itemprop="name">Kanoc Ge</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">346</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">146</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">231</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kanoc Ge</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  <!-- 多级目录 -->
+  <script type="text/javascript" src="/js/jquery.min.js"></script>
+  <script type="text/javascript" src="/js/category.js"></script>
+</body>
+</html>
